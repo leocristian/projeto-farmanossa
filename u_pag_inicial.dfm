@@ -1,9 +1,9 @@
-object pag_inicial: Tpag_inicial
+object FormPrincipal: TFormPrincipal
   Left = 0
   Top = 0
   Caption = 'Menu'
-  ClientHeight = 425
-  ClientWidth = 745
+  ClientHeight = 475
+  ClientWidth = 813
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,16 +21,17 @@ object pag_inicial: Tpag_inicial
   object pn_principal: TPanel
     Left = 0
     Top = 0
-    Width = 745
-    Height = 425
+    Width = 813
+    Height = 475
     Align = alClient
     TabOrder = 0
+    ExplicitLeft = -8
     DesignSize = (
-      745
-      425)
+      813
+      475)
     object Panel1: TPanel
-      Left = 92
-      Top = 144
+      Left = 126
+      Top = 169
       Width = 561
       Height = 137
       Anchors = []
@@ -73,35 +74,36 @@ object pag_inicial: Tpag_inicial
     end
   end
   object mn_principal: TMainMenu
-    Left = 696
-    Top = 24
+    Left = 32
+    Top = 8
     object mn_cadastro: TMenuItem
       Caption = '0 - Cadastros'
-      object cad_operadores: TMenuItem
+      object CadOperadores: TMenuItem
         Caption = '0100 - Cadastro de Operadores'
+        OnClick = CadOperadoresClick
       end
-      object cad_produtos: TMenuItem
+      object CadProdutos: TMenuItem
         Caption = '0200 - Cadastro de Produtos'
       end
-      object cad_locais: TMenuItem
+      object CadLocais: TMenuItem
         Caption = '0300 - Cadastro de Locais'
       end
     end
     object mn_estoque: TMenuItem
       Caption = '1 - Controle de Estoque'
-      object N1000EntradadeMercadorias1: TMenuItem
+      object EntradaMerc: TMenuItem
         Caption = '1000 - Entrada de Mercadorias'
       end
-      object N1100SadadeMercadorias1: TMenuItem
+      object SaidaMerc: TMenuItem
         Caption = '1100 - Sa'#237'da de Mercadorias'
       end
-      object N1200ConsultarEstoque1: TMenuItem
+      object ConsultaEstoque: TMenuItem
         Caption = '1200 - Consultar Estoque'
       end
       object N1: TMenuItem
         Caption = '-'
       end
-      object RELRelatriosdeEstoque1: TMenuItem
+      object RelEstoque: TMenuItem
         Caption = 'REL - Relat'#243'rios de Estoque'
       end
     end

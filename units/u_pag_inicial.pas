@@ -39,7 +39,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_pag_login, u_operadores;
+uses u_pag_login;
 
 procedure ChamaForm(fClass:TFormClass; Form:TForm);
 begin
@@ -54,8 +54,7 @@ end;
 
 procedure TFormPrincipal.CadOperadoresClick(Sender: TObject);
 begin
-  FormOperadores.Parent := pn_principal;
-  FormOperadores.Show;
+  FormOperadores.Visible := True;
 end;
 
 procedure TFormPrincipal.FormShow(Sender: TObject);

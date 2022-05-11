@@ -1,10 +1,12 @@
-object pag_login: Tpag_login
+object FormLogin: TFormLogin
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu]
+  Anchors = [akLeft, akTop, akRight]
+  BorderIcons = []
+  BorderStyle = bsSingle
   Caption = 'Login'
-  ClientHeight = 314
-  ClientWidth = 502
+  ClientHeight = 324
+  ClientWidth = 496
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,8 +20,8 @@ object pag_login: Tpag_login
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 502
-    Height = 314
+    Width = 496
+    Height = 324
     Align = alClient
     TabOrder = 0
     ExplicitLeft = -8
@@ -27,15 +29,15 @@ object pag_login: Tpag_login
     ExplicitWidth = 464
     ExplicitHeight = 293
     object label_nome: TLabel
-      Left = 137
-      Top = 95
+      Left = 127
+      Top = 105
       Width = 80
       Height = 13
       Caption = 'Nome de usu'#225'rio'
     end
     object btn_ajuda: TSpeedButton
-      Left = 343
-      Top = 61
+      Left = 337
+      Top = 70
       Width = 21
       Height = 22
       Hint = 'Preencha o formul'#225'rio para acessar sua conta'
@@ -46,15 +48,15 @@ object pag_login: Tpag_login
       StyleElements = [seFont, seClient]
     end
     object label_senha: TLabel
-      Left = 137
-      Top = 153
+      Left = 127
+      Top = 155
       Width = 30
       Height = 13
       Caption = 'Senha'
     end
     object Label1: TLabel
-      Left = 137
-      Top = 64
+      Left = 131
+      Top = 73
       Width = 183
       Height = 19
       Caption = 'Fazer login no sistema'
@@ -65,11 +67,39 @@ object pag_login: Tpag_login
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object SpeedButton1: TSpeedButton
+      Left = 196
+      Top = 214
+      Width = 78
+      Height = 30
+      Caption = 'Entrar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = SpeedButton1Click
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 280
+      Top = 214
+      Width = 78
+      Height = 30
+      Caption = 'Cancelar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = SpeedButton2Click
+    end
     object input_login: TEdit
-      Left = 137
-      Top = 114
-      Width = 227
-      Height = 21
+      Left = 127
+      Top = 124
+      Width = 231
+      Height = 22
       BevelInner = bvNone
       BevelOuter = bvRaised
       CharCase = ecUpperCase
@@ -77,71 +107,13 @@ object pag_login: Tpag_login
       TabOrder = 0
     end
     object input_senha: TEdit
-      Left = 137
-      Top = 172
-      Width = 227
+      Left = 127
+      Top = 174
+      Width = 231
       Height = 21
       MaxLength = 20
       PasswordChar = '*'
       TabOrder = 1
-    end
-    object Panel1: TPanel
-      Left = 210
-      Top = 220
-      Width = 74
-      Height = 33
-      BevelOuter = bvNone
-      Color = clHighlight
-      ParentBackground = False
-      TabOrder = 2
-      object SpeedButton2: TSpeedButton
-        Left = 0
-        Top = 0
-        Width = 74
-        Height = 33
-        Align = alClient
-        Caption = 'Entrar'
-        Flat = True
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlightText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        ExplicitLeft = 13
-        ExplicitTop = 10
-        ExplicitWidth = 49
-        ExplicitHeight = 13
-      end
-    end
-    object Panel2: TPanel
-      Left = 290
-      Top = 220
-      Width = 74
-      Height = 33
-      BevelOuter = bvNone
-      Color = clMaroon
-      ParentBackground = False
-      TabOrder = 3
-      object SpeedButton3: TSpeedButton
-        Left = 0
-        Top = 0
-        Width = 74
-        Height = 33
-        Align = alClient
-        Caption = 'Fechar'
-        Flat = True
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlightText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        ExplicitLeft = 13
-        ExplicitTop = 10
-        ExplicitWidth = 49
-        ExplicitHeight = 13
-      end
     end
   end
   object ImageList1: TImageList

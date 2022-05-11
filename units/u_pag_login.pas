@@ -8,7 +8,7 @@ uses
   Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage;
 
 type
-  Tpag_login = class(TForm)
+  TFormLogin = class(TForm)
     ImageList1: TImageList;
     pn_form: TPanel;
     input_login: TEdit;
@@ -17,10 +17,10 @@ type
     btn_ajuda: TSpeedButton;
     label_senha: TLabel;
     Label1: TLabel;
-    Panel1: TPanel;
+    SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
-    Panel2: TPanel;
-    SpeedButton3: TSpeedButton;
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,12 +28,22 @@ type
   end;
 
 var
-  pag_login: Tpag_login;
+  FormLogin: TFormLogin;
 
 implementation
 
 {$R *.dfm}
 
 uses u_pag_inicial;
+
+procedure TFormLogin.SpeedButton1Click(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TFormLogin.SpeedButton2Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
 
 end.
