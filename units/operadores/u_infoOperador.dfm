@@ -1,10 +1,10 @@
-object OperadorForm: TOperadorForm
+object FormOperador: TFormOperador
   Left = 0
   Top = 0
-  BorderStyle = bsSizeToolWin
+  BorderStyle = bsDialog
   Caption = 'Adicionar Operador'
-  ClientHeight = 265
-  ClientWidth = 446
+  ClientHeight = 275
+  ClientWidth = 456
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,19 +18,21 @@ object OperadorForm: TOperadorForm
   TextHeight = 13
   object pn_btns: TPanel
     Left = 0
-    Top = 182
-    Width = 446
+    Top = 192
+    Width = 456
     Height = 83
     Align = alBottom
     Anchors = [akBottom]
     TabOrder = 1
-    ExplicitTop = 304
-    ExplicitWidth = 496
+    ExplicitTop = 182
+    ExplicitWidth = 446
     object ModoEdit: TEdit
       Left = 212
       Top = 28
       Width = 25
       Height = 21
+      TabStop = False
+      CharCase = ecUpperCase
       TabOrder = 0
       Visible = False
     end
@@ -41,6 +43,7 @@ object OperadorForm: TOperadorForm
       Height = 33
       Caption = 'Salvar'
       TabOrder = 1
+      OnClick = SalvarBtnClick
     end
     object CancelarBtn: TButton
       Left = 342
@@ -49,19 +52,18 @@ object OperadorForm: TOperadorForm
       Height = 33
       Caption = 'Cancelar'
       TabOrder = 2
+      OnClick = CancelarBtnClick
     end
   end
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 446
-    Height = 182
+    Width = 456
+    Height = 192
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 53
-    ExplicitTop = 186
-    ExplicitWidth = 496
-    ExplicitHeight = 284
+    ExplicitWidth = 446
+    ExplicitHeight = 182
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -97,45 +99,54 @@ object OperadorForm: TOperadorForm
       Height = 13
       Caption = 'Senha:'
     end
-    object Edit1: TEdit
+    object CodEdit: TEdit
       Left = 99
       Top = 16
-      Width = 65
+      Width = 54
       Height = 21
       TabStop = False
+      Enabled = False
       MaxLength = 5
+      ReadOnly = True
       TabOrder = 0
+      Text = '0000'
     end
-    object Edit5: TEdit
+    object SenhaCheckEdit: TEdit
       Left = 99
       Top = 124
       Width = 170
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 20
+      PasswordChar = '*'
       TabOrder = 4
     end
-    object Edit2: TEdit
+    object NomeEdit: TEdit
       Left = 99
       Top = 43
       Width = 326
       Height = 21
-      MaxLength = 150
+      CharCase = ecUpperCase
+      MaxLength = 70
       TabOrder = 1
     end
-    object Edit3: TEdit
+    object LoginEdit: TEdit
       Left = 99
       Top = 70
       Width = 170
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 20
       TabOrder = 2
     end
-    object Edit4: TEdit
+    object SenhaEdit: TEdit
       Left = 99
       Top = 97
       Width = 170
       Height = 21
+      CharCase = ecUpperCase
       MaxLength = 20
+      PasswordChar = '*'
       TabOrder = 3
     end
   end

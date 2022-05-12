@@ -15,7 +15,6 @@ object FormPrincipal: TFormPrincipal
   Menu = mn_principal
   OldCreateOrder = False
   WindowState = wsMaximized
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_principal: TPanel
@@ -25,7 +24,6 @@ object FormPrincipal: TFormPrincipal
     Height = 475
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = -8
     DesignSize = (
       813
       475)

@@ -4,26 +4,28 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Uni;
 
 type
-  TOperadorForm = class(TForm)
+  TFormOperador = class(TForm)
     pn_btns: TPanel;
     pn_form: TPanel;
-    Edit1: TEdit;
+    CodEdit: TEdit;
     Label1: TLabel;
-    Edit2: TEdit;
+    NomeEdit: TEdit;
     Label2: TLabel;
-    Edit5: TEdit;
+    SenhaCheckEdit: TEdit;
     Label5: TLabel;
-    Edit3: TEdit;
+    LoginEdit: TEdit;
     Label3: TLabel;
-    Edit4: TEdit;
+    SenhaEdit: TEdit;
     Label4: TLabel;
     ModoEdit: TEdit;
     SalvarBtn: TButton;
     CancelarBtn: TButton;
     procedure FormShow(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
+    procedure SalvarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,14 +33,22 @@ type
   end;
 
 var
-  OperadorForm: TOperadorForm;
+  FormOperador: TFormOperador;
 
 implementation
 
 {$R *.dfm}
 
-procedure TOperadorForm.FormShow(Sender: TObject);
+uses u_dm1, u_controleForm;
+
+procedure TFormOperador.CancelarBtnClick(Sender: TObject);
 begin
+  Close;
+end;
+
+procedure TFormOperador.FormShow(Sender: TObject);
+begin
+
   if ModoEdit.Text = 'V' then
   begin
     Caption := 'Exibir Operador';
@@ -49,7 +59,75 @@ begin
   begin
     Caption := 'Incluir Operador';
     pn_form.Enabled := True;
+    NomeEdit.Clear;
+    LoginEdit.Clear;
+    SenhaEdit.Clear;
+    SenhaCheckEdit.Clear;
+    NomeEdit.SetFocus;
     SalvarBtn.Visible := True;
+  end;
+end;
+
+procedure TFormOperador.SalvarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+  ope_cod: Integer;
+
+begin
+
+  if ExisteInputVazio(Self) then
+  begin
+    Aviso('Preencha todos os campos!');
+    exit;
+  end;
+
+  if SenhaEdit.Text <> SenhaCheckEdit.Text then
+  begin
+    Aviso('Senhas devem ser iguais!');
+    exit;
+  end;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    if ModoEdit.Text = 'N' then
+    begin
+      q1.SQL.Text := 'select nextval(''tb_operadores_cod_seq'') as ope_cod';
+
+      q1.Open;
+      ope_cod := q1.FieldByName('ope_cod').Value;
+      q1.Close;
+
+      q1.SQL.Clear;
+
+      q1.SQL.Add('insert into tb_operadores');
+      q1.SQL.Add(' values (:ope_codigo, :ope_nome, :ope_login, :ope_senha)');
+
+      q1.ParamByName('ope_codigo').Value := ope_cod;
+    end
+    else if ModoEdit.Text = 'A' then
+    begin
+      q1.SQL.Clear;
+      q1.SQL.Add('update tb_operadores set ');
+      q1.SQL.Add('ope_nome = :novo_nome, ope_login = :novo_login, ope_senha = :nova_senha');
+    end;
+
+    q1.ParamByName('ope_nome').Value := NomeEdit.Text;
+    q1.ParamByName('ope_login').Value := LoginEdit.Text;
+    q1.ParamByName('ope_senha').Value := SenhaEdit.Text;
+
+    if Confirma('Confirmar cadastro de operador?') then
+      try
+        q1.ExecSQL;
+        Mensagem('Operador cadastrado com sucesso!');
+        Close;
+      except on e:exception do
+        Erro('Erro ao cadastrar operador!' + #13 + e.Message);
+      end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
   end;
 end;
 

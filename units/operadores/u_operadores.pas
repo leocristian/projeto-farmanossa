@@ -2,27 +2,20 @@ unit u_operadores;
 
 interface
 
-uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
-  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
-  Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
-  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls,
-  Vcl.Menus, cxControls;
+uses Vcl.Menus, System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Forms;
+
 
 type
-  TFormOperadores = class(TForm)
+  TPagOperador = class(TForm)
     Panel1: TPanel;
-    gridOperadoresDBTableView1: TcxGridDBTableView;
-    gridOperadoresLevel1: TcxGridLevel;
-    gridOperadores: TcxGrid;
     PopupOperador: TPopupMenu;
     Detalhar1: TMenuItem;
     N1: TMenuItem;
     N1Incluirnovoregistro1: TMenuItem;
     N2AlterarregistroatualF31: TMenuItem;
     N3ExcluirF41: TMenuItem;
+    procedure Detalhar1Click(Sender: TObject);
+    procedure N1Incluirnovoregistro1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,10 +23,24 @@ type
   end;
 
 var
-  FormOperadores: TFormOperadores;
+  PagOperador: TPagOperador;
 
 implementation
 
 {$R *.dfm}
+
+uses u_infoOperador;
+
+procedure TPagOperador.Detalhar1Click(Sender: TObject);
+begin
+  FormOperador.ModoEdit.Text := 'V';
+  FormOperador.ShowModal;
+end;
+
+procedure TPagOperador.N1Incluirnovoregistro1Click(Sender: TObject);
+begin
+  FormOperador.ModoEdit.Text := 'N';
+  FormOperador.ShowModal;
+end;
 
 end.

@@ -24,7 +24,6 @@ type
     Panel1: TPanel;
     Label1: TLabel;
     Label2: TLabel;
-    procedure FormShow(Sender: TObject);
     procedure CadOperadoresClick(Sender: TObject);
   private
     { Private declarations }
@@ -39,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_pag_login;
+uses u_pag_login, u_operadores;
 
 procedure ChamaForm(fClass:TFormClass; Form:TForm);
 begin
@@ -54,12 +53,8 @@ end;
 
 procedure TFormPrincipal.CadOperadoresClick(Sender: TObject);
 begin
-  FormOperadores.Visible := True;
-end;
-
-procedure TFormPrincipal.FormShow(Sender: TObject);
-begin
-  ChamaForm(TFormLogin, FormLogin);
+  PagOperador.Parent := pn_principal;
+  PagOperador.Show;
 end;
 
 end.

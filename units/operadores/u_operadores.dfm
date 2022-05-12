@@ -1,9 +1,9 @@
-object FormOperadores: TFormOperadores
+object PagOperador: TPagOperador
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'FormOperadores'
+  Caption = 'PagOperador'
   ClientHeight = 372
   ClientWidth = 781
   Color = clBtnFace
@@ -14,6 +14,7 @@ object FormOperadores: TFormOperadores
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  PopupMenu = PopupOperador
   WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
@@ -21,34 +22,10 @@ object FormOperadores: TFormOperadores
     Left = 0
     Top = 0
     Width = 781
-    Height = 57
+    Height = 81
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitWidth = 472
-  end
-  object gridOperadores: TcxGrid
-    Left = 0
-    Top = 57
-    Width = 781
-    Height = 315
-    Align = alClient
-    TabOrder = 1
-    ExplicitLeft = 176
-    ExplicitTop = 120
-    ExplicitWidth = 250
-    ExplicitHeight = 200
-    object gridOperadoresDBTableView1: TcxGridDBTableView
-      PopupMenu = PopupOperador
-      Navigator.Buttons.CustomButtons = <>
-      ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-    end
-    object gridOperadoresLevel1: TcxGridLevel
-      GridView = gridOperadoresDBTableView1
-    end
   end
   object PopupOperador: TPopupMenu
     Left = 712

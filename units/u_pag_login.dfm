@@ -15,6 +15,7 @@ object FormLogin: TFormLogin
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_form: TPanel
@@ -25,9 +26,7 @@ object FormLogin: TFormLogin
     Align = alClient
     TabOrder = 0
     ExplicitLeft = -8
-    ExplicitTop = -72
-    ExplicitWidth = 464
-    ExplicitHeight = 293
+    ExplicitTop = 8
     object label_nome: TLabel
       Left = 127
       Top = 105
@@ -67,46 +66,18 @@ object FormLogin: TFormLogin
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object SpeedButton1: TSpeedButton
-      Left = 196
-      Top = 214
-      Width = 78
-      Height = 30
-      Caption = 'Entrar'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGreen
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      OnClick = SpeedButton1Click
-    end
-    object SpeedButton2: TSpeedButton
-      Left = 280
-      Top = 214
-      Width = 78
-      Height = 30
-      Caption = 'Cancelar'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      OnClick = SpeedButton2Click
-    end
-    object input_login: TEdit
+    object LoginInput: TEdit
       Left = 127
       Top = 124
       Width = 231
-      Height = 22
+      Height = 21
       BevelInner = bvNone
       BevelOuter = bvRaised
       CharCase = ecUpperCase
       MaxLength = 20
       TabOrder = 0
     end
-    object input_senha: TEdit
+    object SenhaInput: TEdit
       Left = 127
       Top = 174
       Width = 231
@@ -114,6 +85,36 @@ object FormLogin: TFormLogin
       MaxLength = 20
       PasswordChar = '*'
       TabOrder = 1
+    end
+    object EntrarBtn: TBitBtn
+      Left = 182
+      Top = 217
+      Width = 85
+      Height = 33
+      Caption = 'Entrar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = EntrarBtnClick
+    end
+    object CancelarBtn: TBitBtn
+      Left = 273
+      Top = 217
+      Width = 85
+      Height = 33
+      Caption = 'Cancelar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = CancelarBtnClick
     end
   end
   object ImageList1: TImageList

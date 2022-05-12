@@ -1,10 +1,16 @@
-﻿create table tb_operador
+﻿create table tb_operadores
 (
   ope_codigo serial primary key,
-  ope_nome varchar(50),
+  ope_nome varchar(70),
   ope_login varchar(20) unique,
   ope_senha varchar(20)
 );
+
+create sequence tb_operadores_cod_seq
+start with 1
+increment by 1
+owned by tb_operadores.ope_codigo;
+
 create table tb_produtos
 (
   prod_codigo serial primary key,
@@ -13,13 +19,25 @@ create table tb_produtos
   prod_status_entrada boolean,
   prod_status_saida boolean
 );
+
+create sequence tb_produtos_cod_seq
+start with 1
+increment by 1
+owner by tb_produtos.prod_codigo;
+
 create table tb_locais_estoque
 (
   loc_codigo serial primary key,
   loc_descricao varchar(150),
   loc_status varchar(7)
 );
-create table tb_entrada
+
+create sequence tb_locais_cod_seq
+start with 1
+increment by 1
+owned by tb_locais_estoque.loc_codigo;
+
+create table tb_entradas
 (
   ent_codigo serial primary key,
   ent_produto integer references tb_produtos(prod_codigo),
@@ -30,7 +48,13 @@ create table tb_entrada
   ent_quantidade integer,
   ent_data_hora timestamp default current_timestamp
 );
-create table tb_saida
+
+create sequence tb_entradas_cod_seq
+start with 1
+increment by 1
+owned by tb_entradas.ent_codigo;
+
+create table tb_saidas
 (
   sai_codigo serial primary key,
   sai_produto integer references tb_produtos(prod_codigo),
@@ -39,3 +63,8 @@ create table tb_saida
   sai_quantidade integer,
   sai_data_hora timestamp default current_timestamp
 );
+
+create sequence tb_saidas_cod_seq
+start with 1
+increment by 1
+owned by tb_saidas.sai_codigo;

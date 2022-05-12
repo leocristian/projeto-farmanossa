@@ -1,0 +1,13 @@
+object dm1: Tdm1
+  OldCreateOrder = False
+  Height = 209
+  Width = 326
+  object con1: TUniConnection
+    Left = 72
+    Top = 48
+  end
+  object pg_provedor: TPostgreSQLUniProvider
+    Left = 144
+    Top = 88
+  end
+end
