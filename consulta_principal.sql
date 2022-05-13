@@ -15,15 +15,15 @@ create table tb_produtos
 (
   prod_codigo serial primary key,
   prod_descricao varchar(150),
-  prod_estoque_negativo boolean,
-  prod_status_entrada boolean,
-  prod_status_saida boolean
+  prod_estoque_negativo varchar(8),
+  prod_status_entrada varchar(7),
+  prod_status_saida varchar(7)
 );
 
 create sequence tb_produtos_cod_seq
 start with 1
 increment by 1
-owner by tb_produtos.prod_codigo;
+owned by tb_produtos.prod_codigo;
 
 create table tb_locais_estoque
 (

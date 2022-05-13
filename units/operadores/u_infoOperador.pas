@@ -59,11 +59,12 @@ begin
   begin
     Caption := 'Incluir Operador';
     pn_form.Enabled := True;
+    NomeEdit.SetFocus;
     NomeEdit.Clear;
     LoginEdit.Clear;
     SenhaEdit.Clear;
     SenhaCheckEdit.Clear;
-    NomeEdit.SetFocus;
+
     SalvarBtn.Visible := True;
   end;
 end;
@@ -111,6 +112,8 @@ begin
       q1.SQL.Clear;
       q1.SQL.Add('update tb_operadores set ');
       q1.SQL.Add('ope_nome = :novo_nome, ope_login = :novo_login, ope_senha = :nova_senha');
+      q1.SQL.Add('where ope_codigo = :ope_codigo');
+      q1.ParamByName('ope_codigo').Value := CodEdit.Text;
     end;
 
     q1.ParamByName('ope_nome').Value := NomeEdit.Text;
@@ -118,13 +121,23 @@ begin
     q1.ParamByName('ope_senha').Value := SenhaEdit.Text;
 
     if Confirma('Confirmar cadastro de operador?') then
-      try
-        q1.ExecSQL;
-        Mensagem('Operador cadastrado com sucesso!');
-        Close;
-      except on e:exception do
-        Erro('Erro ao cadastrar operador!' + #13 + e.Message);
+    try
+      q1.ExecSQL;
+      Mensagem('Operador cadastrado com sucesso!');
+      Close;
+    except on e:exception do
+      if e.Message.Contains('ope_login_key') then
+      begin
+        Erro('Operador já está cadastrado!');
+        exit;
+      end
+      else
+      begin
+        Erro('Erro: ' + #13 + e.Message);
       end;
+
+    end;
+
   finally
     q1.Close;
     FreeAndNil(q1);

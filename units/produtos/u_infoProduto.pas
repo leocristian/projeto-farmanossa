@@ -1,0 +1,129 @@
+unit u_infoProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Uni;
+
+type
+  TFormProduto = class(TForm)
+    pn_form: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label5: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    CodEdit: TEdit;
+    DescricaoEdit: TEdit;
+    pn_btns: TPanel;
+    ModoEdit: TEdit;
+    SalvarBtn: TButton;
+    CancelarBtn: TButton;
+    EstNegativoBox: TComboBox;
+    StatusEntBox: TComboBox;
+    StatusSaiBox: TComboBox;
+    procedure FormShow(Sender: TObject);
+    procedure SalvarBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormProduto: TFormProduto;
+
+implementation
+
+{$R *.dfm}
+
+uses u_controleForm, u_dm1;
+
+procedure TFormProduto.CancelarBtnClick(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TFormProduto.FormShow(Sender: TObject);
+begin
+  if ModoEdit.Text = 'V' then
+  begin
+    Caption := 'Exibir Produto';
+    pn_form.Enabled := False;
+    SalvarBtn.Visible := False;
+  end
+  else if ModoEdit.Text = 'N' then
+  begin
+    Caption := 'Incluir Operador';
+    pn_form.Enabled := True;
+    DescricaoEdit.SetFocus;
+    DescricaoEdit.Clear;
+    SalvarBtn.Visible := True;
+  end;
+end;
+
+procedure TFormProduto.SalvarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+  prod_codigo: Integer;
+  msg_confirma: String;
+
+begin
+  if DescricaoEdit.Text = '' then
+  begin
+    Mensagem('Preencha todos os campos!');
+    exit;
+  end;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    if ModoEdit.Text = 'N' then
+    begin
+      q1.SQL.Text := 'select nextval(''tb_produtos_cod_seq'') as prod_codigo';
+
+      q1.Open;
+      prod_codigo := q1.FieldByName('prod_codigo').Value;
+      q1.Close;
+
+      q1.SQL.Clear;
+      q1.SQL.Add('insert into tb_produtos values ');
+      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status_entrada, :prod_status_saida)');
+
+      q1.ParamByName('prod_codigo').Value := prod_codigo;
+      msg_confirma := 'Confirmar inclusão do produto?';
+    end
+    else if ModoEdit.Text = 'A' then
+    begin
+      q1.SQL.Clear;
+      q1.SQL.Add('update tb_produtos set ');
+      q1.SQL.Add('(prod_descricao = :prod_descricao, prod_estoque_negativo = :prod_est_neg, ');
+      q1.SQL.Add('prod_status_entrada = :prod_status_entrada, prod_status_saida = :prod_status_saida)');
+      q1.SQL.Add('where prod_codigo = :prod_codigo');
+      q1.ParamByName('prod_codigo').Value := CodEdit.Text;
+      msg_confirma := 'Salvar alterações?';
+    end;
+
+    q1.ParamByName('prod_descricao').Value := DescricaoEdit.Text;
+    q1.ParamByName('prod_est_neg').Value := EstNegativoBox.Text;
+    q1.ParamByName('prod_status_entrada').Value := StatusEntBox.Text;
+    q1.ParamByName('prod_status_saida').Value := StatusSaiBox.Text;
+
+    if Confirma(msg_confirma) then
+    try
+      q1.ExecSQL;
+      Mensagem('Operação concluída!');
+      Close;
+    except on e:exception do
+        Erro('Erro: ' + #13 + e.Message);
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
+
+end.

@@ -25,6 +25,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     procedure CadOperadoresClick(Sender: TObject);
+    procedure CadProdutosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,23 +39,18 @@ implementation
 
 {$R *.dfm}
 
-uses u_pag_login, u_operadores;
-
-procedure ChamaForm(fClass:TFormClass; Form:TForm);
-begin
-  try
-    Application.CreateForm(fClass,Form);
-    Form.ShowModal;
-  Finally
-    Form.Release;
-    Form:=nil;
-  end;
-end;
+uses u_pag_login, u_operadores, u_produtos;
 
 procedure TFormPrincipal.CadOperadoresClick(Sender: TObject);
 begin
   PagOperador.Parent := pn_principal;
   PagOperador.Show;
+end;
+
+procedure TFormPrincipal.CadProdutosClick(Sender: TObject);
+begin
+  PagProdutos.Parent := pn_principal;
+  PagProdutos.Show;
 end;
 
 end.

@@ -24,8 +24,6 @@ object FormOperador: TFormOperador
     Align = alBottom
     Anchors = [akBottom]
     TabOrder = 1
-    ExplicitTop = 182
-    ExplicitWidth = 446
     object ModoEdit: TEdit
       Left = 212
       Top = 28
@@ -62,8 +60,6 @@ object FormOperador: TFormOperador
     Height = 192
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 446
-    ExplicitHeight = 182
     object Label1: TLabel
       Left = 56
       Top = 19

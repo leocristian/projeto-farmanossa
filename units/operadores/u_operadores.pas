@@ -2,8 +2,8 @@ unit u_operadores;
 
 interface
 
-uses Vcl.Menus, System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Forms;
-
+uses
+  Vcl.Menus, System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Forms;
 
 type
   TPagOperador = class(TForm)
@@ -34,13 +34,13 @@ uses u_infoOperador;
 procedure TPagOperador.Detalhar1Click(Sender: TObject);
 begin
   FormOperador.ModoEdit.Text := 'V';
-  FormOperador.ShowModal;
+  FormOperador.Show;
 end;
 
 procedure TPagOperador.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
   FormOperador.ModoEdit.Text := 'N';
-  FormOperador.ShowModal;
+  FormOperador.Show;
 end;
 
 end.
