@@ -86,6 +86,7 @@ object FormPrincipal: TFormPrincipal
       end
       object CadLocais: TMenuItem
         Caption = '0300 - Cadastro de Locais'
+        OnClick = CadLocaisClick
       end
     end
     object mn_estoque: TMenuItem

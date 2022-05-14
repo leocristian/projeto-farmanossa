@@ -1,9 +1,9 @@
-object PagProdutos: TPagProdutos
+object PagLocais: TPagLocais
   Left = 0
   Top = 0
-  Caption = 'PagProdutos'
-  ClientHeight = 466
-  ClientWidth = 761
+  Caption = 'PagLocais'
+  ClientHeight = 242
+  ClientWidth = 472
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,25 +11,26 @@ object PagProdutos: TPagProdutos
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  PopupMenu = PopupProdutos
+  PopupMenu = PopupLocais
   WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 761
+    Width = 472
     Height = 81
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0
+    ExplicitLeft = -289
+    ExplicitWidth = 761
   end
-  object PopupProdutos: TPopupMenu
-    Left = 717
-    Top = 128
+  object PopupLocais: TPopupMenu
+    Left = 412
+    Top = 104
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...'
-      OnClick = Detalhar1Click
     end
     object N1: TMenuItem
       Caption = '-'

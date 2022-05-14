@@ -25,8 +25,6 @@ object FormLogin: TFormLogin
     Height = 324
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitTop = 8
     object label_nome: TLabel
       Left = 127
       Top = 105
@@ -36,7 +34,7 @@ object FormLogin: TFormLogin
     end
     object btn_ajuda: TSpeedButton
       Left = 337
-      Top = 70
+      Top = 73
       Width = 21
       Height = 22
       Hint = 'Preencha o formul'#225'rio para acessar sua conta'

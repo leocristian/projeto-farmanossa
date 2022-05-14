@@ -26,6 +26,7 @@ type
     Label2: TLabel;
     procedure CadOperadoresClick(Sender: TObject);
     procedure CadProdutosClick(Sender: TObject);
+    procedure CadLocaisClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,7 +40,13 @@ implementation
 
 {$R *.dfm}
 
-uses u_pag_login, u_operadores, u_produtos;
+uses u_pag_login, u_operadores, u_produtos, u_locais;
+
+procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
+begin
+  PagLocais.Parent := pn_principal;
+  PagLocais.Show;
+end;
 
 procedure TFormPrincipal.CadOperadoresClick(Sender: TObject);
 begin

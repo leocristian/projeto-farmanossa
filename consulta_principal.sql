@@ -28,7 +28,7 @@ owned by tb_produtos.prod_codigo;
 create table tb_locais_estoque
 (
   loc_codigo serial primary key,
-  loc_descricao varchar(150),
+  loc_descricao varchar(70),
   loc_status varchar(7)
 );
 

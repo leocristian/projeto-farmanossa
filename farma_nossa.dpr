@@ -7,9 +7,11 @@ uses
   u_operadores in 'units\operadores\u_operadores.pas' {PagOperador},
   u_infoOperador in 'units\operadores\u_infoOperador.pas' {FormOperador},
   u_dm1 in 'units\u_dm1.pas' {dm1: TDataModule},
-  u_controleForm in 'units\u_controleForm.pas',
+  u_controleForm in 'units\u_controleForm.pas' {$R *.res},
   u_infoProduto in 'units\produtos\u_infoProduto.pas' {FormProduto},
-  u_produtos in 'units\produtos\u_produtos.pas' {PagProdutos};
+  u_produtos in 'units\produtos\u_produtos.pas' {PagProdutos},
+  u_infoLocal in 'units\locais\u_infoLocal.pas' {FormLocal},
+  u_locais in 'units\locais\u_locais.pas' {PagLocais};
 
 {$R *.res}
 
@@ -23,5 +25,7 @@ begin
   Application.CreateForm(TFormOperador, FormOperador);
   Application.CreateForm(TFormProduto, FormProduto);
   Application.CreateForm(Tdm1, dm1);
+  Application.CreateForm(TFormLocal, FormLocal);
+  Application.CreateForm(TPagLocais, PagLocais);
   Application.Run;
 end.

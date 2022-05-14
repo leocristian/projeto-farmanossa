@@ -1,9 +1,9 @@
-object FormProduto: TFormProduto
+object FormLocal: TFormLocal
   Left = 0
   Top = 0
-  Caption = 'FormProduto'
-  ClientHeight = 260
-  ClientWidth = 456
+  Caption = 'FormLocal'
+  ClientHeight = 213
+  ClientWidth = 472
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,44 +18,32 @@ object FormProduto: TFormProduto
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 456
-    Height = 177
+    Width = 472
+    Height = 130
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 456
+    ExplicitHeight = 177
     object Label1: TLabel
       Left = 56
-      Top = 24
+      Top = 19
       Width = 37
       Height = 13
       Caption = 'C'#243'digo:'
     end
     object Label2: TLabel
       Left = 43
-      Top = 51
+      Top = 46
       Width = 50
       Height = 13
       Caption = 'Descri'#231#227'o:'
     end
-    object Label5: TLabel
-      Left = 29
-      Top = 132
-      Width = 64
-      Height = 13
-      Caption = 'Status Sa'#237'da:'
-    end
-    object Label3: TLabel
-      Left = 4
-      Top = 78
-      Width = 89
-      Height = 13
-      Caption = 'Estoque Negativo:'
-    end
     object Label4: TLabel
-      Left = 17
-      Top = 105
-      Width = 76
+      Left = 58
+      Top = 73
+      Width = 35
       Height = 13
-      Caption = 'Status Entrada:'
+      Caption = 'Status:'
     end
     object CodEdit: TEdit
       Left = 99
@@ -78,7 +66,7 @@ object FormProduto: TFormProduto
       MaxLength = 70
       TabOrder = 1
     end
-    object EstNegativoBox: TComboBox
+    object StatusBox: TComboBox
       Left = 99
       Top = 70
       Width = 145
@@ -87,34 +75,6 @@ object FormProduto: TFormProduto
       CharCase = ecUpperCase
       ItemIndex = 0
       TabOrder = 2
-      Text = 'NEGAR'
-      Items.Strings = (
-        'NEGAR'
-        'PERMITIR')
-    end
-    object StatusEntBox: TComboBox
-      Left = 99
-      Top = 97
-      Width = 145
-      Height = 21
-      Style = csDropDownList
-      CharCase = ecUpperCase
-      ItemIndex = 0
-      TabOrder = 3
-      Text = 'ATIVO'
-      Items.Strings = (
-        'ATIVO'
-        'INATIVO')
-    end
-    object StatusSaiBox: TComboBox
-      Left = 99
-      Top = 124
-      Width = 145
-      Height = 21
-      Style = csDropDownList
-      CharCase = ecUpperCase
-      ItemIndex = 0
-      TabOrder = 4
       Text = 'ATIVO'
       Items.Strings = (
         'ATIVO'
@@ -123,12 +83,14 @@ object FormProduto: TFormProduto
   end
   object pn_btns: TPanel
     Left = 0
-    Top = 177
-    Width = 456
+    Top = 130
+    Width = 472
     Height = 83
     Align = alBottom
     Anchors = [akBottom]
     TabOrder = 1
+    ExplicitTop = 159
+    ExplicitWidth = 456
     object ModoEdit: TEdit
       Left = 212
       Top = 28

@@ -61,6 +61,9 @@ begin
     DescricaoEdit.SetFocus;
     DescricaoEdit.Clear;
     SalvarBtn.Visible := True;
+    EstNegativoBox.ItemIndex := 0;
+    StatusEntBox.ItemIndex := 0;
+    StatusSaiBox.ItemIndex := 0
   end;
 end;
 
