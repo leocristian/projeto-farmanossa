@@ -1,9 +1,10 @@
 object FormProduto: TFormProduto
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'FormProduto'
-  ClientHeight = 260
-  ClientWidth = 456
+  ClientHeight = 270
+  ClientWidth = 466
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,9 +19,10 @@ object FormProduto: TFormProduto
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 456
-    Height = 177
-    Align = alClient
+    Width = 466
+    Height = 185
+    Align = alTop
+    BevelOuter = bvNone
     TabOrder = 0
     object Label1: TLabel
       Left = 56
@@ -121,41 +123,28 @@ object FormProduto: TFormProduto
         'INATIVO')
     end
   end
-  object pn_btns: TPanel
+  inline FrameButtons: TFrameButtons
     Left = 0
     Top = 177
-    Width = 456
-    Height = 83
+    Width = 466
+    Height = 93
     Align = alBottom
-    Anchors = [akBottom]
     TabOrder = 1
-    object ModoEdit: TEdit
-      Left = 212
-      Top = 28
-      Width = 25
-      Height = 21
-      TabStop = False
-      CharCase = ecUpperCase
-      TabOrder = 0
-      Visible = False
-    end
-    object SalvarBtn: TButton
-      Left = 253
-      Top = 25
-      Width = 83
-      Height = 33
-      Caption = 'Salvar'
-      TabOrder = 1
+    ExplicitTop = 177
+    ExplicitWidth = 466
+    inherited SalvarBtn: TButton
+      Left = 268
       OnClick = SalvarBtnClick
+      ExplicitLeft = 268
     end
-    object CancelarBtn: TButton
-      Left = 342
-      Top = 25
-      Width = 83
-      Height = 33
-      Caption = 'Cancelar'
-      TabOrder = 2
+    inherited ModoEdit: TEdit
+      Left = 227
+      ExplicitLeft = 227
+    end
+    inherited CancelarBtn: TButton
+      Left = 357
       OnClick = CancelarBtnClick
+      ExplicitLeft = 357
     end
   end
 end

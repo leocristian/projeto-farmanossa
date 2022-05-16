@@ -16,49 +16,13 @@ object FormOperador: TFormOperador
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object pn_btns: TPanel
-    Left = 0
-    Top = 192
-    Width = 456
-    Height = 83
-    Align = alBottom
-    Anchors = [akBottom]
-    TabOrder = 1
-    object ModoEdit: TEdit
-      Left = 212
-      Top = 28
-      Width = 25
-      Height = 21
-      TabStop = False
-      CharCase = ecUpperCase
-      TabOrder = 0
-      Visible = False
-    end
-    object SalvarBtn: TButton
-      Left = 253
-      Top = 25
-      Width = 83
-      Height = 33
-      Caption = 'Salvar'
-      TabOrder = 1
-      OnClick = SalvarBtnClick
-    end
-    object CancelarBtn: TButton
-      Left = 342
-      Top = 25
-      Width = 83
-      Height = 33
-      Caption = 'Cancelar'
-      TabOrder = 2
-      OnClick = CancelarBtnClick
-    end
-  end
   object pn_form: TPanel
     Left = 0
     Top = 0
     Width = 456
-    Height = 192
-    Align = alClient
+    Height = 177
+    Align = alTop
+    BevelOuter = bvNone
     TabOrder = 0
     object Label1: TLabel
       Left = 56
@@ -144,6 +108,30 @@ object FormOperador: TFormOperador
       MaxLength = 20
       PasswordChar = '*'
       TabOrder = 3
+    end
+  end
+  inline FrameButtons: TFrameButtons
+    Left = 0
+    Top = 182
+    Width = 456
+    Height = 93
+    Align = alBottom
+    TabOrder = 1
+    ExplicitTop = 182
+    ExplicitWidth = 456
+    inherited SalvarBtn: TButton
+      Left = 258
+      OnClick = SalvarBtnClick
+      ExplicitLeft = 258
+    end
+    inherited ModoEdit: TEdit
+      Left = 217
+      ExplicitLeft = 217
+    end
+    inherited CancelarBtn: TButton
+      Left = 347
+      OnClick = CancelarBtnClick
+      ExplicitLeft = 347
     end
   end
 end

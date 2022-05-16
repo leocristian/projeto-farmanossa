@@ -11,9 +11,12 @@ uses
   u_infoProduto in 'units\produtos\u_infoProduto.pas' {FormProduto},
   u_produtos in 'units\produtos\u_produtos.pas' {PagProdutos},
   u_infoLocal in 'units\locais\u_infoLocal.pas' {FormLocal},
-  u_locais in 'units\locais\u_locais.pas' {PagLocais};
-
-{$R *.res}
+  u_locais in 'units\locais\u_locais.pas' {PagLocais},
+  fm_buttons in 'units\frames\fm_buttons.pas' {FrameButtons: TFrame},
+  u_entradas in 'units\entradas\u_entradas.pas' {PagEntradas},
+  u_infoEntrada in 'units\entradas\u_infoEntrada.pas' {FormEntrada},
+  u_buscaProduto in 'units\entradas\u_buscaProduto.pas' {BuscaProdutoForm},
+  u_buscaLocal in 'units\entradas\u_buscaLocal.pas' {BuscaLocalForm};
 
 begin
   Application.Initialize;
@@ -27,5 +30,9 @@ begin
   Application.CreateForm(Tdm1, dm1);
   Application.CreateForm(TFormLocal, FormLocal);
   Application.CreateForm(TPagLocais, PagLocais);
+  Application.CreateForm(TPagEntradas, PagEntradas);
+  Application.CreateForm(TFormEntrada, FormEntrada);
+  Application.CreateForm(TBuscaProdutoForm, BuscaProdutoForm);
+  Application.CreateForm(TBuscaLocalForm, BuscaLocalForm);
   Application.Run;
 end.

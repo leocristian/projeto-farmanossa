@@ -32,13 +32,13 @@ uses u_infoProduto;
 
 procedure TPagProdutos.Detalhar1Click(Sender: TObject);
 begin
-  FormProduto.ModoEdit.Text := 'V';
+  FormProduto.FrameButtons.ModoEdit.Text := 'V';
   FormProduto.ShowModal;
 end;
 
 procedure TPagProdutos.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
-  FormProduto.ModoEdit.Text := 'N';
+  FormProduto.FrameButtons.ModoEdit.Text := 'N';
   FormProduto.ShowModal;
 end;
 

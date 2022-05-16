@@ -4,11 +4,11 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Uni;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Uni,
+  fm_buttons;
 
 type
   TFormOperador = class(TForm)
-    pn_btns: TPanel;
     pn_form: TPanel;
     CodEdit: TEdit;
     Label1: TLabel;
@@ -20,9 +20,7 @@ type
     Label3: TLabel;
     SenhaEdit: TEdit;
     Label4: TLabel;
-    ModoEdit: TEdit;
-    SalvarBtn: TButton;
-    CancelarBtn: TButton;
+    FrameButtons: TFrameButtons;
     procedure FormShow(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
@@ -49,13 +47,13 @@ end;
 procedure TFormOperador.FormShow(Sender: TObject);
 begin
 
-  if ModoEdit.Text = 'V' then
+  if FrameButtons.ModoEdit.Text = 'V' then
   begin
     Caption := 'Exibir Operador';
     pn_form.Enabled := False;
-    SalvarBtn.Visible := False;
+    FrameButtons.SalvarBtn.Visible := False;
   end
-  else if ModoEdit.Text = 'N' then
+  else if FrameButtons.ModoEdit.Text = 'N' then
   begin
     Caption := 'Incluir Operador';
     pn_form.Enabled := True;
@@ -65,7 +63,7 @@ begin
     SenhaEdit.Clear;
     SenhaCheckEdit.Clear;
 
-    SalvarBtn.Visible := True;
+    FrameButtons.SalvarBtn.Visible := True;
   end;
 end;
 
@@ -79,12 +77,14 @@ begin
   if ExisteInputVazio(Self) then
   begin
     Aviso('Preencha todos os campos!');
+    NomeEdit.SetFocus;
     exit;
   end;
 
   if SenhaEdit.Text <> SenhaCheckEdit.Text then
   begin
     Aviso('Senhas devem ser iguais!');
+    SenhaEdit.SetFocus;
     exit;
   end;
 
@@ -92,7 +92,7 @@ begin
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
 
-    if ModoEdit.Text = 'N' then
+    if FrameButtons.ModoEdit.Text = 'N' then
     begin
       q1.SQL.Text := 'select nextval(''tb_operadores_cod_seq'') as ope_cod';
 
@@ -103,22 +103,22 @@ begin
       q1.SQL.Clear;
 
       q1.SQL.Add('insert into tb_operadores');
-      q1.SQL.Add(' values (:ope_codigo, :ope_nome, :ope_login, :ope_senha)');
+      q1.SQL.Add(' values (:ope_codigo, :ope_nome, md5(:ope_login), md5(:ope_senha))');
 
       q1.ParamByName('ope_codigo').Value := ope_cod;
     end
-    else if ModoEdit.Text = 'A' then
+    else if FrameButtons.ModoEdit.Text = 'A' then
     begin
       q1.SQL.Clear;
       q1.SQL.Add('update tb_operadores set ');
-      q1.SQL.Add('ope_nome = :novo_nome, ope_login = :novo_login, ope_senha = :nova_senha');
+      q1.SQL.Add('ope_nome = :ope_nome, ope_login = md5(:ope_login), ope_senha = md5(:ope_senha)');
       q1.SQL.Add('where ope_codigo = :ope_codigo');
       q1.ParamByName('ope_codigo').Value := CodEdit.Text;
     end;
 
     q1.ParamByName('ope_nome').Value := NomeEdit.Text;
-    q1.ParamByName('ope_login').Value := LoginEdit.Text;
-    q1.ParamByName('ope_senha').Value := SenhaEdit.Text;
+    q1.ParamByName('ope_login').Value := AdicionarSemente(LoginEdit.Text);
+    q1.ParamByName('ope_senha').Value := AdicionarSemente(SenhaEdit.Text);
 
     if Confirma('Confirmar cadastro de operador?') then
     try

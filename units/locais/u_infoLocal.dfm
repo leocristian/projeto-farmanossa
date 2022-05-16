@@ -1,9 +1,10 @@
 object FormLocal: TFormLocal
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'FormLocal'
-  ClientHeight = 213
-  ClientWidth = 472
+  ClientHeight = 223
+  ClientWidth = 477
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,12 +19,11 @@ object FormLocal: TFormLocal
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 472
-    Height = 130
+    Width = 477
+    Height = 129
     Align = alClient
+    BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 456
-    ExplicitHeight = 177
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -81,43 +81,38 @@ object FormLocal: TFormLocal
         'INATIVO')
     end
   end
-  object pn_btns: TPanel
+  inline FrameButtons: TFrameButtons
     Left = 0
-    Top = 130
-    Width = 472
-    Height = 83
+    Top = 129
+    Width = 477
+    Height = 94
     Align = alBottom
-    Anchors = [akBottom]
     TabOrder = 1
-    ExplicitTop = 159
-    ExplicitWidth = 456
-    object ModoEdit: TEdit
-      Left = 212
-      Top = 28
-      Width = 25
-      Height = 21
-      TabStop = False
-      CharCase = ecUpperCase
-      TabOrder = 0
-      Visible = False
-    end
-    object SalvarBtn: TButton
-      Left = 253
-      Top = 25
-      Width = 83
-      Height = 33
-      Caption = 'Salvar'
-      TabOrder = 1
+    ExplicitTop = 129
+    ExplicitWidth = 477
+    ExplicitHeight = 94
+    DesignSize = (
+      477
+      94)
+    inherited SalvarBtn: TButton
+      Left = 287
+      Top = 33
       OnClick = SalvarBtnClick
+      ExplicitLeft = 287
+      ExplicitTop = 33
     end
-    object CancelarBtn: TButton
-      Left = 342
-      Top = 25
-      Width = 83
-      Height = 33
-      Caption = 'Cancelar'
-      TabOrder = 2
+    inherited ModoEdit: TEdit
+      Left = 246
+      Top = 35
+      ExplicitLeft = 246
+      ExplicitTop = 35
+    end
+    inherited CancelarBtn: TButton
+      Left = 376
+      Top = 32
       OnClick = CancelarBtnClick
+      ExplicitLeft = 376
+      ExplicitTop = 32
     end
   end
 end

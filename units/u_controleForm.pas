@@ -12,6 +12,7 @@ function Confirma(texto: String): Boolean;
 procedure Aviso(texto: String);
 procedure Erro(texto: String);
 procedure Mensagem(texto: String);
+function AdicionarSemente(texto: String): String;
 
 implementation
 
@@ -66,6 +67,11 @@ end;
 procedure Mensagem(texto: String);
 begin
   MessageDlg(texto, mtConfirmation, [mbOk], 0);
+end;
+
+function AdicionarSemente(texto: String): String;
+begin
+  Result := 'R6#GIRO2022@' + texto + 'R6#GIRO2022@';
 end;
 
 end.

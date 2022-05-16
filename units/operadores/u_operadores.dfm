@@ -4,8 +4,8 @@ object PagOperador: TPagOperador
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'PagOperador'
-  ClientHeight = 372
-  ClientWidth = 781
+  ClientHeight = 428
+  ClientWidth = 787
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,8 @@ object PagOperador: TPagOperador
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 781
-    Height = 81
+    Width = 787
+    Height = 65
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0

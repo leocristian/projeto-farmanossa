@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Uni;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Uni,
+  fm_buttons;
 
 type
   TFormProduto = class(TForm)
@@ -16,13 +17,10 @@ type
     Label4: TLabel;
     CodEdit: TEdit;
     DescricaoEdit: TEdit;
-    pn_btns: TPanel;
-    ModoEdit: TEdit;
-    SalvarBtn: TButton;
-    CancelarBtn: TButton;
     EstNegativoBox: TComboBox;
     StatusEntBox: TComboBox;
     StatusSaiBox: TComboBox;
+    FrameButtons: TFrameButtons;
     procedure FormShow(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
@@ -48,19 +46,19 @@ end;
 
 procedure TFormProduto.FormShow(Sender: TObject);
 begin
-  if ModoEdit.Text = 'V' then
+  if FrameButtons.ModoEdit.Text = 'V' then
   begin
     Caption := 'Exibir Produto';
     pn_form.Enabled := False;
-    SalvarBtn.Visible := False;
+    FrameButtons.SalvarBtn.Visible := False;
   end
-  else if ModoEdit.Text = 'N' then
+  else if FrameButtons.ModoEdit.Text = 'N' then
   begin
-    Caption := 'Incluir Operador';
+    Caption := 'Incluir Produto';
     pn_form.Enabled := True;
     DescricaoEdit.SetFocus;
     DescricaoEdit.Clear;
-    SalvarBtn.Visible := True;
+    FrameButtons.SalvarBtn.Visible := True;
     EstNegativoBox.ItemIndex := 0;
     StatusEntBox.ItemIndex := 0;
     StatusSaiBox.ItemIndex := 0
@@ -76,7 +74,8 @@ var
 begin
   if DescricaoEdit.Text = '' then
   begin
-    Mensagem('Preencha todos os campos!');
+    Aviso('Preencha todos os campos!');
+    DescricaoEdit.SetFocus;
     exit;
   end;
 
@@ -84,7 +83,7 @@ begin
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
 
-    if ModoEdit.Text = 'N' then
+    if FrameButtons.ModoEdit.Text = 'N' then
     begin
       q1.SQL.Text := 'select nextval(''tb_produtos_cod_seq'') as prod_codigo';
 
@@ -99,7 +98,7 @@ begin
       q1.ParamByName('prod_codigo').Value := prod_codigo;
       msg_confirma := 'Confirmar inclusão do produto?';
     end
-    else if ModoEdit.Text = 'A' then
+    else if FrameButtons.ModoEdit.Text = 'A' then
     begin
       q1.SQL.Clear;
       q1.SQL.Add('update tb_produtos set ');

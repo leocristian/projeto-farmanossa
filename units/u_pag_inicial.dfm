@@ -93,6 +93,7 @@ object FormPrincipal: TFormPrincipal
       Caption = '1 - Controle de Estoque'
       object EntradaMerc: TMenuItem
         Caption = '1000 - Entrada de Mercadorias'
+        OnClick = EntradaMercClick
       end
       object SaidaMerc: TMenuItem
         Caption = '1100 - Sa'#237'da de Mercadorias'

@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Uni;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Uni,
+  fm_buttons;
 
 type
   TFormLocal = class(TForm)
@@ -15,10 +16,7 @@ type
     CodEdit: TEdit;
     DescricaoEdit: TEdit;
     StatusBox: TComboBox;
-    pn_btns: TPanel;
-    ModoEdit: TEdit;
-    SalvarBtn: TButton;
-    CancelarBtn: TButton;
+    FrameButtons: TFrameButtons;
     procedure CancelarBtnClick(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -44,19 +42,19 @@ end;
 
 procedure TFormLocal.FormShow(Sender: TObject);
 begin
-  if ModoEdit.Text = 'V' then
+  if FrameButtons.ModoEdit.Text = 'V' then
   begin
     Caption := 'Exibir Local de estoque';
     pn_form.Enabled := False;
-    SalvarBtn.Visible := False;
+    FrameButtons.SalvarBtn.Visible := False;
   end
-  else if ModoEdit.Text = 'N' then
+  else if FrameButtons.ModoEdit.Text = 'N' then
   begin
     Caption := 'Incluir Local de estoque';
     pn_form.Enabled := True;
     DescricaoEdit.SetFocus;
     DescricaoEdit.Clear;
-    SalvarBtn.Visible := True;
+    FrameButtons.SalvarBtn.Visible := True;
     StatusBox.ItemIndex := 0;
   end;
 end;
@@ -70,7 +68,8 @@ var
 begin
   if DescricaoEdit.Text = '' then
   begin
-    Mensagem('Preencha todos os campos!');
+    Aviso('Preencha todos os campos!');
+    DescricaoEdit.SetFocus;
     exit;
   end;
 
@@ -78,7 +77,7 @@ begin
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
 
-    if ModoEdit.Text = 'N' then
+    if FrameButtons.ModoEdit.Text = 'N' then
     begin
       q1.SQL.Text := 'select nextval(''tb_locais_cod_seq'') as loc_codigo';
 
@@ -93,7 +92,7 @@ begin
       q1.ParamByName('loc_codigo').Value := loc_codigo;
       msg_confirma := 'Confirmar inclusão do local de estoque?';
     end
-    else if ModoEdit.Text = 'A' then
+    else if FrameButtons.ModoEdit.Text = 'A' then
     begin
       q1.SQL.Clear;
       q1.SQL.Add('update tb_locis_estoque set ');

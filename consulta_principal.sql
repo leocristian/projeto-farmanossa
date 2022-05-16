@@ -2,9 +2,11 @@
 (
   ope_codigo serial primary key,
   ope_nome varchar(70),
-  ope_login varchar(20) unique,
-  ope_senha varchar(20)
+  ope_login varchar(50) unique,
+  ope_senha varchar(50)
 );
+
+select * from tb_operadores
 
 create sequence tb_operadores_cod_seq
 start with 1
@@ -14,7 +16,7 @@ owned by tb_operadores.ope_codigo;
 create table tb_produtos
 (
   prod_codigo serial primary key,
-  prod_descricao varchar(150),
+  prod_descricao varchar(70),
   prod_estoque_negativo varchar(8),
   prod_status_entrada varchar(7),
   prod_status_saida varchar(7)

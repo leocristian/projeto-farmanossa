@@ -1,5 +1,5 @@
 [ExpressSkins]
-Default=1
+Default=0
 ShowNotifications=1
 Enabled=0
 dxSkinBasic=0
@@ -11,7 +11,7 @@ dxSkinCoffee=0
 dxSkinDarkroom=0
 dxSkinDarkSide=0
 dxSkinDevExpressDarkStyle=0
-dxSkinDevExpressStyle=0
+dxSkinDevExpressStyle=1
 dxSkinFoggy=0
 dxSkinGlassOceans=0
 dxSkinHighContrast=0

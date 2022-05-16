@@ -27,6 +27,7 @@ type
     procedure CadOperadoresClick(Sender: TObject);
     procedure CadProdutosClick(Sender: TObject);
     procedure CadLocaisClick(Sender: TObject);
+    procedure EntradaMercClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,7 +41,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_pag_login, u_operadores, u_produtos, u_locais;
+uses u_pag_login, u_operadores, u_produtos, u_locais, u_entradas;
 
 procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
 begin
@@ -58,6 +59,12 @@ procedure TFormPrincipal.CadProdutosClick(Sender: TObject);
 begin
   PagProdutos.Parent := pn_principal;
   PagProdutos.Show;
+end;
+
+procedure TFormPrincipal.EntradaMercClick(Sender: TObject);
+begin
+  PagEntradas.Parent := pn_principal;
+  PagEntradas.Show;
 end;
 
 end.

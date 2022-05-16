@@ -33,7 +33,7 @@ uses u_infoLocal;
 
 procedure TPagLocais.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
-  FormLocal.ModoEdit.Text := 'N';
+  FormLocal.FrameButtons.ModoEdit.Text := 'N';
   FormLocal.ShowModal;
 end;
 

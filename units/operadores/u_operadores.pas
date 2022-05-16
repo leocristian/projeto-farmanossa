@@ -33,13 +33,13 @@ uses u_infoOperador;
 
 procedure TPagOperador.Detalhar1Click(Sender: TObject);
 begin
-  FormOperador.ModoEdit.Text := 'V';
+  FormOperador.FrameButtons.ModoEdit.Text := 'V';
   FormOperador.Show;
 end;
 
 procedure TPagOperador.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
-  FormOperador.ModoEdit.Text := 'N';
+  FormOperador.FrameButtons.ModoEdit.Text := 'N';
   FormOperador.Show;
 end;
 

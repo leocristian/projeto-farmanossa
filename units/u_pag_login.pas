@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
-  Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage, IniFiles;
+  Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage, IniFiles, Uni;
 
 type
   TFormLogin = class(TForm)
@@ -35,7 +35,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_pag_inicial;
+uses u_dm1, u_pag_inicial, u_controleForm;
 
 //uses u_pag_inicial;
 
@@ -45,8 +45,47 @@ begin
 end;
 
 procedure TFormLogin.EntrarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+  arq_ini: TIniFile;
+  nome_arq_ini: String;
 begin
-  FormPrincipal.Show;
+  if ExisteInputVazio(self) then
+  begin
+    Aviso('Preencha todos os campos!');
+    LoginInput.SetFocus;
+    exit;
+  end;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.connection := dm1.con1;
+
+    q1.SQL.Text := 'select ope_codigo, ope_nome, ope_login, ope_senha from tb_operadores where ope_login = md5(:login) and ope_senha = md5(:senha)';
+
+    q1.ParamByName('login').Value := AdicionarSemente(LoginInput.Text);
+    q1.ParamByName('senha').Value := AdicionarSemente(SenhaInput.Text);
+
+    q1.Open;
+
+    if q1.RecordCount = 1 then
+    begin
+      nome_arq_ini := ExtractFilePath(Application.ExeName) + 'config.ini';
+      arq_ini := TIniFile.Create(nome_arq_ini);
+      arq_ini.WriteString('usuario', 'login', LoginInput.Text);
+
+      LimparInputs(self);
+      FormPrincipal.Show;
+    end
+    else if q1.RecordCount = 0 then
+    begin
+      Aviso('Operador não encontrado!');
+      LoginInput.SetFocus;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
 end;
 
 procedure TFormLogin.FormShow(Sender: TObject);
@@ -74,7 +113,7 @@ begin
         dm1.con1.Open;
       except on E: Exception do
         begin
-          ShowMessage('Erro ao conectar no banco de dados!' + #13 + E.Message);
+          Erro('Erro ao conectar no banco de dados!' + #13 + E.Message);
           Application.Terminate;
         end;
       end;
