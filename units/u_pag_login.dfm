@@ -13,8 +13,10 @@ object FormLogin: TFormLogin
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -23,7 +25,7 @@ object FormLogin: TFormLogin
     Top = 0
     Width = 496
     Height = 324
-    Align = alClient
+    Align = alBottom
     TabOrder = 0
     object label_nome: TLabel
       Left = 127
@@ -64,6 +66,31 @@ object FormLogin: TFormLogin
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object Label2: TLabel
+      Left = 231
+      Top = 201
+      Width = 107
+      Height = 13
+      Caption = 'Tentativas restantes: '
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object label_qtdTentativas: TLabel
+      Left = 344
+      Top = 201
+      Width = 3
+      Height = 13
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object LoginInput: TEdit
       Left = 127
       Top = 124
@@ -87,7 +114,7 @@ object FormLogin: TFormLogin
     end
     object EntrarBtn: TBitBtn
       Left = 182
-      Top = 217
+      Top = 241
       Width = 85
       Height = 33
       Caption = 'Entrar'
@@ -102,7 +129,7 @@ object FormLogin: TFormLogin
     end
     object CancelarBtn: TBitBtn
       Left = 273
-      Top = 217
+      Top = 241
       Width = 85
       Height = 33
       Caption = 'Cancelar'

@@ -24,6 +24,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -42,6 +43,18 @@ uses u_controleForm, u_dm1;
 procedure TFormProduto.CancelarBtnClick(Sender: TObject);
 begin
   close;
+end;
+
+procedure TFormProduto.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  begin
+    if Key = #13 then
+    begin
+      Key := #0;
+      Perform(wm_nextdlgctl, 0, 0);
+    end
+    else if key = #27 then close
+  end;
 end;
 
 procedure TFormProduto.FormShow(Sender: TObject);

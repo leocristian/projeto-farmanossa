@@ -24,6 +24,23 @@ object PagProdutos: TPagProdutos
     Caption = 'Panel1'
     TabOrder = 0
   end
+  object cxGrid1: TcxGrid
+    Left = 392
+    Top = 152
+    Width = 250
+    Height = 200
+    TabOrder = 1
+    object cxGrid1DBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+    end
+    object cxGrid1Level1: TcxGridLevel
+      GridView = cxGrid1DBTableView1
+    end
+  end
   object PopupProdutos: TPopupMenu
     Left = 717
     Top = 128

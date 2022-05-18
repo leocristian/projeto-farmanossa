@@ -19,9 +19,12 @@ type
     Label1: TLabel;
     EntrarBtn: TBitBtn;
     CancelarBtn: TBitBtn;
+    Label2: TLabel;
+    label_qtdTentativas: TLabel;
     procedure CancelarBtnClick(Sender: TObject);
     procedure EntrarBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -30,6 +33,7 @@ type
 
 var
   FormLogin: TFormLogin;
+  qtd_tentativas: Integer;
 
 implementation
 
@@ -50,6 +54,7 @@ var
   arq_ini: TIniFile;
   nome_arq_ini: String;
 begin
+
   if ExisteInputVazio(self) then
   begin
     Aviso('Preencha todos os campos!');
@@ -73,18 +78,44 @@ begin
       nome_arq_ini := ExtractFilePath(Application.ExeName) + 'config.ini';
       arq_ini := TIniFile.Create(nome_arq_ini);
       arq_ini.WriteString('usuario', 'login', LoginInput.Text);
-
       LimparInputs(self);
       FormPrincipal.Show;
+      qtd_tentativas := 3;
+      label_qtdTentativas.Caption := qtd_tentativas.ToString;
     end
     else if q1.RecordCount = 0 then
     begin
-      Aviso('Operador não encontrado!');
+      qtd_tentativas := qtd_tentativas - 1;
+ 
+
+      if qtd_tentativas = 0 then
+      begin
+        Aviso('Operador atingiu o limite máximo de tentativas. ' + #13 + 'O sistema será encerrado.');
+        close;
+      end
+      else
+      begin
+        Aviso('Operador não encontrado!');
+        label_qtdTentativas.Caption := qtd_tentativas.ToString;
+      end;
       LoginInput.SetFocus;
     end;
   finally
     q1.Close;
     FreeAndNil(q1);
+
+  end;
+end;
+
+procedure TFormLogin.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  begin
+    if Key = #13 then
+    begin
+      Key := #0;
+      Perform(wm_nextdlgctl, 0, 0);
+    end
+    else if key = #27 then close
   end;
 end;
 
@@ -97,6 +128,9 @@ var
 begin
   dm1.con1.close;
   nome_arq_ini := ExtractFilePath(Application.ExeName) + 'config.ini';
+
+  qtd_tentativas := 3;
+  label_qtdTentativas.Caption := qtd_tentativas.ToString;
 
   if FileExists(nome_arq_ini) then
   begin

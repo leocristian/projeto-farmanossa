@@ -35,6 +35,8 @@ type
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,6 +51,23 @@ implementation
 {$R *.dfm}
 
 uses u_buscaProduto, u_buscaLocal;
+
+procedure TFormEntrada.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  begin
+    if Key = #13 then
+    begin
+      Key := #0;
+      Perform(wm_nextdlgctl, 0, 0);
+    end
+    else if key = #27 then close
+  end;
+end;
+
+procedure TFormEntrada.FormShow(Sender: TObject);
+begin
+  CodProdEdit.SetFocus;
+end;
 
 procedure TFormEntrada.FrameButtons1CancelarBtnClick(Sender: TObject);
 begin
