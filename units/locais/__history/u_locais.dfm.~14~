@@ -1,0 +1,131 @@
+object PagLocais: TPagLocais
+  Left = 0
+  Top = 0
+  Caption = 'PagLocais'
+  ClientHeight = 442
+  ClientWidth = 751
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PopupMenu = PopupLocais
+  WindowState = wsMaximized
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 751
+    Height = 81
+    Align = alTop
+    Caption = 'Panel1'
+    TabOrder = 0
+  end
+  object gridLocais: TcxGrid
+    Left = 0
+    Top = 81
+    Width = 751
+    Height = 361
+    Align = alClient
+    TabOrder = 1
+    ExplicitTop = 87
+    object gridLocaisDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_locais
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = loc_descricao
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object loc_codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'loc_codigo'
+      end
+      object loc_descricao: TcxGridDBColumn
+        Caption = 'Descri'#231#227'o'
+        DataBinding.FieldName = 'loc_descricao'
+        Width = 67
+      end
+      object loc_status: TcxGridDBColumn
+        AlternateCaption = 'String'
+        Caption = 'Status'
+        DataBinding.FieldName = 'loc_status'
+      end
+    end
+    object gridLocaisLevel1: TcxGridLevel
+      GridView = gridLocaisDBTableView1
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 648
+    Top = 8
+    Width = 77
+    Height = 51
+    TabOrder = 2
+    ExplicitLeft = 648
+    ExplicitTop = 8
+    ExplicitHeight = 51
+    inherited estiloGrid: TcxStyleRepository
+      Top = 8
+      PixelsPerInch = 96
+    end
+  end
+  object PopupLocais: TPopupMenu
+    Left = 668
+    Top = 128
+    object Detalhar1: TMenuItem
+      Caption = 'Detalhar...'
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object N1Incluirnovoregistro1: TMenuItem
+      Caption = '1 - Incluir novo registro'
+      OnClick = N1Incluirnovoregistro1Click
+    end
+    object N2AlterarregistroatualF31: TMenuItem
+      Caption = '2 - Alterar registro atual'
+    end
+    object N3ExcluirF41: TMenuItem
+      Caption = '3 - Excluir'
+    end
+  end
+  object tb_locais: TUniTable
+    Left = 512
+    Top = 128
+  end
+  object ds_locais: TDataSource
+    Left = 576
+    Top = 128
+  end
+end

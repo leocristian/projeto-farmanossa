@@ -22,7 +22,6 @@ object PagProdutos: TPagProdutos
     Width = 819
     Height = 81
     Align = alTop
-    Caption = 'Panel1'
     TabOrder = 0
     ExplicitWidth = 761
   end
@@ -131,6 +130,7 @@ object PagProdutos: TPagProdutos
     end
     object N2AlterarregistroatualF31: TMenuItem
       Caption = '2 - Alterar registro atual'
+      OnClick = N2AlterarregistroatualF31Click
     end
     object N3ExcluirF41: TMenuItem
       Caption = '3 - Excluir'

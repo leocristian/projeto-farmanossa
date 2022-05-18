@@ -83,15 +83,15 @@ begin
 
       CodEdit.Text := q1.FieldByName('prod_codigo').Value;
       DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
-      EstNegativoBox.Text := q1.FieldByName('prod_estoque_negativo').Value;
-      StatusEntBox.Text := q1.FieldByName('prod_status_entrada').Value;
-      StatusSaiBox.Text := q1.FieldByName('prod_status_saida').Value;
+
+      EstNegativoBox.ItemIndex := EstNegativoBox.items.IndexOf(q1.FieldByName('prod_estoque_negativo').Value);
+      StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(q1.FieldByName('prod_status_entrada').Value);
+      StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(q1.FieldByName('prod_status_saida').Value);
 
     finally
       q1.Close;
       FreeAndNil(q1);
     end;
-
   end
   else if FrameButtons.ModoEdit.Text = 'N' then
   begin
@@ -103,6 +103,36 @@ begin
     EstNegativoBox.ItemIndex := 0;
     StatusEntBox.ItemIndex := 0;
     StatusSaiBox.ItemIndex := 0
+  end
+  else if FrameButtons.ModoEdit.Text = 'A' then
+  begin
+    Caption := 'Alterar Produto';
+    pn_form.Enabled := True;
+    DescricaoEdit.SetFocus;
+    FrameButtons.SalvarBtn.Visible := True;
+
+    index := PagProdutos.gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
+    codigo := PagProdutos.gridProdutosDBTableView1.ViewData.Records[index].Values[0];
+
+    try
+      q1 := TUniQuery.Create(q1);
+      q1.Connection := dm1.con1;
+
+      q1.SQL.Text := 'select * from tb_produtos where prod_codigo = :codigo';
+      q1.ParamByName('codigo').Value := codigo;
+
+      q1.Open;
+
+      CodEdit.Text := q1.FieldByName('prod_codigo').Value;
+      DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
+      EstNegativoBox.ItemIndex := EstNegativoBox.items.IndexOf(q1.FieldByName('prod_estoque_negativo').Value);
+      StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(q1.FieldByName('prod_status_entrada').Value);
+      StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(q1.FieldByName('prod_status_saida').Value);
+
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
   end;
 end;
 
@@ -143,9 +173,9 @@ begin
     begin
       q1.SQL.Clear;
       q1.SQL.Add('update tb_produtos set ');
-      q1.SQL.Add('(prod_descricao = :prod_descricao, prod_estoque_negativo = :prod_est_neg, ');
-      q1.SQL.Add('prod_status_entrada = :prod_status_entrada, prod_status_saida = :prod_status_saida)');
-      q1.SQL.Add('where prod_codigo = :prod_codigo');
+      q1.SQL.Add('prod_descricao = :prod_descricao, prod_estoque_negativo = :prod_est_neg, ');
+      q1.SQL.Add('prod_status_entrada = :prod_status_entrada, prod_status_saida = :prod_status_saida');
+      q1.SQL.Add(' where prod_codigo = :prod_codigo');
       q1.ParamByName('prod_codigo').Value := CodEdit.Text;
       msg_confirma := 'Salvar alterações?';
     end;

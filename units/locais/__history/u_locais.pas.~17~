@@ -1,0 +1,123 @@
+unit u_locais;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, MemDS, DBAccess, Uni, fr_estilo;
+
+type
+  TPagLocais = class(TForm)
+    Panel1: TPanel;
+    PopupLocais: TPopupMenu;
+    Detalhar1: TMenuItem;
+    N1: TMenuItem;
+    N1Incluirnovoregistro1: TMenuItem;
+    N2AlterarregistroatualF31: TMenuItem;
+    N3ExcluirF41: TMenuItem;
+    gridLocaisDBTableView1: TcxGridDBTableView;
+    gridLocaisLevel1: TcxGridLevel;
+    gridLocais: TcxGrid;
+    tb_locais: TUniTable;
+    ds_locais: TDataSource;
+    loc_codigo: TcxGridDBColumn;
+    loc_descricao: TcxGridDBColumn;
+    loc_status: TcxGridDBColumn;
+    FrameGrid1: TFrameGrid;
+    procedure N1Incluirnovoregistro1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Detalhar1Click(Sender: TObject);
+    procedure N2AlterarregistroatualF31Click(Sender: TObject);
+    procedure N3ExcluirF41Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PagLocais: TPagLocais;
+
+implementation
+
+{$R *.dfm}
+
+uses u_infoLocal, u_dm1, u_controleForm;
+
+procedure TPagLocais.Detalhar1Click(Sender: TObject);
+begin
+  if not tb_locais.Active then exit;
+  if tb_locais.RecordCount = 0 then exit;
+
+  FormLocal.FrameButtons.ModoEdit.Text := 'V';
+  FormLocal.ShowModal;
+end;
+
+procedure TPagLocais.FormShow(Sender: TObject);
+begin
+  dm1.con1.Close;
+  dm1.con1.Open;
+
+  tb_locais.Connection := dm1.con1;
+  tb_locais.TableName := 'tb_locais_estoque';
+
+  ds_locais.DataSet := tb_locais;
+  tb_locais.Active := True;
+end;
+
+procedure TPagLocais.N1Incluirnovoregistro1Click(Sender: TObject);
+begin
+  FormLocal.FrameButtons.ModoEdit.Text := 'N';
+  FormLocal.ShowModal;
+end;
+
+procedure TPagLocais.N2AlterarregistroatualF31Click(Sender: TObject);
+begin
+  if not tb_locais.Active then exit;
+  if tb_locais.RecordCount = 0 then exit;
+
+  FormLocal.FrameButtons.ModoEdit.Text := 'A';
+  FormLocal.ShowModal;
+end;
+
+procedure TPagLocais.N3ExcluirF41Click(Sender: TObject);
+var
+  q1: TUniQuery;
+  index, codigo: Integer;
+
+begin
+  if not tb_locais.Active then exit;
+  if tb_locais.RecordCount = 0 then exit;
+
+  if Confirma('Confirmar exclusão de local de estoque?' + #13 + 'Esta operação será irreversível!') then
+  begin
+    try
+      q1 := TUniQuery.Create(q1);
+      q1.Connection := dm1.con1;
+
+      index := gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
+      codigo := gridLocaisDBTableView1.ViewData.Records[index].Values[0];
+
+      q1.SQL.Text := 'delete from tb_locais_estoque where prod_codigo = :codigo';
+      q1.ParamByName('codigo').Value := codigo;
+
+      try
+        q1.ExecSQL;
+        Mensagem('Local de estoque excluído com sucesso!');
+        gridLocaisDBTableView1.DataController.RefreshExternalData;
+      except on e:exception do
+        Erro('Erro!' + #13 + e.Message);
+      end;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+  end;
+end;
+
+end.

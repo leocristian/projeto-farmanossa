@@ -35,6 +35,7 @@ type
     procedure Detalhar1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N3ExcluirF41Click(Sender: TObject);
+    procedure N2AlterarregistroatualF31Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -77,6 +78,15 @@ begin
   FormProduto.ShowModal;
 end;
 
+procedure TPagProdutos.N2AlterarregistroatualF31Click(Sender: TObject);
+begin
+  if not tb_produtos.Active then exit;
+  if tb_produtos.RecordCount = 0 then exit;
+
+  FormProduto.FrameButtons.ModoEdit.Text := 'A';
+  FormProduto.ShowModal;
+end;
+
 procedure TPagProdutos.N3ExcluirF41Click(Sender: TObject);
 var
   q1: TUniQuery;
@@ -92,16 +102,20 @@ begin
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
 
-      index := PagProdutos.gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
-      codigo := PagProdutos.gridProdutosDBTableView1.ViewData.Records[index].Values[0];
+      index := gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
+      codigo := gridProdutosDBTableView1.ViewData.Records[index].Values[0];
 
       q1.SQL.Text := 'delete from tb_produtos where prod_codigo = :codigo';
       q1.ParamByName('codigo').Value := codigo;
 
-      q1.ExecSQL;
+      try
+        q1.ExecSQL;
+        Mensagem('Produto excluído com sucesso!');
+        gridProdutosDBTableView1.DataController.RefreshExternalData;
+      except on e:exception do
+        Erro('Erro!' + #13 + e.Message);
+      end;
     finally
-      Mensagem('Produto excluído com sucesso!');
-      gridProdutosDBTableView1.DataController.RefreshExternalData;
       q1.Close;
       FreeAndNil(q1);
     end;

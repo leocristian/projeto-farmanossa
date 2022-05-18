@@ -19,22 +19,15 @@ object PagOperador: TPagOperador
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 787
-    Height = 65
-    Align = alTop
-    Caption = 'Panel1'
-    TabOrder = 0
-  end
   object gridOperadores: TcxGrid
     Left = 0
-    Top = 65
+    Top = 109
     Width = 787
-    Height = 363
+    Height = 319
     Align = alClient
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitTop = 128
+    ExplicitHeight = 300
     object gridOperadoresDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.NextPage.Visible = True
@@ -62,7 +55,7 @@ object PagOperador: TPagOperador
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
-      OptionsBehavior.IncSearchItem = gridOperadoresDBTableView1ope_nome
+      OptionsBehavior.IncSearchItem = ope_nome
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
@@ -70,13 +63,14 @@ object PagOperador: TPagOperador
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
-      object gridOperadoresDBTableView1ope_codigo: TcxGridDBColumn
+      object ope_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ope_codigo'
       end
-      object gridOperadoresDBTableView1ope_nome: TcxGridDBColumn
+      object ope_nome: TcxGridDBColumn
         Caption = 'Nome Completo'
         DataBinding.FieldName = 'ope_nome'
+        Width = 221
       end
     end
     object gridOperadoresLevel1: TcxGridLevel
@@ -84,12 +78,12 @@ object PagOperador: TPagOperador
     end
   end
   inline FrameGrid1: TFrameGrid
-    Left = 680
+    Left = 672
     Top = 8
     Width = 77
     Height = 49
-    TabOrder = 2
-    ExplicitLeft = 680
+    TabOrder = 1
+    ExplicitLeft = 672
     ExplicitTop = 8
     ExplicitHeight = 49
     inherited estiloGrid: TcxStyleRepository
@@ -102,9 +96,22 @@ object PagOperador: TPagOperador
       end
     end
   end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 787
+    Height = 109
+    Align = alTop
+    TabOrder = 2
+    ExplicitWidth = 787
+    inherited ImageList1: TImageList
+      Left = 608
+      Top = 40
+    end
+  end
   object PopupOperador: TPopupMenu
     Left = 712
-    Top = 88
+    Top = 128
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...'
       OnClick = Detalhar1Click
@@ -127,12 +134,12 @@ object PagOperador: TPagOperador
   end
   object tb_operadores: TUniTable
     TableName = 'tb_operadores'
-    Left = 608
-    Top = 88
+    Left = 616
+    Top = 128
   end
   object ds_operadores: TDataSource
     AutoEdit = False
-    Left = 504
-    Top = 88
+    Left = 512
+    Top = 128
   end
 end

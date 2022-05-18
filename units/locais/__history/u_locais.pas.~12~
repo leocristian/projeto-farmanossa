@@ -1,0 +1,77 @@
+unit u_locais;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, MemDS, DBAccess, Uni, fr_estilo;
+
+type
+  TPagLocais = class(TForm)
+    Panel1: TPanel;
+    PopupLocais: TPopupMenu;
+    Detalhar1: TMenuItem;
+    N1: TMenuItem;
+    N1Incluirnovoregistro1: TMenuItem;
+    N2AlterarregistroatualF31: TMenuItem;
+    N3ExcluirF41: TMenuItem;
+    gridLocaisDBTableView1: TcxGridDBTableView;
+    gridLocaisLevel1: TcxGridLevel;
+    gridLocais: TcxGrid;
+    tb_locais: TUniTable;
+    ds_locais: TDataSource;
+    loc_codigo: TcxGridDBColumn;
+    loc_descricao: TcxGridDBColumn;
+    loc_status: TcxGridDBColumn;
+    FrameGrid1: TFrameGrid;
+    procedure N1Incluirnovoregistro1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Detalhar1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PagLocais: TPagLocais;
+
+implementation
+
+{$R *.dfm}
+
+uses u_infoLocal, u_dm1;
+
+procedure TPagLocais.Detalhar1Click(Sender: TObject);
+begin
+  if not tb_locais.Active then exit;
+  if tb_locais.RecordCount = 0 then exit;
+
+  FormLocal.FrameButtons.ModoEdit.Text := 'V';
+  FormLocal.ShowModal;
+end;
+
+procedure TPagLocais.FormShow(Sender: TObject);
+begin
+  dm1.con1.Close;
+  dm1.con1.Open;
+
+  tb_locais.Connection := dm1.con1;
+  tb_locais.TableName := 'tb_locais_estoque';
+
+  ds_locais.DataSet := tb_locais;
+  tb_locais.Active := True;
+end;
+
+procedure TPagLocais.N1Incluirnovoregistro1Click(Sender: TObject);
+begin
+  FormLocal.FrameButtons.ModoEdit.Text := 'N';
+  FormLocal.ShowModal;
+end;
+
+end.

@@ -9,11 +9,11 @@ uses
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   dxDateRanges, dxScrollbarAnnotations, cxDBData, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, DBAccess, UniProvider, PostgreSQLUniProvider, fr_estilo;
+  cxGrid, DBAccess, UniProvider, PostgreSQLUniProvider, fr_estilo, fm_busca,
+  Vcl.StdCtrls, Vcl.Buttons;
 
 type
   TPagOperador = class(TForm)
-    Panel1: TPanel;
     PopupOperador: TPopupMenu;
     Detalhar1: TMenuItem;
     N1: TMenuItem;
@@ -25,9 +25,10 @@ type
     gridOperadores: TcxGrid;
     tb_operadores: TUniTable;
     ds_operadores: TDataSource;
-    gridOperadoresDBTableView1ope_codigo: TcxGridDBColumn;
-    gridOperadoresDBTableView1ope_nome: TcxGridDBColumn;
+    ope_codigo: TcxGridDBColumn;
+    ope_nome: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
+    FrameBusca1: TFrameBusca;
 
     procedure Detalhar1Click(Sender: TObject);
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
@@ -104,16 +105,20 @@ begin
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
 
-      index := PagOperador.gridOperadoresDBTableView1.DataController.GetSelectedRowIndex(0);
-      codigo := PagOperador.gridOperadoresDBTableView1.ViewData.Records[index].Values[0];
+      index := gridOperadoresDBTableView1.DataController.GetSelectedRowIndex(0);
+      codigo := gridOperadoresDBTableView1.ViewData.Records[index].Values[0];
 
       q1.SQL.Text := 'delete from tb_operadores where ope_codigo = :codigo';
       q1.ParamByName('codigo').Value := codigo;
 
-      q1.ExecSQL;
+      try
+        q1.ExecSQL;
+        Mensagem('Operador excluído com sucesso!');
+        gridOperadoresDBTableView1.DataController.RefreshExternalData;
+      except on e:exception do
+        Erro('Erro!' + #13 + e.Message);
+      end;
     finally
-      Mensagem('Operador excluído com sucesso!');
-      gridOperadoresDBTableView1.DataController.RefreshExternalData;
       q1.Close;
       FreeAndNil(q1);
     end;

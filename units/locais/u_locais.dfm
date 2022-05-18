@@ -13,6 +13,7 @@ object PagLocais: TPagLocais
   OldCreateOrder = False
   PopupMenu = PopupLocais
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -21,37 +22,89 @@ object PagLocais: TPagLocais
     Width = 751
     Height = 81
     Align = alTop
-    Caption = 'Panel1'
     TabOrder = 0
-    ExplicitWidth = 472
   end
-  object cxGrid1: TcxGrid
+  object gridLocais: TcxGrid
     Left = 0
     Top = 81
     Width = 751
     Height = 361
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 176
-    ExplicitTop = 152
-    ExplicitWidth = 250
-    ExplicitHeight = 200
-    object cxGrid1DBTableView1: TcxGridDBTableView
+    ExplicitTop = 87
+    object gridLocaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_locais
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = loc_descricao
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object loc_codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'loc_codigo'
+      end
+      object loc_descricao: TcxGridDBColumn
+        Caption = 'Descri'#231#227'o'
+        DataBinding.FieldName = 'loc_descricao'
+        Width = 183
+      end
+      object loc_status: TcxGridDBColumn
+        AlternateCaption = 'String'
+        Caption = 'Status'
+        DataBinding.FieldName = 'loc_status'
+      end
     end
-    object cxGrid1Level1: TcxGridLevel
-      GridView = cxGrid1DBTableView1
+    object gridLocaisLevel1: TcxGridLevel
+      GridView = gridLocaisDBTableView1
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 648
+    Top = 8
+    Width = 77
+    Height = 51
+    TabOrder = 2
+    ExplicitLeft = 648
+    ExplicitTop = 8
+    ExplicitHeight = 51
+    inherited estiloGrid: TcxStyleRepository
+      Top = 8
+      PixelsPerInch = 96
     end
   end
   object PopupLocais: TPopupMenu
-    Left = 412
-    Top = 104
+    Left = 668
+    Top = 128
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...'
+      OnClick = Detalhar1Click
     end
     object N1: TMenuItem
       Caption = '-'
@@ -62,9 +115,19 @@ object PagLocais: TPagLocais
     end
     object N2AlterarregistroatualF31: TMenuItem
       Caption = '2 - Alterar registro atual'
+      OnClick = N2AlterarregistroatualF31Click
     end
     object N3ExcluirF41: TMenuItem
       Caption = '3 - Excluir'
+      OnClick = N3ExcluirF41Click
     end
+  end
+  object tb_locais: TUniTable
+    Left = 512
+    Top = 128
+  end
+  object ds_locais: TDataSource
+    Left = 576
+    Top = 128
   end
 end
