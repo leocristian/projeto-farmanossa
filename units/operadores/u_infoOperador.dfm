@@ -3,8 +3,8 @@ object FormOperador: TFormOperador
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Adicionar Operador'
-  ClientHeight = 275
-  ClientWidth = 456
+  ClientHeight = 245
+  ClientWidth = 489
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,11 +21,12 @@ object FormOperador: TFormOperador
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 456
+    Width = 489
     Height = 177
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 456
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -40,27 +41,6 @@ object FormOperador: TFormOperador
       Height = 13
       Caption = 'Nome completo:'
     end
-    object Label5: TLabel
-      Left = 17
-      Top = 127
-      Width = 76
-      Height = 13
-      Caption = 'Repita a senha:'
-    end
-    object Label3: TLabel
-      Left = 64
-      Top = 73
-      Width = 29
-      Height = 13
-      Caption = 'Login:'
-    end
-    object Label4: TLabel
-      Left = 59
-      Top = 100
-      Width = 34
-      Height = 13
-      Caption = 'Senha:'
-    end
     object CodEdit: TEdit
       Left = 99
       Top = 16
@@ -73,16 +53,6 @@ object FormOperador: TFormOperador
       TabOrder = 0
       Text = '0000'
     end
-    object SenhaCheckEdit: TEdit
-      Left = 99
-      Top = 124
-      Width = 170
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 20
-      PasswordChar = '*'
-      TabOrder = 4
-    end
     object NomeEdit: TEdit
       Left = 99
       Top = 43
@@ -92,46 +62,85 @@ object FormOperador: TFormOperador
       MaxLength = 70
       TabOrder = 1
     end
-    object LoginEdit: TEdit
-      Left = 99
-      Top = 70
-      Width = 170
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 20
+    object pnLogin: TPanel
+      Left = 8
+      Top = 64
+      Width = 293
+      Height = 97
+      BevelOuter = bvNone
       TabOrder = 2
-    end
-    object SenhaEdit: TEdit
-      Left = 99
-      Top = 97
-      Width = 170
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 20
-      PasswordChar = '*'
-      TabOrder = 3
+      object Label5: TLabel
+        Left = 9
+        Top = 66
+        Width = 76
+        Height = 13
+        Caption = 'Repita a senha:'
+      end
+      object Label4: TLabel
+        Left = 51
+        Top = 39
+        Width = 34
+        Height = 13
+        Caption = 'Senha:'
+      end
+      object Label3: TLabel
+        Left = 56
+        Top = 12
+        Width = 29
+        Height = 13
+        Caption = 'Login:'
+      end
+      object SenhaCheckEdit: TEdit
+        Left = 91
+        Top = 63
+        Width = 170
+        Height = 21
+        CharCase = ecUpperCase
+        MaxLength = 20
+        PasswordChar = '*'
+        TabOrder = 2
+      end
+      object SenhaEdit: TEdit
+        Left = 91
+        Top = 36
+        Width = 170
+        Height = 21
+        CharCase = ecUpperCase
+        MaxLength = 20
+        PasswordChar = '*'
+        TabOrder = 1
+      end
+      object LoginEdit: TEdit
+        Left = 91
+        Top = 9
+        Width = 170
+        Height = 21
+        CharCase = ecUpperCase
+        MaxLength = 20
+        TabOrder = 0
+      end
     end
   end
   inline FrameButtons: TFrameButtons
     Left = 0
-    Top = 182
-    Width = 456
+    Top = 152
+    Width = 489
     Height = 93
     Align = alBottom
     TabOrder = 1
     ExplicitTop = 182
     ExplicitWidth = 456
     inherited SalvarBtn: TButton
-      Left = 258
+      Left = 291
       OnClick = SalvarBtnClick
       ExplicitLeft = 258
     end
     inherited ModoEdit: TEdit
-      Left = 217
+      Left = 250
       ExplicitLeft = 217
     end
     inherited CancelarBtn: TButton
-      Left = 347
+      Left = 380
       OnClick = CancelarBtnClick
       ExplicitLeft = 347
     end

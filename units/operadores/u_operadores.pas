@@ -4,7 +4,12 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, Vcl.Menus, System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Forms, Data.DB,
-  Vcl.Grids, Vcl.DBGrids, Vcl.Dialogs, CRGrid, MemDS, VirtualTable, Uni;
+  Vcl.Grids, Vcl.DBGrids, Vcl.Dialogs, CRGrid, MemDS, VirtualTable, Uni,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  dxDateRanges, dxScrollbarAnnotations, cxDBData, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, DBAccess, UniProvider, PostgreSQLUniProvider, fr_estilo;
 
 type
   TPagOperador = class(TForm)
@@ -15,13 +20,20 @@ type
     N1Incluirnovoregistro1: TMenuItem;
     N2AlterarregistroatualF31: TMenuItem;
     N3ExcluirF41: TMenuItem;
-    vtb_operadores: TVirtualTable;
-    CRDBGrid1: TCRDBGrid;
+    gridOperadoresDBTableView1: TcxGridDBTableView;
+    gridOperadoresLevel1: TcxGridLevel;
+    gridOperadores: TcxGrid;
+    tb_operadores: TUniTable;
     ds_operadores: TDataSource;
+    gridOperadoresDBTableView1ope_codigo: TcxGridDBColumn;
+    gridOperadoresDBTableView1ope_nome: TcxGridDBColumn;
+    FrameGrid1: TFrameGrid;
 
     procedure Detalhar1Click(Sender: TObject);
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure N2AlterarregistroatualF31Click(Sender: TObject);
+    procedure N3ExcluirF41Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -36,48 +48,76 @@ implementation
 
 {$R *.dfm}
 
-uses u_infoOperador, u_dm1;
+uses u_infoOperador, u_dm1, u_controleForm;
 
 procedure TPagOperador.Detalhar1Click(Sender: TObject);
 var
   ope_codigo: Integer;
-
 begin
+
+  if not tb_operadores.Active then exit;
+  if tb_operadores.RecordCount = 0 then exit;
+
   FormOperador.FrameButtons.ModoEdit.Text := 'V';
-  FormOperador.Show;
+  FormOperador.ShowModal;
 end;
 
 procedure TPagOperador.FormShow(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
+  dm1.con1.Close;
+  dm1.con1.Open;
 
-    q1.SQL.Text := 'select * from tb_operadores';
+  tb_operadores.Connection := dm1.con1;
+  tb_operadores.TableName := 'tb_operadores';
 
-    q1.Open;
-    q1.First;
-    while not q1.Eof do
-    begin
-      vtb_operadores.Append;
-      vtb_operadores['ope_codigo'] := q1.FieldByName('ope_codigo').Value;
-      vtb_operadores['ope_nome'] := q1.FieldByName('ope_nome').Value;
-      q1.Next;
-    end;
-
-  finally
-    q1.Close;
-    FreeAndNil(q1);
-  end;
+  ds_operadores.DataSet := tb_operadores;
+  tb_operadores.Active := True;
 end;
 
 procedure TPagOperador.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
   FormOperador.FrameButtons.ModoEdit.Text := 'N';
-  FormOperador.Show;
+  FormOperador.ShowModal;
+end;
+
+procedure TPagOperador.N2AlterarregistroatualF31Click(Sender: TObject);
+begin
+  if not tb_operadores.Active then exit;
+  if tb_operadores.RecordCount = 0 then exit;
+
+  FormOperador.FrameButtons.ModoEdit.Text := 'A';
+  FormOperador.ShowModal;
+end;
+
+procedure TPagOperador.N3ExcluirF41Click(Sender: TObject);
+var
+  q1: TUniQuery;
+  index, codigo: Integer;
+
+begin
+  if not tb_operadores.Active then exit;
+  if tb_operadores.RecordCount = 0 then exit;
+
+  if Confirma('Confirmar exclusão de operador?' + #13 + 'Esta operação será irreversível!') then
+  begin
+    try
+      q1 := TUniQuery.Create(q1);
+      q1.Connection := dm1.con1;
+
+      index := PagOperador.gridOperadoresDBTableView1.DataController.GetSelectedRowIndex(0);
+      codigo := PagOperador.gridOperadoresDBTableView1.ViewData.Records[index].Values[0];
+
+      q1.SQL.Text := 'delete from tb_operadores where ope_codigo = :codigo';
+      q1.ParamByName('codigo').Value := codigo;
+
+      q1.ExecSQL;
+    finally
+      Mensagem('Operador excluído com sucesso!');
+      gridOperadoresDBTableView1.DataController.RefreshExternalData;
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+  end;
 end;
 
 end.

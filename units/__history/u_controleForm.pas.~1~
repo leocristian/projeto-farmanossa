@@ -1,0 +1,19 @@
+unit u_controleForm;
+
+interface
+uses
+    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+    Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+implementation
+
+procedure LimparInputs(const owner: TWinControl);
+var
+  i: Integer;
+begin
+  for i := 0 to owner.ComponentCount - 1 do
+    if owner.Components[i] is TEdit then
+      TEdit(owner.Components[i]).Clear;
+end;
+
+end.

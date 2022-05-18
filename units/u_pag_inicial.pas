@@ -41,7 +41,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_pag_login, u_operadores, u_produtos, u_locais, u_entradas;
+uses u_login, u_operadores, u_produtos, u_locais, u_entradas;
 
 procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
 begin

@@ -2,8 +2,8 @@ object PagLocais: TPagLocais
   Left = 0
   Top = 0
   Caption = 'PagLocais'
-  ClientHeight = 242
-  ClientWidth = 472
+  ClientHeight = 442
+  ClientWidth = 751
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,13 +18,34 @@ object PagLocais: TPagLocais
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 472
+    Width = 751
     Height = 81
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitLeft = -289
-    ExplicitWidth = 761
+    ExplicitWidth = 472
+  end
+  object cxGrid1: TcxGrid
+    Left = 0
+    Top = 81
+    Width = 751
+    Height = 361
+    Align = alClient
+    TabOrder = 1
+    ExplicitLeft = 176
+    ExplicitTop = 152
+    ExplicitWidth = 250
+    ExplicitHeight = 200
+    object cxGrid1DBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+    end
+    object cxGrid1Level1: TcxGridLevel
+      GridView = cxGrid1DBTableView1
+    end
   end
   object PopupLocais: TPopupMenu
     Left = 412

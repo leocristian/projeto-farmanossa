@@ -1,0 +1,24 @@
+object Frame1: TFrame1
+  Left = 0
+  Top = 0
+  Width = 77
+  Height = 86
+  TabOrder = 0
+  object estiloGrid: TcxStyleRepository
+    Left = 24
+    Top = 24
+    PixelsPerInch = 96
+    object header: TcxStyle
+      AssignedValues = [svFont]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+    end
+    object linhas: TcxStyle
+      AssignedValues = [svColor]
+      Color = clGradientInactiveCaption
+    end
+  end
+end

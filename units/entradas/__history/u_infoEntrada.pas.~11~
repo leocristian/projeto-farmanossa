@@ -1,0 +1,81 @@
+unit u_infoEntrada;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  Vcl.ComCtrls, dxCore, cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit,
+  cxCalendar, fm_buttons, System.ImageList, Vcl.ImgList, Vcl.Buttons;
+
+type
+  TFormEntrada = class(TForm)
+    pn_form: TPanel;
+    CodEdit: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    SpeedButton1: TSpeedButton;
+    ImageList1: TImageList;
+    CodProdEdit: TEdit;
+    DescProdEdit: TEdit;
+    DescLocalEdit: TEdit;
+    SpeedButton2: TSpeedButton;
+    CodLocalEdit: TEdit;
+    FrameButtons1: TFrameButtons;
+    Label4: TLabel;
+    LoteEdit: TEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    DtFabricacaoEdit: TcxDateEdit;
+    DtVencimentoEdit: TcxDateEdit;
+    QtdProdEdit: TEdit;
+    procedure FrameButtons1CancelarBtnClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormEntrada: TFormEntrada;
+
+implementation
+
+{$R *.dfm}
+
+uses u_buscaProduto, u_buscaLocal;
+
+procedure TFormEntrada.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  begin
+    if Key = #13 then
+    begin
+      Key := #0;
+      Perform(wm_nextdlgctl, 0, 0);
+    end
+    else if key = #27 then close
+  end;
+end;
+
+procedure TFormEntrada.FrameButtons1CancelarBtnClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFormEntrada.SpeedButton1Click(Sender: TObject);
+begin
+  BuscaProdutoForm.ShowModal;
+end;
+
+procedure TFormEntrada.SpeedButton2Click(Sender: TObject);
+begin
+  BuscaLocalForm.ShowModal;
+end;
+
+end.

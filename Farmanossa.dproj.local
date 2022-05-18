@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/05/18 08:10:26.000.342,=C:\Users\CLIENTE\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/05/18 08:11:20.000.690,C:\Users\CLIENTE\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\CLIENTE\Desktop\projetoFarmanossa\u_login.pas</Transaction>
+    <Transaction>2022/05/18 08:11:20.000.690,C:\Users\CLIENTE\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\CLIENTE\Desktop\projetoFarmanossa\u_login.dfm</Transaction>
+    <Transaction>2022/05/18 08:15:15.000.339,=C:\Users\CLIENTE\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/05/18 08:15:50.000.934,=C:\Users\CLIENTE\Desktop\farmanossa\units\u_dm1.pas</Transaction>
+    <Transaction>2022/05/18 08:16:25.000.722,=C:\Users\CLIENTE\Desktop\farmanossa\units\u_pag_inicial.pas</Transaction>
+    <Transaction>2022/05/18 08:18:41.000.099,C:\Users\CLIENTE\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\CLIENTE\Desktop\projetoFarmanossa\Farmanossa.dproj</Transaction>
+    <Transaction>2022/05/18 08:18:58.000.910,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\u_dm1.pas</Transaction>
+    <Transaction>2022/05/18 08:19:10.000.019,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\u_controleForm.pas</Transaction>
+    <Transaction>2022/05/18 08:19:22.000.629,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\u_pag_inicial.pas</Transaction>
+    <Transaction>2022/05/18 08:19:45.000.361,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\operadores\u_operadores.pas</Transaction>
+    <Transaction>2022/05/18 08:19:45.000.276,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\operadores\u_infoOperador.pas</Transaction>
+    <Transaction>2022/05/18 08:19:57.000.022,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\frames\fm_buttons.pas</Transaction>
+    <Transaction>2022/05/18 08:20:26.000.171,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\produtos\u_infoProduto.pas</Transaction>
+    <Transaction>2022/05/18 08:21:14.000.214,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\produtos\u_produtos.pas</Transaction>
+    <Transaction>2022/05/18 08:21:29.000.289,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\locais\u_locais.pas</Transaction>
+    <Transaction>2022/05/18 08:21:37.000.394,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\locais\u_infoLocal.pas</Transaction>
+    <Transaction>2022/05/18 08:21:47.000.329,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\entradas\u_buscaLocal.pas</Transaction>
+    <Transaction>2022/05/18 08:21:55.000.019,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\entradas\u_buscaProduto.pas</Transaction>
+    <Transaction>2022/05/18 08:22:01.000.095,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\entradas\u_entradas.pas</Transaction>
+    <Transaction>2022/05/18 08:22:06.000.719,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\entradas\u_infoEntrada.pas</Transaction>
+    <Transaction>2022/05/18 08:28:04.000.989,C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\operadores\u_infoOperador.pas=</Transaction>
+    <Transaction>2022/05/18 08:28:13.000.936,=C:\Users\CLIENTE\Desktop\projetoFarmanossa\units\operadores\u_infoOperador.pas</Transaction>
+  </Transactions>
+</BorlandProject>

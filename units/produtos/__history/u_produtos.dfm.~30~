@@ -1,0 +1,109 @@
+object PagProdutos: TPagProdutos
+  Left = 0
+  Top = 0
+  Caption = 'PagProdutos'
+  ClientHeight = 466
+  ClientWidth = 819
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PopupMenu = PopupProdutos
+  WindowState = wsMaximized
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 819
+    Height = 81
+    Align = alTop
+    Caption = 'Panel1'
+    TabOrder = 0
+    ExplicitWidth = 761
+  end
+  object cxGrid1: TcxGrid
+    Left = 0
+    Top = 81
+    Width = 819
+    Height = 385
+    Align = alClient
+    TabOrder = 1
+    ExplicitLeft = 264
+    ExplicitTop = 152
+    ExplicitWidth = 250
+    ExplicitHeight = 200
+    object cxGrid1DBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_produtos
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      object prod_codigo: TcxGridDBColumn
+        AlternateCaption = 'C'#243'digo'
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'prod_codigo'
+      end
+      object prod_descricao: TcxGridDBColumn
+        Caption = 'Descri'#231#227'o'
+        DataBinding.IsNullValueType = True
+        Width = 313
+      end
+      object prod_estoque_negativo: TcxGridDBColumn
+        AlternateCaption = 'Descri'#231#227'o'
+        Caption = 'Estoque Negativo'
+        DataBinding.FieldName = 'prod_estoque_negativo'
+        Width = 133
+      end
+      object prod_status_entrada: TcxGridDBColumn
+        Caption = 'Status Entrada'
+        DataBinding.FieldName = 'prod_status_entrada'
+        Width = 100
+      end
+      object prod_status_saida: TcxGridDBColumn
+        AlternateCaption = 'prod_status_saida'
+        Caption = 'Status Sa'#237'da'
+        DataBinding.FieldName = 'prod_status_saida'
+        Width = 94
+      end
+    end
+    object cxGrid1Level1: TcxGridLevel
+      GridView = cxGrid1DBTableView1
+    end
+  end
+  object PopupProdutos: TPopupMenu
+    Left = 717
+    Top = 120
+    object Detalhar1: TMenuItem
+      Caption = 'Detalhar...'
+      OnClick = Detalhar1Click
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object N1Incluirnovoregistro1: TMenuItem
+      Caption = '1 - Incluir novo registro'
+      OnClick = N1Incluirnovoregistro1Click
+    end
+    object N2AlterarregistroatualF31: TMenuItem
+      Caption = '2 - Alterar registro atual'
+    end
+    object N3ExcluirF41: TMenuItem
+      Caption = '3 - Excluir'
+    end
+  end
+  object ds_produtos: TDataSource
+    AutoEdit = False
+    Left = 512
+    Top = 120
+  end
+  object tb_produtos: TUniTable
+    Left = 608
+    Top = 120
+  end
+end

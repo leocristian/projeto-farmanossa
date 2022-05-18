@@ -1,0 +1,123 @@
+unit u_infoLocal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Uni,
+  fm_buttons;
+
+type
+  TFormLocal = class(TForm)
+    pn_form: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    CodEdit: TEdit;
+    DescricaoEdit: TEdit;
+    StatusBox: TComboBox;
+    FrameButtons: TFrameButtons;
+    procedure CancelarBtnClick(Sender: TObject);
+    procedure SalvarBtnClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormLocal: TFormLocal;
+
+implementation
+
+{$R *.dfm}
+
+uses u_dm1, u_controleForm;
+
+procedure TFormLocal.CancelarBtnClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFormLocal.FormShow(Sender: TObject);
+begin
+  if FrameButtons.ModoEdit.Text = 'V' then
+  begin
+    Caption := 'Exibir Local de estoque';
+    pn_form.Enabled := False;
+    FrameButtons.SalvarBtn.Visible := False;
+  end
+  else if FrameButtons.ModoEdit.Text = 'N' then
+  begin
+    Caption := 'Incluir Local de estoque';
+    pn_form.Enabled := True;
+    DescricaoEdit.SetFocus;
+    DescricaoEdit.Clear;
+    FrameButtons.SalvarBtn.Visible := True;
+    StatusBox.ItemIndex := 0;
+  end;
+end;
+
+procedure TFormLocal.SalvarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+  loc_codigo: Integer;
+  msg_confirma: String;
+
+begin
+  if DescricaoEdit.Text = '' then
+  begin
+    Mensagem('Preencha todos os campos!');
+    exit;
+  end;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    if FrameButtons.ModoEdit.Text = 'N' then
+    begin
+      q1.SQL.Text := 'select nextval(''tb_locais_cod_seq'') as loc_codigo';
+
+      q1.Open;
+      loc_codigo := q1.FieldByName('loc_codigo').Value;
+      q1.Close;
+
+      q1.SQL.Clear;
+      q1.SQL.Add('insert into tb_locais_estoque values ');
+      q1.SQL.Add('(:loc_codigo, :loc_descricao, :loc_status)');
+
+      q1.ParamByName('loc_codigo').Value := loc_codigo;
+      msg_confirma := 'Confirmar inclusão do local de estoque?';
+    end
+    else if FrameButtons.ModoEdit.Text = 'A' then
+    begin
+      q1.SQL.Clear;
+      q1.SQL.Add('update tb_locis_estoque set ');
+      q1.SQL.Add('(loc_descricao = :loc_descricao, loc_status = :loc_status, ');
+      q1.SQL.Add('where loc_codigo = :loc_codigo');
+      q1.ParamByName('loc_codigo').Value := CodEdit.Text;
+      msg_confirma := 'Salvar alterações?';
+    end;
+
+    q1.ParamByName('loc_descricao').Value := DescricaoEdit.Text;
+    q1.ParamByName('loc_status').Value := StatusBox.Text;
+
+    if Confirma(msg_confirma) then
+    try
+      q1.ExecSQL;
+      Mensagem('Operação concluída!');
+      Close;
+    except on e:exception do
+        Erro('Erro: ' + #13 + e.Message);
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+end;
+
+
+end;
+
+end.

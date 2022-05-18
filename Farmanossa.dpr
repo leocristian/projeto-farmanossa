@@ -1,0 +1,41 @@
+program Farmanossa;
+
+uses
+  Vcl.Forms,
+  u_login in 'u_login.pas' {FormLogin},
+  u_dm1 in 'units\u_dm1.pas' {dm1: TDataModule},
+  u_pag_inicial in 'units\u_pag_inicial.pas' {FormPrincipal},
+  u_operadores in 'units\operadores\u_operadores.pas' {PagOperador},
+  fm_buttons in 'units\frames\fm_buttons.pas' {FrameButtons: TFrame},
+  u_infoProduto in 'units\produtos\u_infoProduto.pas' {FormProduto},
+  u_produtos in 'units\produtos\u_produtos.pas' {PagProdutos},
+  u_locais in 'units\locais\u_locais.pas' {PagLocais},
+  u_infoLocal in 'units\locais\u_infoLocal.pas' {FormLocal},
+  u_buscaLocal in 'units\entradas\u_buscaLocal.pas' {BuscaLocalForm},
+  u_buscaProduto in 'units\entradas\u_buscaProduto.pas' {BuscaProdutoForm},
+  u_entradas in 'units\entradas\u_entradas.pas' {PagEntradas},
+  u_infoEntrada in 'units\entradas\u_infoEntrada.pas' {FormEntrada},
+  u_controleForm in 'units\u_controleForm.pas',
+  u_infoOperador in 'units\operadores\u_infoOperador.pas' {FormOperador};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFormLogin, FormLogin);
+  Application.CreateForm(Tdm1, dm1);
+  Application.CreateForm(TFormPrincipal, FormPrincipal);
+  Application.CreateForm(TPagOperador, PagOperador);
+  Application.CreateForm(TFormProduto, FormProduto);
+  Application.CreateForm(TFormProduto, FormProduto);
+  Application.CreateForm(TPagProdutos, PagProdutos);
+  Application.CreateForm(TPagLocais, PagLocais);
+  Application.CreateForm(TFormLocal, FormLocal);
+  Application.CreateForm(TBuscaLocalForm, BuscaLocalForm);
+  Application.CreateForm(TBuscaProdutoForm, BuscaProdutoForm);
+  Application.CreateForm(TPagEntradas, PagEntradas);
+  Application.CreateForm(TFormEntrada, FormEntrada);
+  Application.CreateForm(TFormOperador, FormOperador);
+  Application.Run;
+end.

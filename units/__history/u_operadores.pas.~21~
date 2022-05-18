@@ -1,0 +1,72 @@
+unit u_operadores;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
+  Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, Vcl.ExtCtrls,
+  Vcl.Menus, cxControls, cxGraphics, dxSkinsCore, dxSkinBasic, dxSkinBlack,
+  dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkroom,
+  dxSkinDarkSide, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringtime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinTheBezier,
+  dxSkinsDefaultPainters, dxSkinValentine, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
+  dxSkinWhiteprint, dxSkinXmas2008Blue;
+
+type
+  TFormOperadores = class(TForm)
+    Panel1: TPanel;
+    gridOperadoresDBTableView1: TcxGridDBTableView;
+    gridOperadoresLevel1: TcxGridLevel;
+    gridOperadores: TcxGrid;
+    PopupOperador: TPopupMenu;
+    Detalhar1: TMenuItem;
+    N1: TMenuItem;
+    N1Incluirnovoregistro1: TMenuItem;
+    N2AlterarregistroatualF31: TMenuItem;
+    N3ExcluirF41: TMenuItem;
+    procedure Detalhar1Click(Sender: TObject);
+    procedure N1Incluirnovoregistro1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormOperadores: TFormOperadores;
+
+implementation
+
+{$R *.dfm}
+
+uses u_infoOperador;
+
+
+procedure TFormOperadores.Detalhar1Click(Sender: TObject);
+begin
+  OperadorForm.ModoEdit.Text := 'V';
+  OperadorForm.Visible := True;
+end;
+
+procedure TFormOperadores.N1Incluirnovoregistro1Click(Sender: TObject);
+begin
+  OperadorForm.ModoEdit.Text := 'N';
+  OperadorForm.Visible := True;
+end;
+
+end.

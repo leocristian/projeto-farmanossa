@@ -1,0 +1,61 @@
+unit u_infoLocal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TFormLocal = class(TForm)
+    pn_form: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    CodEdit: TEdit;
+    DescricaoEdit: TEdit;
+    StatusBox: TComboBox;
+    pn_btns: TPanel;
+    ModoEdit: TEdit;
+    SalvarBtn: TButton;
+    CancelarBtn: TButton;
+    procedure CancelarBtnClick(Sender: TObject);
+    procedure SalvarBtnClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormLocal: TFormLocal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormLocal.CancelarBtnClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFormLocal.SalvarBtnClick(Sender: TObject);
+begin
+  if ModoEdit.Text = 'V' then
+  begin
+    Caption := 'Exibir Local de estoque';
+    pn_form.Enabled := False;
+    SalvarBtn.Visible := False;
+  end
+  else if ModoEdit.Text = 'N' then
+  begin
+    Caption := 'Incluir Local de estoque';
+    pn_form.Enabled := True;
+    DescricaoEdit.SetFocus;
+    DescricaoEdit.Clear;
+    SalvarBtn.Visible := True;
+    StatusBox.ItemIndex := 0;
+  end;
+end;
+
+end.

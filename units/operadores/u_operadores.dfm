@@ -23,25 +23,84 @@ object PagOperador: TPagOperador
     Left = 0
     Top = 0
     Width = 787
-    Height = 81
+    Height = 65
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0
   end
-  object CRDBGrid1: TCRDBGrid
+  object gridOperadores: TcxGrid
     Left = 0
-    Top = 81
+    Top = 65
     Width = 787
-    Height = 347
+    Height = 363
     Align = alClient
-    DataSource = ds_operadores
-    ReadOnly = True
     TabOrder = 1
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
+    object gridOperadoresDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.NextPage.Visible = True
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Visible = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_operadores
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = gridOperadoresDBTableView1ope_nome
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object gridOperadoresDBTableView1ope_codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'ope_codigo'
+      end
+      object gridOperadoresDBTableView1ope_nome: TcxGridDBColumn
+        Caption = 'Nome Completo'
+        DataBinding.FieldName = 'ope_nome'
+      end
+    end
+    object gridOperadoresLevel1: TcxGridLevel
+      GridView = gridOperadoresDBTableView1
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 680
+    Top = 8
+    Width = 77
+    Height = 49
+    TabOrder = 2
+    ExplicitLeft = 680
+    ExplicitTop = 8
+    ExplicitHeight = 49
+    inherited estiloGrid: TcxStyleRepository
+      Left = 8
+      Top = 8
+      PixelsPerInch = 96
+      inherited buscaIncremental: TcxStyle
+        AssignedValues = [svColor, svTextColor]
+        TextColor = clBackground
+      end
+    end
   end
   object PopupOperador: TPopupMenu
     Left = 712
@@ -59,32 +118,21 @@ object PagOperador: TPagOperador
     end
     object N2AlterarregistroatualF31: TMenuItem
       Caption = '2 - Alterar registro atual'
+      OnClick = N2AlterarregistroatualF31Click
     end
     object N3ExcluirF41: TMenuItem
       Caption = '3 - Excluir'
+      OnClick = N3ExcluirF41Click
     end
   end
-  object vtb_operadores: TVirtualTable
-    Active = True
-    FieldDefs = <
-      item
-        Name = 'ope_codigo'
-        DataType = ftInteger
-      end
-      item
-        Name = 'ope_nome'
-        DataType = ftString
-        Size = 20
-      end>
-    Left = 712
-    Top = 160
-    Data = {
-      040002000A006F70655F636F6469676F030000000000000008006F70655F6E6F
-      6D650100140000000000000000000000}
+  object tb_operadores: TUniTable
+    TableName = 'tb_operadores'
+    Left = 608
+    Top = 88
   end
   object ds_operadores: TDataSource
-    DataSet = vtb_operadores
-    Left = 712
-    Top = 232
+    AutoEdit = False
+    Left = 504
+    Top = 88
   end
 end

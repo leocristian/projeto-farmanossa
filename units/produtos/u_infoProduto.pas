@@ -38,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1;
+uses u_controleForm, u_dm1, u_produtos;
 
 procedure TFormProduto.CancelarBtnClick(Sender: TObject);
 begin
@@ -58,12 +58,40 @@ begin
 end;
 
 procedure TFormProduto.FormShow(Sender: TObject);
+var
+  index, codigo: Integer;
+  q1: TUniQuery;
+
 begin
   if FrameButtons.ModoEdit.Text = 'V' then
   begin
     Caption := 'Exibir Produto';
     pn_form.Enabled := False;
     FrameButtons.SalvarBtn.Visible := False;
+
+    index := PagProdutos.gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
+    codigo := PagProdutos.gridProdutosDBTableView1.ViewData.Records[index].Values[0];
+
+    try
+      q1 := TUniQuery.Create(q1);
+      q1.Connection := dm1.con1;
+
+      q1.SQL.Text := 'select * from tb_produtos where prod_codigo = :codigo';
+      q1.ParamByName('codigo').Value := codigo;
+
+      q1.Open;
+
+      CodEdit.Text := q1.FieldByName('prod_codigo').Value;
+      DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
+      EstNegativoBox.Text := q1.FieldByName('prod_estoque_negativo').Value;
+      StatusEntBox.Text := q1.FieldByName('prod_status_entrada').Value;
+      StatusSaiBox.Text := q1.FieldByName('prod_status_saida').Value;
+
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+
   end
   else if FrameButtons.ModoEdit.Text = 'N' then
   begin
@@ -131,6 +159,7 @@ begin
     try
       q1.ExecSQL;
       Mensagem('Operação concluída!');
+      PagProdutos.gridProdutosDBTableView1.DataController.RefreshExternalData;
       Close;
     except on e:exception do
         Erro('Erro: ' + #13 + e.Message);
