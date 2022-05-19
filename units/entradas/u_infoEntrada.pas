@@ -188,7 +188,14 @@ begin
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
 
-      q1.SQL.Text := 'select * from tb_entradas where ent_codigo = :codigo';
+      q1.SQL.clear;
+      q1.SQL.Add('select e.*, p.prod_descricao, l.loc_descricao from tb_produtos as p');
+      q1.SQL.Add('inner join tb_entradas as e');
+      q1.SQL.Add('on ent_produto = prod_codigo');
+      q1.SQL.Add('inner join tb_locais_estoque as l');
+      q1.SQL.Add('on loc_codigo = ent_local');
+      q1.SQL.Add('where ent_codigo = :codigo');
+
       q1.ParamByName('codigo').Value := codigo;
 
       q1.Open;
@@ -196,6 +203,12 @@ begin
       CodEdit.Text := q1.FieldByName('ent_codigo').Value;
       CodProdEdit.Text := q1.FieldByName('ent_produto').Value;
       CodLocalEdit.Text := q1.FieldByName('ent_local').Value;
+
+      DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
+      DescLocalEdit.Text := q1.FieldByName('loc_descricao').Value;
+
+      DtFabricacaoEdit.Date :=  q1.FieldByName('ent_dtfabricacao').Value;
+      DtVencimentoEdit.Date :=  q1.FieldByName('ent_dtvencimento').Value;
 
       LoteEdit.Text := q1.FieldByName('ent_lote').Value;
       QtdProdEdit.Text := q1.FieldByName('ent_quantidade').Value;

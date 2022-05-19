@@ -38,20 +38,20 @@ object FormEntrada: TFormEntrada
       Caption = 'C'#243'digo:'
     end
     object Label2: TLabel
-      Left = 60
+      Left = 111
       Top = 63
-      Width = 93
+      Width = 42
       Height = 13
       Anchors = [akLeft, akBottom]
-      Caption = 'C'#243'digo do produto:'
+      Caption = 'Produto:'
     end
     object Label3: TLabel
-      Left = 20
+      Left = 68
       Top = 90
-      Width = 133
-      Height = 13
+      Width = 86
+      Height = 16
       Anchors = [akLeft, akBottom]
-      Caption = 'C'#243'digo do local de estoque:'
+      Caption = 'Local de estoque:'
     end
     object SpeedButton1: TSpeedButton
       Left = 230

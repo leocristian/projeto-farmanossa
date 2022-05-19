@@ -65,6 +65,8 @@ begin
 
   if CodLocalEdit.Text = '' then exit;
 
+  DescLocalEdit.Clear;
+
   try
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
@@ -106,6 +108,8 @@ var
 begin
 
   if CodProdEdit.Text = '' then exit;
+
+  DescProdEdit.Clear;
 
   try
     q1 := TUniQuery.Create(q1);
@@ -154,10 +158,16 @@ begin
 end;
 
 procedure TFormEntrada.FormShow(Sender: TObject);
+var
+  q1: TUniQuery;
+  index, codigo: Integer;
+
 begin
 
   if FrameButtons1.ModoEdit.Text = 'N' then
   begin
+    pn_form.Enabled := true;
+    FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
     DtFabricacaoEdit.Clear;
     DtVencimentoEdit.Clear;
@@ -165,6 +175,47 @@ begin
 
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
+  end
+  else if FrameButtons1.ModoEdit.Text = 'V' then
+  begin
+    pn_form.Enabled := false;
+    FrameButtons1.SalvarBtn.Visible := false;
+
+    index := PagEntradas.gridEntradasDBTableView1.DataController.GetSelectedRowIndex(0);
+    codigo := PagEntradas.gridEntradasDBTableView1.ViewData.Records[index].Values[0];
+
+    try
+      q1 := TUniQuery.Create(q1);
+      q1.Connection := dm1.con1;
+
+      q1.SQL.clear;
+      q1.SQL.Add('select e.*, p.prod_descricao, l.loc_descricao from tb_produtos as p');
+      q1.SQL.Add('inner join tb_entradas as e');
+      q1.SQL.Add('on ent_produto = prod_codigo');
+      q1.SQL.Add('inner join tb_locais_estoque as l');
+      q1.SQL.Add('on loc_codigo = ent_local');
+      q1.SQL.Add('where ent_codigo = 20');
+
+      q1.ParamByName('codigo').Value := codigo;
+
+      q1.Open;
+
+      CodEdit.Text := q1.FieldByName('ent_codigo').Value;
+      CodProdEdit.Text := q1.FieldByName('ent_produto').Value;
+      CodLocalEdit.Text := q1.FieldByName('ent_local').Value;
+
+      DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
+      DescLocalEdit.Text := q1.FieldByName('loc_descricao').Value;
+
+      DtFabricacaoEdit.Date :=  q1.FieldByName('ent_dtfabricacao').Value;
+      DtVencimentoEdit.Date :=  q1.FieldByName('ent_dtvencimento').Value;
+
+      LoteEdit.Text := q1.FieldByName('ent_lote').Value;
+      QtdProdEdit.Text := q1.FieldByName('ent_quantidade').Value;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
   end;
 end;
 
@@ -182,19 +233,27 @@ begin
   if ExisteInputVazio(self) then
   begin
     Aviso('Preencha todos os campos!');
+    CodProdEdit.SetFocus;
     exit;
   end;
 
   if DtFabricacaoEdit.Date < Now then
   begin
-    Aviso('Data de fabricação não pode ser menor que a data atual');
+    Aviso('Data de FABRICAÇÃO não pode ser menor que a data atual!');
     DtFabricacaoEdit.SetFocus;
     exit;
   end;
 
   if DtVencimentoEdit.Date < Now then
   begin
-    Aviso('Data de vencimento não pode ser menor que a data atual');
+    Aviso('Data de VENCIMENTO não pode ser menor que a data atual!');
+    DtVencimentoEdit.SetFocus;
+    exit;
+  end;
+
+  if DtVencimentoEdit.Date <= DtFabricacaoEdit.Date then
+  begin
+    Aviso('Data de vencimento deve ser MAIOR que a data de fabricação!');
     DtVencimentoEdit.SetFocus;
     exit;
   end;
