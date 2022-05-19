@@ -92,7 +92,7 @@ begin
   if not tb_entradas.Active then exit;
   if tb_entradas.RecordCount = 0 then exit;
 
-  FormEntrada.FrameButtons1.ModoEdit.Text := 'V';
+  FormEntrada.FrameButtons1.ModoEdit.Text := 'N';
   FormEntrada.ShowModal;
 end;
 

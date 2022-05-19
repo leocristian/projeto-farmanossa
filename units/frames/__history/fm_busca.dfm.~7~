@@ -34,6 +34,17 @@ object FrameBusca: TFrameBusca
     Images = ImageList1
     TabOrder = 2
   end
+  object BitBtn2: TBitBtn
+    Left = 491
+    Top = 36
+    Width = 75
+    Height = 29
+    Caption = 'Sair'
+    ImageIndex = 1
+    Images = ImageList1
+    TabOrder = 3
+    OnClick = BitBtn2Click
+  end
   object ImageList1: TImageList
     Left = 576
     Top = 32

@@ -49,7 +49,7 @@ uses u_login, u_operadores, u_produtos, u_locais, u_entradas, u_controleForm;
 
 procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
 begin
-  if Confirma('Deseja realmente sair do sistema?') then
+  if Confirma('Deseja sair do sistema?') then
   begin
     Application.Terminate;
   end;

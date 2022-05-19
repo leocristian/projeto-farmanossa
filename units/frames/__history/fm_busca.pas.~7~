@@ -13,6 +13,7 @@ type
     BuscaEdit: TEdit;
     BitBtn1: TBitBtn;
     ImageList1: TImageList;
+    BitBtn2: TBitBtn;
     procedure BitBtn2Click(Sender: TObject);
   private
     { Private declarations }

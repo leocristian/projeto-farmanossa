@@ -18,9 +18,9 @@ object PagEntradas: TPagEntradas
   TextHeight = 13
   object gridEntradas: TcxGrid
     Left = 0
-    Top = 89
+    Top = 109
     Width = 713
-    Height = 313
+    Height = 293
     Align = alClient
     TabOrder = 0
     ExplicitTop = 144
@@ -131,31 +131,13 @@ object PagEntradas: TPagEntradas
     Left = 0
     Top = 0
     Width = 713
-    Height = 89
+    Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 713
-    ExplicitHeight = 89
-    inherited BuscaSelect: TComboBox
-      Top = 34
-      ExplicitTop = 34
-    end
-    inherited BuscaEdit: TEdit
-      Top = 34
-      ExplicitTop = 34
-    end
-    inherited BitBtn1: TBitBtn
-      Top = 30
-      ExplicitTop = 30
-    end
   end
   object PopupEntradas: TPopupMenu
     Left = 640
     Top = 136
-    object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
-      OnClick = Detalhar1Click
-    end
     object NovaEntrada: TMenuItem
       Caption = '1 - Lan'#231'ar nova entrada de mercadoria'
       OnClick = NovaEntradaClick

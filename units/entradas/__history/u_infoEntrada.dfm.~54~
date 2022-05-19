@@ -199,7 +199,6 @@ object FormEntrada: TFormEntrada
       MaxLength = 4
       NumbersOnly = True
       TabOrder = 3
-      OnExit = LoteEditExit
     end
   end
   inline FrameButtons1: TFrameButtons

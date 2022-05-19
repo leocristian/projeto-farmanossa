@@ -32,11 +32,9 @@ type
     CancelarEntrada1: TMenuItem;
     N1: TMenuItem;
     FrameBusca1: TFrameBusca;
-    Detalhar1: TMenuItem;
     procedure NovaEntradaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CancelarEntrada1Click(Sender: TObject);
-    procedure Detalhar1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -85,15 +83,6 @@ begin
       FreeAndNil(q1);
     end;
   end;
-end;
-
-procedure TPagEntradas.Detalhar1Click(Sender: TObject);
-begin
-  if not tb_entradas.Active then exit;
-  if tb_entradas.RecordCount = 0 then exit;
-
-  FormEntrada.FrameButtons1.ModoEdit.Text := 'V';
-  FormEntrada.ShowModal;
 end;
 
 procedure TPagEntradas.FormShow(Sender: TObject);

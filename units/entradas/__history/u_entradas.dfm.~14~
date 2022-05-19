@@ -16,15 +16,23 @@ object PagEntradas: TPagEntradas
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 713
+    Height = 73
+    Align = alTop
+    Caption = 'Panel1'
+    TabOrder = 0
+  end
   object gridEntradas: TcxGrid
     Left = 0
-    Top = 89
+    Top = 73
     Width = 713
-    Height = 313
+    Height = 329
     Align = alClient
-    TabOrder = 0
-    ExplicitTop = 144
-    ExplicitHeight = 258
+    TabOrder = 1
+    ExplicitTop = 79
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -61,52 +69,37 @@ object PagEntradas: TPagEntradas
       object ent_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ent_codigo'
-        DataBinding.IsNullValueType = True
       end
       object ent_produto: TcxGridDBColumn
         Caption = 'Produto'
         DataBinding.FieldName = 'ent_produto'
-        DataBinding.IsNullValueType = True
       end
       object ent_local: TcxGridDBColumn
         Caption = 'Local de estoque'
         DataBinding.FieldName = 'ent_local'
-        DataBinding.IsNullValueType = True
-        Width = 129
       end
       object ent_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
-        Caption = 'Lote'
         DataBinding.FieldName = 'ent_lote'
-        DataBinding.IsNullValueType = True
-        Width = 96
       end
       object ent_dtfabricacao: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Data de fabrica'#231#227'o'
         DataBinding.FieldName = 'ent_dtfabricacao'
-        DataBinding.IsNullValueType = True
-        Width = 163
       end
       object ent_dtvencimento: TcxGridDBColumn
         Caption = 'Data de Vencimento'
         DataBinding.FieldName = 'ent_dtvencimento'
-        DataBinding.IsNullValueType = True
-        Width = 171
       end
       object ent_quantidade: TcxGridDBColumn
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'ent_quantidade'
-        DataBinding.IsNullValueType = True
-        Width = 102
       end
       object ent_data_hora: TcxGridDBColumn
         AlternateCaption = 'DateTime'
         Caption = 'Data e Hora da entrada'
         DataBinding.FieldName = 'ent_data_hora'
-        DataBinding.IsNullValueType = True
-        Width = 196
       end
     end
     object gridEntradasLevel1: TcxGridLevel
@@ -118,7 +111,7 @@ object PagEntradas: TPagEntradas
     Top = 8
     Width = 77
     Height = 59
-    TabOrder = 1
+    TabOrder = 2
     ExplicitLeft = 592
     ExplicitTop = 8
     ExplicitHeight = 59
@@ -127,35 +120,9 @@ object PagEntradas: TPagEntradas
       PixelsPerInch = 96
     end
   end
-  inline FrameBusca1: TFrameBusca
-    Left = 0
-    Top = 0
-    Width = 713
-    Height = 89
-    Align = alTop
-    TabOrder = 2
-    ExplicitWidth = 713
-    ExplicitHeight = 89
-    inherited BuscaSelect: TComboBox
-      Top = 34
-      ExplicitTop = 34
-    end
-    inherited BuscaEdit: TEdit
-      Top = 34
-      ExplicitTop = 34
-    end
-    inherited BitBtn1: TBitBtn
-      Top = 30
-      ExplicitTop = 30
-    end
-  end
   object PopupEntradas: TPopupMenu
     Left = 640
     Top = 136
-    object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
-      OnClick = Detalhar1Click
-    end
     object NovaEntrada: TMenuItem
       Caption = '1 - Lan'#231'ar nova entrada de mercadoria'
       OnClick = NovaEntradaClick

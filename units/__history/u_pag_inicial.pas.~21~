@@ -31,7 +31,6 @@ type
     procedure CadProdutosClick(Sender: TObject);
     procedure CadLocaisClick(Sender: TObject);
     procedure EntradaMercClick(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,15 +44,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_login, u_operadores, u_produtos, u_locais, u_entradas, u_controleForm;
-
-procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
-begin
-  if Confirma('Deseja realmente sair do sistema?') then
-  begin
-    Application.Terminate;
-  end;
-end;
+uses u_login, u_operadores, u_produtos, u_locais, u_entradas;
 
 procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
 begin

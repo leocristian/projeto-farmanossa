@@ -159,7 +159,7 @@ end;
 
 procedure TFormEntrada.FormShow(Sender: TObject);
 var
-  q1: TUniQuery;
+  q1: TUniTable;
   index, codigo: Integer;
 
 begin

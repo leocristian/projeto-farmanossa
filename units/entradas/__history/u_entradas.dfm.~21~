@@ -152,10 +152,6 @@ object PagEntradas: TPagEntradas
   object PopupEntradas: TPopupMenu
     Left = 640
     Top = 136
-    object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
-      OnClick = Detalhar1Click
-    end
     object NovaEntrada: TMenuItem
       Caption = '1 - Lan'#231'ar nova entrada de mercadoria'
       OnClick = NovaEntradaClick
