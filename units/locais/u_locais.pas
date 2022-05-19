@@ -9,11 +9,10 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, MemDS, DBAccess, Uni, fr_estilo;
+  cxGrid, MemDS, DBAccess, Uni, fr_estilo, fm_busca;
 
 type
   TPagLocais = class(TForm)
-    Panel1: TPanel;
     PopupLocais: TPopupMenu;
     Detalhar1: TMenuItem;
     N1: TMenuItem;
@@ -29,6 +28,7 @@ type
     loc_descricao: TcxGridDBColumn;
     loc_status: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
+    FrameBusca1: TFrameBusca;
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);

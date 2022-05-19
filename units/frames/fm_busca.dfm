@@ -10,7 +10,12 @@ object FrameBusca: TFrameBusca
     Width = 121
     Height = 21
     Style = csDropDownList
+    ItemIndex = 0
     TabOrder = 0
+    Text = 'C'#211'DIGO'
+    Items.Strings = (
+      'C'#211'DIGO'
+      'DESCRI'#199#195'O')
   end
   object BuscaEdit: TEdit
     Left = 159

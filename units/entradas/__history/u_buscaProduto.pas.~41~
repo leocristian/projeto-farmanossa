@@ -1,0 +1,107 @@
+unit u_buscaProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
+  Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls, Uni, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
+  cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGrid, fr_estilo, MemDS, DBAccess, VirtualTable, fm_buttons;
+
+type
+  TBuscaProdutoForm = class(TForm)
+    pn_buscaProd: TPanel;
+    CampoBusca: TComboBox;
+    CampoEdit: TEdit;
+    ImageList1: TImageList;
+    BuscaBtn: TBitBtn;
+    FrameGrid1: TFrameGrid;
+    ds_produtos: TDataSource;
+    gridProdutos: TcxGrid;
+    gridProdutosDBTableView1: TcxGridDBTableView;
+    prod_codigo: TcxGridDBColumn;
+    prod_descricao: TcxGridDBColumn;
+    prod_estoque_negativo: TcxGridDBColumn;
+    prod_status_entrada: TcxGridDBColumn;
+    prod_status_saida: TcxGridDBColumn;
+    gridProdutosLevel1: TcxGridLevel;
+    vtb_produtos: TVirtualTable;
+    FrameButtons1: TFrameButtons;
+    procedure BuscaBtnClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  BuscaProdutoForm: TBuscaProdutoForm;
+
+implementation
+
+{$R *.dfm}
+
+uses u_dm1;
+
+procedure TBuscaProdutoForm.BuscaBtnClick(Sender: TObject);
+var
+  str_busca: String;
+  q1: TUniQuery;
+
+begin
+
+  str_busca := CampoBusca.Text;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    if str_busca = 'CÓDIGO' then
+    begin
+       q1.SQL.Text := 'select * from tb_produtos where prod_codigo = :codigo';
+       q1.ParamByName('codigo').Value := StrToInt(CampoEdit.Text);
+    end
+    else if str_busca = 'DESCRIÇÃO' then
+    begin
+      q1.SQL.Text := 'select * from tb_produtos where prod_descricao like :descricao';
+      q1.ParamByName('descricao').Value := '%' + CampoEdit.Text + '%';
+    end;
+
+    q1.Open;
+    q1.First;
+
+    ds_produtos.DataSet.Active := True;
+
+    vtb_produtos.Clear;
+
+    while not q1.Eof do
+    begin
+      vtb_produtos.Append;
+      vtb_produtos['prod_codigo'] := q1.FieldByName('prod_codigo').Value;
+      vtb_produtos['prod_descricao'] := q1.FieldByName('prod_descricao').Value;
+      vtb_produtos['prod_estoque_negativo'] := q1.FieldByName('prod_estoque_negativo').Value;
+      vtb_produtos['prod_status_entrada'] := q1.FieldByName('prod_status_entrada').Value;
+      vtb_produtos['prod_status_saida'] := q1.FieldByName('prod_status_saida').Value;
+      q1.Next;
+    end;
+  finally
+
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+
+end;
+
+procedure TBuscaProdutoForm.FormShow(Sender: TObject);
+begin
+  CampoEdit.Clear;
+  CampoEdit.SetFocus;
+  vtb_produtos.Clear;
+end;
+
+end.

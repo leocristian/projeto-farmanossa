@@ -158,6 +158,16 @@
             <Form>FormOperador</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="units\frames\fr_estilo.pas">
+            <Form>FrameGrid</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="units\frames\fm_busca.pas">
+            <Form>FrameBusca</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

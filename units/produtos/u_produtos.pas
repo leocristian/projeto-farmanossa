@@ -9,11 +9,10 @@ uses
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   dxDateRanges, dxScrollbarAnnotations, cxDBData, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, DBAccess, UniProvider, PostgreSQLUniProvider, fr_estilo;
+  cxGrid, DBAccess, UniProvider, PostgreSQLUniProvider, fr_estilo, fm_busca;
 
 type
   TPagProdutos = class(TForm)
-    Panel1: TPanel;
     PopupProdutos: TPopupMenu;
     Detalhar1: TMenuItem;
     N1: TMenuItem;
@@ -31,6 +30,7 @@ type
     prod_status_entrada: TcxGridDBColumn;
     prod_status_saida: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
+    FrameBusca1: TFrameBusca;
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);

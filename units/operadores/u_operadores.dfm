@@ -26,8 +26,6 @@ object PagOperador: TPagOperador
     Height = 319
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 128
-    ExplicitHeight = 300
     object gridOperadoresDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.NextPage.Visible = True
@@ -66,10 +64,12 @@ object PagOperador: TPagOperador
       object ope_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ope_codigo'
+        DataBinding.IsNullValueType = True
       end
       object ope_nome: TcxGridDBColumn
         Caption = 'Nome Completo'
         DataBinding.FieldName = 'ope_nome'
+        DataBinding.IsNullValueType = True
         Width = 221
       end
     end

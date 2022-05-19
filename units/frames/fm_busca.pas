@@ -25,9 +25,14 @@ implementation
 
 {$R *.dfm}
 
+uses u_controleForm;
+
 procedure TFrameBusca.BitBtn2Click(Sender: TObject);
 begin
-  Application.Terminate;
+  if Confirma('Deseja encerrar o sistema?') then
+  begin
+    Application.Terminate;
+  end;
 end;
 
 end.

@@ -16,22 +16,15 @@ object PagLocais: TPagLocais
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 751
-    Height = 81
-    Align = alTop
-    TabOrder = 0
-  end
   object gridLocais: TcxGrid
     Left = 0
-    Top = 81
+    Top = 109
     Width = 751
-    Height = 361
+    Height = 333
     Align = alClient
-    TabOrder = 1
-    ExplicitTop = 87
+    TabOrder = 0
+    ExplicitTop = 168
+    ExplicitHeight = 274
     object gridLocaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -69,16 +62,19 @@ object PagLocais: TPagLocais
       object loc_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'loc_codigo'
+        DataBinding.IsNullValueType = True
       end
       object loc_descricao: TcxGridDBColumn
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
         Width = 183
       end
       object loc_status: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Status'
         DataBinding.FieldName = 'loc_status'
+        DataBinding.IsNullValueType = True
       end
     end
     object gridLocaisLevel1: TcxGridLevel
@@ -90,7 +86,7 @@ object PagLocais: TPagLocais
     Top = 8
     Width = 77
     Height = 51
-    TabOrder = 2
+    TabOrder = 1
     ExplicitLeft = 648
     ExplicitTop = 8
     ExplicitHeight = 51
@@ -98,6 +94,14 @@ object PagLocais: TPagLocais
       Top = 8
       PixelsPerInch = 96
     end
+  end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 751
+    Height = 109
+    Align = alTop
+    TabOrder = 2
   end
   object PopupLocais: TPopupMenu
     Left = 668

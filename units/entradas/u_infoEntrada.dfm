@@ -129,6 +129,7 @@ object FormEntrada: TFormEntrada
       MaxLength = 4
       NumbersOnly = True
       TabOrder = 1
+      OnExit = CodProdEditExit
     end
     object DescProdEdit: TEdit
       Left = 269
@@ -163,6 +164,7 @@ object FormEntrada: TFormEntrada
       MaxLength = 4
       NumbersOnly = True
       TabOrder = 2
+      OnExit = CodLocalEditExit
     end
     object DtFabricacaoEdit: TcxDateEdit
       Left = 159
@@ -213,6 +215,7 @@ object FormEntrada: TFormEntrada
       Width = 133
       Caption = 'Confirmar entrada'
       TabOrder = 1
+      OnClick = FrameButtons1SalvarBtnClick
       ExplicitLeft = 315
       ExplicitWidth = 133
     end

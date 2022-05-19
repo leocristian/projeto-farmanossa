@@ -4,26 +4,30 @@ object BuscaProdutoForm: TBuscaProdutoForm
   BorderStyle = bsDialog
   Caption = 'Buscar Produto'
   ClientHeight = 432
-  ClientWidth = 460
+  ClientWidth = 651
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 460
+    Width = 651
     Height = 73
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 460
     DesignSize = (
-      460
+      651
       73)
     object CampoBusca: TComboBox
       Left = 12
@@ -42,15 +46,16 @@ object BuscaProdutoForm: TBuscaProdutoForm
     object CampoEdit: TEdit
       Left = 119
       Top = 26
-      Width = 291
+      Width = 482
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 1
+      ExplicitWidth = 291
     end
     object BuscaBtn: TBitBtn
-      Left = 420
+      Left = 611
       Top = 26
       Width = 27
       Height = 21
@@ -58,11 +63,141 @@ object BuscaProdutoForm: TBuscaProdutoForm
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 2
+      OnClick = BuscaBtnClick
+      ExplicitLeft = 420
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 400
+    Top = 53
+    Width = 49
+    Height = 14
+    TabOrder = 1
+    ExplicitLeft = 400
+    ExplicitTop = 53
+    ExplicitWidth = 49
+    ExplicitHeight = 14
+    inherited estiloGrid: TcxStyleRepository
+      Top = 8
+      PixelsPerInch = 96
+    end
+  end
+  object gridProdutos: TcxGrid
+    Left = 0
+    Top = 73
+    Width = 651
+    Height = 279
+    Align = alClient
+    TabOrder = 2
+    ExplicitLeft = 8
+    ExplicitTop = 65
+    ExplicitWidth = 649
+    ExplicitHeight = 232
+    object gridProdutosDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_produtos
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = prod_descricao
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object prod_codigo: TcxGridDBColumn
+        AlternateCaption = 'C'#243'digo'
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
+        Width = 51
+      end
+      object prod_descricao: TcxGridDBColumn
+        Caption = 'Descri'#231#227'o'
+        DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
+        Width = 238
+      end
+      object prod_estoque_negativo: TcxGridDBColumn
+        AlternateCaption = 'Descri'#231#227'o'
+        Caption = 'Estoque Negativo'
+        DataBinding.FieldName = 'prod_estoque_negativo'
+        DataBinding.IsNullValueType = True
+        Width = 115
+      end
+      object prod_status_entrada: TcxGridDBColumn
+        Caption = 'Status Entrada'
+        DataBinding.FieldName = 'prod_status_entrada'
+        DataBinding.IsNullValueType = True
+        Width = 100
+      end
+      object prod_status_saida: TcxGridDBColumn
+        AlternateCaption = 'prod_status_saida'
+        Caption = 'Status Sa'#237'da'
+        DataBinding.FieldName = 'prod_status_saida'
+        DataBinding.IsNullValueType = True
+        Width = 94
+      end
+    end
+    object gridProdutosLevel1: TcxGridLevel
+      GridView = gridProdutosDBTableView1
+    end
+  end
+  inline FrameButtons1: TFrameButtons
+    Left = 0
+    Top = 352
+    Width = 651
+    Height = 80
+    Align = alBottom
+    TabOrder = 3
+    ExplicitTop = 352
+    ExplicitWidth = 651
+    ExplicitHeight = 80
+    inherited SalvarBtn: TButton
+      Left = 453
+      Top = 24
+      ExplicitLeft = 453
+      ExplicitTop = 24
+    end
+    inherited ModoEdit: TEdit
+      Left = 412
+      Top = 26
+      ExplicitLeft = 412
+      ExplicitTop = 26
+    end
+    inherited CancelarBtn: TButton
+      Left = 542
+      Top = 23
+      OnClick = FrameButtons1CancelarBtnClick
+      ExplicitLeft = 542
+      ExplicitTop = 23
     end
   end
   object ImageList1: TImageList
     Left = 16
-    Top = 88
+    Top = 112
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -202,5 +337,46 @@ object BuscaProdutoForm: TBuscaProdutoForm
       800F000000000000000F000000000000801F000000000000C03F000000000000
       E03F000000000000F6FF00000000000000000000000000000000000000000000
       000000000000}
+  end
+  object ds_produtos: TDataSource
+    DataSet = vtb_produtos
+    Left = 496
+    Top = 128
+  end
+  object vtb_produtos: TVirtualTable
+    FieldDefs = <
+      item
+        Name = 'prod_codigo'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'prod_descricao'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'prod_estoque_negativo'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'prod_status_entrada'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'prod_status_saida'
+        DataType = ftString
+        Size = 20
+      end>
+    Left = 408
+    Top = 136
+    Data = {
+      040005000B0070726F645F636F6469676F01001400000000000E0070726F645F
+      64657363726963616F0100140000000000150070726F645F6573746F7175655F
+      6E6567617469766F0100140000000000130070726F645F7374617475735F656E
+      74726164610100140000000000110070726F645F7374617475735F7361696461
+      0100140000000000000000000000}
   end
 end

@@ -1,0 +1,111 @@
+object PagEntradas: TPagEntradas
+  Left = 0
+  Top = 0
+  Caption = 'PagEntradas'
+  ClientHeight = 402
+  ClientWidth = 713
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PopupMenu = PopupEntradas
+  WindowState = wsMaximized
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 713
+    Height = 73
+    Align = alTop
+    Caption = 'Panel1'
+    TabOrder = 0
+  end
+  object gridEntradas: TcxGrid
+    Left = 0
+    Top = 73
+    Width = 713
+    Height = 329
+    Align = alClient
+    TabOrder = 1
+    object gridEntradasDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      object ent_codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'ent_codigo'
+      end
+      object ent_produto: TcxGridDBColumn
+        Caption = 'Produto'
+        DataBinding.FieldName = 'ent_produto'
+      end
+      object ent_local: TcxGridDBColumn
+        AlternateCaption = 'Integer'
+        Caption = 'Local de Estoque'
+        DataBinding.FieldName = 'ent_local'
+      end
+      object ent_lote: TcxGridDBColumn
+        Caption = 'Lote'
+        DataBinding.FieldName = 'ent_lote'
+      end
+      object ent_dtfabricacao: TcxGridDBColumn
+        AlternateCaption = 'Integer'
+        Caption = 'Data de Fabrica'#231#227'o'
+        DataBinding.FieldName = 'ent_dtfabricacao'
+      end
+      object ent_dtvencimento: TcxGridDBColumn
+        Caption = 'Data de Vencimento'
+        DataBinding.FieldName = 'ent_dtvencimento'
+      end
+      object ent_quantidade: TcxGridDBColumn
+        AlternateCaption = 'DateTime'
+        Caption = 'Quantidade'
+        DataBinding.FieldName = 'ent_quantidade'
+      end
+      object ent_data_hora: TcxGridDBColumn
+        AlternateCaption = 'DateTime'
+        Caption = 'Data e Hora'
+        DataBinding.FieldName = 'ent_data_hora'
+      end
+    end
+    object gridEntradasLevel1: TcxGridLevel
+      GridView = gridEntradasDBTableView1
+    end
+  end
+  object PopupEntradas: TPopupMenu
+    Left = 400
+    Top = 72
+    object NovaEntrada: TMenuItem
+      Caption = '1 - Lan'#231'ar nova entrada de mercadoria'
+      OnClick = NovaEntradaClick
+    end
+  end
+end

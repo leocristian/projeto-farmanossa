@@ -16,23 +16,15 @@ object PagProdutos: TPagProdutos
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 819
-    Height = 81
-    Align = alTop
-    TabOrder = 0
-    ExplicitWidth = 761
-  end
   object gridProdutos: TcxGrid
     Left = 0
-    Top = 81
+    Top = 109
     Width = 819
-    Height = 385
+    Height = 357
     Align = alClient
-    TabOrder = 1
-    ExplicitTop = 87
+    TabOrder = 0
+    ExplicitTop = 136
+    ExplicitHeight = 330
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -71,27 +63,32 @@ object PagProdutos: TPagProdutos
         AlternateCaption = 'C'#243'digo'
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
         Width = 313
       end
       object prod_estoque_negativo: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o'
         Caption = 'Estoque Negativo'
         DataBinding.FieldName = 'prod_estoque_negativo'
+        DataBinding.IsNullValueType = True
         Width = 133
       end
       object prod_status_entrada: TcxGridDBColumn
         Caption = 'Status Entrada'
         DataBinding.FieldName = 'prod_status_entrada'
+        DataBinding.IsNullValueType = True
         Width = 100
       end
       object prod_status_saida: TcxGridDBColumn
         AlternateCaption = 'prod_status_saida'
         Caption = 'Status Sa'#237'da'
         DataBinding.FieldName = 'prod_status_saida'
+        DataBinding.IsNullValueType = True
         Width = 94
       end
     end
@@ -104,7 +101,7 @@ object PagProdutos: TPagProdutos
     Top = 8
     Width = 77
     Height = 49
-    TabOrder = 2
+    TabOrder = 1
     ExplicitLeft = 688
     ExplicitTop = 8
     ExplicitHeight = 49
@@ -113,6 +110,14 @@ object PagProdutos: TPagProdutos
       Top = 8
       PixelsPerInch = 96
     end
+  end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 819
+    Height = 109
+    Align = alTop
+    TabOrder = 2
   end
   object PopupProdutos: TPopupMenu
     Left = 717

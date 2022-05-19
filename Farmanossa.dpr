@@ -16,7 +16,9 @@ uses
   u_entradas in 'units\entradas\u_entradas.pas' {PagEntradas},
   u_infoEntrada in 'units\entradas\u_infoEntrada.pas' {FormEntrada},
   u_controleForm in 'units\u_controleForm.pas',
-  u_infoOperador in 'units\operadores\u_infoOperador.pas' {FormOperador};
+  u_infoOperador in 'units\operadores\u_infoOperador.pas' {FormOperador},
+  fr_estilo in 'units\frames\fr_estilo.pas' {FrameGrid: TFrame},
+  fm_busca in 'units\frames\fm_busca.pas' {FrameBusca: TFrame};
 
 {$R *.res}
 
