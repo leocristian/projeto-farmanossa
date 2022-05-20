@@ -1,0 +1,155 @@
+object PagSaidas: TPagSaidas
+  Left = 0
+  Top = 0
+  Caption = 'PagSaidas'
+  ClientHeight = 344
+  ClientWidth = 661
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PopupMenu = PopupSaidas
+  WindowState = wsMaximized
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 661
+    Height = 109
+    Align = alTop
+    TabOrder = 0
+    ExplicitLeft = -191
+    inherited ImageList1: TImageList
+      Left = 616
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 495
+    Top = 0
+    Width = 77
+    Height = 86
+    TabOrder = 1
+    ExplicitLeft = 495
+    inherited estiloGrid: TcxStyleRepository
+      PixelsPerInch = 96
+    end
+  end
+  object gridSaidas: TcxGrid
+    Left = 0
+    Top = 109
+    Width = 661
+    Height = 235
+    Align = alClient
+    TabOrder = 2
+    ExplicitLeft = -62
+    ExplicitTop = 21
+    ExplicitWidth = 723
+    ExplicitHeight = 323
+    object gridSaidasDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object ent_codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'ent_codigo'
+        DataBinding.IsNullValueType = True
+      end
+      object ent_produto: TcxGridDBColumn
+        Caption = 'Produto'
+        DataBinding.FieldName = 'ent_produto'
+        DataBinding.IsNullValueType = True
+      end
+      object ent_local: TcxGridDBColumn
+        Caption = 'Local de estoque'
+        DataBinding.FieldName = 'ent_local'
+        DataBinding.IsNullValueType = True
+        Width = 129
+      end
+      object ent_lote: TcxGridDBColumn
+        AlternateCaption = 'Integer'
+        Caption = 'Lote'
+        DataBinding.FieldName = 'ent_lote'
+        DataBinding.IsNullValueType = True
+        Width = 96
+      end
+      object ent_quantidade: TcxGridDBColumn
+        AlternateCaption = 'DateTime'
+        Caption = 'Quantidade'
+        DataBinding.FieldName = 'ent_quantidade'
+        DataBinding.IsNullValueType = True
+        Width = 102
+      end
+      object ent_data_hora: TcxGridDBColumn
+        AlternateCaption = 'DateTime'
+        Caption = 'Data e Hora da entrada'
+        DataBinding.FieldName = 'ent_data_hora'
+        DataBinding.IsNullValueType = True
+        Width = 196
+      end
+    end
+    object gridSaidasLevel1: TcxGridLevel
+      GridView = gridSaidasDBTableView1
+    end
+  end
+  object tb_saidas: TUniTable
+    Left = 480
+    Top = 136
+  end
+  object ds_saidas: TDataSource
+    Left = 560
+    Top = 136
+  end
+  object PopupSaidas: TPopupMenu
+    Left = 633
+    Top = 136
+    object Detalhar1: TMenuItem
+      Caption = 'Detalhar...  (F1)'
+    end
+    object NovaSaida: TMenuItem
+      Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadoria  (F2)'
+      OnClick = NovaSaidaClick
+    end
+    object AlterarSaida: TMenuItem
+      Caption = '2 - Alterar sa'#237'da de mercadoria  (F3)'
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object CancelarSaida: TMenuItem
+      Caption = 'Cancelar Sa'#237'da'
+    end
+  end
+end

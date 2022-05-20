@@ -62,14 +62,15 @@ end;
 
 procedure TPagProdutos.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
-  dm1.con1.Open;
+//  dm1.con1.Close;
 
   tb_produtos.Connection := dm1.con1;
   tb_produtos.TableName := 'tb_produtos';
 
   ds_produtos.DataSet := tb_produtos;
   tb_produtos.Active := True;
+
+//  dm1.con1.Open;
 end;
 
 procedure TPagProdutos.N1Incluirnovoregistro1Click(Sender: TObject);

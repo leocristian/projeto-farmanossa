@@ -1,0 +1,66 @@
+unit u_saidas;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fm_busca, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
+  cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, Vcl.Menus, MemDS, DBAccess, Uni,
+  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxClasses, cxGridCustomView, cxGrid, fr_estilo;
+
+type
+  TPagSaidas = class(TForm)
+    FrameBusca1: TFrameBusca;
+    gridSaidas: TcxGrid;
+    gridSaidasDBTableView1: TcxGridDBTableView;
+    ent_codigo: TcxGridDBColumn;
+    ent_produto: TcxGridDBColumn;
+    ent_local: TcxGridDBColumn;
+    ent_lote: TcxGridDBColumn;
+    ent_dtfabricacao: TcxGridDBColumn;
+    ent_dtvencimento: TcxGridDBColumn;
+    ent_quantidade: TcxGridDBColumn;
+    ent_data_hora: TcxGridDBColumn;
+    gridSaidasLevel1: TcxGridLevel;
+    tb_saidas: TUniTable;
+    ds_saidas: TDataSource;
+    PopupSaidas: TPopupMenu;
+    Detalhar1: TMenuItem;
+    NovaEntrada: TMenuItem;
+    AlterarEntrada: TMenuItem;
+    N1: TMenuItem;
+    CancelarEntrada1: TMenuItem;
+    FrameGrid1: TFrameGrid;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PagSaidas: TPagSaidas;
+
+implementation
+
+{$R *.dfm}
+
+uses u_dm1;
+
+procedure TPagSaidas.FormShow(Sender: TObject);
+begin
+//  dm1.con1.Close;
+
+  tb_saidas.Connection := dm1.con1;
+  tb_saidas.TableName := 'tb_saidas';
+
+  ds_saidas.DataSet := tb_saidas;
+  tb_saidas.Active := True;
+
+//  dm1.con1.Open;
+end;
+
+end.

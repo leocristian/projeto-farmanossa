@@ -29,12 +29,14 @@ type
     ope_nome: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     FrameBusca1: TFrameBusca;
+    N2: TMenuItem;
 
     procedure Detalhar1Click(Sender: TObject);
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N2AlterarregistroatualF31Click(Sender: TObject);
     procedure N3ExcluirF41Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 
   private
     { Private declarations }
@@ -63,9 +65,22 @@ begin
   FormOperador.ShowModal;
 end;
 
+procedure TPagOperador.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Detalhar1Click(Sender)
+  else if Key = VK_F2 then
+    N1Incluirnovoregistro1Click(Sender)
+  else if Key = VK_F3 then
+    N2AlterarregistroatualF31Click(Sender)
+  else if Key = VK_F4 then
+    N3ExcluirF41Click(Sender);
+end;
+
 procedure TPagOperador.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
+//  dm1.con1.Close;
 
   tb_operadores.Connection := dm1.con1;
   tb_operadores.TableName := 'tb_operadores';
@@ -73,7 +88,7 @@ begin
   ds_operadores.DataSet := tb_operadores;
   tb_operadores.Active := True;
 
-  dm1.con1.Open;
+//  dm1.con1.Open;
 end;
 
 procedure TPagOperador.N1Incluirnovoregistro1Click(Sender: TObject);

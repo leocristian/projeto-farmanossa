@@ -60,14 +60,15 @@ end;
 
 procedure TPagLocais.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
-  dm1.con1.Open;
+//  dm1.con1.Close;
 
   tb_locais.Connection := dm1.con1;
   tb_locais.TableName := 'tb_locais_estoque';
 
   ds_locais.DataSet := tb_locais;
   tb_locais.Active := True;
+
+//  dm1.con1.Open;
 end;
 
 procedure TPagLocais.N1Incluirnovoregistro1Click(Sender: TObject);

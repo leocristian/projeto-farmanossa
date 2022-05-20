@@ -1,30 +1,33 @@
 object PagEntradas: TPagEntradas
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'PagEntradas'
-  ClientHeight = 402
-  ClientWidth = 713
+  ClientHeight = 412
+  ClientWidth = 723
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   PopupMenu = PopupEntradas
   WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object gridEntradas: TcxGrid
     Left = 0
     Top = 89
-    Width = 713
-    Height = 313
+    Width = 723
+    Height = 323
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 144
-    ExplicitHeight = 258
+    ExplicitTop = 95
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -130,7 +133,7 @@ object PagEntradas: TPagEntradas
   inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
-    Width = 713
+    Width = 723
     Height = 89
     Align = alTop
     TabOrder = 2
@@ -151,14 +154,18 @@ object PagEntradas: TPagEntradas
   end
   object PopupEntradas: TPopupMenu
     Left = 640
-    Top = 136
+    Top = 142
     object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
+      Caption = 'Detalhar...  (F1)'
       OnClick = Detalhar1Click
     end
     object NovaEntrada: TMenuItem
-      Caption = '1 - Lan'#231'ar nova entrada de mercadoria'
+      Caption = '1 - Lan'#231'ar nova entrada de mercadoria  (F2)'
       OnClick = NovaEntradaClick
+    end
+    object AlterarEntrada: TMenuItem
+      Caption = '2 - Alterar entrada de mercadoria  (F3)'
+      OnClick = AlterarEntradaClick
     end
     object N1: TMenuItem
       Caption = '-'
@@ -170,10 +177,10 @@ object PagEntradas: TPagEntradas
   end
   object tb_entradas: TUniTable
     Left = 480
-    Top = 136
+    Top = 142
   end
   object ds_entradas: TDataSource
     Left = 560
-    Top = 136
+    Top = 142
   end
 end

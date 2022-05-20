@@ -23,8 +23,6 @@ object PagProdutos: TPagProdutos
     Height = 357
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 136
-    ExplicitHeight = 330
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -118,6 +116,7 @@ object PagProdutos: TPagProdutos
     Height = 109
     Align = alTop
     TabOrder = 2
+    ExplicitWidth = 819
   end
   object PopupProdutos: TPopupMenu
     Left = 717

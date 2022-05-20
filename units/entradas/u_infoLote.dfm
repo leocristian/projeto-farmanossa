@@ -2,8 +2,8 @@ object InfoLoteForm: TInfoLoteForm
   Left = 0
   Top = 0
   Caption = 'InfoLoteForm'
-  ClientHeight = 166
-  ClientWidth = 398
+  ClientHeight = 228
+  ClientWidth = 432
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,13 +12,17 @@ object InfoLoteForm: TInfoLoteForm
   Font.Style = []
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  DesignSize = (
+    432
+    228)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 8
-    Top = 40
+    Left = 32
+    Top = 80
     Width = 162
     Height = 19
+    Anchors = [akRight, akBottom]
     Caption = 'Data de Fabrica'#231#227'o:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -26,12 +30,14 @@ object InfoLoteForm: TInfoLoteForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
+    ExplicitTop = 88
   end
   object Label2: TLabel
-    Left = 24
-    Top = 80
+    Left = 48
+    Top = 120
     Width = 146
     Height = 19
+    Anchors = [akRight, akBottom]
     Caption = 'Data de Validade:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -39,10 +45,37 @@ object InfoLoteForm: TInfoLoteForm
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
+    ExplicitTop = 128
+  end
+  object Label3: TLabel
+    Left = 32
+    Top = 16
+    Width = 42
+    Height = 19
+    Caption = 'Lote:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LoteLabel: TLabel
+    Left = 80
+    Top = 12
+    Width = 6
+    Height = 24
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -20
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object DtFabricacaoEdit: TcxDateEdit
-    Left = 176
-    Top = 42
+    Left = 200
+    Top = 82
+    Anchors = [akRight, akBottom]
     Enabled = False
     Style.BorderColor = clInfoText
     Style.BorderStyle = ebsSingle
@@ -54,24 +87,29 @@ object InfoLoteForm: TInfoLoteForm
     StyleDisabled.TextColor = clBackground
     StyleDisabled.ButtonStyle = btsDefault
     TabOrder = 0
+    ExplicitTop = 90
     Width = 121
   end
   object DtVencimentoEdit: TcxDateEdit
-    Left = 176
-    Top = 82
+    Left = 200
+    Top = 122
+    Anchors = [akRight, akBottom]
     Enabled = False
     StyleDisabled.BorderColor = clBackground
     StyleDisabled.TextColor = clBackground
     TabOrder = 1
+    ExplicitTop = 130
     Width = 121
   end
   object CloseBtn: TButton
-    Left = 304
-    Top = 125
+    Left = 312
+    Top = 181
     Width = 75
     Height = 25
+    Anchors = [akRight, akBottom]
     Caption = 'Ok'
     TabOrder = 2
     OnClick = CloseBtnClick
+    ExplicitTop = 189
   end
 end

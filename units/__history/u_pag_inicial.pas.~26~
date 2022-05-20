@@ -1,0 +1,84 @@
+unit u_pag_inicial;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Menus,
+  Vcl.Imaging.pngimage, Vcl.Buttons, System.ImageList, Vcl.ImgList,
+  dxGDIPlusClasses;
+
+type
+  TFormPrincipal = class(TForm)
+    mn_principal: TMainMenu;
+    mn_cadastro: TMenuItem;
+    mn_estoque: TMenuItem;
+    pn_principal: TPanel;
+    CadOperadores: TMenuItem;
+    CadProdutos: TMenuItem;
+    CadLocais: TMenuItem;
+    EntradaMerc: TMenuItem;
+    SaidaMerc: TMenuItem;
+    ConsultaEstoque: TMenuItem;
+    RelEstoque: TMenuItem;
+    N1: TMenuItem;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Panel2: TPanel;
+    BitBtn1: TBitBtn;
+    ImageList1: TImageList;
+    Image1: TImage;
+    procedure CadOperadoresClick(Sender: TObject);
+    procedure CadProdutosClick(Sender: TObject);
+    procedure CadLocaisClick(Sender: TObject);
+    procedure EntradaMercClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPrincipal: TFormPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+uses u_login, u_operadores, u_produtos, u_locais, u_entradas, u_controleForm;
+
+procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
+begin
+  if Confirma('Deseja realmente sair do sistema?') then
+  begin
+    Application.Terminate;
+  end;
+end;
+
+procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
+begin
+  PagLocais.Parent := pn_principal;
+  PagLocais.Show;
+end;
+
+procedure TFormPrincipal.CadOperadoresClick(Sender: TObject);
+begin
+  PagOperador.Parent := pn_principal;
+  PagOperador.Show;
+end;
+
+procedure TFormPrincipal.CadProdutosClick(Sender: TObject);
+begin
+  PagProdutos.Parent := pn_principal;
+  PagProdutos.Show;
+end;
+
+procedure TFormPrincipal.EntradaMercClick(Sender: TObject);
+begin
+  PagEntradas.Parent := pn_principal;
+  PagEntradas.Show;
+end;
+
+end.

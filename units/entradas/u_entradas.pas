@@ -33,10 +33,13 @@ type
     N1: TMenuItem;
     FrameBusca1: TFrameBusca;
     Detalhar1: TMenuItem;
+    AlterarEntrada: TMenuItem;
     procedure NovaEntradaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CancelarEntrada1Click(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AlterarEntradaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,6 +54,15 @@ implementation
 {$R *.dfm}
 
 uses u_infoEntrada, u_dm1, u_controleForm;
+
+procedure TPagEntradas.AlterarEntradaClick(Sender: TObject);
+begin
+  if not tb_entradas.Active then exit;
+  if tb_entradas.RecordCount = 0 then exit;
+
+  FormEntrada.FrameButtons1.ModoEdit.Text := 'A';
+  FormEntrada.ShowModal;
+end;
 
 procedure TPagEntradas.CancelarEntrada1Click(Sender: TObject);
 var
@@ -96,16 +108,30 @@ begin
   FormEntrada.ShowModal;
 end;
 
+procedure TPagEntradas.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Detalhar1Click(Sender)
+  else if Key = VK_F2 then
+    NovaEntradaClick(Sender)
+  else if Key = VK_F3 then
+    AlterarEntradaClick(Sender)
+  else if Key = VK_F4 then
+    CancelarEntrada1Click(Sender);
+end;
+
 procedure TPagEntradas.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
-  dm1.con1.Open;
+//  dm1.con1.Close;
 
   tb_entradas.Connection := dm1.con1;
   tb_entradas.TableName := 'tb_entradas';
 
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Active := True;
+
+//  dm1.con1.Open;
 end;
 
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);

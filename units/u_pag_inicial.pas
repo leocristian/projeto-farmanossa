@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Menus,
-  Vcl.Imaging.pngimage, Vcl.Buttons, System.ImageList, Vcl.ImgList;
+  Vcl.Imaging.pngimage, Vcl.Buttons, System.ImageList, Vcl.ImgList,
+  dxGDIPlusClasses;
 
 type
   TFormPrincipal = class(TForm)
@@ -27,11 +28,13 @@ type
     Panel2: TPanel;
     BitBtn1: TBitBtn;
     ImageList1: TImageList;
+    Image1: TImage;
     procedure CadOperadoresClick(Sender: TObject);
     procedure CadProdutosClick(Sender: TObject);
     procedure CadLocaisClick(Sender: TObject);
     procedure EntradaMercClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure SaidaMercClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +48,8 @@ implementation
 
 {$R *.dfm}
 
-uses u_login, u_operadores, u_produtos, u_locais, u_entradas, u_controleForm;
+uses u_login, u_operadores, u_produtos, u_locais, u_entradas, u_controleForm,
+  u_saidas;
 
 procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
 begin
@@ -77,6 +81,12 @@ procedure TFormPrincipal.EntradaMercClick(Sender: TObject);
 begin
   PagEntradas.Parent := pn_principal;
   PagEntradas.Show;
+end;
+
+procedure TFormPrincipal.SaidaMercClick(Sender: TObject);
+begin
+  PagSaidas.Parent := pn_principal;
+  PagSaidas.Show;
 end;
 
 end.

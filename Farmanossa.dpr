@@ -18,7 +18,8 @@ uses
   u_controleForm in 'units\u_controleForm.pas',
   u_infoOperador in 'units\operadores\u_infoOperador.pas' {FormOperador},
   fr_estilo in 'units\frames\fr_estilo.pas' {FrameGrid: TFrame},
-  fm_busca in 'units\frames\fm_busca.pas' {FrameBusca: TFrame};
+  fm_busca in 'units\frames\fm_busca.pas' {FrameBusca: TFrame},
+  u_infoLote in 'units\entradas\u_infoLote.pas' {InfoLoteForm};
 
 {$R *.res}
 
@@ -39,5 +40,7 @@ begin
   Application.CreateForm(TPagEntradas, PagEntradas);
   Application.CreateForm(TFormEntrada, FormEntrada);
   Application.CreateForm(TFormOperador, FormOperador);
+  Application.CreateForm(TInfoLoteForm, InfoLoteForm);
   Application.Run;
 end.
+

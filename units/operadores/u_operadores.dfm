@@ -16,6 +16,7 @@ object PagOperador: TPagOperador
   OldCreateOrder = False
   PopupMenu = PopupOperador
   WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -113,22 +114,25 @@ object PagOperador: TPagOperador
     Left = 712
     Top = 128
     object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
+      Caption = 'Detalhar...  (F1)'
       OnClick = Detalhar1Click
     end
     object N1: TMenuItem
       Caption = '-'
     end
     object N1Incluirnovoregistro1: TMenuItem
-      Caption = '1 - Incluir novo registro'
+      Caption = '1 - Incluir novo registro  (F2)'
       OnClick = N1Incluirnovoregistro1Click
     end
     object N2AlterarregistroatualF31: TMenuItem
-      Caption = '2 - Alterar registro atual'
+      Caption = '2 - Alterar registro atual  (F3)'
       OnClick = N2AlterarregistroatualF31Click
     end
+    object N2: TMenuItem
+      Caption = '-'
+    end
     object N3ExcluirF41: TMenuItem
-      Caption = '3 - Excluir'
+      Caption = '3 - Excluir  (F4)'
       OnClick = N3ExcluirF41Click
     end
   end

@@ -15,6 +15,8 @@ type
     DtFabricacaoEdit: TcxDateEdit;
     DtVencimentoEdit: TcxDateEdit;
     CloseBtn: TButton;
+    Label3: TLabel;
+    LoteLabel: TLabel;
     procedure CloseBtnClick(Sender: TObject);
   private
     { Private declarations }

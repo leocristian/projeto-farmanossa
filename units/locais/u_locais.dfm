@@ -23,8 +23,6 @@ object PagLocais: TPagLocais
     Height = 333
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 168
-    ExplicitHeight = 274
     object gridLocaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -102,6 +100,7 @@ object PagLocais: TPagLocais
     Height = 109
     Align = alTop
     TabOrder = 2
+    ExplicitWidth = 751
   end
   object PopupLocais: TPopupMenu
     Left = 668
