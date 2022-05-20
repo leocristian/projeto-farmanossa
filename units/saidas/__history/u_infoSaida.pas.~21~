@@ -53,13 +53,6 @@ uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote;
 
 procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
 begin
-  if CodProdEdit.Text = '' then
-  begin
-    Aviso('Informe o produto!');
-    CodProdEdit.SetFocus;
-    Exit;
-  end;
-
   SelecionaLoteForm.CodProdEdit.Text := CodProdEdit.Text;
   SelecionaLoteForm.ShowModal;
 end;
@@ -185,9 +178,6 @@ begin
 end;
 
 procedure TFormSaida.FrameButtons1SalvarBtnClick(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
   if ExisteInputVazio(Self) then
   begin
@@ -196,15 +186,6 @@ begin
     exit;
   end;
 
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
-
-    // Atualizar estoque do produto
-  finally
-    q1.Close;
-    FreeAndNil(q1);
-  end;
 end;
 
 end.

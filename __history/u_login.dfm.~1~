@@ -106,7 +106,6 @@ object FormLogin: TFormLogin
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 20
-      PasswordChar = '*'
       TabOrder = 1
     end
     object EntrarBtn: TBitBtn

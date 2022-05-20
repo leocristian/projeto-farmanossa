@@ -18,7 +18,6 @@ type
     Label3: TLabel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
-    Label4: TLabel;
     Label7: TLabel;
     CodEdit: TEdit;
     CodProdEdit: TEdit;
@@ -26,7 +25,6 @@ type
     DescLocalEdit: TEdit;
     CodLocalEdit: TEdit;
     QtdProdEdit: TEdit;
-    LoteEdit: TEdit;
     ImageList1: TImageList;
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
@@ -51,6 +49,7 @@ uses u_controleForm, u_dm1, u_infoLote;
 procedure TFormSaida.CodLocalEditExit(Sender: TObject);
 var
   q1: TUniQuery;
+
 begin
 
   if CodLocalEdit.Text = '' then exit;

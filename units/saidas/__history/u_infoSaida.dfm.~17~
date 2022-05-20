@@ -3,7 +3,7 @@ object FormSaida: TFormSaida
   Top = 0
   BorderStyle = bsDialog
   Caption = 'FormSaida'
-  ClientHeight = 270
+  ClientHeight = 272
   ClientWidth = 535
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,59 +11,63 @@ object FormSaida: TFormSaida
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   inline FrameButtons1: TFrameButtons
     Left = 0
-    Top = 177
+    Top = 193
     Width = 535
-    Height = 93
+    Height = 79
     Align = alBottom
     Anchors = [akRight, akBottom]
     TabOrder = 0
-    ExplicitLeft = -15
-    ExplicitTop = 236
-    ExplicitWidth = 575
+    ExplicitTop = 160
+    ExplicitWidth = 535
+    ExplicitHeight = 79
     inherited SalvarBtn: TButton
       Left = 289
-      Top = 31
+      Top = 17
       Width = 133
       Caption = 'Confirmar Sa'#237'da'
       TabOrder = 1
-      ExplicitLeft = 317
+      OnClick = FrameButtons1SalvarBtnClick
+      ExplicitLeft = 289
       ExplicitTop = 31
       ExplicitWidth = 133
     end
     inherited ModoEdit: TEdit
       Left = 241
-      Top = 42
+      Top = 28
       TabOrder = 0
-      ExplicitLeft = 269
+      ExplicitLeft = 241
       ExplicitTop = 42
     end
     inherited CancelarBtn: TButton
       Left = 426
-      ExplicitLeft = 454
-      ExplicitTop = 32
+      Top = 17
+      OnClick = FrameButtons1CancelarBtnClick
+      ExplicitLeft = 426
     end
   end
   object pn_form: TPanel
     Left = 0
     Top = 0
     Width = 535
-    Height = 177
+    Height = 193
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitLeft = 40
     ExplicitTop = -6
-    ExplicitWidth = 581
-    ExplicitHeight = 240
+    ExplicitHeight = 171
     DesignSize = (
       535
-      177)
+      193)
     object Label1: TLabel
       Left = 116
       Top = 34
@@ -101,19 +105,39 @@ object FormSaida: TFormSaida
       ImageIndex = 0
       Images = ImageList1
     end
-    object Label4: TLabel
-      Left = 128
-      Top = 122
-      Width = 25
-      Height = 13
-      Caption = 'Lote:'
-    end
     object Label7: TLabel
       Left = 32
-      Top = 148
+      Top = 122
       Width = 121
       Height = 13
       Caption = 'Quantidade de produtos:'
+    end
+    object Label4: TLabel
+      Left = 111
+      Top = 152
+      Width = 45
+      Height = 19
+      Caption = 'Lote:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
+    end
+    object loteLabel: TLabel
+      Left = 168
+      Top = 152
+      Width = 5
+      Height = 19
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
     end
     object CodEdit: TEdit
       Left = 159
@@ -135,6 +159,7 @@ object FormSaida: TFormSaida
       MaxLength = 4
       NumbersOnly = True
       TabOrder = 1
+      OnExit = CodProdEditExit
     end
     object DescProdEdit: TEdit
       Left = 269
@@ -146,8 +171,7 @@ object FormSaida: TFormSaida
       CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
-      TabOrder = 5
-      ExplicitWidth = 269
+      TabOrder = 4
     end
     object DescLocalEdit: TEdit
       Left = 269
@@ -159,8 +183,7 @@ object FormSaida: TFormSaida
       CharCase = ecUpperCase
       MaxLength = 70
       ReadOnly = True
-      TabOrder = 6
-      ExplicitWidth = 269
+      TabOrder = 5
     end
     object CodLocalEdit: TEdit
       Left = 159
@@ -170,25 +193,26 @@ object FormSaida: TFormSaida
       MaxLength = 4
       NumbersOnly = True
       TabOrder = 2
+      OnExit = CodLocalEditExit
     end
     object QtdProdEdit: TEdit
       Left = 159
-      Top = 142
-      Width = 121
-      Height = 21
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 4
-    end
-    object LoteEdit: TEdit
-      Left = 159
-      Top = 114
+      Top = 116
       Width = 65
       Height = 21
       MaxLength = 4
       NumbersOnly = True
       TabOrder = 3
     end
+  end
+  object Button1: TButton
+    Left = 289
+    Top = 154
+    Width = 97
+    Height = 33
+    Caption = 'Selecionar Lote'
+    TabOrder = 2
+    OnClick = Button1Click
   end
   object ImageList1: TImageList
     Left = 312

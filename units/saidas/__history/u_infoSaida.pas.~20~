@@ -18,7 +18,6 @@ type
     Label3: TLabel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
-    Label4: TLabel;
     Label7: TLabel;
     CodEdit: TEdit;
     CodProdEdit: TEdit;
@@ -26,12 +25,17 @@ type
     DescLocalEdit: TEdit;
     CodLocalEdit: TEdit;
     QtdProdEdit: TEdit;
-    LoteEdit: TEdit;
     ImageList1: TImageList;
+    Label4: TLabel;
+    loteLabel: TLabel;
+    SelecionaLote: TButton;
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CodProdEditExit(Sender: TObject);
+    procedure CodLocalEditExit(Sender: TObject);
+    procedure FrameButtons1SalvarBtnClick(Sender: TObject);
+    procedure SelecionaLoteClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +49,57 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1;
+uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote;
+
+procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
+begin
+  SelecionaLoteForm.CodProdEdit.Text := CodProdEdit.Text;
+  SelecionaLoteForm.ShowModal;
+end;
+
+procedure TFormSaida.CodLocalEditExit(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+
+  if CodLocalEdit.Text = '' then exit;
+
+  DescLocalEdit.Clear;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Text := 'select loc_descricao, loc_status from tb_locais_estoque where loc_codigo = :codigo';
+    q1.ParamByName('codigo').Value := CodLocalEdit.Text;
+
+    q1.Open;
+
+    if q1.RecordCount = 1 then
+    begin
+      if q1.FieldByName('loc_status').Value = 'INATIVO' then
+      begin
+        Aviso('O local de estoque ' + q1.FieldByName('loc_descricao').Value + ' está INATIVO');
+        CodLocalEdit.Clear;
+        DescLocalEdit.Clear;
+        CodLocalEdit.SetFocus;
+      end
+      else
+      begin
+        DescLocalEdit.Text := q1.FieldByName('loc_descricao').Value;
+      end;
+    end
+    else
+    begin
+      CodLocalEdit.Clear;
+      CodLocalEdit.SetFocus;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
 
 procedure TFormSaida.CodProdEditExit(Sender: TObject);
 var
@@ -113,12 +167,25 @@ begin
     CodProdEdit.SetFocus;
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
+    FrameButtons1.Visible := False;
+
   end;
 end;
 
 procedure TFormSaida.FrameButtons1CancelarBtnClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TFormSaida.FrameButtons1SalvarBtnClick(Sender: TObject);
+begin
+  if ExisteInputVazio(Self) then
+  begin
+    Aviso('Preencha todos os campos!');
+    CodProdEdit.SetFocus;
+    exit;
+  end;
+
 end;
 
 end.

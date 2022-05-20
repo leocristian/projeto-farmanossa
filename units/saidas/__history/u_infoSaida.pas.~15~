@@ -26,16 +26,12 @@ type
     CodLocalEdit: TEdit;
     QtdProdEdit: TEdit;
     ImageList1: TImageList;
-    Label4: TLabel;
-    loteLabel: TLabel;
-    SelecionaLote: TButton;
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CodProdEditExit(Sender: TObject);
     procedure CodLocalEditExit(Sender: TObject);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
-    procedure SelecionaLoteClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,19 +46,6 @@ implementation
 {$R *.dfm}
 
 uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote;
-
-procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
-begin
-  if CodProdEdit.Text = '' then
-  begin
-    Aviso('Informe o produto!');
-    CodProdEdit.SetFocus;
-    Exit;
-  end;
-
-  SelecionaLoteForm.CodProdEdit.Text := CodProdEdit.Text;
-  SelecionaLoteForm.ShowModal;
-end;
 
 procedure TFormSaida.CodLocalEditExit(Sender: TObject);
 var
@@ -174,8 +157,6 @@ begin
     CodProdEdit.SetFocus;
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
-    FrameButtons1.Visible := False;
-    SelecionaLote.Visible := True;
   end;
 end;
 
@@ -185,26 +166,16 @@ begin
 end;
 
 procedure TFormSaida.FrameButtons1SalvarBtnClick(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
   if ExisteInputVazio(Self) then
   begin
     Aviso('Preencha todos os campos!');
-    CodProdEdit.SetFocus;
     exit;
   end;
 
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
+  SelecionaLoteForm.CodProdEdit.Text := CodProdEdit.Text;
+  SelecionaLoteForm.ShowModal;
 
-    // Atualizar estoque do produto
-  finally
-    q1.Close;
-    FreeAndNil(q1);
-  end;
 end;
 
 end.

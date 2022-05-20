@@ -185,9 +185,6 @@ begin
 end;
 
 procedure TFormSaida.FrameButtons1SalvarBtnClick(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
   if ExisteInputVazio(Self) then
   begin
@@ -196,15 +193,6 @@ begin
     exit;
   end;
 
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
-
-    // Atualizar estoque do produto
-  finally
-    q1.Close;
-    FreeAndNil(q1);
-  end;
 end;
 
 end.
