@@ -26,7 +26,6 @@ object FormLocal: TFormLocal
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitHeight = 129
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -91,7 +90,7 @@ object FormLocal: TFormLocal
     Height = 80
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 120
+    ExplicitTop = 101
     ExplicitWidth = 477
     ExplicitHeight = 80
     DesignSize = (
@@ -102,20 +101,20 @@ object FormLocal: TFormLocal
       Top = 19
       OnClick = SalvarBtnClick
       ExplicitLeft = 287
-      ExplicitTop = 33
+      ExplicitTop = 19
     end
     inherited ModoEdit: TEdit
       Left = 246
       Top = 21
       ExplicitLeft = 246
-      ExplicitTop = 35
+      ExplicitTop = 21
     end
     inherited CancelarBtn: TButton
       Left = 376
       Top = 18
       OnClick = CancelarBtnClick
       ExplicitLeft = 376
-      ExplicitTop = 32
+      ExplicitTop = 18
     end
   end
 end

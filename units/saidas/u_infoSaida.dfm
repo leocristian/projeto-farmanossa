@@ -26,16 +26,15 @@ object FormSaida: TFormSaida
     Align = alBottom
     Anchors = [akRight, akBottom]
     TabOrder = 0
-    ExplicitLeft = -15
-    ExplicitTop = 236
-    ExplicitWidth = 575
+    ExplicitTop = 177
+    ExplicitWidth = 535
     inherited SalvarBtn: TButton
       Left = 289
       Top = 31
       Width = 133
       Caption = 'Confirmar Sa'#237'da'
       TabOrder = 1
-      ExplicitLeft = 317
+      ExplicitLeft = 289
       ExplicitTop = 31
       ExplicitWidth = 133
     end
@@ -43,14 +42,13 @@ object FormSaida: TFormSaida
       Left = 241
       Top = 42
       TabOrder = 0
-      ExplicitLeft = 269
+      ExplicitLeft = 241
       ExplicitTop = 42
     end
     inherited CancelarBtn: TButton
       Left = 426
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 454
-      ExplicitTop = 32
+      ExplicitLeft = 426
     end
   end
   object pn_form: TPanel
@@ -61,9 +59,6 @@ object FormSaida: TFormSaida
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = -6
-    ExplicitWidth = 581
-    ExplicitHeight = 240
     DesignSize = (
       535
       177)
@@ -151,7 +146,6 @@ object FormSaida: TFormSaida
       MaxLength = 50
       ReadOnly = True
       TabOrder = 5
-      ExplicitWidth = 269
     end
     object DescLocalEdit: TEdit
       Left = 269
@@ -164,7 +158,6 @@ object FormSaida: TFormSaida
       MaxLength = 70
       ReadOnly = True
       TabOrder = 6
-      ExplicitWidth = 269
     end
     object CodLocalEdit: TEdit
       Left = 159

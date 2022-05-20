@@ -19,7 +19,9 @@ uses
   u_infoOperador in 'units\operadores\u_infoOperador.pas' {FormOperador},
   fr_estilo in 'units\frames\fr_estilo.pas' {FrameGrid: TFrame},
   fm_busca in 'units\frames\fm_busca.pas' {FrameBusca: TFrame},
-  u_infoLote in 'units\entradas\u_infoLote.pas' {InfoLoteForm};
+  u_infoLote in 'units\entradas\u_infoLote.pas' {InfoLoteForm},
+  u_saidas in  'units\saidas\u_saidas.pas' {PagSaidas},
+  u_infoSaida in 'units\saidas\u_infoSaida.pas' {FormSaida};
 
 {$R *.res}
 
@@ -41,6 +43,8 @@ begin
   Application.CreateForm(TFormEntrada, FormEntrada);
   Application.CreateForm(TFormOperador, FormOperador);
   Application.CreateForm(TInfoLoteForm, InfoLoteForm);
+  Application.CreateForm(TPagSaidas, PagSaidas);
+  Application.CreateForm(TFormSaida, FormSaida);
   Application.Run;
 end.
 

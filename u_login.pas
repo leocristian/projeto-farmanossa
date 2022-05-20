@@ -68,7 +68,7 @@ begin
     q1 := TUniQuery.Create(q1);
     q1.connection := dm1.con1;
 
-    q1.SQL.Text := 'select ope_codigo, ope_nome, ope_login, ope_senha from tb_operadores where ope_login = md5(:login) and ope_senha = md5(:senha)';
+    q1.SQL.Text := 'select * from tb_operadores where ope_login = md5(:login) and ope_senha = md5(:senha)';
 
     q1.ParamByName('login').Value := AdicionarSemente(LoginInput.Text);
     q1.ParamByName('senha').Value := AdicionarSemente(SenhaInput.Text);
