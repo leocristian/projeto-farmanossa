@@ -26,7 +26,7 @@ object FormSaida: TFormSaida
     Align = alBottom
     Anchors = [akRight, akBottom]
     TabOrder = 0
-    ExplicitTop = 160
+    ExplicitTop = 193
     ExplicitWidth = 535
     ExplicitHeight = 79
     inherited SalvarBtn: TButton
@@ -37,7 +37,7 @@ object FormSaida: TFormSaida
       TabOrder = 1
       OnClick = FrameButtons1SalvarBtnClick
       ExplicitLeft = 289
-      ExplicitTop = 31
+      ExplicitTop = 17
       ExplicitWidth = 133
     end
     inherited ModoEdit: TEdit
@@ -45,13 +45,14 @@ object FormSaida: TFormSaida
       Top = 28
       TabOrder = 0
       ExplicitLeft = 241
-      ExplicitTop = 42
+      ExplicitTop = 28
     end
     inherited CancelarBtn: TButton
       Left = 426
       Top = 17
       OnClick = FrameButtons1CancelarBtnClick
       ExplicitLeft = 426
+      ExplicitTop = 17
     end
   end
   object pn_form: TPanel
@@ -62,9 +63,6 @@ object FormSaida: TFormSaida
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 40
-    ExplicitTop = -6
-    ExplicitHeight = 171
     DesignSize = (
       535
       193)
@@ -115,7 +113,7 @@ object FormSaida: TFormSaida
     object Label4: TLabel
       Left = 111
       Top = 152
-      Width = 45
+      Width = 42
       Height = 19
       Caption = 'Lote:'
       Font.Charset = DEFAULT_CHARSET
@@ -207,9 +205,9 @@ object FormSaida: TFormSaida
   end
   object SelecionaLote: TButton
     Left = 289
-    Top = 154
-    Width = 97
-    Height = 33
+    Top = 176
+    Width = 104
+    Height = 35
     Caption = 'Selecionar Lote'
     TabOrder = 2
     OnClick = SelecionaLoteClick

@@ -42,9 +42,7 @@ create table tb_entradas (
   ent_codigo serial primary key,
   ent_produto integer references tb_produtos(prod_codigo),
   ent_local integer references tb_locais_estoque(loc_codigo),
-  ent_lote integer,
-  ent_dtfabricacao date,
-  ent_dtvencimento date,
+  ent_lote integer references tb_lotes(lote_codigo),
   ent_quantidade integer,
   ent_data_hora date default now()
 );
@@ -67,4 +65,16 @@ create sequence tb_saidas_cod_seq
 start with 1
 increment by 1
 owned by tb_saidas.sai_codigo;
+
+create table tb_lotes (
+  lote_codigo integer primary key,
+  lote_dtfabricacao date,
+  lote_dtvencimento date,
+  lote_quantidade integer default 0
+);
+
+create sequence tb_lotes_cod_seq
+start with 1
+increment by 1 
+owned by tb_lotes.lote_codigo;
 

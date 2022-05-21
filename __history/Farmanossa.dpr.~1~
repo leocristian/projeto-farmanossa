@@ -20,9 +20,8 @@ uses
   fr_estilo in 'units\frames\fr_estilo.pas' {FrameGrid: TFrame},
   fm_busca in 'units\frames\fm_busca.pas' {FrameBusca: TFrame},
   u_infoLote in 'units\entradas\u_infoLote.pas' {InfoLoteForm},
-  u_saidas in 'units\saidas\u_saidas.pas' {PagSaidas},
-  u_infoSaida in 'units\saidas\u_infoSaida.pas' {FormSaida},
-  u_selecionaLote in 'units\saidas\u_selecionaLote.pas' {SelecionaLoteForm};
+  u_saidas in  'units\saidas\u_saidas.pas' {PagSaidas},
+  u_infoSaida in 'units\saidas\u_infoSaida.pas' {FormSaida};
 
 {$R *.res}
 
@@ -46,7 +45,6 @@ begin
   Application.CreateForm(TInfoLoteForm, InfoLoteForm);
   Application.CreateForm(TPagSaidas, PagSaidas);
   Application.CreateForm(TFormSaida, FormSaida);
-  Application.CreateForm(TSelecionaLoteForm, SelecionaLoteForm);
   Application.Run;
 end.
 

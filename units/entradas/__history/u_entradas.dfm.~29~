@@ -1,37 +1,33 @@
 object PagEntradas: TPagEntradas
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'PagEntradas'
-  ClientHeight = 402
-  ClientWidth = 713
+  ClientHeight = 412
+  ClientWidth = 723
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   PopupMenu = PopupEntradas
   WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 713
-    Height = 73
-    Align = alTop
-    Caption = 'Panel1'
-    TabOrder = 0
-  end
   object gridEntradas: TcxGrid
     Left = 0
-    Top = 73
-    Width = 713
-    Height = 329
+    Top = 89
+    Width = 723
+    Height = 323
     Align = alClient
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitTop = 95
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -125,7 +121,7 @@ object PagEntradas: TPagEntradas
     Top = 8
     Width = 77
     Height = 59
-    TabOrder = 2
+    TabOrder = 1
     ExplicitLeft = 592
     ExplicitTop = 8
     ExplicitHeight = 59
@@ -134,12 +130,42 @@ object PagEntradas: TPagEntradas
       PixelsPerInch = 96
     end
   end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 723
+    Height = 89
+    Align = alTop
+    TabOrder = 2
+    ExplicitWidth = 713
+    ExplicitHeight = 89
+    inherited BuscaSelect: TComboBox
+      Top = 34
+      ExplicitTop = 34
+    end
+    inherited BuscaEdit: TEdit
+      Top = 34
+      ExplicitTop = 34
+    end
+    inherited BitBtn1: TBitBtn
+      Top = 30
+      ExplicitTop = 30
+    end
+  end
   object PopupEntradas: TPopupMenu
     Left = 640
-    Top = 136
+    Top = 142
+    object Detalhar1: TMenuItem
+      Caption = 'Detalhar...  (F1)'
+      OnClick = Detalhar1Click
+    end
     object NovaEntrada: TMenuItem
-      Caption = '1 - Lan'#231'ar nova entrada de mercadoria'
+      Caption = '1 - Lan'#231'ar nova entrada de mercadoria  (F2)'
       OnClick = NovaEntradaClick
+    end
+    object AlterarEntrada: TMenuItem
+      Caption = '2 - Alterar entrada de mercadoria  (F3)'
+      OnClick = AlterarEntradaClick
     end
     object N1: TMenuItem
       Caption = '-'
@@ -151,10 +177,10 @@ object PagEntradas: TPagEntradas
   end
   object tb_entradas: TUniTable
     Left = 480
-    Top = 136
+    Top = 142
   end
   object ds_entradas: TDataSource
     Left = 560
-    Top = 136
+    Top = 142
   end
 end

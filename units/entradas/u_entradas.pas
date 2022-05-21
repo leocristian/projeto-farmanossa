@@ -25,8 +25,6 @@ type
     ent_produto: TcxGridDBColumn;
     ent_local: TcxGridDBColumn;
     ent_lote: TcxGridDBColumn;
-    ent_dtfabricacao: TcxGridDBColumn;
-    ent_dtvencimento: TcxGridDBColumn;
     ent_quantidade: TcxGridDBColumn;
     ent_data_hora: TcxGridDBColumn;
     CancelarEntrada1: TMenuItem;

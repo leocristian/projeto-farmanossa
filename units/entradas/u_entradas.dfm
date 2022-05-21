@@ -27,7 +27,6 @@ object PagEntradas: TPagEntradas
     Height = 323
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 95
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -84,19 +83,6 @@ object PagEntradas: TPagEntradas
         DataBinding.IsNullValueType = True
         Width = 96
       end
-      object ent_dtfabricacao: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Data de fabrica'#231#227'o'
-        DataBinding.FieldName = 'ent_dtfabricacao'
-        DataBinding.IsNullValueType = True
-        Width = 163
-      end
-      object ent_dtvencimento: TcxGridDBColumn
-        Caption = 'Data de Vencimento'
-        DataBinding.FieldName = 'ent_dtvencimento'
-        DataBinding.IsNullValueType = True
-        Width = 171
-      end
       object ent_quantidade: TcxGridDBColumn
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
@@ -137,7 +123,7 @@ object PagEntradas: TPagEntradas
     Height = 89
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 713
+    ExplicitWidth = 723
     ExplicitHeight = 89
     inherited BuscaSelect: TComboBox
       Top = 34
