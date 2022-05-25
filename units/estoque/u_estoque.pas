@@ -1,0 +1,45 @@
+unit u_estoque;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
+  Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Buttons;
+
+type
+  TPagEstoque = class(TForm)
+    pn_filtro: TPanel;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    ComboBox2: TComboBox;
+    Label2: TLabel;
+    Edit2: TEdit;
+    ComboBox4: TComboBox;
+    Label7: TLabel;
+    ComboBox3: TComboBox;
+    ComboBox1: TComboBox;
+    Edit1: TEdit;
+    Label1: TLabel;
+    Label3: TLabel;
+    BitBtn1: TBitBtn;
+    ImageList1: TImageList;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PagEstoque: TPagEstoque;
+
+implementation
+
+{$R *.dfm}
+
+end.

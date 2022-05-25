@@ -24,8 +24,6 @@ object FormPrincipal: TFormPrincipal
     Height = 426
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 65
-    ExplicitHeight = 410
     DesignSize = (
       813
       426)
@@ -37,24 +35,22 @@ object FormPrincipal: TFormPrincipal
       Anchors = []
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitTop = 132
       DesignSize = (
         561
         145)
       object Label1: TLabel
         Left = 136
         Top = 29
-        Width = 261
+        Width = 331
         Height = 57
         Anchors = []
-        Caption = 'UNIFARMA'
+        Caption = 'FARMANOSSA'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -47
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitTop = 26
       end
       object Label2: TLabel
         Left = 22
@@ -2997,7 +2993,8 @@ object FormPrincipal: TFormPrincipal
         OnClick = SaidaMercClick
       end
       object ConsultaEstoque: TMenuItem
-        Caption = '1200 - Consultar Estoque'
+        Caption = '1200 - Consultar Estoque dos produtos'
+        OnClick = ConsultaEstoqueClick
       end
       object N1: TMenuItem
         Caption = '-'

@@ -73,8 +73,11 @@ create table tb_lotes (
   lote_quantidade integer default 0
 );
 
+
 create sequence tb_lotes_cod_seq
 start with 1
 increment by 1 
 owned by tb_lotes.lote_codigo;
 
+update tb_lotes set lote_quantidade = (lote_quantidade + 10) where lote_codigo = 123;
+select * from tb_lotes

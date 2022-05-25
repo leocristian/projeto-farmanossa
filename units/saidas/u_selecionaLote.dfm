@@ -25,7 +25,7 @@ object SelecionaLoteForm: TSelecionaLoteForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 397
+    ExplicitTop = -6
     object Label1: TLabel
       Left = 20
       Top = 24
@@ -39,15 +39,6 @@ object SelecionaLoteForm: TSelecionaLoteForm
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object CodProdEdit: TEdit
-      Left = 255
-      Top = 27
-      Width = 37
-      Height = 21
-      TabStop = False
-      TabOrder = 0
-      Visible = False
-    end
   end
   inline FrameButtons1: TFrameButtons
     Left = 0
@@ -56,26 +47,26 @@ object SelecionaLoteForm: TSelecionaLoteForm
     Height = 93
     Align = alBottom
     TabOrder = 2
-    ExplicitLeft = -290
-    ExplicitTop = -52
+    ExplicitTop = 326
+    ExplicitWidth = 491
     inherited SalvarBtn: TButton
       Left = 286
       Width = 101
       Caption = 'Selecionar lote'
       TabOrder = 1
       OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 187
+      ExplicitLeft = 286
       ExplicitWidth = 101
     end
     inherited ModoEdit: TEdit
       Left = 252
       TabOrder = 0
-      ExplicitLeft = 236
+      ExplicitLeft = 252
     end
     inherited CancelarBtn: TButton
       Left = 393
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 294
+      ExplicitLeft = 393
     end
   end
   object gridLotes: TcxGrid
@@ -85,8 +76,6 @@ object SelecionaLoteForm: TSelecionaLoteForm
     Height = 253
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 392
-    ExplicitHeight = 264
     object gridLotesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Last.Visible = True
@@ -120,26 +109,30 @@ object SelecionaLoteForm: TSelecionaLoteForm
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
-      object ent_lote: TcxGridDBColumn
+      object lote_codigo: TcxGridDBColumn
         Caption = 'Lote'
-        DataBinding.FieldName = 'ent_lote'
+        DataBinding.FieldName = 'lote_codigo'
+        DataBinding.IsNullValueType = True
       end
-      object ent_dtfabricacao: TcxGridDBColumn
+      object lote_dtfabricacao: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Data de Fabrica'#231#227'o'
-        DataBinding.FieldName = 'ent_dtfabricacao'
+        DataBinding.FieldName = 'lote_dtfabricacao'
+        DataBinding.IsNullValueType = True
         Width = 136
       end
-      object ent_dtvencimento: TcxGridDBColumn
+      object lote_dtvencimento: TcxGridDBColumn
         AlternateCaption = 'DateTime'
         Caption = 'Data de Vencimento'
-        DataBinding.FieldName = 'ent_dtvencimento'
+        DataBinding.FieldName = 'lote_dtvencimento'
+        DataBinding.IsNullValueType = True
         Width = 147
       end
-      object ent_quantidade: TcxGridDBColumn
+      object lote_quantidade: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Quantidade'
-        DataBinding.FieldName = 'ent_quantidade'
+        DataBinding.FieldName = 'lote_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 82
       end
     end
@@ -171,27 +164,27 @@ object SelecionaLoteForm: TSelecionaLoteForm
   object vtb_lotes: TVirtualTable
     FieldDefs = <
       item
-        Name = 'ent_lote'
+        Name = 'lote_codigo'
         DataType = ftInteger
       end
       item
-        Name = 'ent_dtfabricacao'
+        Name = 'lote_dtfabricacao'
         DataType = ftDate
       end
       item
-        Name = 'ent_dtvencimento'
+        Name = 'lote_dtvencimento'
         DataType = ftDate
       end
       item
-        Name = 'ent_quantidade'
+        Name = 'lote_quantidade'
         DataType = ftInteger
       end>
     Left = 248
     Top = 128
     Data = {
-      040004000800656E745F6C6F746503000000000000001000656E745F64746661
-      627269636163616F09000000000000001000656E745F647476656E63696D656E
-      746F09000000000000000E00656E745F7175616E746964616465030000000000
-      0000000000000000}
+      040004000B006C6F74655F636F6469676F030000000000000011006C6F74655F
+      64746661627269636163616F090000000000000011006C6F74655F647476656E
+      63696D656E746F09000000000000000F006C6F74655F7175616E746964616465
+      0300000000000000000000000000}
   end
 end

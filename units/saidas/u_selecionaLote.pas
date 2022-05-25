@@ -20,14 +20,13 @@ type
     gridLotesDBTableView1: TcxGridDBTableView;
     gridLotesLevel1: TcxGridLevel;
     gridLotes: TcxGrid;
-    CodProdEdit: TEdit;
     ds_lotes: TDataSource;
-    ent_lote: TcxGridDBColumn;
-    ent_dtfabricacao: TcxGridDBColumn;
-    ent_dtvencimento: TcxGridDBColumn;
+    lote_codigo: TcxGridDBColumn;
+    lote_dtfabricacao: TcxGridDBColumn;
+    lote_dtvencimento: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     vtb_lotes: TVirtualTable;
-    ent_quantidade: TcxGridDBColumn;
+    lote_quantidade: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
@@ -70,11 +69,12 @@ begin
     q1.Connection := dm1.con1;
 
     q1.sql.Clear;
-    q1.SQL.Add('select ent_lote, ent_dtfabricacao, ent_dtvencimento, ent_quantidade ');
-    q1.SQL.Add('from tb_entradas ');
-    q1.SQL.Add('where ent_produto = :prod_codigo order by ent_dtvencimento');
+    q1.SQL.Add('select lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade ');
+    q1.SQL.Add('from tb_lotes ');
+    q1.SQL.Add('where lote_produto = :prod_codigo and lote_local = :loc_codigo order by lote_dtvencimento');
 
-    q1.ParamByName('prod_codigo').Value := CodProdEdit.Text;
+    q1.ParamByName('prod_codigo').Value := FormSaida.CodProdEdit.Text;
+    q1.ParamByName('loc_codigo').Value := FormSaida.CodLocalEdit.Text;
     q1.Open;
 
     if q1.RecordCount = 0 then
@@ -92,10 +92,10 @@ begin
     while not q1.Eof do
     begin
       vtb_lotes.Append;
-      vtb_lotes['ent_lote'] := q1.FieldByName('ent_lote').Value;
-      vtb_lotes['ent_dtfabricacao'] := q1.FieldByName('ent_dtfabricacao').Value;
-      vtb_lotes['ent_dtvencimento'] := q1.FieldByName('ent_dtvencimento').Value;
-      vtb_lotes['ent_quantidade'] := q1.FieldByName('ent_quantidade').Value;
+      vtb_lotes['lote_codigo'] := q1.FieldByName('lote_codigo').Value;
+      vtb_lotes['lote_dtfabricacao'] := q1.FieldByName('lote_dtfabricacao').Value;
+      vtb_lotes['lote_dtvencimento'] := q1.FieldByName('lote_dtvencimento').Value;
+      vtb_lotes['lote_quantidade'] := q1.FieldByName('lote_quantidade').Value;
       q1.Next;
     end;
 
@@ -114,11 +114,19 @@ procedure TSelecionaLoteForm.FrameButtons1SalvarBtnClick(Sender: TObject);
 var
   index: Integer;
   lote: Variant;
+  qtd_lote: Integer;
 
 begin
 
   index := gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
   lote := gridLotesDBTableView1.ViewData.Records[index].Values[0];
+  qtd_lote := gridLotesDBTableView1.ViewData.Records[index].Values[3];
+
+  if FormSaida.QtdProdEdit.Value > qtd_lote  then
+  begin
+    Aviso('Quantidade de produtos está acima do permitido pelo lote selecionado!');
+    Exit;
+  end;
 
   FormSaida.Label4.Visible := True;
 

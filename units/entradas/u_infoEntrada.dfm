@@ -26,7 +26,6 @@ object FormEntrada: TFormEntrada
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = -6
     DesignSize = (
       575
       242)
@@ -108,7 +107,6 @@ object FormEntrada: TFormEntrada
       ReadOnly = True
       TabOrder = 0
       Text = '0000'
-      ExplicitTop = 31
     end
     object CodProdEdit: TEdit
       Left = 159
@@ -120,7 +118,6 @@ object FormEntrada: TFormEntrada
       NumbersOnly = True
       TabOrder = 1
       OnExit = CodProdEditExit
-      ExplicitTop = 60
     end
     object DescProdEdit: TEdit
       Left = 269
@@ -133,7 +130,6 @@ object FormEntrada: TFormEntrada
       MaxLength = 50
       ReadOnly = True
       TabOrder = 6
-      ExplicitTop = 61
     end
     object DescLocalEdit: TEdit
       Left = 269
@@ -146,7 +142,6 @@ object FormEntrada: TFormEntrada
       MaxLength = 70
       ReadOnly = True
       TabOrder = 7
-      ExplicitTop = 89
     end
     object CodLocalEdit: TEdit
       Left = 159
@@ -158,7 +153,6 @@ object FormEntrada: TFormEntrada
       NumbersOnly = True
       TabOrder = 2
       OnExit = CodLocalEditExit
-      ExplicitTop = 87
     end
     object QtdProdEdit: TEdit
       Left = 159
@@ -180,7 +174,6 @@ object FormEntrada: TFormEntrada
       NumbersOnly = True
       TabOrder = 3
       OnExit = LoteEditExit
-      ExplicitTop = 114
     end
     object pn_datas: TPanel
       Left = 32
@@ -215,7 +208,6 @@ object FormEntrada: TFormEntrada
         Top = 28
         Anchors = [akLeft, akBottom]
         TabOrder = 1
-        ExplicitTop = 42
         Width = 121
       end
       object DtFabricacaoEdit: TcxDateEdit
@@ -223,17 +215,15 @@ object FormEntrada: TFormEntrada
         Top = 1
         Anchors = [akLeft, akBottom]
         TabOrder = 0
-        ExplicitTop = 15
         Width = 121
       end
     end
     object ModoLote: TEdit
       Left = 230
-      Top = 122
+      Top = 120
       Width = 25
       Height = 21
       TabOrder = 8
-      Visible = False
     end
   end
   inline FrameButtons1: TFrameButtons
@@ -254,6 +244,7 @@ object FormEntrada: TFormEntrada
       TabOrder = 1
       OnClick = FrameButtons1SalvarBtnClick
       ExplicitLeft = 315
+      ExplicitTop = 26
       ExplicitWidth = 133
     end
     inherited ModoEdit: TEdit
@@ -261,14 +252,14 @@ object FormEntrada: TFormEntrada
       Top = 32
       TabOrder = 0
       ExplicitLeft = 284
-      ExplicitTop = 38
+      ExplicitTop = 32
     end
     inherited CancelarBtn: TButton
       Left = 454
       Top = 26
       OnClick = FrameButtons1CancelarBtnClick
       ExplicitLeft = 454
-      ExplicitTop = 32
+      ExplicitTop = 26
     end
   end
   object ImageList1: TImageList

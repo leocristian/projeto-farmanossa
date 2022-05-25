@@ -22,7 +22,8 @@ uses
   u_infoLote in 'units\entradas\u_infoLote.pas' {InfoLoteForm},
   u_saidas in 'units\saidas\u_saidas.pas' {PagSaidas},
   u_infoSaida in 'units\saidas\u_infoSaida.pas' {FormSaida},
-  u_selecionaLote in 'units\saidas\u_selecionaLote.pas' {SelecionaLoteForm};
+  u_selecionaLote in 'units\saidas\u_selecionaLote.pas' {SelecionaLoteForm},
+  u_estoque in 'units\estoque\u_estoque.pas' {PagEstoque};
 
 {$R *.res}
 
@@ -47,6 +48,7 @@ begin
   Application.CreateForm(TPagSaidas, PagSaidas);
   Application.CreateForm(TFormSaida, FormSaida);
   Application.CreateForm(TSelecionaLoteForm, SelecionaLoteForm);
+  Application.CreateForm(TPagEstoque, PagEstoque);
   Application.Run;
 end.
 

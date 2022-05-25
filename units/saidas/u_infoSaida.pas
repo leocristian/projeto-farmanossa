@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils,
   cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, fm_buttons, System.ImageList, Vcl.ImgList, Uni;
+  Vcl.ExtCtrls, fm_buttons, System.ImageList, Vcl.ImgList, Uni, Vcl.NumberBox;
 
 type
   TFormSaida = class(TForm)
@@ -24,11 +24,11 @@ type
     DescProdEdit: TEdit;
     DescLocalEdit: TEdit;
     CodLocalEdit: TEdit;
-    QtdProdEdit: TEdit;
     ImageList1: TImageList;
     Label4: TLabel;
     loteLabel: TLabel;
     SelecionaLote: TButton;
+    QtdProdEdit: TNumberBox;
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -59,8 +59,6 @@ begin
     CodProdEdit.SetFocus;
     Exit;
   end;
-
-  SelecionaLoteForm.CodProdEdit.Text := CodProdEdit.Text;
   SelecionaLoteForm.ShowModal;
 end;
 
@@ -171,6 +169,7 @@ begin
     pn_form.Enabled := true;
     FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
+    QtdProdEdit.Value := 0;
     CodProdEdit.SetFocus;
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
