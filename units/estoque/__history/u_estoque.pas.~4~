@@ -9,14 +9,14 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Buttons, MemDS, DBAccess, Uni;
 
 type
   TPagEstoque = class(TForm)
     pn_filtro: TPanel;
-    cxGrid1DBTableView1: TcxGridDBTableView;
-    cxGrid1Level1: TcxGridLevel;
-    cxGrid1: TcxGrid;
+    gridEstoqueDBTableView1: TcxGridDBTableView;
+    gridEstoqueLevel1: TcxGridLevel;
+    gridEstoque: TcxGrid;
     ComboBox2: TComboBox;
     Label2: TLabel;
     Edit2: TEdit;
@@ -27,6 +27,11 @@ type
     Edit1: TEdit;
     Label1: TLabel;
     Label3: TLabel;
+    BitBtn1: TBitBtn;
+    ImageList1: TImageList;
+    tb_estoque: TUniTable;
+    ds_estoque: TDataSource;
+    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,5 +44,17 @@ var
 implementation
 
 {$R *.dfm}
+
+uses u_dm1;
+
+procedure TPagEstoque.BitBtn1Click(Sender: TObject);
+begin
+
+  tb_estoque.Close;
+  tb_estoque.Connection := dm1.con1;
+  tb_estoque.SQL.Text := 'select * from tb_produtos';
+  tb_estoque.DataSource := ds_estoque;
+  tb_estoque.Open;
+end;
 
 end.

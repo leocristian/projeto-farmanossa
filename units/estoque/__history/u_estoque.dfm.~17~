@@ -139,7 +139,7 @@ object PagEstoque: TPagEstoque
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
-    ExplicitTop = 143
+    ExplicitTop = 135
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -168,9 +168,6 @@ object PagEstoque: TPagEstoque
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.ContentEven = FrameGrid1.linhas
-      Styles.IncSearch = FrameGrid1.buscaIncremental
-      Styles.Header = FrameGrid1.header
       object prod_codigo: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o'
         Caption = 'C'#243'digo'
@@ -180,50 +177,15 @@ object PagEstoque: TPagEstoque
         AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
-        Width = 266
-      end
-      object prod_status: TcxGridDBColumn
-        Caption = 'Status'
-        DataBinding.FieldName = 'prod_status'
-        Width = 74
-      end
-      object loc_codigo: TcxGridDBColumn
-        AlternateCaption = 'String'
-        Caption = 'C'#243'digo do Local de estoque'
-        DataBinding.FieldName = 'loc_codigo'
-        Width = 149
-      end
-      object loc_descricao: TcxGridDBColumn
-        Caption = 'Descri'#231#227'o do Local de estoque'
-        DataBinding.FieldName = 'loc_descricao'
-        Width = 192
-      end
-      object qtd_estoque: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Quantidade em Estoque'
-        DataBinding.FieldName = 'qtd_estoque'
-        Width = 144
       end
     end
     object gridEstoqueLevel1: TcxGridLevel
       GridView = gridEstoqueDBTableView1
     end
   end
-  inline FrameGrid1: TFrameGrid
-    Left = 714
-    Top = 8
-    Width = 77
-    Height = 86
-    TabOrder = 2
-    ExplicitLeft = 714
-    ExplicitTop = 8
-    inherited estiloGrid: TcxStyleRepository
-      PixelsPerInch = 96
-    end
-  end
   object ImageList1: TImageList
-    Left = 648
-    Top = 24
+    Left = 704
+    Top = 48
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -373,8 +335,8 @@ object PagEstoque: TPagEstoque
     Top = 208
   end
   object popup_produtos: TPopupMenu
-    Left = 712
-    Top = 280
+    Left = 400
+    Top = 240
     object LotesProduto: TMenuItem
       Caption = 'Visualizar Lotes do Produto'
       OnClick = LotesProdutoClick

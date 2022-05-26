@@ -124,8 +124,9 @@ begin
 //  dm1.con1.Close;
 
   tb_entradas.Connection := dm1.con1;
-  tb_entradas.TableName := 'tb_entradas';
+//  tb_entradas.TableName := 'tb_entradas';
 
+  tb_entradas.SQL.Text := 'select * from tb_entradas';
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Active := True;
 

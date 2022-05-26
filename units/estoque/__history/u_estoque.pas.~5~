@@ -9,8 +9,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
-  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Buttons, MemDS, DBAccess, Uni,
-  Vcl.Menus, fr_estilo;
+  Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Buttons, MemDS, DBAccess, Uni;
 
 type
   TPagEstoque = class(TForm)
@@ -32,17 +31,7 @@ type
     ImageList1: TImageList;
     tb_estoque: TUniTable;
     ds_estoque: TDataSource;
-    prod_codigo: TcxGridDBColumn;
-    prod_descricao: TcxGridDBColumn;
-    popup_produtos: TPopupMenu;
-    LotesProduto: TMenuItem;
-    prod_status: TcxGridDBColumn;
-    loc_codigo: TcxGridDBColumn;
-    loc_descricao: TcxGridDBColumn;
-    qtd_estoque: TcxGridDBColumn;
-    FrameGrid1: TFrameGrid;
     procedure BitBtn1Click(Sender: TObject);
-    procedure LotesProdutoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -56,33 +45,17 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_lotesProduto;
+uses u_dm1;
 
 procedure TPagEstoque.BitBtn1Click(Sender: TObject);
 begin
 
   tb_estoque.Close;
   tb_estoque.Connection := dm1.con1;
-  tb_estoque.SQL.Clear;
-  tb_estoque.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque');
-  tb_estoque.SQL.Add(' from tb_produtos as p');
-  tb_estoque.SQL.Add('inner join tb_lotes as l ');
-  tb_estoque.SQL.Add('on l.lote_produto = p.prod_codigo');
-  tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
-  tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
-  tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao');
-//  tb_estoque.SQL.Add('where
+  tb_estoque.SQL.Text := 'select * from tb_produtos';
   ds_estoque.DataSet := tb_estoque;
   tb_estoque.Open;
 
-end;
-
-procedure TPagEstoque.LotesProdutoClick(Sender: TObject);
-begin
-  if not tb_estoque.Active then exit;
-  if tb_estoque.RecordCount = 0 then exit;
-
-  LotesProdutoForm.ShowModal;
 end;
 
 end.

@@ -1,0 +1,35 @@
+unit u_lotesProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
+  Data.DB, cxDBData, MemDS, DBAccess, Uni, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, Vcl.ExtCtrls;
+
+type
+  TLotesProdutoForm = class(TForm)
+    Panel1: TPanel;
+    gridLotesDBTableView1: TcxGridDBTableView;
+    gridLotesLevel1: TcxGridLevel;
+    gridLotes: TcxGrid;
+    tb_lotes: TUniTable;
+    ds_lotes: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  LotesProdutoForm: TLotesProdutoForm;
+
+implementation
+
+{$R *.dfm}
+
+end.

@@ -10,7 +10,7 @@ uses
   Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
   Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Buttons, MemDS, DBAccess, Uni,
-  Vcl.Menus, fr_estilo;
+  Vcl.Menus;
 
 type
   TPagEstoque = class(TForm)
@@ -40,7 +40,6 @@ type
     loc_codigo: TcxGridDBColumn;
     loc_descricao: TcxGridDBColumn;
     qtd_estoque: TcxGridDBColumn;
-    FrameGrid1: TFrameGrid;
     procedure BitBtn1Click(Sender: TObject);
     procedure LotesProdutoClick(Sender: TObject);
   private
@@ -79,9 +78,6 @@ end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);
 begin
-  if not tb_estoque.Active then exit;
-  if tb_estoque.RecordCount = 0 then exit;
-
   LotesProdutoForm.ShowModal;
 end;
 

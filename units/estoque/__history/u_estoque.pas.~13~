@@ -79,9 +79,6 @@ end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);
 begin
-  if not tb_estoque.Active then exit;
-  if tb_estoque.RecordCount = 0 then exit;
-
   LotesProdutoForm.ShowModal;
 end;
 
