@@ -1,0 +1,195 @@
+object SelecionaLoteForm: TSelecionaLoteForm
+  Left = 0
+  Top = 0
+  Align = alClient
+  BorderStyle = bsNone
+  Caption = 'SelecionaLoteForm'
+  ClientHeight = 458
+  ClientWidth = 507
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  WindowState = wsMaximized
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 507
+    Height = 73
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+    ExplicitTop = -6
+    ExplicitWidth = 491
+    object Label1: TLabel
+      Left = 20
+      Top = 24
+      Width = 229
+      Height = 21
+      Caption = 'Selecione o lote para sa'#237'da'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -17
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+  end
+  object gridLotes: TcxGrid
+    Left = 0
+    Top = 73
+    Width = 507
+    Height = 292
+    Align = alClient
+    TabOrder = 1
+    ExplicitLeft = 8
+    ExplicitWidth = 491
+    ExplicitHeight = 377
+    object gridLotesDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.Last.Visible = True
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_lotes
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsSelection.CellSelect = False
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object lote_codigo: TcxGridDBColumn
+        Caption = 'Lote'
+        DataBinding.FieldName = 'lote_codigo'
+        DataBinding.IsNullValueType = True
+      end
+      object lote_dtfabricacao: TcxGridDBColumn
+        AlternateCaption = 'Integer'
+        Caption = 'Data de Fabrica'#231#227'o'
+        DataBinding.FieldName = 'lote_dtfabricacao'
+        DataBinding.IsNullValueType = True
+        Width = 136
+      end
+      object lote_dtvencimento: TcxGridDBColumn
+        AlternateCaption = 'DateTime'
+        Caption = 'Data de Vencimento'
+        DataBinding.FieldName = 'lote_dtvencimento'
+        DataBinding.IsNullValueType = True
+        Width = 147
+      end
+      object lote_quantidade: TcxGridDBColumn
+        AlternateCaption = 'Integer'
+        Caption = 'Quantidade'
+        DataBinding.FieldName = 'lote_quantidade'
+        DataBinding.IsNullValueType = True
+        Width = 82
+      end
+    end
+    object gridLotesLevel1: TcxGridLevel
+      GridView = gridLotesDBTableView1
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 312
+    Top = 8
+    Width = 65
+    Height = 59
+    TabOrder = 2
+    ExplicitLeft = 312
+    ExplicitTop = 8
+    ExplicitWidth = 65
+    ExplicitHeight = 59
+    inherited estiloGrid: TcxStyleRepository
+      Left = 16
+      Top = 16
+      PixelsPerInch = 96
+    end
+  end
+  inline FrameButtons1: TFrameButtons
+    Left = 0
+    Top = 365
+    Width = 507
+    Height = 93
+    Align = alBottom
+    TabOrder = 3
+    ExplicitTop = 326
+    ExplicitWidth = 491
+    inherited SalvarBtn: TButton
+      Left = 309
+      Width = 101
+      Caption = 'Selecionar lote'
+      TabOrder = 1
+      ExplicitLeft = 286
+      ExplicitWidth = 101
+    end
+    inherited ModoEdit: TEdit
+      Left = 268
+      TabOrder = 0
+      ExplicitLeft = 252
+    end
+    inherited CancelarBtn: TButton
+      Left = 398
+      ExplicitLeft = 393
+    end
+  end
+  object ds_lotes: TDataSource
+    DataSet = vtb_lotes
+    Left = 312
+    Top = 128
+  end
+  object vtb_lotes: TVirtualTable
+    FieldDefs = <
+      item
+        Name = 'lote_codigo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lote_dtfabricacao'
+        DataType = ftDate
+      end
+      item
+        Name = 'lote_dtvencimento'
+        DataType = ftDate
+      end
+      item
+        Name = 'lote_quantidade'
+        DataType = ftInteger
+      end>
+    Left = 248
+    Top = 128
+    Data = {
+      040004000B006C6F74655F636F6469676F030000000000000011006C6F74655F
+      64746661627269636163616F090000000000000011006C6F74655F647476656E
+      63696D656E746F09000000000000000F006C6F74655F7175616E746964616465
+      0300000000000000000000000000}
+  end
+end

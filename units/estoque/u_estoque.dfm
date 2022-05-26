@@ -5,7 +5,7 @@ object PagEstoque: TPagEstoque
   BorderStyle = bsSingle
   Caption = 'PagEstoque'
   ClientHeight = 483
-  ClientWidth = 823
+  ClientWidth = 1126
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,11 +19,12 @@ object PagEstoque: TPagEstoque
   object pn_filtro: TPanel
     Left = 0
     Top = 0
-    Width = 823
+    Width = 1126
     Height = 137
     Align = alTop
     TabOrder = 0
     ExplicitTop = -6
+    ExplicitWidth = 823
     object Label2: TLabel
       Left = 23
       Top = 94
@@ -52,7 +53,7 @@ object PagEstoque: TPagEstoque
       Height = 13
       Caption = 'Status:'
     end
-    object ComboBox2: TComboBox
+    object LocalSelecao: TComboBox
       Left = 114
       Top = 91
       Width = 97
@@ -65,14 +66,15 @@ object PagEstoque: TPagEstoque
         'C'#211'DIGO'
         'DESCRI'#199#194'O')
     end
-    object Edit2: TEdit
+    object LocalEdit: TEdit
       Left = 217
       Top = 91
-      Width = 272
+      Width = 328
       Height = 21
+      CharCase = ecUpperCase
       TabOrder = 1
     end
-    object ComboBox4: TComboBox
+    object QuantidadeBox: TComboBox
       Left = 283
       Top = 47
       Width = 206
@@ -81,9 +83,13 @@ object PagEstoque: TPagEstoque
       ItemIndex = 0
       TabOrder = 2
       Text = 'MOSTRAR TUDO'
+      OnChange = QuantidadeBoxChange
       Items.Strings = (
         'MOSTRAR TUDO'
-        'N'#195'O MOSTRAR ESTOQUE ZERADO')
+        'N'#195'O MOSTRAR ESTOQUE ZERADO'
+        'ESTOQUE MAIOR QUE'
+        'ESTOQUE MENOR QUE'
+        'ESTOQUE IGUAL A')
     end
     object ComboBox3: TComboBox
       Left = 114
@@ -99,7 +105,7 @@ object PagEstoque: TPagEstoque
         'ATIVO'
         'INATIVO')
     end
-    object ComboBox1: TComboBox
+    object CampoProdBox: TComboBox
       Left = 114
       Top = 20
       Width = 97
@@ -112,15 +118,16 @@ object PagEstoque: TPagEstoque
         'C'#211'DIGO'
         'DESCRI'#199#194'O')
     end
-    object Edit1: TEdit
+    object ProdEdit: TEdit
       Left = 217
       Top = 20
-      Width = 272
+      Width = 328
       Height = 21
+      CharCase = ecUpperCase
       TabOrder = 5
     end
     object BitBtn1: TBitBtn
-      Left = 528
+      Left = 619
       Top = 20
       Width = 97
       Height = 59
@@ -130,16 +137,26 @@ object PagEstoque: TPagEstoque
       TabOrder = 6
       OnClick = BitBtn1Click
     end
+    object QuantidadeEdit: TNumberBox
+      Left = 495
+      Top = 47
+      Width = 50
+      Height = 21
+      MaxLength = 5
+      TabOrder = 7
+      Visible = False
+    end
   end
   object gridEstoque: TcxGrid
     Left = 0
     Top = 137
-    Width = 823
+    Width = 1126
     Height = 346
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
     ExplicitTop = 143
+    ExplicitWidth = 823
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -210,20 +227,20 @@ object PagEstoque: TPagEstoque
     end
   end
   inline FrameGrid1: TFrameGrid
-    Left = 714
-    Top = 8
+    Left = 874
+    Top = 26
     Width = 77
     Height = 86
     TabOrder = 2
-    ExplicitLeft = 714
-    ExplicitTop = 8
+    ExplicitLeft = 874
+    ExplicitTop = 26
     inherited estiloGrid: TcxStyleRepository
       PixelsPerInch = 96
     end
   end
   object ImageList1: TImageList
-    Left = 648
-    Top = 24
+    Left = 832
+    Top = 56
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

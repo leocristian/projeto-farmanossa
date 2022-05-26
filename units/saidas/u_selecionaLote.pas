@@ -15,7 +15,6 @@ uses
 type
   TSelecionaLoteForm = class(TForm)
     Panel1: TPanel;
-    FrameButtons1: TFrameButtons;
     Label1: TLabel;
     gridLotesDBTableView1: TcxGridDBTableView;
     gridLotesLevel1: TcxGridLevel;
@@ -25,12 +24,15 @@ type
     lote_dtfabricacao: TcxGridDBColumn;
     lote_dtvencimento: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
-    vtb_lotes: TVirtualTable;
     lote_quantidade: TcxGridDBColumn;
+    tb_lotes: TUniTable;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
+    procedure gridLotesDBTableView1CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
   private
     { Private declarations }
   public
@@ -60,49 +62,28 @@ end;
 
 
 procedure TSelecionaLoteForm.FormShow(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
+  tb_lotes.Close;
+  tb_lotes.Connection := dm1.con1;
 
-    q1.sql.Clear;
-    q1.SQL.Add('select lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade ');
-    q1.SQL.Add('from tb_lotes ');
-    q1.SQL.Add('where lote_produto = :prod_codigo and lote_local = :loc_codigo order by lote_dtvencimento');
+  tb_lotes.sql.Clear;
+  tb_lotes.SQL.Add('select lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade ');
+  tb_lotes.SQL.Add('from tb_lotes ');
+  tb_lotes.SQL.Add('where lote_produto = :prod_codigo and lote_local = :loc_codigo order by lote_dtvencimento');
 
-    q1.ParamByName('prod_codigo').Value := FormSaida.CodProdEdit.Text;
-    q1.ParamByName('loc_codigo').Value := FormSaida.CodLocalEdit.Text;
-    q1.Open;
+  tb_lotes.ParamByName('prod_codigo').Value := FormSaida.CodProdEdit.Text;
+  tb_lotes.ParamByName('loc_codigo').Value := FormSaida.CodLocalEdit.Text;
+  tb_lotes.Open;
 
-    if q1.RecordCount = 0 then
-    begin
-      Aviso('Produto não está em nenhum lote!');
-      PostMessage(Self.Handle, WM_CLOSE, 0, 0);
-      FormSaida.CodProdEdit.SetFocus;
-    end;
-
-    q1.First;
-    ds_lotes.DataSet.Active := True;
-
-    vtb_lotes.Clear;
-
-    while not q1.Eof do
-    begin
-      vtb_lotes.Append;
-      vtb_lotes['lote_codigo'] := q1.FieldByName('lote_codigo').Value;
-      vtb_lotes['lote_dtfabricacao'] := q1.FieldByName('lote_dtfabricacao').Value;
-      vtb_lotes['lote_dtvencimento'] := q1.FieldByName('lote_dtvencimento').Value;
-      vtb_lotes['lote_quantidade'] := q1.FieldByName('lote_quantidade').Value;
-      q1.Next;
-    end;
-
-  finally
-    q1.Close;
-    FreeAndNil(q1);
+  if tb_lotes.RecordCount = 0 then
+  begin
+    Aviso('Produto não está em nenhum lote!');
+    PostMessage(Self.Handle, WM_CLOSE, 0, 0); // Fechar grid
+    FormSaida.CodProdEdit.SetFocus;
   end;
+
+  ds_lotes.DataSet := tb_lotes;
+  tb_lotes.Open;
 end;
 
 procedure TSelecionaLoteForm.FrameButtons1CancelarBtnClick(Sender: TObject);
@@ -128,15 +109,22 @@ begin
     Exit;
   end;
 
-  FormSaida.Label4.Visible := True;
-
-  FormSaida.LoteLabel.Caption := lote;
-  FormSaida.LoteLabel.Visible := True;
-
-  FormSaida.FrameButtons1.Visible := True;
-  FormSaida.SelecionaLote.Visible := False;
+//  FormSaida.Label4.Visible := True;
+//
+//  FormSaida.LoteLabel.Caption := lote;
+//  FormSaida.LoteLabel.Visible := True;
+//
+//  FormSaida.FrameButtons1.Visible := True;
+//  FormSaida.SelecionaLote.Visible := False;
 
   Close;
+end;
+
+procedure TSelecionaLoteForm.gridLotesDBTableView1CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  FormSaida.ConfirmarBtn.Font.Color := clGreen;
 end;
 
 end.

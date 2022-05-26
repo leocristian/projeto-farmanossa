@@ -1,9 +1,11 @@
 object SelecionaLoteForm: TSelecionaLoteForm
   Left = 0
   Top = 0
+  Align = alClient
+  BorderStyle = bsNone
   Caption = 'SelecionaLoteForm'
-  ClientHeight = 419
-  ClientWidth = 491
+  ClientHeight = 458
+  ClientWidth = 507
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +15,7 @@ object SelecionaLoteForm: TSelecionaLoteForm
   KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  WindowState = wsMaximized
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -20,12 +23,11 @@ object SelecionaLoteForm: TSelecionaLoteForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 491
+    Width = 507
     Height = 73
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = -6
     object Label1: TLabel
       Left = 20
       Top = 24
@@ -40,40 +42,11 @@ object SelecionaLoteForm: TSelecionaLoteForm
       ParentFont = False
     end
   end
-  inline FrameButtons1: TFrameButtons
-    Left = 0
-    Top = 326
-    Width = 491
-    Height = 93
-    Align = alBottom
-    TabOrder = 2
-    ExplicitTop = 326
-    ExplicitWidth = 491
-    inherited SalvarBtn: TButton
-      Left = 286
-      Width = 101
-      Caption = 'Selecionar lote'
-      TabOrder = 1
-      OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 286
-      ExplicitWidth = 101
-    end
-    inherited ModoEdit: TEdit
-      Left = 252
-      TabOrder = 0
-      ExplicitLeft = 252
-    end
-    inherited CancelarBtn: TButton
-      Left = 393
-      OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 393
-    end
-  end
   object gridLotes: TcxGrid
     Left = 0
     Top = 73
-    Width = 491
-    Height = 253
+    Width = 507
+    Height = 385
     Align = alClient
     TabOrder = 1
     object gridLotesDBTableView1: TcxGridDBTableView
@@ -98,6 +71,7 @@ object SelecionaLoteForm: TSelecionaLoteForm
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
+      OnCellClick = gridLotesDBTableView1CellClick
       DataController.DataSource = ds_lotes
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
@@ -145,7 +119,7 @@ object SelecionaLoteForm: TSelecionaLoteForm
     Top = 8
     Width = 65
     Height = 59
-    TabOrder = 3
+    TabOrder = 2
     ExplicitLeft = 312
     ExplicitTop = 8
     ExplicitWidth = 65
@@ -157,34 +131,11 @@ object SelecionaLoteForm: TSelecionaLoteForm
     end
   end
   object ds_lotes: TDataSource
-    DataSet = vtb_lotes
-    Left = 312
-    Top = 128
+    Left = 432
+    Top = 120
   end
-  object vtb_lotes: TVirtualTable
-    FieldDefs = <
-      item
-        Name = 'lote_codigo'
-        DataType = ftInteger
-      end
-      item
-        Name = 'lote_dtfabricacao'
-        DataType = ftDate
-      end
-      item
-        Name = 'lote_dtvencimento'
-        DataType = ftDate
-      end
-      item
-        Name = 'lote_quantidade'
-        DataType = ftInteger
-      end>
-    Left = 248
-    Top = 128
-    Data = {
-      040004000B006C6F74655F636F6469676F030000000000000011006C6F74655F
-      64746661627269636163616F090000000000000011006C6F74655F647476656E
-      63696D656E746F09000000000000000F006C6F74655F7175616E746964616465
-      0300000000000000000000000000}
+  object tb_lotes: TUniTable
+    Left = 368
+    Top = 120
   end
 end

@@ -23,6 +23,7 @@ object PagProdutos: TPagProdutos
     Height = 357
     Align = alClient
     TabOrder = 0
+    ExplicitTop = 115
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -68,6 +69,12 @@ object PagProdutos: TPagProdutos
         DataBinding.FieldName = 'prod_descricao'
         DataBinding.IsNullValueType = True
         Width = 313
+      end
+      object prod_status: TcxGridDBColumn
+        AlternateCaption = 'String'
+        Caption = 'Status'
+        DataBinding.FieldName = 'prod_status'
+        Width = 75
       end
       object prod_estoque_negativo: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o'

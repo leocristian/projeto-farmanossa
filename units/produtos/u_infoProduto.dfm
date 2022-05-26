@@ -42,7 +42,7 @@ object FormProduto: TFormProduto
     end
     object Label5: TLabel
       Left = 29
-      Top = 132
+      Top = 159
       Width = 64
       Height = 13
       Caption = 'Status Sa'#237'da:'
@@ -56,10 +56,17 @@ object FormProduto: TFormProduto
     end
     object Label4: TLabel
       Left = 17
-      Top = 105
+      Top = 132
       Width = 76
       Height = 13
       Caption = 'Status Entrada:'
+    end
+    object Label6: TLabel
+      Left = 58
+      Top = 105
+      Width = 35
+      Height = 13
+      Caption = 'Status:'
     end
     object CodEdit: TEdit
       Left = 99
@@ -98,20 +105,6 @@ object FormProduto: TFormProduto
     end
     object StatusEntBox: TComboBox
       Left = 99
-      Top = 97
-      Width = 145
-      Height = 21
-      Style = csDropDownList
-      CharCase = ecUpperCase
-      ItemIndex = 0
-      TabOrder = 3
-      Text = 'ATIVO'
-      Items.Strings = (
-        'ATIVO'
-        'INATIVO')
-    end
-    object StatusSaiBox: TComboBox
-      Left = 99
       Top = 124
       Width = 145
       Height = 21
@@ -119,6 +112,34 @@ object FormProduto: TFormProduto
       CharCase = ecUpperCase
       ItemIndex = 0
       TabOrder = 4
+      Text = 'ATIVO'
+      Items.Strings = (
+        'ATIVO'
+        'INATIVO')
+    end
+    object StatusSaiBox: TComboBox
+      Left = 99
+      Top = 151
+      Width = 145
+      Height = 21
+      Style = csDropDownList
+      CharCase = ecUpperCase
+      ItemIndex = 0
+      TabOrder = 5
+      Text = 'ATIVO'
+      Items.Strings = (
+        'ATIVO'
+        'INATIVO')
+    end
+    object StatusProdBox: TComboBox
+      Left = 99
+      Top = 97
+      Width = 145
+      Height = 21
+      Style = csDropDownList
+      CharCase = ecUpperCase
+      ItemIndex = 0
+      TabOrder = 3
       Text = 'ATIVO'
       Items.Strings = (
         'ATIVO'
@@ -136,11 +157,13 @@ object FormProduto: TFormProduto
     ExplicitWidth = 466
     inherited SalvarBtn: TButton
       Left = 268
+      TabOrder = 1
       OnClick = SalvarBtnClick
       ExplicitLeft = 268
     end
     inherited ModoEdit: TEdit
       Left = 227
+      TabOrder = 0
       ExplicitLeft = 227
     end
     inherited CancelarBtn: TButton

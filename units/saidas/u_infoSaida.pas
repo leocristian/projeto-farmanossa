@@ -7,11 +7,11 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils,
   cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, fm_buttons, System.ImageList, Vcl.ImgList, Uni, Vcl.NumberBox;
+  Vcl.ExtCtrls, fm_buttons, System.ImageList, Vcl.ImgList, Uni, Vcl.NumberBox,
+  fr_estilo, Data.DB, MemDS, VirtualTable;
 
 type
   TFormSaida = class(TForm)
-    FrameButtons1: TFrameButtons;
     pn_form: TPanel;
     Label1: TLabel;
     Label2: TLabel;
@@ -25,17 +25,21 @@ type
     DescLocalEdit: TEdit;
     CodLocalEdit: TEdit;
     ImageList1: TImageList;
-    Label4: TLabel;
-    loteLabel: TLabel;
-    SelecionaLote: TButton;
     QtdProdEdit: TNumberBox;
+    VerLotesBtn: TButton;
+    pn_lotes: TPanel;
+    pn_buttons: TPanel;
+    ModoEdit: TEdit;
+    CancelarBtn: TButton;
+    ConfirmarBtn: TBitBtn;
     procedure FormShow(Sender: TObject);
-    procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CodProdEditExit(Sender: TObject);
     procedure CodLocalEditExit(Sender: TObject);
-    procedure FrameButtons1SalvarBtnClick(Sender: TObject);
     procedure SelecionaLoteClick(Sender: TObject);
+    procedure VerLotesBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
+    procedure ConfirmarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,7 +53,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote;
+uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote, u_saidas;
 
 procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
 begin
@@ -60,6 +64,24 @@ begin
     Exit;
   end;
   SelecionaLoteForm.ShowModal;
+end;
+
+procedure TFormSaida.VerLotesBtnClick(Sender: TObject);
+begin
+  if ExisteInputVazio(Self) then
+  begin
+    Aviso('Preencha todos os campos!');
+    CodProdEdit.SetFocus;
+    Exit;
+  end;
+  SelecionaLoteForm.Close;
+  SelecionaLoteForm.Parent := pn_lotes;
+  SelecionaLoteForm.Show;
+end;
+
+procedure TFormSaida.CancelarBtnClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TFormSaida.CodLocalEditExit(Sender: TObject);
@@ -150,6 +172,60 @@ begin
   end;
 end;
 
+procedure TFormSaida.ConfirmarBtnClick(Sender: TObject);
+var
+  indexLote, codLote, codSaida: Integer;
+  q1: TUniQuery;
+
+begin
+  if ConfirmarBtn.Font.Color = clRed then
+  begin
+    Aviso('Selecione o lote para realizar saída');
+    Exit;
+  end;
+
+  if Confirma('Confirmar Saída?') then
+  begin
+    try
+
+      indexLote := SelecionaLoteForm.gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
+      codLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[0];
+
+      q1 := TUniQuery.Create(nil);
+      q1.Connection := dm1.con1;
+
+      q1.SQL.Text := 'select nextval(''tb_saidas_cod_seq'') as codProximo';
+
+      q1.Open;
+      codSaida := q1.FieldByName('codProximo').Value;
+      q1.Close;
+
+      q1.SQL.Clear;
+      q1.SQL.Add('insert into tb_saidas(sai_codigo, sai_produto, sai_local, sai_lote, sai_quantidade)');
+      q1.SQL.Add('values ');
+      q1.SQl.Add('(:codigo, :produto, :local, :lote, :quantidade)');
+
+      q1.ParamByName('codigo').Value := codSaida;
+      q1.ParamByName('produto').Value := CodProdEdit.Text;
+      q1.ParamByName('local').Value := CodLocalEdit.Text;
+      q1.ParamByName('lote').Value := CodLote;
+      q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+
+      try
+        q1.ExecSQL;
+        Mensagem('Operação realizada com sucesso!');
+        Close;
+      except on e:exception do
+        Erro('Erro!' + #13 + e.Message);
+      end;
+
+    finally
+      FreeAndNil(q1);
+      q1.Close;
+    end;
+  end;
+end;
+
 procedure TFormSaida.FormKeyPress(Sender: TObject; var Key: Char);
 begin
   begin
@@ -164,45 +240,16 @@ end;
 
 procedure TFormSaida.FormShow(Sender: TObject);
 begin
-  if FrameButtons1.ModoEdit.Text = 'N' then
+  if ModoEdit.Text = 'N' then
   begin
     pn_form.Enabled := true;
-    FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
     QtdProdEdit.Value := 0;
     CodProdEdit.SetFocus;
     CodEdit.Text := '0000';
-    FrameButtons1.ModoEdit.Text := 'N';
-    FrameButtons1.Visible := False;
-    SelecionaLote.Visible := True;
-  end;
-end;
-
-procedure TFormSaida.FrameButtons1CancelarBtnClick(Sender: TObject);
-begin
-  Close;
-end;
-
-procedure TFormSaida.FrameButtons1SalvarBtnClick(Sender: TObject);
-var
-  q1: TUniQuery;
-
-begin
-  if ExisteInputVazio(Self) then
-  begin
-    Aviso('Preencha todos os campos!');
-    CodProdEdit.SetFocus;
-    exit;
-  end;
-
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
-
-    // Atualizar estoque do produto
-  finally
-    q1.Close;
-    FreeAndNil(q1);
+    ModoEdit.Text := 'N';
+    SelecionaLoteForm.Close;
+    ConfirmarBtn.Font.Color := clRed;
   end;
 end;
 

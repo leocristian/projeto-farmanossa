@@ -28,6 +28,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FecharBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -52,6 +53,16 @@ procedure TLotesProdutoForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   tb_lotes.Close;
+end;
+
+procedure TLotesProdutoForm.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
 end;
 
 procedure TLotesProdutoForm.FormShow(Sender: TObject);

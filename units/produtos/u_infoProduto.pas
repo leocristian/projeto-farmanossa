@@ -21,6 +21,8 @@ type
     StatusEntBox: TComboBox;
     StatusSaiBox: TComboBox;
     FrameButtons: TFrameButtons;
+    StatusProdBox: TComboBox;
+    Label6: TLabel;
     procedure FormShow(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
@@ -47,14 +49,12 @@ end;
 
 procedure TFormProduto.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Key = #13 then
   begin
-    if Key = #13 then
-    begin
-      Key := #0;
-      Perform(wm_nextdlgctl, 0, 0);
-    end
-    else if key = #27 then close
-  end;
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
 end;
 
 procedure TFormProduto.FormShow(Sender: TObject);
@@ -85,6 +85,7 @@ begin
       DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
 
       EstNegativoBox.ItemIndex := EstNegativoBox.items.IndexOf(q1.FieldByName('prod_estoque_negativo').Value);
+      StatusProdBox.ItemIndex := StatusProdBox.Items.IndexOf(q1.FieldByName('prod_status').Value);
       StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(q1.FieldByName('prod_status_entrada').Value);
       StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(q1.FieldByName('prod_status_saida').Value);
 
@@ -164,7 +165,7 @@ begin
 
       q1.SQL.Clear;
       q1.SQL.Add('insert into tb_produtos values ');
-      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status_entrada, :prod_status_saida)');
+      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status, :prod_status_entrada, :prod_status_saida)');
 
       q1.ParamByName('prod_codigo').Value := prod_codigo;
       msg_confirma := 'Confirmar inclusão do produto?';
@@ -173,7 +174,7 @@ begin
     begin
       q1.SQL.Clear;
       q1.SQL.Add('update tb_produtos set ');
-      q1.SQL.Add('prod_descricao = :prod_descricao, prod_estoque_negativo = :prod_est_neg, ');
+      q1.SQL.Add('prod_descricao = :prod_descricao, prod_estoque_negativo = :prod_est_neg, prod_status = :prod_status, ');
       q1.SQL.Add('prod_status_entrada = :prod_status_entrada, prod_status_saida = :prod_status_saida');
       q1.SQL.Add(' where prod_codigo = :prod_codigo');
       q1.ParamByName('prod_codigo').Value := CodEdit.Text;
@@ -182,6 +183,7 @@ begin
 
     q1.ParamByName('prod_descricao').Value := DescricaoEdit.Text;
     q1.ParamByName('prod_est_neg').Value := EstNegativoBox.Text;
+    q1.ParamByName('prod_status').Value := StatusProdBox.Text;
     q1.ParamByName('prod_status_entrada').Value := StatusEntBox.Text;
     q1.ParamByName('prod_status_saida').Value := StatusSaiBox.Text;
 

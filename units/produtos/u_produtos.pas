@@ -31,6 +31,7 @@ type
     prod_status_saida: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     FrameBusca1: TFrameBusca;
+    prod_status: TcxGridDBColumn;
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);

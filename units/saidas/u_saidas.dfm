@@ -23,7 +23,7 @@ object PagSaidas: TPagSaidas
     Height = 109
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -191
+    ExplicitWidth = 661
     inherited ImageList1: TImageList
       Left = 616
     end
@@ -46,10 +46,6 @@ object PagSaidas: TPagSaidas
     Height = 235
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = -62
-    ExplicitTop = 21
-    ExplicitWidth = 723
-    ExplicitHeight = 323
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False

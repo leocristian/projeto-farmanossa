@@ -10,7 +10,7 @@ uses
   Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
   Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Vcl.Buttons, MemDS, DBAccess, Uni,
-  Vcl.Menus, fr_estilo;
+  Vcl.Menus, fr_estilo, Vcl.NumberBox;
 
 type
   TPagEstoque = class(TForm)
@@ -18,14 +18,14 @@ type
     gridEstoqueDBTableView1: TcxGridDBTableView;
     gridEstoqueLevel1: TcxGridLevel;
     gridEstoque: TcxGrid;
-    ComboBox2: TComboBox;
+    LocalSelecao: TComboBox;
     Label2: TLabel;
-    Edit2: TEdit;
-    ComboBox4: TComboBox;
+    LocalEdit: TEdit;
+    QuantidadeBox: TComboBox;
     Label7: TLabel;
     ComboBox3: TComboBox;
-    ComboBox1: TComboBox;
-    Edit1: TEdit;
+    CampoProdBox: TComboBox;
+    ProdEdit: TEdit;
     Label1: TLabel;
     Label3: TLabel;
     BitBtn1: TBitBtn;
@@ -41,8 +41,10 @@ type
     loc_descricao: TcxGridDBColumn;
     qtd_estoque: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
+    QuantidadeEdit: TNumberBox;
     procedure BitBtn1Click(Sender: TObject);
     procedure LotesProdutoClick(Sender: TObject);
+    procedure QuantidadeBoxChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -63,18 +65,77 @@ begin
 
   tb_estoque.Close;
   tb_estoque.Connection := dm1.con1;
+
   tb_estoque.SQL.Clear;
-  tb_estoque.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque');
-  tb_estoque.SQL.Add(' from tb_produtos as p');
-  tb_estoque.SQL.Add('inner join tb_lotes as l ');
-  tb_estoque.SQL.Add('on l.lote_produto = p.prod_codigo');
-  tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
-  tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
-  tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao');
-//  tb_estoque.SQL.Add('where
+
+  if QuantidadeBox.ItemIndex = 0 then
+  begin
+    tb_estoque.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque');
+    tb_estoque.SQL.Add(' from tb_produtos as p');
+    tb_estoque.SQL.Add('inner join tb_lotes as l ');
+    tb_estoque.SQL.Add('on l.lote_produto = p.prod_codigo');
+    tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
+    tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
+    tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao');
+  end
+  else
+  begin
+    tb_estoque.SQL.Add('select * from (');
+    tb_estoque.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque');
+    tb_estoque.SQL.Add(' from tb_produtos as p');
+    tb_estoque.SQL.Add('inner join tb_lotes as l ');
+    tb_estoque.SQL.Add('on l.lote_produto = p.prod_codigo');
+    tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
+    tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
+    tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao) as result');
+
+    if QuantidadeBox.ItemIndex = 1 then
+    begin
+      tb_estoque.SQL.Add('where result.qtd_estoque > :qtd');
+      QuantidadeEdit.Value := 0;
+    end
+    else if QuantidadeBox.ItemIndex = 2 then
+    begin
+      tb_estoque.SQL.Add('where result.qtd_estoque > :qtd');
+    end
+    else if QuantidadeBox.ItemIndex = 3 then
+    begin
+     tb_estoque.SQL.Add('where result.qtd_estoque < :qtd');
+    end
+    else if QuantidadeBox.ItemIndex = 4 then
+    begin
+     tb_estoque.SQL.Add('where result.qtd_estoque = :qtd');
+    end;
+
+    tb_estoque.ParamByName('qtd').Value := QuantidadeEdit.Text;
+
+    if CampoProdBox.ItemIndex = 0 then
+    begin
+      tb_estoque.SQl.Add('and result.prod_codigo = :prod_codigo');
+      tb_estoque.ParamByName('prod_codigo').Value := StrToInt(ProdEdit.Text);
+    end
+    else if CampoProdBox.ItemIndex = 1 then
+    begin
+      tb_estoque.SQl.Add('and result.prod_descricao like :prod_descricao');
+      tb_estoque.ParamByName('prod_descricao').Value := '%' + ProdEdit.Text + '%';
+    end;
+  end;
+
   ds_estoque.DataSet := tb_estoque;
   tb_estoque.Open;
 
+end;
+
+procedure TPagEstoque.QuantidadeBoxChange(Sender: TObject);
+begin
+  if (QuantidadeBox.ItemIndex <> 0) and (QuantidadeBox.ItemIndex <> 1) then
+  begin
+    QuantidadeEdit.Visible := True;
+  end
+  else
+  begin
+    QuantidadeEdit.Visible := False;
+  end;
 end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);
