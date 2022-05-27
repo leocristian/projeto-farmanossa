@@ -130,7 +130,7 @@ object FormEntrada: TFormEntrada
       CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
-      TabOrder = 4
+      TabOrder = 5
       ExplicitWidth = 261
     end
     object DescLocalEdit: TEdit
@@ -143,7 +143,7 @@ object FormEntrada: TFormEntrada
       CharCase = ecUpperCase
       MaxLength = 70
       ReadOnly = True
-      TabOrder = 5
+      TabOrder = 6
       ExplicitWidth = 261
     end
     object CodLocalEdit: TEdit
@@ -159,13 +159,13 @@ object FormEntrada: TFormEntrada
     end
     object QtdProdEdit: TEdit
       Left = 159
-      Top = 202
+      Top = 201
       Width = 121
       Height = 21
       Anchors = [akLeft, akBottom]
       MaxLength = 4
       NumbersOnly = True
-      TabOrder = 3
+      TabOrder = 7
     end
     object ModoLote: TEdit
       Left = 230
@@ -173,7 +173,7 @@ object FormEntrada: TFormEntrada
       Width = 25
       Height = 21
       TabStop = False
-      TabOrder = 6
+      TabOrder = 8
     end
     object LimparLocal: TBitBtn
       Left = 269
@@ -183,7 +183,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 7
+      TabOrder = 9
       TabStop = False
       OnClick = LimparLocalClick
     end
@@ -195,7 +195,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 8
+      TabOrder = 10
       TabStop = False
       OnClick = LimparProdClick
     end
@@ -207,8 +207,51 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       MaxLength = 4
       NumbersOnly = True
-      TabOrder = 9
+      TabOrder = 3
       OnExit = LoteEditExit
+    end
+    object pn_datas: TPanel
+      Left = 41
+      Top = 144
+      Width = 245
+      Height = 53
+      BevelOuter = bvNone
+      TabOrder = 4
+      DesignSize = (
+        245
+        53)
+      object Label6: TLabel
+        Left = 12
+        Top = 33
+        Width = 100
+        Height = 13
+        Anchors = [akLeft, akBottom]
+        Caption = 'Data de vencimento:'
+        ExplicitTop = 62
+      end
+      object Label5: TLabel
+        Left = 18
+        Top = 6
+        Width = 95
+        Height = 13
+        Anchors = [akLeft, akBottom]
+        Caption = 'Data de fabrica'#231#227'o:'
+        ExplicitTop = 35
+      end
+      object DtVencimentoEdit: TcxDateEdit
+        Left = 118
+        Top = 30
+        Anchors = [akLeft, akBottom]
+        TabOrder = 1
+        Width = 121
+      end
+      object DtFabricacaoEdit: TcxDateEdit
+        Left = 118
+        Top = 3
+        Anchors = [akLeft, akBottom]
+        TabOrder = 0
+        Width = 121
+      end
     end
   end
   inline FrameButtons1: TFrameButtons
@@ -224,7 +267,6 @@ object FormEntrada: TFormEntrada
     inherited ModoEdit: TEdit
       Left = 353
       Top = 40
-      TabOrder = 2
       ExplicitLeft = 269
       ExplicitTop = 40
     end
@@ -239,56 +281,10 @@ object FormEntrada: TFormEntrada
       Left = 440
       Top = 26
       Width = 120
-      TabOrder = 0
       OnClick = FrameButtons1SalvarBtnClick
       ExplicitLeft = 360
       ExplicitTop = 26
       ExplicitWidth = 120
-    end
-  end
-  object pn_datas: TPanel
-    Left = 41
-    Top = 144
-    Width = 245
-    Height = 53
-    BevelOuter = bvNone
-    TabOrder = 2
-    DesignSize = (
-      245
-      53)
-    object Label6: TLabel
-      Left = 12
-      Top = 33
-      Width = 100
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      Caption = 'Data de vencimento:'
-      ExplicitTop = 62
-    end
-    object Label5: TLabel
-      Left = 18
-      Top = 6
-      Width = 95
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      Caption = 'Data de fabrica'#231#227'o:'
-      ExplicitTop = 35
-    end
-    object DtVencimentoEdit: TcxDateEdit
-      Left = 118
-      Top = 30
-      Anchors = [akLeft, akBottom]
-      TabOrder = 0
-      ExplicitTop = 59
-      Width = 121
-    end
-    object DtFabricacaoEdit: TcxDateEdit
-      Left = 118
-      Top = 3
-      Anchors = [akLeft, akBottom]
-      TabOrder = 1
-      ExplicitTop = 32
-      Width = 121
     end
   end
   object ImageList1: TImageList

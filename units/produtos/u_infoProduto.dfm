@@ -172,7 +172,6 @@ object FormProduto: TFormProduto
     inherited SalvarBtn: TBitBtn
       Left = 258
       Top = 39
-      Font.Color = clWindowText
       OnClick = SalvarBtnClick
       ExplicitLeft = 258
       ExplicitTop = 39

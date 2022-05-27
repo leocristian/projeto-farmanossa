@@ -68,7 +68,7 @@ begin
     Caption := 'Exibir Produto';
     pn_form.Enabled := False;
     FrameButtons.SalvarBtn.Visible := False;
-
+    CodEdit.Text := '0000';
     index := PagProdutos.gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
     codigo := PagProdutos.gridProdutosDBTableView1.ViewData.Records[index].Values[0];
 
