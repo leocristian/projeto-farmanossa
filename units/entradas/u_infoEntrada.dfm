@@ -26,6 +26,7 @@ object FormEntrada: TFormEntrada
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = -6
     DesignSize = (
       575
       242)
@@ -223,6 +224,7 @@ object FormEntrada: TFormEntrada
       Top = 120
       Width = 25
       Height = 21
+      TabStop = False
       TabOrder = 8
     end
   end
@@ -236,23 +238,12 @@ object FormEntrada: TFormEntrada
     ExplicitTop = 242
     ExplicitWidth = 575
     ExplicitHeight = 87
-    inherited SalvarBtn: TButton
-      Left = 315
-      Top = 26
-      Width = 133
-      Caption = 'Confirmar entrada'
-      TabOrder = 1
-      OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 315
-      ExplicitTop = 26
-      ExplicitWidth = 133
-    end
     inherited ModoEdit: TEdit
-      Left = 284
-      Top = 32
-      TabOrder = 0
-      ExplicitLeft = 284
-      ExplicitTop = 32
+      Left = 269
+      Top = 40
+      TabOrder = 2
+      ExplicitLeft = 269
+      ExplicitTop = 40
     end
     inherited CancelarBtn: TButton
       Left = 454
@@ -260,6 +251,17 @@ object FormEntrada: TFormEntrada
       OnClick = FrameButtons1CancelarBtnClick
       ExplicitLeft = 454
       ExplicitTop = 26
+    end
+    inherited SalvarBtn: TBitBtn
+      Left = 328
+      Top = 26
+      Width = 120
+      Font.Color = clWindowText
+      TabOrder = 0
+      OnClick = FrameButtons1SalvarBtnClick
+      ExplicitLeft = 328
+      ExplicitTop = 26
+      ExplicitWidth = 120
     end
   end
   object ImageList1: TImageList

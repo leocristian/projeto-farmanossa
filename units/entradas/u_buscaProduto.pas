@@ -29,12 +29,17 @@ type
     prod_status_entrada: TcxGridDBColumn;
     prod_status_saida: TcxGridDBColumn;
     gridProdutosLevel1: TcxGridLevel;
-    vtb_produtos: TVirtualTable;
     FrameButtons1: TFrameButtons;
+    tb_produtos: TUniTable;
+    prod_status: TcxGridDBColumn;
     procedure BuscaBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure gridProdutosDBTableView1CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure FrameButtons1SalvarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,61 +53,39 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1;
+uses u_dm1, u_controleForm, u_infoEntrada;
 
 procedure TBuscaProdutoForm.BuscaBtnClick(Sender: TObject);
 var
   str_busca: String;
-  q1: TUniQuery;
 
 begin
 
   str_busca := CampoBusca.Text;
 
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
+  tb_produtos.Close;
+  tb_produtos.Connection := dm1.con1;
 
-    if str_busca = 'CÓDIGO' then
+  if str_busca = 'CÓDIGO' then
+  begin
+    if CampoEdit.Text = '' then
     begin
-      if CampoEdit.Text = '' then
-      begin
-        q1.SQL.Text := 'select * from tb_produtos';
-      end
-      else
-      begin
-        q1.SQL.Text := 'select * from tb_produtos where prod_codigo = :codigo';
-        q1.ParamByName('codigo').Value := StrToInt(CampoEdit.Text);
-      end;
+      tb_produtos.SQL.Text := 'select * from tb_produtos';
     end
-    else if str_busca = 'DESCRIÇÃO' then
+    else
     begin
-      q1.SQL.Text := 'select * from tb_produtos where prod_descricao like :descricao';
-      q1.ParamByName('descricao').Value := '%' + CampoEdit.Text + '%';
+      tb_produtos.SQL.Text := 'select * from tb_produtos where prod_codigo = :codigo';
+      tb_produtos.ParamByName('codigo').Value := StrToInt(CampoEdit.Text);
     end;
-
-    q1.Open;
-    q1.First;
-
-    ds_produtos.DataSet.Active := True;
-
-    vtb_produtos.Clear;
-
-    while not q1.Eof do
-    begin
-      vtb_produtos.Append;
-      vtb_produtos['prod_codigo'] := q1.FieldByName('prod_codigo').Value;
-      vtb_produtos['prod_descricao'] := q1.FieldByName('prod_descricao').Value;
-      vtb_produtos['prod_estoque_negativo'] := q1.FieldByName('prod_estoque_negativo').Value;
-      vtb_produtos['prod_status_entrada'] := q1.FieldByName('prod_status_entrada').Value;
-      vtb_produtos['prod_status_saida'] := q1.FieldByName('prod_status_saida').Value;
-      q1.Next;
-    end;
-  finally
-
-    q1.Close;
-    FreeAndNil(q1);
+  end
+  else if str_busca = 'DESCRIÇÃO' then
+  begin
+    tb_produtos.SQL.Text := 'select * from tb_produtos where prod_descricao like :descricao';
+    tb_produtos.ParamByName('descricao').Value := '%' + CampoEdit.Text + '%';
   end;
+
+  ds_produtos.DataSet := tb_produtos;
+  tb_produtos.Open;
 
 end;
 
@@ -122,12 +105,50 @@ procedure TBuscaProdutoForm.FormShow(Sender: TObject);
 begin
   CampoEdit.Clear;
   CampoEdit.SetFocus;
-  vtb_produtos.Clear;
+  tb_produtos.Close;
+  FrameButtons1.SalvarBtn.Font.Color := clRed;
 end;
 
 procedure TBuscaProdutoForm.FrameButtons1CancelarBtnClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TBuscaProdutoForm.FrameButtons1SalvarBtnClick(Sender: TObject);
+var
+  indexProd, codProd: Integer;
+  descProd, statusProd: String;
+
+begin
+  if FrameButtons1.SalvarBtn.Font.Color = clRed then
+  begin
+    Aviso('Selecione um produto para dar entrada!');
+    Exit;
+  end;
+
+  indexProd := gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
+  codProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[0];
+  descProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[1];
+  statusProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[3];
+
+  if statusProd = 'INATIVO' then
+  begin
+    Aviso('O Produto ' + descProd + ' está INATIVO!');
+    Exit;
+  end;
+
+  FormEntrada.CodProdEdit.Text := IntToStr(codProd);
+  FormEntrada.DescProdEdit.Text := descProd;
+  FormEntrada.CodLocalEdit.SetFocus;
+
+  Close;
+end;
+
+procedure TBuscaProdutoForm.gridProdutosDBTableView1CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  FrameButtons1.SalvarBtn.Font.Color := clGreen;
 end;
 
 end.

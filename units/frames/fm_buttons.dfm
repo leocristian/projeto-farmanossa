@@ -7,16 +7,6 @@ object FrameButtons: TFrameButtons
   DesignSize = (
     475
     93)
-  object SalvarBtn: TButton
-    Left = 277
-    Top = 32
-    Width = 83
-    Height = 33
-    Anchors = [akRight, akBottom]
-    Caption = 'Salvar'
-    TabOrder = 0
-    ExplicitLeft = 420
-  end
   object ModoEdit: TEdit
     Left = 236
     Top = 34
@@ -25,9 +15,8 @@ object FrameButtons: TFrameButtons
     TabStop = False
     Anchors = [akRight, akBottom]
     CharCase = ecUpperCase
-    TabOrder = 1
+    TabOrder = 0
     Visible = False
-    ExplicitLeft = 379
   end
   object CancelarBtn: TButton
     Left = 366
@@ -36,7 +25,21 @@ object FrameButtons: TFrameButtons
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = 'Cancelar'
+    TabOrder = 1
+  end
+  object SalvarBtn: TBitBtn
+    Left = 285
+    Top = 31
+    Width = 75
+    Height = 33
+    Anchors = [akRight, akBottom]
+    Caption = 'Salvar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clRed
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 2
-    ExplicitLeft = 509
   end
 end

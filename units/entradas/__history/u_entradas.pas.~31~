@@ -1,0 +1,142 @@
+unit u_entradas;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, MemDS, DBAccess, Uni, fr_estilo, fm_busca;
+
+type
+  TPagEntradas = class(TForm)
+    PopupEntradas: TPopupMenu;
+    NovaEntrada: TMenuItem;
+    gridEntradasDBTableView1: TcxGridDBTableView;
+    gridEntradasLevel1: TcxGridLevel;
+    gridEntradas: TcxGrid;
+    tb_entradas: TUniTable;
+    ds_entradas: TDataSource;
+    FrameGrid1: TFrameGrid;
+    ent_codigo: TcxGridDBColumn;
+    ent_produto: TcxGridDBColumn;
+    ent_local: TcxGridDBColumn;
+    ent_lote: TcxGridDBColumn;
+    ent_quantidade: TcxGridDBColumn;
+    ent_data_hora: TcxGridDBColumn;
+    CancelarEntrada1: TMenuItem;
+    N1: TMenuItem;
+    FrameBusca1: TFrameBusca;
+    Detalhar1: TMenuItem;
+    AlterarEntrada: TMenuItem;
+    procedure NovaEntradaClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure CancelarEntrada1Click(Sender: TObject);
+    procedure Detalhar1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AlterarEntradaClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PagEntradas: TPagEntradas;
+
+implementation
+
+{$R *.dfm}
+
+uses u_infoEntrada, u_dm1, u_controleForm;
+
+procedure TPagEntradas.AlterarEntradaClick(Sender: TObject);
+begin
+  if not tb_entradas.Active then exit;
+  if tb_entradas.RecordCount = 0 then exit;
+
+  FormEntrada.FrameButtons1.ModoEdit.Text := 'A';
+  FormEntrada.ShowModal;
+end;
+
+procedure TPagEntradas.CancelarEntrada1Click(Sender: TObject);
+var
+  q1: TUniQuery;
+  index, codigo: Integer;
+
+begin
+  if not tb_entradas.Active then exit;
+  if tb_entradas.RecordCount = 0 then exit;
+
+  if Confirma('Confirmar cancelamento de entrada?' + #13 + 'Esta operação será irreversível!') then
+  begin
+    try
+      q1 := TUniQuery.Create(q1);
+      q1.Connection := dm1.con1;
+
+      index := gridEntradasDBTableView1.DataController.GetSelectedRowIndex(0);
+      codigo := gridEntradasDBTableView1.ViewData.Records[index].Values[0];
+
+      q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
+      q1.ParamByName('codigo').Value := codigo;
+
+      try
+        q1.ExecSQL;
+        Mensagem('Entrada cancelada com sucesso!');
+        gridEntradasDBTableView1.DataController.RefreshExternalData;
+      except on e:exception do
+        Erro('Erro!' + #13 + e.Message);
+      end;
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
+  end;
+end;
+
+procedure TPagEntradas.Detalhar1Click(Sender: TObject);
+begin
+  if not tb_entradas.Active then exit;
+  if tb_entradas.RecordCount = 0 then exit;
+
+  FormEntrada.FrameButtons1.ModoEdit.Text := 'V';
+  FormEntrada.ShowModal;
+end;
+
+procedure TPagEntradas.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Detalhar1Click(Sender)
+  else if Key = VK_F2 then
+    NovaEntradaClick(Sender)
+  else if Key = VK_F3 then
+    AlterarEntradaClick(Sender)
+  else if Key = VK_F4 then
+    CancelarEntrada1Click(Sender);
+end;
+
+procedure TPagEntradas.FormShow(Sender: TObject);
+begin
+//  dm1.con1.Close;
+
+  tb_entradas.Connection := dm1.con1;
+//  tb_entradas.TableName := 'tb_entradas';
+
+  tb_entradas.SQL.Text := 'select * from tb_entradas';
+  ds_entradas.DataSet := tb_entradas;
+  tb_entradas.Active := True;
+
+//  dm1.con1.Open;
+end;
+
+procedure TPagEntradas.NovaEntradaClick(Sender: TObject);
+begin
+  FormEntrada.FrameButtons1.ModoEdit.Text := 'N';
+  FormEntrada.ShowModal;
+end;
+
+end.

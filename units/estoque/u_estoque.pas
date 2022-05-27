@@ -48,6 +48,7 @@ type
     procedure ProdEditClick(Sender: TObject);
     procedure LocalEditClick(Sender: TObject);
     procedure QuantidadeEditClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -175,6 +176,11 @@ end;
 procedure TPagEstoque.QuantidadeEditClick(Sender: TObject);
 begin
   QuantidadeEdit.SetFocus;
+end;
+
+procedure TPagEstoque.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  tb_estoque.Close;
 end;
 
 procedure TPagEstoque.LocalEditClick(Sender: TObject);

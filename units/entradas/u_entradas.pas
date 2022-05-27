@@ -32,6 +32,8 @@ type
     FrameBusca1: TFrameBusca;
     Detalhar1: TMenuItem;
     AlterarEntrada: TMenuItem;
+    prod_descricao: TcxGridDBColumn;
+    loc_descricao: TcxGridDBColumn;
     procedure NovaEntradaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CancelarEntrada1Click(Sender: TObject);
@@ -121,16 +123,21 @@ end;
 
 procedure TPagEntradas.FormShow(Sender: TObject);
 begin
-//  dm1.con1.Close;
 
+  tb_entradas.Close;
   tb_entradas.Connection := dm1.con1;
-//  tb_entradas.TableName := 'tb_entradas';
 
-  tb_entradas.SQL.Text := 'select * from tb_entradas';
+  tb_entradas.SQL.Clear;
+  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora');
+  tb_entradas.SQl.Add('from tb_entradas');
+  tb_entradas.SQL.Add('inner join tb_produtos');
+  tb_entradas.SQL.Add('on ent_produto = prod_codigo');
+  tb_entradas.SQL.Add('inner join tb_locais_estoque');
+  tb_entradas.SQL.Add('on ent_local = loc_codigo');
+
   ds_entradas.DataSet := tb_entradas;
-  tb_entradas.Active := True;
+  tb_entradas.Open;
 
-//  dm1.con1.Open;
 end;
 
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);

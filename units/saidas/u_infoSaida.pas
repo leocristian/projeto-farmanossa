@@ -174,7 +174,7 @@ end;
 
 procedure TFormSaida.ConfirmarBtnClick(Sender: TObject);
 var
-  indexLote, codLote, codSaida: Integer;
+  indexLote, codLote, codSaida, qtdLote: Integer;
   q1: TUniQuery;
 
 begin
@@ -184,13 +184,19 @@ begin
     Exit;
   end;
 
+  indexLote := SelecionaLoteForm.gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
+  codLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[0];
+  qtdLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[3];
+
+  if qtdLote < QtdProdEdit.Value then
+  begin
+    Aviso('Quantidade no lote é insuficiente!');
+    exit;
+  end;
+
   if Confirma('Confirmar Saída?') then
   begin
     try
-
-      indexLote := SelecionaLoteForm.gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
-      codLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[0];
-
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
 
@@ -201,6 +207,8 @@ begin
       q1.Close;
 
       q1.SQL.Clear;
+      q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
+      q1.SQL.Add('where lote_codigo = :lote;');
       q1.SQL.Add('insert into tb_saidas(sai_codigo, sai_produto, sai_local, sai_lote, sai_quantidade)');
       q1.SQL.Add('values ');
       q1.SQl.Add('(:codigo, :produto, :local, :lote, :quantidade)');

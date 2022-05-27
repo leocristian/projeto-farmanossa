@@ -153,23 +153,29 @@ object FormProduto: TFormProduto
     Height = 93
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 177
+    ExplicitLeft = -8
+    ExplicitTop = 191
     ExplicitWidth = 466
-    inherited SalvarBtn: TButton
-      Left = 268
-      TabOrder = 1
-      OnClick = SalvarBtnClick
-      ExplicitLeft = 268
-    end
     inherited ModoEdit: TEdit
-      Left = 227
-      TabOrder = 0
-      ExplicitLeft = 227
+      Left = 219
+      Top = 42
+      ExplicitLeft = 219
+      ExplicitTop = 42
     end
     inherited CancelarBtn: TButton
-      Left = 357
+      Left = 342
+      Top = 39
       OnClick = CancelarBtnClick
-      ExplicitLeft = 357
+      ExplicitLeft = 342
+      ExplicitTop = 39
+    end
+    inherited SalvarBtn: TBitBtn
+      Left = 258
+      Top = 39
+      Font.Color = clWindowText
+      OnClick = SalvarBtnClick
+      ExplicitLeft = 258
+      ExplicitTop = 39
     end
   end
 end

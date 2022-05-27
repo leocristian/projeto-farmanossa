@@ -25,6 +25,7 @@ type
     lote_quantidade: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     FecharBtn: TButton;
+    loc_descricao: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure FecharBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -76,7 +77,13 @@ begin
   tb_lotes.Close;
   tb_lotes.Connection := dm1.con1;
 
-  tb_lotes.SQL.text := 'select * from tb_lotes where lote_produto = :cod_produto';
+  tb_lotes.SQL.Clear;
+
+  tb_lotes.SQL.Add('select lote_codigo, lote_local, loc_descricao, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
+  tb_lotes.SQL.Add('from tb_lotes ');
+  tb_lotes.SQL.Add('inner join tb_locais_estoque');
+  tb_lotes.SQL.Add('on loc_codigo = lote_local');
+  tb_lotes.SQL.Add('where lote_produto = :cod_produto');
   tb_lotes.ParamByName('cod_produto').Value := prod_codigo;
 
   ds_lotes.DataSet := tb_lotes;

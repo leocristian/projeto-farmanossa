@@ -120,14 +120,21 @@ begin
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
 
-    q1.SQL.Text := 'select prod_descricao, prod_status_entrada from tb_produtos where prod_codigo = :codigo';
+    q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_entrada from tb_produtos where prod_codigo = :codigo';
     q1.ParamByName('codigo').Value := CodProdEdit.Text;
 
     q1.Open;
 
     if q1.RecordCount = 1 then
     begin
-      if q1.FieldByName('prod_status_entrada').Value = 'INATIVO' then
+      if q1.FieldByName('prod_status').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else if q1.FieldByName('prod_status_entrada').Value = 'INATIVO' then
       begin
         Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite entrada!');
         CodProdEdit.Clear;
@@ -327,7 +334,6 @@ begin
       end
       else if ModoLote.Text = 'A' then
       begin
-        
         // Atualizar novo lote selecionado
         q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
         q1.SQL.Add('where lote_codigo = :lote;');
