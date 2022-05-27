@@ -45,9 +45,6 @@ type
     procedure BitBtn1Click(Sender: TObject);
     procedure LotesProdutoClick(Sender: TObject);
     procedure QuantidadeBoxChange(Sender: TObject);
-    procedure ProdEditClick(Sender: TObject);
-    procedure LocalEditClick(Sender: TObject);
-    procedure QuantidadeEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -108,15 +105,8 @@ begin
 
   if CampoProdBox.ItemIndex = 0 then
   begin
-    if ProdEdit.Text = '' then
-    begin
-      tb_estoque.SQL.Add('and 1=1');
-    end
-    else
-    begin
-      tb_estoque.SQl.Add('and result.prod_codigo = :prod_codigo');
-      tb_estoque.ParamByName('prod_codigo').Value := StrToInt(ProdEdit.Text);
-    end;
+    tb_estoque.SQl.Add('and result.prod_codigo = :prod_codigo');
+    tb_estoque.ParamByName('prod_codigo').Value := StrToInt(ProdEdit.Text);
   end
   else if CampoProdBox.ItemIndex = 1 then
   begin
@@ -139,20 +129,13 @@ begin
 
   if LocalSelecao.ItemIndex = 0 then
   begin
-    if LocalEdit.Text = '' then
-    begin
-      tb_estoque.SQL.Add('and 1=1');
-    end
-    else
-    begin
-      tb_estoque.SQL.Add('and result.loc_codigo = :cod_local');
-      tb_estoque.ParamByName('cod_local').Value := StrToInt(LocalEdit.Text);
-    end;
+    tb_estoque.SQL.Add('and result.loc_codigo = :cod_local');
+    tb_estoque.ParamByName('cod_local').Value := StrToInt(LocalEdit.Text);
   end
   else if LocalSelecao.ItemIndex = 1 then
   begin
     tb_estoque.SQL.Add('and result.loc_descricao like :loc_descricao');
-    tb_estoque.ParamByName('loc_descricao').Value := '%' + LocalEdit.Text + '%';
+    tb_estoque.ParamByName('loc_descricao').Value := LocalEdit.Text;
   end;
 
   ds_estoque.DataSet := tb_estoque;
@@ -172,27 +155,12 @@ begin
   end;
 end;
 
-procedure TPagEstoque.QuantidadeEditClick(Sender: TObject);
-begin
-  QuantidadeEdit.SetFocus;
-end;
-
-procedure TPagEstoque.LocalEditClick(Sender: TObject);
-begin
-  LocalEdit.SetFocus;
-end;
-
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);
 begin
   if not tb_estoque.Active then exit;
   if tb_estoque.RecordCount = 0 then exit;
 
   LotesProdutoForm.ShowModal;
-end;
-
-procedure TPagEstoque.ProdEditClick(Sender: TObject);
-begin
-  ProdEdit.SetFocus;
 end;
 
 end.

@@ -60,7 +60,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 0
+      TabOrder = 5
       Text = 'C'#211'DIGO'
       Items.Strings = (
         'C'#211'DIGO'
@@ -72,7 +72,8 @@ object PagEstoque: TPagEstoque
       Width = 328
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 1
+      TabOrder = 6
+      OnClick = LocalEditClick
     end
     object QuantidadeBox: TComboBox
       Left = 283
@@ -81,7 +82,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 2
+      TabOrder = 3
       Text = 'MOSTRAR TUDO'
       OnChange = QuantidadeBoxChange
       Items.Strings = (
@@ -91,14 +92,14 @@ object PagEstoque: TPagEstoque
         'ESTOQUE MENOR QUE'
         'ESTOQUE IGUAL A')
     end
-    object ComboBox3: TComboBox
+    object TipoProdutoBox: TComboBox
       Left = 114
       Top = 47
       Width = 97
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 3
+      TabOrder = 2
       Text = 'TODOS'
       Items.Strings = (
         'TODOS'
@@ -112,7 +113,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 4
+      TabOrder = 0
       Text = 'C'#211'DIGO'
       Items.Strings = (
         'C'#211'DIGO'
@@ -124,7 +125,8 @@ object PagEstoque: TPagEstoque
       Width = 328
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 5
+      TabOrder = 1
+      OnClick = ProdEditClick
     end
     object BitBtn1: TBitBtn
       Left = 619
@@ -134,7 +136,7 @@ object PagEstoque: TPagEstoque
       Caption = 'Consultar'
       ImageIndex = 0
       Images = ImageList1
-      TabOrder = 6
+      TabOrder = 7
       OnClick = BitBtn1Click
     end
     object QuantidadeEdit: TNumberBox
@@ -143,8 +145,9 @@ object PagEstoque: TPagEstoque
       Width = 50
       Height = 21
       MaxLength = 5
-      TabOrder = 7
+      TabOrder = 4
       Visible = False
+      OnClick = QuantidadeEditClick
     end
   end
   object gridEstoque: TcxGrid
@@ -208,12 +211,12 @@ object PagEstoque: TPagEstoque
         AlternateCaption = 'String'
         Caption = 'C'#243'digo do Local de estoque'
         DataBinding.FieldName = 'loc_codigo'
-        Width = 149
+        Width = 164
       end
       object loc_descricao: TcxGridDBColumn
-        Caption = 'Descri'#231#227'o do Local de estoque'
+        Caption = 'Local de estoque'
         DataBinding.FieldName = 'loc_descricao'
-        Width = 192
+        Width = 196
       end
       object qtd_estoque: TcxGridDBColumn
         AlternateCaption = 'Integer'

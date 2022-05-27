@@ -214,14 +214,15 @@ begin
       try
         q1.ExecSQL;
         Mensagem('Operação realizada com sucesso!');
+        PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
         Close;
       except on e:exception do
         Erro('Erro!' + #13 + e.Message);
       end;
 
     finally
-      FreeAndNil(q1);
       q1.Close;
+      FreeAndNil(q1);
     end;
   end;
 end;

@@ -25,13 +25,13 @@ type
     FrameGrid1: TFrameGrid;
     gridSaidas: TcxGrid;
     gridSaidasDBTableView1: TcxGridDBTableView;
-    ent_codigo: TcxGridDBColumn;
-    ent_produto: TcxGridDBColumn;
-    ent_local: TcxGridDBColumn;
-    ent_lote: TcxGridDBColumn;
-    ent_quantidade: TcxGridDBColumn;
-    ent_data_hora: TcxGridDBColumn;
     gridSaidasLevel1: TcxGridLevel;
+    sai_codigo: TcxGridDBColumn;
+    sai_produto: TcxGridDBColumn;
+    sai_local: TcxGridDBColumn;
+    sai_lote: TcxGridDBColumn;
+    sai_quantidade: TcxGridDBColumn;
+    sai_data_hora: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure NovaSaidaClick(Sender: TObject);
   private
@@ -53,11 +53,12 @@ procedure TPagSaidas.FormShow(Sender: TObject);
 begin
 //  dm1.con1.Close;
 
+  tb_saidas.Close;
   tb_saidas.Connection := dm1.con1;
   tb_saidas.TableName := 'tb_saidas';
 
   ds_saidas.DataSet := tb_saidas;
-  tb_saidas.Active := True;
+  tb_saidas.Open;
 
 //  dm1.con1.Open;
 end;

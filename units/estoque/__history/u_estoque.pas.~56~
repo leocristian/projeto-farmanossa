@@ -24,8 +24,8 @@ type
     QuantidadeBox: TComboBox;
     Label7: TLabel;
     ComboBox3: TComboBox;
-    ComboBox1: TComboBox;
-    Edit1: TEdit;
+    CampoProdBox: TComboBox;
+    ProdEdit: TEdit;
     Label1: TLabel;
     Label3: TLabel;
     BitBtn1: TBitBtn;
@@ -91,16 +91,16 @@ begin
 
     if QuantidadeBox.ItemIndex = 1 then
     begin
-      tb_estoque.SQL.Add('where result.qtd_estoque > :qtd');
+      tb_estoque.SQL.Add('where result.qtd_estoque > qtd');
       QuantidadeEdit.Value := 0;
     end
     else if QuantidadeBox.ItemIndex = 2 then
     begin
-      tb_estoque.SQL.Add('where result.qtd_estoque > :qtd');
+      tb_estoque.SQL.Add('where result.qtd_estoque >= :qtd');
     end
     else if QuantidadeBox.ItemIndex = 3 then
     begin
-     tb_estoque.SQL.Add('where result.qtd_estoque < :qtd');
+     tb_estoque.SQL.Add('where result.qtd_estoque <= :qtd');
     end
     else if QuantidadeBox.ItemIndex = 4 then
     begin
@@ -108,12 +108,17 @@ begin
     end;
 
     tb_estoque.ParamByName('qtd').Value := QuantidadeEdit.Text;
-  end;
 
-  if LocalEdit.Text <> '' then
-  begin
-    tb_estoque.SQl.Add('where locais.loc_codigo = :loc_codigo');
-    tb_estoque.ParamByName('loc_codigo').Value := StrToInt(LocalEdit.Text);
+    if CampoProdBox.ItemIndex = 0 then
+    begin
+      tb_estoque.SQl.Add('and result.prod_codigo = :prod_codigo');
+      tb_estoque.ParamByName('prod_codigo').Value := StrToInt(ProdEdit.Text);
+    end
+    else if CampoProdBox.ItemIndex = 1 then
+    begin
+      tb_estoque.SQl.Add('and result.prod_descricao like :prod_descricao');
+      tb_estoque.ParamByName('prod_descricao').Value := '%' + ProdEdit.Text + '%';
+    end;
   end;
 
   ds_estoque.DataSet := tb_estoque;

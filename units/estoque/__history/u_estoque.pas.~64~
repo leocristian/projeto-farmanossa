@@ -46,8 +46,6 @@ type
     procedure LotesProdutoClick(Sender: TObject);
     procedure QuantidadeBoxChange(Sender: TObject);
     procedure ProdEditClick(Sender: TObject);
-    procedure LocalEditClick(Sender: TObject);
-    procedure QuantidadeEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -170,16 +168,6 @@ begin
   begin
     QuantidadeEdit.Visible := False;
   end;
-end;
-
-procedure TPagEstoque.QuantidadeEditClick(Sender: TObject);
-begin
-  QuantidadeEdit.SetFocus;
-end;
-
-procedure TPagEstoque.LocalEditClick(Sender: TObject);
-begin
-  LocalEdit.SetFocus;
 end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);

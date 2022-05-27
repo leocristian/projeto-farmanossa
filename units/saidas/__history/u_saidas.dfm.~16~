@@ -11,6 +11,7 @@ object PagSaidas: TPagSaidas
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  PopupMenu = PopupSaidas
   WindowState = wsMaximized
   OnShow = FormShow
   PixelsPerInch = 96
@@ -22,9 +23,20 @@ object PagSaidas: TPagSaidas
     Height = 109
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -191
+    ExplicitWidth = 661
     inherited ImageList1: TImageList
       Left = 616
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 495
+    Top = 0
+    Width = 77
+    Height = 86
+    TabOrder = 1
+    ExplicitLeft = 495
+    inherited estiloGrid: TcxStyleRepository
+      PixelsPerInch = 96
     end
   end
   object gridSaidas: TcxGrid
@@ -33,11 +45,7 @@ object PagSaidas: TPagSaidas
     Width = 661
     Height = 235
     Align = alClient
-    TabOrder = 1
-    ExplicitLeft = -62
-    ExplicitTop = 21
-    ExplicitWidth = 723
-    ExplicitHeight = 323
+    TabOrder = 2
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -71,70 +79,36 @@ object PagSaidas: TPagSaidas
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
-      object ent_codigo: TcxGridDBColumn
+      object sai_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
-        DataBinding.FieldName = 'ent_codigo'
-        DataBinding.IsNullValueType = True
+        DataBinding.FieldName = 'sai_codigo'
       end
-      object ent_produto: TcxGridDBColumn
+      object sai_produto: TcxGridDBColumn
+        AlternateCaption = 'Integer'
         Caption = 'Produto'
-        DataBinding.FieldName = 'ent_produto'
         DataBinding.IsNullValueType = True
       end
-      object ent_local: TcxGridDBColumn
-        Caption = 'Local de estoque'
-        DataBinding.FieldName = 'ent_local'
-        DataBinding.IsNullValueType = True
-        Width = 129
+      object sai_local: TcxGridDBColumn
+        Caption = 'Local de Estoque'
+        DataBinding.FieldName = 'sai_local'
       end
-      object ent_lote: TcxGridDBColumn
+      object sai_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Lote'
-        DataBinding.FieldName = 'ent_lote'
-        DataBinding.IsNullValueType = True
-        Width = 96
+        DataBinding.FieldName = 'sai_lote'
       end
-      object ent_dtfabricacao: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Data de fabrica'#231#227'o'
-        DataBinding.FieldName = 'ent_dtfabricacao'
-        DataBinding.IsNullValueType = True
-        Width = 163
-      end
-      object ent_dtvencimento: TcxGridDBColumn
-        Caption = 'Data de Vencimento'
-        DataBinding.FieldName = 'ent_dtvencimento'
-        DataBinding.IsNullValueType = True
-        Width = 171
-      end
-      object ent_quantidade: TcxGridDBColumn
-        AlternateCaption = 'DateTime'
+      object sai_quantidade: TcxGridDBColumn
         Caption = 'Quantidade'
-        DataBinding.FieldName = 'ent_quantidade'
-        DataBinding.IsNullValueType = True
-        Width = 102
+        DataBinding.FieldName = 'sai_quantidade'
       end
-      object ent_data_hora: TcxGridDBColumn
-        AlternateCaption = 'DateTime'
-        Caption = 'Data e Hora da entrada'
-        DataBinding.FieldName = 'ent_data_hora'
-        DataBinding.IsNullValueType = True
-        Width = 196
+      object sai_data_hora: TcxGridDBColumn
+        AlternateCaption = 'Integer'
+        Caption = 'Data e Hora'
+        DataBinding.FieldName = 'sai_data_hora'
       end
     end
     object gridSaidasLevel1: TcxGridLevel
       GridView = gridSaidasDBTableView1
-    end
-  end
-  inline FrameGrid1: TFrameGrid
-    Left = 495
-    Top = 0
-    Width = 77
-    Height = 86
-    TabOrder = 2
-    ExplicitLeft = 495
-    inherited estiloGrid: TcxStyleRepository
-      PixelsPerInch = 96
     end
   end
   object tb_saidas: TUniTable
@@ -151,17 +125,18 @@ object PagSaidas: TPagSaidas
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...  (F1)'
     end
-    object NovaEntrada: TMenuItem
-      Caption = '1 - Lan'#231'ar nova entrada de mercadoria  (F2)'
+    object NovaSaida: TMenuItem
+      Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadoria  (F2)'
+      OnClick = NovaSaidaClick
     end
-    object AlterarEntrada: TMenuItem
-      Caption = '2 - Alterar entrada de mercadoria  (F3)'
+    object AlterarSaida: TMenuItem
+      Caption = '2 - Alterar sa'#237'da de mercadoria  (F3)'
     end
     object N1: TMenuItem
       Caption = '-'
     end
-    object CancelarEntrada1: TMenuItem
-      Caption = 'Cancelar Entrada'
+    object CancelarSaida: TMenuItem
+      Caption = 'Cancelar Sa'#237'da'
     end
   end
 end

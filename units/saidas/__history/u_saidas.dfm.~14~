@@ -11,7 +11,9 @@ object PagSaidas: TPagSaidas
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  PopupMenu = PopupSaidas
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   inline FrameBusca1: TFrameBusca
@@ -21,9 +23,20 @@ object PagSaidas: TPagSaidas
     Height = 109
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -191
+    ExplicitWidth = 661
     inherited ImageList1: TImageList
       Left = 616
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 495
+    Top = 0
+    Width = 77
+    Height = 86
+    TabOrder = 1
+    ExplicitLeft = 495
+    inherited estiloGrid: TcxStyleRepository
+      PixelsPerInch = 96
     end
   end
   object gridSaidas: TcxGrid
@@ -32,11 +45,7 @@ object PagSaidas: TPagSaidas
     Width = 661
     Height = 235
     Align = alClient
-    TabOrder = 1
-    ExplicitLeft = -62
-    ExplicitTop = 21
-    ExplicitWidth = 723
-    ExplicitHeight = 323
+    TabOrder = 2
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -58,7 +67,6 @@ object PagSaidas: TPagSaidas
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = ds_saidas
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -93,19 +101,6 @@ object PagSaidas: TPagSaidas
         DataBinding.IsNullValueType = True
         Width = 96
       end
-      object ent_dtfabricacao: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Data de fabrica'#231#227'o'
-        DataBinding.FieldName = 'ent_dtfabricacao'
-        DataBinding.IsNullValueType = True
-        Width = 163
-      end
-      object ent_dtvencimento: TcxGridDBColumn
-        Caption = 'Data de Vencimento'
-        DataBinding.FieldName = 'ent_dtvencimento'
-        DataBinding.IsNullValueType = True
-        Width = 171
-      end
       object ent_quantidade: TcxGridDBColumn
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
@@ -125,17 +120,6 @@ object PagSaidas: TPagSaidas
       GridView = gridSaidasDBTableView1
     end
   end
-  inline FrameGrid1: TFrameGrid
-    Left = 495
-    Top = 0
-    Width = 77
-    Height = 86
-    TabOrder = 2
-    ExplicitLeft = 495
-    inherited estiloGrid: TcxStyleRepository
-      PixelsPerInch = 96
-    end
-  end
   object tb_saidas: TUniTable
     Left = 480
     Top = 136
@@ -150,17 +134,18 @@ object PagSaidas: TPagSaidas
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...  (F1)'
     end
-    object NovaEntrada: TMenuItem
-      Caption = '1 - Lan'#231'ar nova entrada de mercadoria  (F2)'
+    object NovaSaida: TMenuItem
+      Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadoria  (F2)'
+      OnClick = NovaSaidaClick
     end
-    object AlterarEntrada: TMenuItem
-      Caption = '2 - Alterar entrada de mercadoria  (F3)'
+    object AlterarSaida: TMenuItem
+      Caption = '2 - Alterar sa'#237'da de mercadoria  (F3)'
     end
     object N1: TMenuItem
       Caption = '-'
     end
-    object CancelarEntrada1: TMenuItem
-      Caption = 'Cancelar Entrada'
+    object CancelarSaida: TMenuItem
+      Caption = 'Cancelar Sa'#237'da'
     end
   end
 end

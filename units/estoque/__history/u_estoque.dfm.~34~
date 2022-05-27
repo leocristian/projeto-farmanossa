@@ -53,7 +53,7 @@ object PagEstoque: TPagEstoque
       Height = 13
       Caption = 'Status:'
     end
-    object CodLocalBox: TComboBox
+    object LocalSelecao: TComboBox
       Left = 114
       Top = 91
       Width = 97
@@ -66,11 +66,12 @@ object PagEstoque: TPagEstoque
         'C'#211'DIGO'
         'DESCRI'#199#194'O')
     end
-    object Edit2: TEdit
+    object LocalEdit: TEdit
       Left = 217
       Top = 91
       Width = 328
       Height = 21
+      CharCase = ecUpperCase
       TabOrder = 1
     end
     object QuantidadeBox: TComboBox
@@ -90,7 +91,7 @@ object PagEstoque: TPagEstoque
         'ESTOQUE MENOR QUE'
         'ESTOQUE IGUAL A')
     end
-    object ComboBox3: TComboBox
+    object TipoProdutoBox: TComboBox
       Left = 114
       Top = 47
       Width = 97
@@ -104,7 +105,7 @@ object PagEstoque: TPagEstoque
         'ATIVO'
         'INATIVO')
     end
-    object ComboBox1: TComboBox
+    object CampoProdBox: TComboBox
       Left = 114
       Top = 20
       Width = 97
@@ -117,16 +118,17 @@ object PagEstoque: TPagEstoque
         'C'#211'DIGO'
         'DESCRI'#199#194'O')
     end
-    object Edit1: TEdit
+    object ProdEdit: TEdit
       Left = 217
       Top = 20
       Width = 328
       Height = 21
+      CharCase = ecUpperCase
       TabOrder = 5
     end
     object BitBtn1: TBitBtn
-      Left = 715
-      Top = 1
+      Left = 619
+      Top = 20
       Width = 97
       Height = 59
       Caption = 'Consultar'
@@ -209,7 +211,7 @@ object PagEstoque: TPagEstoque
         Width = 149
       end
       object loc_descricao: TcxGridDBColumn
-        Caption = 'Descri'#231#227'o do Local de estoque'
+        Caption = 'Local de estoque'
         DataBinding.FieldName = 'loc_descricao'
         Width = 192
       end
