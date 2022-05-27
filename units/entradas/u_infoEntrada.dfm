@@ -16,9 +16,6 @@ object FormEntrada: TFormEntrada
   Position = poOwnerFormCenter
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  DesignSize = (
-    659
-    329)
   PixelsPerInch = 96
   TextHeight = 13
   object pn_form: TPanel
@@ -242,7 +239,20 @@ object FormEntrada: TFormEntrada
       ImageIndex = 1
       Images = ImageList1
       TabOrder = 9
+      TabStop = False
       OnClick = LimparLocalClick
+    end
+    object LimparProd: TBitBtn
+      Left = 269
+      Top = 66
+      Width = 33
+      Height = 23
+      Anchors = [akLeft, akBottom]
+      ImageIndex = 1
+      Images = ImageList1
+      TabOrder = 10
+      TabStop = False
+      OnClick = LimparProdClick
     end
   end
   inline FrameButtons1: TFrameButtons
@@ -280,17 +290,6 @@ object FormEntrada: TFormEntrada
       ExplicitTop = 26
       ExplicitWidth = 120
     end
-  end
-  object LimparProd: TBitBtn
-    Left = 269
-    Top = 66
-    Width = 33
-    Height = 23
-    Anchors = [akLeft, akBottom]
-    ImageIndex = 1
-    Images = ImageList1
-    TabOrder = 2
-    OnClick = LimparProdClick
   end
   object ImageList1: TImageList
     Left = 312

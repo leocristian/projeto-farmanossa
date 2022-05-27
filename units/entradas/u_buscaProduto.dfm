@@ -3,8 +3,8 @@ object BuscaProdutoForm: TBuscaProdutoForm
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Buscar Produto'
-  ClientHeight = 432
-  ClientWidth = 805
+  ClientHeight = 431
+  ClientWidth = 787
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,15 +22,16 @@ object BuscaProdutoForm: TBuscaProdutoForm
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 805
+    Width = 787
     Height = 73
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 805
     DesignSize = (
-      805
+      787
       73)
     object CampoBusca: TComboBox
-      Left = 12
+      Left = 16
       Top = 26
       Width = 97
       Height = 21
@@ -38,23 +39,25 @@ object BuscaProdutoForm: TBuscaProdutoForm
       CharCase = ecUpperCase
       ItemIndex = 0
       TabOrder = 0
-      Text = 'C'#211'DIGO'
+      Text = 'DESCRI'#199#195'O'
+      OnChange = CampoBuscaChange
       Items.Strings = (
-        'C'#211'DIGO'
-        'DESCRI'#199#195'O')
+        'DESCRI'#199#195'O'
+        'C'#211'DIGO')
     end
     object CampoEdit: TEdit
       Left = 119
       Top = 26
-      Width = 636
+      Width = 618
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 1
+      ExplicitWidth = 636
     end
     object BuscaBtn: TBitBtn
-      Left = 765
+      Left = 747
       Top = 26
       Width = 27
       Height = 21
@@ -63,6 +66,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
       Images = ImageList1
       TabOrder = 2
       OnClick = BuscaBtnClick
+      ExplicitLeft = 765
     end
   end
   inline FrameGrid1: TFrameGrid
@@ -84,10 +88,12 @@ object BuscaProdutoForm: TBuscaProdutoForm
   object gridProdutos: TcxGrid
     Left = 0
     Top = 73
-    Width = 805
-    Height = 279
+    Width = 787
+    Height = 278
     Align = alClient
     TabOrder = 2
+    ExplicitWidth = 805
+    ExplicitHeight = 279
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -170,8 +176,8 @@ object BuscaProdutoForm: TBuscaProdutoForm
   end
   inline FrameButtons1: TFrameButtons
     Left = 0
-    Top = 352
-    Width = 805
+    Top = 351
+    Width = 787
     Height = 80
     Align = alBottom
     TabOrder = 3
@@ -179,20 +185,20 @@ object BuscaProdutoForm: TBuscaProdutoForm
     ExplicitWidth = 805
     ExplicitHeight = 80
     inherited ModoEdit: TEdit
-      Left = 566
+      Left = 548
       Top = 26
       ExplicitLeft = 566
       ExplicitTop = 26
     end
     inherited CancelarBtn: TButton
-      Left = 696
+      Left = 678
       Top = 23
       OnClick = FrameButtons1CancelarBtnClick
       ExplicitLeft = 696
       ExplicitTop = 23
     end
     inherited SalvarBtn: TBitBtn
-      Left = 615
+      Left = 597
       Top = 23
       OnClick = FrameButtons1SalvarBtnClick
       ExplicitLeft = 615

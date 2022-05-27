@@ -40,13 +40,14 @@ object BuscaLocalForm: TBuscaLocalForm
       CharCase = ecUpperCase
       ItemIndex = 0
       TabOrder = 0
-      Text = 'C'#211'DIGO'
+      Text = 'DESCRI'#199#195'O'
+      OnChange = CampoBuscaChange
       Items.Strings = (
-        'C'#211'DIGO'
-        'DESCRI'#199#195'O')
+        'DESCRI'#199#195'O'
+        'C'#211'DIGO')
     end
     object CampoEdit: TEdit
-      Left = 119
+      Left = 123
       Top = 26
       Width = 415
       Height = 21
@@ -54,7 +55,6 @@ object BuscaLocalForm: TBuscaLocalForm
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 1
-      ExplicitWidth = 252
     end
     object BuscaBtn: TBitBtn
       Left = 544

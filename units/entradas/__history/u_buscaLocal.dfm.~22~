@@ -3,7 +3,7 @@ object BuscaLocalForm: TBuscaLocalForm
   Top = 0
   Caption = 'Buscar Local de estoque'
   ClientHeight = 415
-  ClientWidth = 641
+  ClientWidth = 584
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,19 +13,23 @@ object BuscaLocalForm: TBuscaLocalForm
   KeyPreview = True
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnClose = FormClose
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 641
+    Width = 584
     Height = 73
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 421
+    ExplicitLeft = 88
+    ExplicitTop = -6
+    ExplicitWidth = 641
     DesignSize = (
-      641
+      584
       73)
     object CampoBusca: TComboBox
       Left = 12
@@ -37,6 +41,7 @@ object BuscaLocalForm: TBuscaLocalForm
       ItemIndex = 0
       TabOrder = 0
       Text = 'C'#211'DIGO'
+      OnChange = CampoBuscaChange
       Items.Strings = (
         'C'#211'DIGO'
         'DESCRI'#199#195'O')
@@ -44,7 +49,7 @@ object BuscaLocalForm: TBuscaLocalForm
     object CampoEdit: TEdit
       Left = 119
       Top = 26
-      Width = 472
+      Width = 415
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
@@ -53,7 +58,7 @@ object BuscaLocalForm: TBuscaLocalForm
       ExplicitWidth = 252
     end
     object BuscaBtn: TBitBtn
-      Left = 601
+      Left = 544
       Top = 26
       Width = 27
       Height = 21
@@ -68,30 +73,33 @@ object BuscaLocalForm: TBuscaLocalForm
   inline FrameButtons1: TFrameButtons
     Left = 0
     Top = 322
-    Width = 641
+    Width = 584
     Height = 93
     Align = alBottom
     TabOrder = 1
     ExplicitLeft = -62
     ExplicitTop = 8
     inherited ModoEdit: TEdit
-      Left = 402
+      Left = 345
     end
     inherited CancelarBtn: TButton
-      Left = 532
+      Left = 475
+      OnClick = FrameButtons1CancelarBtnClick
     end
     inherited SalvarBtn: TBitBtn
-      Left = 451
+      Left = 394
+      OnClick = FrameButtons1SalvarBtnClick
     end
   end
   object gridLocais: TcxGrid
     Left = 0
     Top = 73
-    Width = 641
+    Width = 584
     Height = 249
     Align = alClient
     TabOrder = 2
     ExplicitTop = 67
+    ExplicitWidth = 641
     object gridLocaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -122,6 +130,9 @@ object BuscaLocalForm: TBuscaLocalForm
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
       object loc_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'loc_codigo'
@@ -130,15 +141,33 @@ object BuscaLocalForm: TBuscaLocalForm
         AlternateCaption = 'Integer'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'loc_descricao'
+        Width = 361
       end
       object loc_status: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Status'
         DataBinding.FieldName = 'loc_status'
+        Width = 63
       end
     end
     object gridLocaisLevel1: TcxGridLevel
       GridView = gridLocaisDBTableView1
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 256
+    Top = 328
+    Width = 49
+    Height = 49
+    TabOrder = 3
+    ExplicitLeft = 256
+    ExplicitTop = 328
+    ExplicitWidth = 49
+    ExplicitHeight = 49
+    inherited estiloGrid: TcxStyleRepository
+      Left = 8
+      Top = 8
+      PixelsPerInch = 96
     end
   end
   object ImageList1: TImageList

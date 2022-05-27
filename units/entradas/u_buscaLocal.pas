@@ -38,6 +38,7 @@ type
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
+    procedure CampoBuscaChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -87,6 +88,19 @@ begin
 
 end;
 
+procedure TBuscaLocalForm.CampoBuscaChange(Sender: TObject);
+begin
+  CampoEdit.Clear;
+  if CampoBusca.Text = 'CÓDIGO' then
+  begin
+    CampoEdit.NumbersOnly := True;
+  end
+  else
+  begin
+    CampoEdit.NumbersOnly := False;
+  end;
+end;
+
 procedure TBuscaLocalForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   tb_locais.Close;
@@ -106,6 +120,7 @@ procedure TBuscaLocalForm.FormShow(Sender: TObject);
 begin
   CampoEdit.Clear;
   CampoEdit.SetFocus;
+  CampoBusca.ItemIndex := 0;
   tb_locais.Close;
   FrameButtons1.SalvarBtn.Font.Color := clRed;
 end;

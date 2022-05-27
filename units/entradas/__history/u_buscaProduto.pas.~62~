@@ -31,6 +31,7 @@ type
     gridProdutosLevel1: TcxGridLevel;
     FrameButtons1: TFrameButtons;
     tb_produtos: TUniTable;
+    prod_status: TcxGridDBColumn;
     procedure BuscaBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
@@ -39,6 +40,7 @@ type
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -52,7 +54,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_infoEntrada;
+uses u_dm1, u_controleForm, u_infoEntrada, u_infoSaida;
 
 procedure TBuscaProdutoForm.BuscaBtnClick(Sender: TObject);
 var
@@ -88,16 +90,20 @@ begin
 
 end;
 
+procedure TBuscaProdutoForm.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  tb_produtos.Close;
+end;
+
 procedure TBuscaProdutoForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Key = #13 then
   begin
-    if Key = #13 then
-    begin
-      Key := #0;
-      Perform(wm_nextdlgctl, 0, 0);
-    end
-    else if key = #27 then close
-  end;
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
 end;
 
 procedure TBuscaProdutoForm.FormShow(Sender: TObject);
@@ -105,6 +111,7 @@ begin
   CampoEdit.Clear;
   CampoEdit.SetFocus;
   tb_produtos.Close;
+  FrameButtons1.SalvarBtn.Font.Color := clRed;
 end;
 
 procedure TBuscaProdutoForm.FrameButtons1CancelarBtnClick(Sender: TObject);
@@ -115,7 +122,7 @@ end;
 procedure TBuscaProdutoForm.FrameButtons1SalvarBtnClick(Sender: TObject);
 var
   indexProd, codProd: Integer;
-  descProd: String;
+  descProd, statusProd: String;
 
 begin
   if FrameButtons1.SalvarBtn.Font.Color = clRed then
@@ -127,9 +134,27 @@ begin
   indexProd := gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
   codProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[0];
   descProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[1];
+  statusProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[3];
 
-  FormEntrada.CodProdEdit.Text := IntToStr(codProd);
-  FormEntrada.DescProdEdit.Text := descProd;
+  if statusProd = 'INATIVO' then
+  begin
+    Aviso('O Produto ' + descProd + ' está INATIVO!');
+    Exit;
+  end;
+
+  if FrameButtons1.ModoEdit.Text = 'E' then
+  begin
+    FormEntrada.CodProdEdit.Text := IntToStr(codProd);
+    FormEntrada.DescProdEdit.Text := descProd;
+    FormEntrada.CodLocalEdit.SetFocus;
+  end
+  else if FrameButtons1.ModoEdit.Text = 'S' then
+  begin
+    FormSaida.CodProdEdit.Text := IntToStr(codProd);
+    FormSaida.DescProdEdit.Text := descProd;
+    FormSaida.CodLocalEdit.SetFocus;
+  end;
+
   Close;
 end;
 

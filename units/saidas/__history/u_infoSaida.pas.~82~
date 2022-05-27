@@ -32,6 +32,8 @@ type
     ModoEdit: TEdit;
     CancelarBtn: TButton;
     ConfirmarBtn: TBitBtn;
+    LimparProd: TBitBtn;
+    LimparLocal: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CodProdEditExit(Sender: TObject);
@@ -40,6 +42,10 @@ type
     procedure VerLotesBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
     procedure ConfirmarBtnClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,7 +59,8 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote, u_saidas;
+uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote, u_saidas,
+  u_buscaProduto, u_buscaLocal;
 
 procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
 begin
@@ -64,6 +71,18 @@ begin
     Exit;
   end;
   SelecionaLoteForm.ShowModal;
+end;
+
+procedure TFormSaida.SpeedButton1Click(Sender: TObject);
+begin
+  BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'S';
+  BuscaProdutoForm.ShowModal;
+end;
+
+procedure TFormSaida.SpeedButton2Click(Sender: TObject);
+begin
+  BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'S';
+  BuscaLocalForm.ShowModal;
 end;
 
 procedure TFormSaida.VerLotesBtnClick(Sender: TObject);
@@ -142,14 +161,21 @@ begin
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
 
-    q1.SQL.Text := 'select prod_descricao, prod_status_entrada from tb_produtos where prod_codigo = :codigo';
+    q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_saida from tb_produtos where prod_codigo = :codigo';
     q1.ParamByName('codigo').Value := CodProdEdit.Text;
 
     q1.Open;
 
     if q1.RecordCount = 1 then
     begin
-      if q1.FieldByName('prod_status_entrada').Value = 'INATIVO' then
+    if q1.FieldByName('prod_status').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else if q1.FieldByName('prod_status_saida').Value = 'INATIVO' then
       begin
         Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite entrada!');
         CodProdEdit.Clear;
@@ -260,6 +286,18 @@ begin
     SelecionaLoteForm.Close;
     ConfirmarBtn.Font.Color := clRed;
   end;
+end;
+
+procedure TFormSaida.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+  DescLocalEdit.Clear;
+end;
+
+procedure TFormSaida.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
+  DescProdEdit.Clear;
 end;
 
 end.

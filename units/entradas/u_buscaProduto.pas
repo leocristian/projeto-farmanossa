@@ -41,6 +41,7 @@ type
       AShift: TShiftState; var AHandled: Boolean);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure CampoBuscaChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -90,6 +91,21 @@ begin
 
 end;
 
+procedure TBuscaProdutoForm.CampoBuscaChange(Sender: TObject);
+begin
+
+  CampoEdit.Clear;
+
+  if CampoBusca.Text = 'CÓDIGO' then
+  begin
+    CampoEdit.NumbersOnly := True;
+  end
+  else
+  begin
+    CampoEdit.NumbersOnly := False;
+  end;
+end;
+
 procedure TBuscaProdutoForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -110,6 +126,7 @@ procedure TBuscaProdutoForm.FormShow(Sender: TObject);
 begin
   CampoEdit.Clear;
   CampoEdit.SetFocus;
+  CampoBusca.ItemIndex := 0;
   tb_produtos.Close;
   FrameButtons1.SalvarBtn.Font.Color := clRed;
 end;

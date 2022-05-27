@@ -4,7 +4,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
   BorderStyle = bsDialog
   Caption = 'Buscar Produto'
   ClientHeight = 432
-  ClientWidth = 651
+  ClientWidth = 805
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
   KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -21,15 +22,15 @@ object BuscaProdutoForm: TBuscaProdutoForm
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 651
+    Width = 805
     Height = 73
     Align = alTop
     TabOrder = 0
     DesignSize = (
-      651
+      805
       73)
     object CampoBusca: TComboBox
-      Left = 12
+      Left = 16
       Top = 26
       Width = 97
       Height = 21
@@ -38,6 +39,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
       ItemIndex = 0
       TabOrder = 0
       Text = 'C'#211'DIGO'
+      OnChange = CampoBuscaChange
       Items.Strings = (
         'C'#211'DIGO'
         'DESCRI'#199#195'O')
@@ -45,15 +47,16 @@ object BuscaProdutoForm: TBuscaProdutoForm
     object CampoEdit: TEdit
       Left = 119
       Top = 26
-      Width = 482
+      Width = 636
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
       MaxLength = 40
+      NumbersOnly = True
       TabOrder = 1
     end
     object BuscaBtn: TBitBtn
-      Left = 611
+      Left = 765
       Top = 26
       Width = 27
       Height = 21
@@ -83,7 +86,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
   object gridProdutos: TcxGrid
     Left = 0
     Top = 73
-    Width = 651
+    Width = 805
     Height = 279
     Align = alClient
     TabOrder = 2
@@ -142,6 +145,13 @@ object BuscaProdutoForm: TBuscaProdutoForm
         DataBinding.IsNullValueType = True
         Width = 115
       end
+      object prod_status: TcxGridDBColumn
+        AlternateCaption = 'String'
+        Caption = 'Status'
+        DataBinding.FieldName = 'prod_status'
+        DataBinding.IsNullValueType = True
+        Width = 84
+      end
       object prod_status_entrada: TcxGridDBColumn
         Caption = 'Status Entrada'
         DataBinding.FieldName = 'prod_status_entrada'
@@ -163,30 +173,31 @@ object BuscaProdutoForm: TBuscaProdutoForm
   inline FrameButtons1: TFrameButtons
     Left = 0
     Top = 352
-    Width = 651
+    Width = 805
     Height = 80
     Align = alBottom
     TabOrder = 3
     ExplicitTop = 352
-    ExplicitWidth = 651
+    ExplicitWidth = 805
     ExplicitHeight = 80
     inherited ModoEdit: TEdit
-      Left = 412
+      Left = 566
       Top = 26
-      ExplicitLeft = 412
+      ExplicitLeft = 566
       ExplicitTop = 26
     end
     inherited CancelarBtn: TButton
-      Left = 542
+      Left = 696
       Top = 23
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 542
+      ExplicitLeft = 696
       ExplicitTop = 23
     end
     inherited SalvarBtn: TBitBtn
-      Left = 461
+      Left = 615
       Top = 23
-      ExplicitLeft = 461
+      OnClick = FrameButtons1SalvarBtnClick
+      ExplicitLeft = 615
       ExplicitTop = 23
     end
   end
@@ -334,44 +345,11 @@ object BuscaProdutoForm: TBuscaProdutoForm
       000000000000}
   end
   object ds_produtos: TDataSource
-    DataSet = vtb_produtos
     Left = 496
     Top = 128
   end
-  object vtb_produtos: TVirtualTable
-    FieldDefs = <
-      item
-        Name = 'prod_codigo'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'prod_descricao'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'prod_estoque_negativo'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'prod_status_entrada'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'prod_status_saida'
-        DataType = ftString
-        Size = 20
-      end>
-    Left = 408
-    Top = 136
-    Data = {
-      040005000B0070726F645F636F6469676F01001400000000000E0070726F645F
-      64657363726963616F0100140000000000150070726F645F6573746F7175655F
-      6E6567617469766F0100140000000000130070726F645F7374617475735F656E
-      74726164610100140000000000110070726F645F7374617475735F7361696461
-      0100140000000000000000000000}
+  object tb_produtos: TUniTable
+    Left = 416
+    Top = 128
   end
 end

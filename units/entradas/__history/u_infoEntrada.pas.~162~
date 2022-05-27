@@ -36,6 +36,8 @@ type
     Label5: TLabel;
     Label6: TLabel;
     ModoLote: TEdit;
+    LimparProd: TBitBtn;
+    LimparLocal: TBitBtn;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -45,6 +47,8 @@ type
     procedure CodLocalEditExit(Sender: TObject);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
     procedure LoteEditExit(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -120,14 +124,21 @@ begin
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
 
-    q1.SQL.Text := 'select prod_descricao, prod_status_entrada from tb_produtos where prod_codigo = :codigo';
+    q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_entrada from tb_produtos where prod_codigo = :codigo';
     q1.ParamByName('codigo').Value := CodProdEdit.Text;
 
     q1.Open;
 
     if q1.RecordCount = 1 then
     begin
-      if q1.FieldByName('prod_status_entrada').Value = 'INATIVO' then
+      if q1.FieldByName('prod_status').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else if q1.FieldByName('prod_status_entrada').Value = 'INATIVO' then
       begin
         Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite entrada!');
         CodProdEdit.Clear;
@@ -296,8 +307,8 @@ begin
 
       if ModoLote.Text = 'N' then
       begin
-        q1.SQL.Add('insert into tb_lotes (lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade) values (');
-        q1.SQL.Add(':lote, :dtfabricacao, :dtvencimento, :quantidade);');
+        q1.SQL.Add('insert into tb_lotes (lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade, lote_produto, lote_local) values (');
+        q1.SQL.Add(':lote, :dtfabricacao, :dtvencimento, :quantidade, :produto, :local);');
 
         q1.ParamByName('dtfabricacao').Value := DtFabricacaoEdit.Date;
         q1.ParamByName('dtvencimento').Value := DtVencimentoEdit.Date;
@@ -327,7 +338,6 @@ begin
       end
       else if ModoLote.Text = 'A' then
       begin
-        
         // Atualizar novo lote selecionado
         q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
         q1.SQL.Add('where lote_codigo = :lote;');
@@ -361,6 +371,18 @@ begin
     q1.Close;
     FreeAndNil(q1);
   end;
+end;
+
+procedure TFormEntrada.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+  DescLocalEdit.Clear;
+end;
+
+procedure TFormEntrada.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
+  DescProdEdit.Clear;
 end;
 
 procedure TFormEntrada.LoteEditExit(Sender: TObject);
@@ -397,7 +419,7 @@ begin
       pn_datas.Enabled := False;
       QtdProdEdit.SetFocus;
 
-      ModoLote.Text := 'A';
+//      ModoLote.Text := 'A';
     end
     else
     begin
@@ -405,7 +427,7 @@ begin
       DtFabricacaoEdit.Clear;
       DtVencimentoEdit.Clear;
       DtFabricacaoEdit.SetFocus;
-      ModoLote.Text := 'N';
+//      ModoLote.Text := 'N';
     end;
 
   finally
@@ -416,11 +438,13 @@ end;
 
 procedure TFormEntrada.SpeedButton1Click(Sender: TObject);
 begin
+  BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'E';
   BuscaProdutoForm.ShowModal;
 end;
 
 procedure TFormEntrada.SpeedButton2Click(Sender: TObject);
 begin
+  BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'E';
   BuscaLocalForm.ShowModal;
 end;
 

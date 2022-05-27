@@ -66,6 +66,7 @@ object FormSaida: TFormSaida
       Height = 21
       ImageIndex = 0
       Images = ImageList1
+      OnClick = SpeedButton2Click
     end
     object Label7: TLabel
       Left = 32
