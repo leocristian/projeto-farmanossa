@@ -26,18 +26,18 @@ type
     SpeedButton2: TSpeedButton;
     CodLocalEdit: TEdit;
     FrameButtons1: TFrameButtons;
-    Label4: TLabel;
-    LoteEdit: TEdit;
     Label7: TLabel;
     QtdProdEdit: TEdit;
-    pn_datas: TPanel;
-    DtVencimentoEdit: TcxDateEdit;
-    DtFabricacaoEdit: TcxDateEdit;
-    Label5: TLabel;
-    Label6: TLabel;
     ModoLote: TEdit;
     LimparProd: TBitBtn;
     LimparLocal: TBitBtn;
+    pn_datas: TPanel;
+    DtVencimentoEdit: TcxDateEdit;
+    Label6: TLabel;
+    Label5: TLabel;
+    DtFabricacaoEdit: TcxDateEdit;
+    LoteEdit: TEdit;
+    Label4: TLabel;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -48,6 +48,7 @@ type
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
     procedure LoteEditExit(Sender: TObject);
     procedure LimparProdClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -243,6 +244,7 @@ begin
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := true;
+      LoteEdit.ReadOnly := True;
       FrameButtons1.SalvarBtn.Visible := true;
       FrameButtons1.SalvarBtn.Caption := 'Salvar Alterações';
       CodProdEdit.SetFocus;
@@ -370,6 +372,12 @@ begin
     q1.Close;
     FreeAndNil(q1);
   end;
+end;
+
+procedure TFormEntrada.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+  DescLocalEdit.Clear;
 end;
 
 procedure TFormEntrada.LimparProdClick(Sender: TObject);

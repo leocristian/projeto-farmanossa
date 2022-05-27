@@ -181,6 +181,19 @@ object FormSaida: TFormSaida
     TabOrder = 1
     ExplicitTop = 135
     ExplicitHeight = 319
+    object Label4: TLabel
+      Left = 181
+      Top = 128
+      Width = 343
+      Height = 48
+      Caption = 'Sa'#237'da de produto'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMedGray
+      Font.Height = -40
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
   object pn_buttons: TPanel
     Left = 0

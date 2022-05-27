@@ -115,7 +115,17 @@ begin
         Mensagem('Produto excluído com sucesso!');
         gridProdutosDBTableView1.DataController.RefreshExternalData;
       except on e:exception do
-        Erro('Erro!' + #13 + e.Message);
+      begin
+        if e.message.contains('tb_saidas_sai_produto_fkey') then
+        begin
+          Aviso('Não é possível excluir pois o produto possui operações de entrada e/ou saída');
+        end
+        else
+        begin
+          Erro('Erro!' + #13 + e.Message);
+        end;
+
+      end;
       end;
     finally
       q1.Close;

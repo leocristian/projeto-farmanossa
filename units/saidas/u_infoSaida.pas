@@ -34,6 +34,7 @@ type
     ConfirmarBtn: TBitBtn;
     LimparProd: TBitBtn;
     LimparLocal: TBitBtn;
+    Label4: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CodProdEditExit(Sender: TObject);
