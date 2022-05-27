@@ -215,6 +215,7 @@ begin
 
   indexLote := SelecionaLoteForm.gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
   codLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[0];
+  qtdLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[3];
 
   if Confirma('Confirmar Saída?') then
   begin
@@ -226,12 +227,17 @@ begin
       q1.ParamByName('produto').Value := CodProdEdit.Text;
 
       q1.Open;
-      if q1.FieldByName('prod_estoque_negativo').Value = 'NEGAR' then
+
+      if QtdProdEdit.Value > qtdLote then
       begin
-        Aviso('Produto não permite estoque negativo!');
-        QtdProdEdit.SetFocus;
-        exit;
+        if q1.FieldByName('prod_estoque_negativo').Value = 'NEGAR' then
+        begin
+          Aviso('Produto não permite estoque negativo!');
+          QtdProdEdit.SetFocus;
+          exit;
+        end;
       end;
+      
       q1.Close;
 
       q1.SQL.Text := 'select nextval(''tb_saidas_cod_seq'') as codProximo';

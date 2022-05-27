@@ -238,6 +238,7 @@ begin
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin
       pn_form.Enabled := false;
+      pn_datas.Enabled := False;
       FrameButtons1.SalvarBtn.Visible := false;
       FrameButtons1.SalvarBtn.Caption := 'Confirmar Entrada';
     end
