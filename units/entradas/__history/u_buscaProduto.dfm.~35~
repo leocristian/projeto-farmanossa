@@ -14,7 +14,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
   KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
-  OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96

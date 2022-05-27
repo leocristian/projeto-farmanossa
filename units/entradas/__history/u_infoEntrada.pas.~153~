@@ -36,8 +36,6 @@ type
     Label5: TLabel;
     Label6: TLabel;
     ModoLote: TEdit;
-    LimparProd: TBitBtn;
-    LimparLocal: TBitBtn;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -47,8 +45,6 @@ type
     procedure CodLocalEditExit(Sender: TObject);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
     procedure LoteEditExit(Sender: TObject);
-    procedure LimparProdClick(Sender: TObject);
-    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -373,18 +369,6 @@ begin
   end;
 end;
 
-procedure TFormEntrada.LimparLocalClick(Sender: TObject);
-begin
-  CodLocalEdit.Clear;
-  DescLocalEdit.Clear;
-end;
-
-procedure TFormEntrada.LimparProdClick(Sender: TObject);
-begin
-  CodProdEdit.Clear;
-  DescProdEdit.Clear;
-end;
-
 procedure TFormEntrada.LoteEditExit(Sender: TObject);
 var
   q1: TUniQuery;
@@ -438,13 +422,11 @@ end;
 
 procedure TFormEntrada.SpeedButton1Click(Sender: TObject);
 begin
-  BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'E';
   BuscaProdutoForm.ShowModal;
 end;
 
 procedure TFormEntrada.SpeedButton2Click(Sender: TObject);
 begin
-  BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'E';
   BuscaLocalForm.ShowModal;
 end;
 

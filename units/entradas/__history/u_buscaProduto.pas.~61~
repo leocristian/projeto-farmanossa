@@ -40,7 +40,6 @@ type
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -88,12 +87,6 @@ begin
   ds_produtos.DataSet := tb_produtos;
   tb_produtos.Open;
 
-end;
-
-procedure TBuscaProdutoForm.FormClose(Sender: TObject;
-  var Action: TCloseAction);
-begin
-  tb_produtos.Close;
 end;
 
 procedure TBuscaProdutoForm.FormKeyPress(Sender: TObject; var Key: Char);

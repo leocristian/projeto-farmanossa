@@ -32,8 +32,6 @@ type
     ModoEdit: TEdit;
     CancelarBtn: TButton;
     ConfirmarBtn: TBitBtn;
-    LimparProd: TBitBtn;
-    LimparLocal: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CodProdEditExit(Sender: TObject);
@@ -43,8 +41,6 @@ type
     procedure CancelarBtnClick(Sender: TObject);
     procedure ConfirmarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
-    procedure LimparProdClick(Sender: TObject);
-    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -279,18 +275,6 @@ begin
     SelecionaLoteForm.Close;
     ConfirmarBtn.Font.Color := clRed;
   end;
-end;
-
-procedure TFormSaida.LimparLocalClick(Sender: TObject);
-begin
-  CodLocalEdit.Clear;
-  DescLocalEdit.Clear;
-end;
-
-procedure TFormSaida.LimparProdClick(Sender: TObject);
-begin
-  CodProdEdit.Clear;
-  DescProdEdit.Clear;
 end;
 
 end.

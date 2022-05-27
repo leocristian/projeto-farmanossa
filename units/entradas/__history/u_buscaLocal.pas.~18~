@@ -134,7 +134,7 @@ begin
 
   if statusLoc = 'INATIVO' then
   begin
-    Aviso('O Local de Estoque ' + descLoc + ' está INATIVO!');
+    Aviso('O Produto ' + descLoc + ' está INATIVO!');
     Exit;
   end;
 
@@ -148,7 +148,8 @@ begin
   begin
     FormSaida.CodLocalEdit.Text := IntToStr(codLoc);
     FormSaida.DescLocalEdit.Text := descLoc;
-    FormSaida.QtdProdEdit.SetFocus;
+    FormSaida.CodLocalEdit.SetFocus;
+    FormEntrada.LoteEdit.SetFocus;
   end;
 
   Close;

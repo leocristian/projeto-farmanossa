@@ -48,7 +48,6 @@ type
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
     procedure LoteEditExit(Sender: TObject);
     procedure LimparProdClick(Sender: TObject);
-    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -371,12 +370,6 @@ begin
     q1.Close;
     FreeAndNil(q1);
   end;
-end;
-
-procedure TFormEntrada.LimparLocalClick(Sender: TObject);
-begin
-  CodLocalEdit.Clear;
-  DescLocalEdit.Clear;
 end;
 
 procedure TFormEntrada.LimparProdClick(Sender: TObject);

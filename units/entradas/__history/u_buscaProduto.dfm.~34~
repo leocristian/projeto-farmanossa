@@ -14,7 +14,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
   KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
-  OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -26,6 +25,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
     Height = 73
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 651
     DesignSize = (
       805
       73)
@@ -52,6 +52,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 1
+      ExplicitWidth = 482
     end
     object BuscaBtn: TBitBtn
       Left = 765
@@ -63,6 +64,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
       Images = ImageList1
       TabOrder = 2
       OnClick = BuscaBtnClick
+      ExplicitLeft = 611
     end
   end
   inline FrameGrid1: TFrameGrid
@@ -88,6 +90,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
     Height = 279
     Align = alClient
     TabOrder = 2
+    ExplicitWidth = 651
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -147,7 +150,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
         AlternateCaption = 'String'
         Caption = 'Status'
         DataBinding.FieldName = 'prod_status'
-        DataBinding.IsNullValueType = True
         Width = 84
       end
       object prod_status_entrada: TcxGridDBColumn
@@ -176,26 +178,26 @@ object BuscaProdutoForm: TBuscaProdutoForm
     Align = alBottom
     TabOrder = 3
     ExplicitTop = 352
-    ExplicitWidth = 805
+    ExplicitWidth = 651
     ExplicitHeight = 80
     inherited ModoEdit: TEdit
       Left = 566
       Top = 26
-      ExplicitLeft = 566
+      ExplicitLeft = 412
       ExplicitTop = 26
     end
     inherited CancelarBtn: TButton
       Left = 696
       Top = 23
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 696
+      ExplicitLeft = 542
       ExplicitTop = 23
     end
     inherited SalvarBtn: TBitBtn
       Left = 615
       Top = 23
       OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 615
+      ExplicitLeft = 461
       ExplicitTop = 23
     end
   end

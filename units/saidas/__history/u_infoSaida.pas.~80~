@@ -44,7 +44,6 @@ type
     procedure ConfirmarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure LimparProdClick(Sender: TObject);
-    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -279,12 +278,6 @@ begin
     SelecionaLoteForm.Close;
     ConfirmarBtn.Font.Color := clRed;
   end;
-end;
-
-procedure TFormSaida.LimparLocalClick(Sender: TObject);
-begin
-  CodLocalEdit.Clear;
-  DescLocalEdit.Clear;
 end;
 
 procedure TFormSaida.LimparProdClick(Sender: TObject);

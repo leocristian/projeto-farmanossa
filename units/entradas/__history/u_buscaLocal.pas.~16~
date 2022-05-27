@@ -130,25 +130,25 @@ begin
   indexLoc := gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
   codLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[0];
   descLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[1];
-  statusLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[2];
+  statusLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[3];
 
   if statusLoc = 'INATIVO' then
   begin
-    Aviso('O Local de Estoque ' + descLoc + ' está INATIVO!');
+    Aviso('O Produto ' + descLoc + ' está INATIVO!');
     Exit;
   end;
 
   if FrameButtons1.ModoEdit.Text = 'E' then
   begin
-    FormEntrada.CodLocalEdit.Text := IntToStr(codLoc);
-    FormEntrada.DescLocalEdit.Text := descLoc;
-    FormEntrada.LoteEdit.SetFocus;
+    FormEntrada.CodProdEdit.Text := IntToStr(codLoc);
+    FormEntrada.DescProdEdit.Text := descLoc;
+    FormEntrada.CodLocalEdit.SetFocus;
   end
   else if FrameButtons1.ModoEdit.Text = 'S' then
   begin
-    FormSaida.CodLocalEdit.Text := IntToStr(codLoc);
-    FormSaida.DescLocalEdit.Text := descLoc;
-    FormSaida.QtdProdEdit.SetFocus;
+    FormSaida.CodProdEdit.Text := IntToStr(codLoc);
+    FormSaida.DescProdEdit.Text := descLoc;
+    FormSaida.CodLocalEdit.SetFocus;
   end;
 
   Close;

@@ -168,7 +168,6 @@ object FormSaida: TFormSaida
       ImageIndex = 1
       Images = ImageList1
       TabOrder = 8
-      OnClick = LimparLocalClick
     end
   end
   object pn_lotes: TPanel

@@ -40,7 +40,6 @@ type
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -54,7 +53,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_infoEntrada, u_infoSaida;
+uses u_dm1, u_controleForm, u_infoEntrada;
 
 procedure TBuscaProdutoForm.BuscaBtnClick(Sender: TObject);
 var
@@ -90,20 +89,16 @@ begin
 
 end;
 
-procedure TBuscaProdutoForm.FormClose(Sender: TObject;
-  var Action: TCloseAction);
-begin
-  tb_produtos.Close;
-end;
-
 procedure TBuscaProdutoForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
-  if Key = #13 then
   begin
-    Key := #0;
-    Perform(wm_nextdlgctl, 0, 0);
-  end
-  else if key = #27 then close
+    if Key = #13 then
+    begin
+      Key := #0;
+      Perform(wm_nextdlgctl, 0, 0);
+    end
+    else if key = #27 then close
+  end;
 end;
 
 procedure TBuscaProdutoForm.FormShow(Sender: TObject);
@@ -142,18 +137,9 @@ begin
     Exit;
   end;
 
-  if FrameButtons1.ModoEdit.Text = 'E' then
-  begin
-    FormEntrada.CodProdEdit.Text := IntToStr(codProd);
-    FormEntrada.DescProdEdit.Text := descProd;
-    FormEntrada.CodLocalEdit.SetFocus;
-  end
-  else if FrameButtons1.ModoEdit.Text = 'S' then
-  begin
-    FormSaida.CodProdEdit.Text := IntToStr(codProd);
-    FormSaida.DescProdEdit.Text := descProd;
-    FormSaida.CodLocalEdit.SetFocus;
-  end;
+  FormEntrada.CodProdEdit.Text := IntToStr(codProd);
+  FormEntrada.DescProdEdit.Text := descProd;
+  FormEntrada.CodLocalEdit.SetFocus;
 
   Close;
 end;

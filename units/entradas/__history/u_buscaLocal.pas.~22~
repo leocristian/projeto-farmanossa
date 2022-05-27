@@ -134,7 +134,7 @@ begin
 
   if statusLoc = 'INATIVO' then
   begin
-    Aviso('O Local de Estoque ' + descLoc + ' está INATIVO!');
+    Aviso('O Produto ' + descLoc + ' está INATIVO!');
     Exit;
   end;
 
