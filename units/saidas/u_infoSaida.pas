@@ -227,6 +227,10 @@ begin
       q1.ParamByName('produto').Value := CodProdEdit.Text;
 
       q1.Open;
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4d62c897b87cccc92c582d3c1288e8dd0b07043
       if QtdProdEdit.Value > qtdLote then
       begin
         if q1.FieldByName('prod_estoque_negativo').Value = 'NEGAR' then

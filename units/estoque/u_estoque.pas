@@ -72,14 +72,23 @@ begin
 
   tb_estoque.SQL.Clear;
 
+//  tb_estoque.SQL.Add('select * from (');
+//  tb_estoque.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque');
+//  tb_estoque.SQL.Add(' from tb_produtos as p');
+//  tb_estoque.SQL.Add('inner join tb_lotes as l ');
+//  tb_estoque.SQL.Add('on l.lote_produto = p.prod_codigo');
+//  tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
+//  tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
+//  tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao) as result');
+
   tb_estoque.SQL.Add('select * from (');
-  tb_estoque.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque');
+  tb_estoque.SQL.Add('select prod_codigo, prod_descricao, prod_status, sum(lote_quantidade) as qtd_estoque');
   tb_estoque.SQL.Add(' from tb_produtos as p');
   tb_estoque.SQL.Add('inner join tb_lotes as l ');
   tb_estoque.SQL.Add('on l.lote_produto = p.prod_codigo');
-  tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
-  tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
-  tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao) as result');
+//  tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
+//  tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
+  tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status) as result');
 
   // Manipular a quantidade do produto
   if QuantidadeBox.ItemIndex = 0 then
@@ -138,23 +147,23 @@ begin
     tb_estoque.SQL.Add('and result.prod_status  = ''INATIVO''');
   end;
 
-  if LocalSelecao.ItemIndex = 0 then
-  begin
-    if LocalEdit.Text = '' then
-    begin
-      tb_estoque.SQL.Add('and 1=1');
-    end
-    else
-    begin
-      tb_estoque.SQL.Add('and result.loc_codigo = :cod_local');
-      tb_estoque.ParamByName('cod_local').Value := StrToInt(LocalEdit.Text);
-    end;
-  end
-  else if LocalSelecao.ItemIndex = 1 then
-  begin
-    tb_estoque.SQL.Add('and result.loc_descricao like :loc_descricao');
-    tb_estoque.ParamByName('loc_descricao').Value := '%' + LocalEdit.Text + '%';
-  end;
+//  if LocalSelecao.ItemIndex = 0 then
+//  begin
+//    if LocalEdit.Text = '' then
+//    begin
+//      tb_estoque.SQL.Add('and 1=1');
+//    end
+//    else
+//    begin
+//      tb_estoque.SQL.Add('and result.loc_codigo = :cod_local');
+//      tb_estoque.ParamByName('cod_local').Value := StrToInt(LocalEdit.Text);
+//    end;
+//  end
+//  else if LocalSelecao.ItemIndex = 1 then
+//  begin
+//    tb_estoque.SQL.Add('and result.loc_descricao like :loc_descricao');
+//    tb_estoque.ParamByName('loc_descricao').Value := '%' + LocalEdit.Text + '%';
+//  end;
 
   ds_estoque.DataSet := tb_estoque;
   tb_estoque.Open;
