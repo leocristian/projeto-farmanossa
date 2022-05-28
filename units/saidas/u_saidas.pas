@@ -52,6 +52,7 @@ uses u_dm1, u_infoSaida, u_detalharSaida;
 
 procedure TPagSaidas.Detalhar1Click(Sender: TObject);
 begin
+  DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'V';
   DetalharSaidaForm.ShowModal;
 end;
 

@@ -26,6 +26,8 @@ object FormEntrada: TFormEntrada
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = -6
+    ExplicitWidth = 575
     DesignSize = (
       659
       242)
@@ -129,6 +131,7 @@ object FormEntrada: TFormEntrada
       MaxLength = 50
       ReadOnly = True
       TabOrder = 5
+      ExplicitWidth = 261
     end
     object DescLocalEdit: TEdit
       Left = 308
@@ -141,6 +144,7 @@ object FormEntrada: TFormEntrada
       MaxLength = 70
       ReadOnly = True
       TabOrder = 6
+      ExplicitWidth = 261
     end
     object CodLocalEdit: TEdit
       Left = 159
@@ -258,19 +262,19 @@ object FormEntrada: TFormEntrada
     Align = alBottom
     TabOrder = 1
     ExplicitTop = 242
-    ExplicitWidth = 659
+    ExplicitWidth = 575
     ExplicitHeight = 87
     inherited ModoEdit: TEdit
       Left = 353
       Top = 40
-      ExplicitLeft = 353
+      ExplicitLeft = 269
       ExplicitTop = 40
     end
     inherited CancelarBtn: TButton
       Left = 566
       Top = 26
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 566
+      ExplicitLeft = 486
       ExplicitTop = 26
     end
     inherited SalvarBtn: TBitBtn
@@ -278,7 +282,7 @@ object FormEntrada: TFormEntrada
       Top = 26
       Width = 120
       OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 440
+      ExplicitLeft = 360
       ExplicitTop = 26
       ExplicitWidth = 120
     end

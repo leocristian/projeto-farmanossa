@@ -24,8 +24,7 @@ uses
   u_infoSaida in 'units\saidas\u_infoSaida.pas' {FormSaida},
   u_selecionaLote in 'units\saidas\u_selecionaLote.pas' {SelecionaLoteForm},
   u_estoque in 'units\estoque\u_estoque.pas' {PagEstoque},
-  u_lotesProduto in 'units\estoque\u_lotesProduto.pas' {LotesProdutoForm},
-  u_detalharSaida in 'units\saidas\u_detalharSaida.pas' {DetalharSaidaForm};
+  u_lotesProduto in 'units\estoque\u_lotesProduto.pas' {LotesProdutoForm};
 
 {$R *.res}
 
@@ -52,7 +51,6 @@ begin
   Application.CreateForm(TSelecionaLoteForm, SelecionaLoteForm);
   Application.CreateForm(TPagEstoque, PagEstoque);
   Application.CreateForm(TLotesProdutoForm, LotesProdutoForm);
-  Application.CreateForm(TDetalharSaidaForm, DetalharSaidaForm);
   Application.Run;
 end.
 

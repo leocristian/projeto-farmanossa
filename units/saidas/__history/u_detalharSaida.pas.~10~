@@ -69,19 +69,18 @@ begin
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
 
+
       q1.SQL.clear;
       q1.SQL.Add('select s.sai_codigo, s.sai_produto, p.prod_descricao, s.sai_local,');
       q1.SQL.Add('l.loc_descricao, s.sai_lote, lotes.lote_dtfabricacao, lotes.lote_dtvencimento, s.sai_quantidade');
       q1.SQL.Add(' from tb_produtos as p');
       q1.SQL.Add('inner join tb_saidas as s');
-      q1.SQL.Add('on sai_produto = prod_codigo');
+      q1.SQL.Add('on ent_produto = prod_codigo');
       q1.SQL.Add('inner join tb_locais_estoque as l');
-      q1.SQL.Add('on loc_codigo = sai_local');
+      q1.SQL.Add('on loc_codigo = ent_local');
       q1.SQL.Add('inner join tb_lotes as lotes');
-      q1.SQL.Add('on lote_codigo = sai_lote');
-      q1.SQL.Add('where sai_codigo = :codigo');
-
-      q1.ParamByName('codigo').Value := codSaida;
+      q1.SQL.Add('on lote_codigo = ent_lote');
+      q1.SQL.Add('where ent_codigo = :codigo');
 
       q1.Open;
 

@@ -1,0 +1,41 @@
+unit u_relatorios;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.StdCtrls, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  dxListView, cxStyles, dxScrollbarAnnotations, cxEdit, cxVGrid,
+  cxInplaceContainer, Vcl.CategoryButtons, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxNavigator, dxDateRanges, Data.DB, cxDBData,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
+  cxClasses, cxGridCustomView, cxGrid, MemDS, VirtualTable;
+
+type
+  TPagRelatorios = class(TForm)
+    pn_cabecalho: TPanel;
+    Label1: TLabel;
+    Image1: TImage;
+    ListBox1: TListBox;
+    procedure ListBox1DblClick(Sender: TObject);
+    procedure ListBox1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PagRelatorios: TPagRelatorios;
+
+implementation
+
+{$R *.dfm}
+
+procedure TPagRelatorios.ListBox1DblClick(Sender: TObject);
+begin
+showmessage('oi');
+end;
+
+end.

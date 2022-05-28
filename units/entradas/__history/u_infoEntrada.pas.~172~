@@ -26,18 +26,18 @@ type
     SpeedButton2: TSpeedButton;
     CodLocalEdit: TEdit;
     FrameButtons1: TFrameButtons;
-    Label4: TLabel;
-    LoteEdit: TEdit;
     Label7: TLabel;
     QtdProdEdit: TEdit;
-    pn_datas: TPanel;
-    DtVencimentoEdit: TcxDateEdit;
-    DtFabricacaoEdit: TcxDateEdit;
-    Label5: TLabel;
-    Label6: TLabel;
     ModoLote: TEdit;
     LimparProd: TBitBtn;
     LimparLocal: TBitBtn;
+    pn_datas: TPanel;
+    DtVencimentoEdit: TcxDateEdit;
+    Label6: TLabel;
+    Label5: TLabel;
+    DtFabricacaoEdit: TcxDateEdit;
+    LoteEdit: TEdit;
+    Label4: TLabel;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -238,6 +238,7 @@ begin
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin
       pn_form.Enabled := false;
+      pn_datas.Enabled := False;
       FrameButtons1.SalvarBtn.Visible := false;
       FrameButtons1.SalvarBtn.Caption := 'Confirmar Entrada';
     end
@@ -419,7 +420,7 @@ begin
       pn_datas.Enabled := False;
       QtdProdEdit.SetFocus;
 
-//      ModoLote.Text := 'A';
+      ModoLote.Text := 'A';
     end
     else
     begin
@@ -427,7 +428,7 @@ begin
       DtFabricacaoEdit.Clear;
       DtVencimentoEdit.Clear;
       DtFabricacaoEdit.SetFocus;
-//      ModoLote.Text := 'N';
+      ModoLote.Text := 'N';
     end;
 
   finally

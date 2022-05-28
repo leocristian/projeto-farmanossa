@@ -62,46 +62,23 @@ begin
   if (FrameButtons1.ModoEdit.Text = 'V') or (FrameButtons1.ModoEdit.Text = 'A') then
   begin
 
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
     indexSaida := PagSaidas.gridSaidasDBTableView1.DataController.GetSelectedRowIndex(0);
     codSaida := PagSaidas.gridSaidasDBTableView1.ViewData.Records[indexSaida].Values[0];
 
-    try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
-
-      q1.SQL.clear;
-      q1.SQL.Add('select s.sai_codigo, s.sai_produto, p.prod_descricao, s.sai_local,');
-      q1.SQL.Add('l.loc_descricao, s.sai_lote, lotes.lote_dtfabricacao, lotes.lote_dtvencimento, s.sai_quantidade');
-      q1.SQL.Add(' from tb_produtos as p');
-      q1.SQL.Add('inner join tb_saidas as s');
-      q1.SQL.Add('on sai_produto = prod_codigo');
-      q1.SQL.Add('inner join tb_locais_estoque as l');
-      q1.SQL.Add('on loc_codigo = sai_local');
-      q1.SQL.Add('inner join tb_lotes as lotes');
-      q1.SQL.Add('on lote_codigo = sai_lote');
-      q1.SQL.Add('where sai_codigo = :codigo');
-
-      q1.ParamByName('codigo').Value := codSaida;
-
-      q1.Open;
-
-      CodEdit.Text := q1.FieldByName('sai_codigo').Value;
-      CodProdEdit.Text := q1.FieldByName('sai_produto').Value;
-      CodLocalEdit.Text := q1.FieldByName('sai_local').Value;
-
-      DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
-      DescLocalEdit.Text := q1.FieldByName('loc_descricao').Value;
-
-      DtFabricacaoEdit.Date :=  q1.FieldByName('lote_dtfabricacao').Value;
-      DtVencimentoEdit.Date :=  q1.FieldByName('lote_dtvencimento').Value;
-
-      LoteEdit.Text := q1.FieldByName('sai_lote').Value;
-      QtdProdEdit.Text := q1.FieldByName('sai_quantidade').Value;
-
-    finally
-      q1.Close;
-      FreeAndNil(q1);
-    end;
+    q1.SQL.clear;
+    q1.SQL.Add('select s.sai_codigo, s.sai_produto, p.prod_descricao, s.sai_local,');
+    q1.SQL.Add('l.loc_descricao, s.sai_lote, lotes.lote_dtfabricacao, lotes.lote_dtvencimento, s.sai_quantidade');
+    q1.SQL.Add(' from tb_produtos as p');
+    q1.SQL.Add('inner join tb_saidas as s');
+    q1.SQL.Add('on ent_produto = prod_codigo');
+    q1.SQL.Add('inner join tb_locais_estoque as l');
+    q1.SQL.Add('on loc_codigo = ent_local');
+    q1.SQL.Add('inner join tb_lotes as lotes');
+    q1.SQL.Add('on lote_codigo = ent_lote');
+    q1.SQL.Add('where ent_codigo = :codigo');
 
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin

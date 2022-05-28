@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Menus,
-  Vcl.Imaging.pngimage, Vcl.Buttons;
+  Vcl.Imaging.pngimage, Vcl.Buttons, System.ImageList, Vcl.ImgList,
+  dxGDIPlusClasses;
 
 type
   TFormPrincipal = class(TForm)
@@ -26,10 +27,16 @@ type
     Label2: TLabel;
     Panel2: TPanel;
     BitBtn1: TBitBtn;
+    ImageList1: TImageList;
+    Image1: TImage;
     procedure CadOperadoresClick(Sender: TObject);
     procedure CadProdutosClick(Sender: TObject);
     procedure CadLocaisClick(Sender: TObject);
     procedure EntradaMercClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure SaidaMercClick(Sender: TObject);
+    procedure ConsultaEstoqueClick(Sender: TObject);
+    procedure RelEstoqueClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,7 +50,16 @@ implementation
 
 {$R *.dfm}
 
-uses u_login, u_operadores, u_produtos, u_locais, u_entradas;
+uses u_login, u_operadores, u_produtos, u_locais, u_entradas, u_controleForm,
+  u_saidas, u_estoque, u_relatorios;
+
+procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
+begin
+  if Confirma('Deseja realmente sair do sistema?') then
+  begin
+    Application.Terminate;
+  end;
+end;
 
 procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
 begin
@@ -63,10 +79,28 @@ begin
   PagProdutos.Show;
 end;
 
+procedure TFormPrincipal.ConsultaEstoqueClick(Sender: TObject);
+begin
+  PagEstoque.Parent := pn_principal;
+  PagEstoque.Show
+end;
+
 procedure TFormPrincipal.EntradaMercClick(Sender: TObject);
 begin
   PagEntradas.Parent := pn_principal;
   PagEntradas.Show;
+end;
+
+procedure TFormPrincipal.RelEstoqueClick(Sender: TObject);
+begin
+  PagRelatorios.Parent := pn_principal;
+  PagSaidas.Show;
+end;
+
+procedure TFormPrincipal.SaidaMercClick(Sender: TObject);
+begin
+  PagSaidas.Parent := pn_principal;
+  PagSaidas.Show;
 end;
 
 end.

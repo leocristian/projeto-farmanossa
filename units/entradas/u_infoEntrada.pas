@@ -238,7 +238,6 @@ begin
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin
       pn_form.Enabled := false;
-      pn_datas.Enabled := False;
       FrameButtons1.SalvarBtn.Visible := false;
       FrameButtons1.SalvarBtn.Caption := 'Confirmar Entrada';
     end
@@ -400,9 +399,11 @@ begin
 
     q1.SQL.Clear;
     q1.SQL.Add('select exists(select lote.lote_dtfabricacao, lote.lote_dtvencimento from tb_lotes as lote');
-    q1.SQL.Add('where lote_codigo = :lote)');
+    q1.SQL.Add('where lote_codigo = :lote and lote_produto = :produto and lote_local = :local)');
 
     q1.ParamByName('lote').Value := LoteEdit.Text;
+    q1.ParamByName('produto').Value := CodProdEdit.Text;
+    q1.ParamByName('local').Value := CodLocalEdit.Text;
 
     q1.Open;
 

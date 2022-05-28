@@ -36,6 +36,7 @@ type
     procedure BitBtn1Click(Sender: TObject);
     procedure SaidaMercClick(Sender: TObject);
     procedure ConsultaEstoqueClick(Sender: TObject);
+    procedure RelEstoqueClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,7 +51,7 @@ implementation
 {$R *.dfm}
 
 uses u_login, u_operadores, u_produtos, u_locais, u_entradas, u_controleForm,
-  u_saidas, u_estoque;
+  u_saidas, u_estoque, u_relatorios;
 
 procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
 begin
@@ -88,6 +89,12 @@ procedure TFormPrincipal.EntradaMercClick(Sender: TObject);
 begin
   PagEntradas.Parent := pn_principal;
   PagEntradas.Show;
+end;
+
+procedure TFormPrincipal.RelEstoqueClick(Sender: TObject);
+begin
+  PagRelatorios.Parent := pn_principal;
+  PagRelatorios.Show;
 end;
 
 procedure TFormPrincipal.SaidaMercClick(Sender: TObject);

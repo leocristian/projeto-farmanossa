@@ -26,18 +26,18 @@ type
     SpeedButton2: TSpeedButton;
     CodLocalEdit: TEdit;
     FrameButtons1: TFrameButtons;
-    Label4: TLabel;
-    LoteEdit: TEdit;
     Label7: TLabel;
     QtdProdEdit: TEdit;
-    pn_datas: TPanel;
-    DtVencimentoEdit: TcxDateEdit;
-    DtFabricacaoEdit: TcxDateEdit;
-    Label5: TLabel;
-    Label6: TLabel;
     ModoLote: TEdit;
     LimparProd: TBitBtn;
     LimparLocal: TBitBtn;
+    pn_datas: TPanel;
+    DtVencimentoEdit: TcxDateEdit;
+    Label6: TLabel;
+    Label5: TLabel;
+    DtFabricacaoEdit: TcxDateEdit;
+    LoteEdit: TEdit;
+    Label4: TLabel;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -399,9 +399,11 @@ begin
 
     q1.SQL.Clear;
     q1.SQL.Add('select exists(select lote.lote_dtfabricacao, lote.lote_dtvencimento from tb_lotes as lote');
-    q1.SQL.Add('where lote_codigo = :lote)');
+    q1.SQL.Add('where lote_codigo = :lote and lote_produto = :produto) and lote_local = :local');
 
     q1.ParamByName('lote').Value := LoteEdit.Text;
+    q1.ParamByName('produto').Value := CodProdEdit.Text;
+    q1.ParamByName('local').Value := CodLocalEdit.Text;
 
     q1.Open;
 

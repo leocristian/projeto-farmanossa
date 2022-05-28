@@ -19,25 +19,22 @@ object FormPrincipal: TFormPrincipal
   TextHeight = 13
   object pn_principal: TPanel
     Left = 0
-    Top = 73
+    Top = 49
     Width = 813
-    Height = 402
+    Height = 426
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 49
-    ExplicitHeight = 426
     DesignSize = (
       813
-      402)
+      426)
     object Panel1: TPanel
       Left = 126
-      Top = 128
+      Top = 140
       Width = 561
       Height = 145
       Anchors = []
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitTop = 140
       DesignSize = (
         561
         145)
@@ -2948,13 +2945,13 @@ object FormPrincipal: TFormPrincipal
     Left = 0
     Top = 0
     Width = 813
-    Height = 73
+    Height = 49
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
     DesignSize = (
       813
-      73)
+      49)
     object BitBtn1: TBitBtn
       Left = 736
       Top = 3
@@ -3004,7 +3001,6 @@ object FormPrincipal: TFormPrincipal
       end
       object RelEstoque: TMenuItem
         Caption = 'REL - Relat'#243'rios de Estoque'
-        OnClick = RelEstoqueClick
       end
     end
   end
