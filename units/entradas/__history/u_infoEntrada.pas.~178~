@@ -189,7 +189,6 @@ begin
     DtFabricacaoEdit.Clear;
     DtVencimentoEdit.Clear;
     CodProdEdit.SetFocus;
-    QtdProdEdit.Value := 0;
 
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';

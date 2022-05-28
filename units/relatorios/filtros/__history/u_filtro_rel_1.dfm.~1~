@@ -1,287 +1,144 @@
-object FormEntrada: TFormEntrada
+object FormRel1: TFormRel1
   Left = 0
   Top = 0
-  BorderStyle = bsDialog
-  Caption = 'Entrada de Mercadoria'
-  ClientHeight = 329
-  ClientWidth = 659
+  BorderStyle = bsNone
+  Caption = 'FormRel1'
+  ClientHeight = 96
+  ClientWidth = 656
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  KeyPreview = True
   OldCreateOrder = False
-  Position = poOwnerFormCenter
-  OnKeyPress = FormKeyPress
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object pn_form: TPanel
+  object pn_filtro: TPanel
     Left = 0
     Top = 0
-    Width = 659
-    Height = 242
+    Width = 656
+    Height = 96
     Align = alClient
-    BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 548
+    ExplicitHeight = 289
     DesignSize = (
-      659
-      242)
-    object Label1: TLabel
-      Left = 116
-      Top = 40
-      Width = 37
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      Caption = 'C'#243'digo:'
-      ExplicitTop = 34
-    end
+      656
+      96)
     object Label2: TLabel
-      Left = 111
-      Top = 69
+      Left = 71
+      Top = 24
       Width = 42
       Height = 13
       Anchors = [akLeft, akBottom]
       Caption = 'Produto:'
-      ExplicitTop = 63
+      ExplicitTop = 285
+    end
+    object SpeedButton1: TSpeedButton
+      Left = 190
+      Top = 21
+      Width = 33
+      Height = 23
+      Anchors = [akLeft, akBottom]
+      ImageIndex = 0
+      Images = ImageList1
+      ExplicitTop = 282
     end
     object Label3: TLabel
-      Left = 68
-      Top = 96
+      Left = 28
+      Top = 51
       Width = 85
       Height = 13
       Anchors = [akLeft, akBottom]
       Caption = 'Local de estoque:'
-      ExplicitTop = 90
-    end
-    object SpeedButton1: TSpeedButton
-      Left = 230
-      Top = 66
-      Width = 33
-      Height = 23
-      Anchors = [akLeft, akBottom]
-      ImageIndex = 0
-      Images = ImageList1
-      OnClick = SpeedButton1Click
-      ExplicitTop = 53
+      ExplicitTop = 312
     end
     object SpeedButton2: TSpeedButton
-      Left = 230
-      Top = 93
+      Left = 190
+      Top = 48
       Width = 33
       Height = 23
       Anchors = [akLeft, akBottom]
       ImageIndex = 0
       Images = ImageList1
-      OnClick = SpeedButton2Click
-      ExplicitTop = 80
-    end
-    object Label7: TLabel
-      Left = 32
-      Top = 205
-      Width = 121
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      Caption = 'Quantidade de produtos:'
-    end
-    object Label4: TLabel
-      Left = 129
-      Top = 128
-      Width = 25
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      Caption = 'Lote:'
-    end
-    object CodEdit: TEdit
-      Left = 159
-      Top = 37
-      Width = 65
-      Height = 21
-      TabStop = False
-      Anchors = [akLeft, akBottom]
-      Enabled = False
-      MaxLength = 5
-      ReadOnly = True
-      TabOrder = 0
-      Text = '0000'
+      ExplicitTop = 309
     end
     object CodProdEdit: TEdit
-      Left = 159
-      Top = 66
+      Left = 119
+      Top = 21
       Width = 65
       Height = 21
       Anchors = [akLeft, akBottom]
       MaxLength = 4
       NumbersOnly = True
+      TabOrder = 0
+      ExplicitTop = 282
+    end
+    object LimparProd: TBitBtn
+      Left = 229
+      Top = 21
+      Width = 33
+      Height = 23
+      Anchors = [akLeft, akBottom]
+      ImageIndex = 1
+      Images = ImageList1
       TabOrder = 1
-      OnExit = CodProdEditExit
+      TabStop = False
+      ExplicitTop = 282
     end
     object DescProdEdit: TEdit
-      Left = 308
-      Top = 67
-      Width = 341
+      Left = 268
+      Top = 22
+      Width = 348
       Height = 21
       TabStop = False
       Anchors = [akLeft, akRight, akBottom]
       CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
-      TabOrder = 5
-    end
-    object DescLocalEdit: TEdit
-      Left = 308
-      Top = 95
-      Width = 341
-      Height = 21
-      TabStop = False
-      Anchors = [akLeft, akRight, akBottom]
-      CharCase = ecUpperCase
-      MaxLength = 70
-      ReadOnly = True
-      TabOrder = 6
+      TabOrder = 2
+      ExplicitTop = 283
     end
     object CodLocalEdit: TEdit
-      Left = 159
-      Top = 93
-      Width = 65
-      Height = 21
-      Anchors = [akLeft, akBottom]
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 2
-      OnExit = CodLocalEditExit
-    end
-    object ModoLote: TEdit
-      Left = 230
-      Top = 120
-      Width = 25
-      Height = 21
-      TabStop = False
-      TabOrder = 7
-    end
-    object LimparLocal: TBitBtn
-      Left = 269
-      Top = 94
-      Width = 33
-      Height = 22
-      Anchors = [akLeft, akBottom]
-      ImageIndex = 1
-      Images = ImageList1
-      TabOrder = 8
-      TabStop = False
-      OnClick = LimparLocalClick
-    end
-    object LimparProd: TBitBtn
-      Left = 269
-      Top = 66
-      Width = 33
-      Height = 23
-      Anchors = [akLeft, akBottom]
-      ImageIndex = 1
-      Images = ImageList1
-      TabOrder = 9
-      TabStop = False
-      OnClick = LimparProdClick
-    end
-    object LoteEdit: TEdit
-      Left = 159
-      Top = 120
+      Left = 119
+      Top = 48
       Width = 65
       Height = 21
       Anchors = [akLeft, akBottom]
       MaxLength = 4
       NumbersOnly = True
       TabOrder = 3
-      OnExit = LoteEditExit
+      ExplicitTop = 309
     end
-    object pn_datas: TPanel
-      Left = 41
-      Top = 144
-      Width = 245
-      Height = 53
-      BevelOuter = bvNone
+    object LimparLocal: TBitBtn
+      Left = 229
+      Top = 49
+      Width = 33
+      Height = 22
+      Anchors = [akLeft, akBottom]
+      ImageIndex = 1
+      Images = ImageList1
       TabOrder = 4
-      DesignSize = (
-        245
-        53)
-      object Label6: TLabel
-        Left = 12
-        Top = 33
-        Width = 100
-        Height = 13
-        Anchors = [akLeft, akBottom]
-        Caption = 'Data de vencimento:'
-        ExplicitTop = 62
-      end
-      object Label5: TLabel
-        Left = 18
-        Top = 6
-        Width = 95
-        Height = 13
-        Anchors = [akLeft, akBottom]
-        Caption = 'Data de fabrica'#231#227'o:'
-        ExplicitTop = 35
-      end
-      object DtVencimentoEdit: TcxDateEdit
-        Left = 118
-        Top = 30
-        Anchors = [akLeft, akBottom]
-        TabOrder = 1
-        Width = 121
-      end
-      object DtFabricacaoEdit: TcxDateEdit
-        Left = 118
-        Top = 3
-        Anchors = [akLeft, akBottom]
-        TabOrder = 0
-        Width = 121
-      end
+      TabStop = False
+      ExplicitTop = 310
     end
-    object QtdProdEdit: TNumberBox
-      Left = 159
-      Top = 203
-      Width = 121
+    object DescLocalEdit: TEdit
+      Left = 268
+      Top = 49
+      Width = 348
       Height = 21
-      TabOrder = 10
-    end
-  end
-  inline FrameButtons1: TFrameButtons
-    Left = 0
-    Top = 242
-    Width = 659
-    Height = 87
-    Align = alBottom
-    TabOrder = 1
-    ExplicitTop = 242
-    ExplicitWidth = 659
-    ExplicitHeight = 87
-    inherited ModoEdit: TEdit
-      Left = 353
-      Top = 40
-      ExplicitLeft = 353
-      ExplicitTop = 40
-    end
-    inherited CancelarBtn: TButton
-      Left = 566
-      Top = 26
-      OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 566
-      ExplicitTop = 26
-    end
-    inherited SalvarBtn: TBitBtn
-      Left = 440
-      Top = 26
-      Width = 120
-      OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 440
-      ExplicitTop = 26
-      ExplicitWidth = 120
+      TabStop = False
+      Anchors = [akLeft, akRight, akBottom]
+      CharCase = ecUpperCase
+      MaxLength = 70
+      ReadOnly = True
+      TabOrder = 5
+      ExplicitTop = 310
     end
   end
   object ImageList1: TImageList
-    Left = 312
+    Left = 32
     Top = 8
     Bitmap = {
       494C010102000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600

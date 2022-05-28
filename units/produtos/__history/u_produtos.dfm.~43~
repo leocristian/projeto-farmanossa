@@ -85,12 +85,14 @@ object PagProdutos: TPagProdutos
       object prod_status_entrada: TcxGridDBColumn
         Caption = 'Status Entrada'
         DataBinding.FieldName = 'prod_status_entrada'
+        DataBinding.IsNullValueType = True
         Width = 100
       end
       object prod_status_saida: TcxGridDBColumn
         AlternateCaption = 'prod_status_saida'
         Caption = 'Status Sa'#237'da'
         DataBinding.FieldName = 'prod_status_saida'
+        DataBinding.IsNullValueType = True
         Width = 94
       end
     end

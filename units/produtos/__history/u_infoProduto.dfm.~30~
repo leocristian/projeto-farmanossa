@@ -103,15 +103,29 @@ object FormProduto: TFormProduto
         'NEGAR'
         'PERMITIR')
     end
-    object StatusSaiBox: TComboBox
+    object StatusEntBox: TComboBox
       Left = 99
-      Top = 150
+      Top = 124
       Width = 145
       Height = 21
       Style = csDropDownList
       CharCase = ecUpperCase
       ItemIndex = 0
-      TabOrder = 3
+      TabOrder = 4
+      Text = 'ATIVO'
+      Items.Strings = (
+        'ATIVO'
+        'INATIVO')
+    end
+    object StatusSaiBox: TComboBox
+      Left = 99
+      Top = 151
+      Width = 145
+      Height = 21
+      Style = csDropDownList
+      CharCase = ecUpperCase
+      ItemIndex = 0
+      TabOrder = 5
       Text = 'ATIVO'
       Items.Strings = (
         'ATIVO'
@@ -123,21 +137,9 @@ object FormProduto: TFormProduto
       Width = 145
       Height = 21
       Style = csDropDownList
+      CharCase = ecUpperCase
       ItemIndex = 0
-      TabOrder = 4
-      Text = 'ATIVO'
-      Items.Strings = (
-        'ATIVO'
-        'INATIVO')
-    end
-    object StatusEntBox: TComboBox
-      Left = 99
-      Top = 124
-      Width = 145
-      Height = 21
-      Style = csDropDownList
-      ItemIndex = 0
-      TabOrder = 5
+      TabOrder = 3
       Text = 'ATIVO'
       Items.Strings = (
         'ATIVO'

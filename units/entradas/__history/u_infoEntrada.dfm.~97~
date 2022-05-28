@@ -153,13 +153,23 @@ object FormEntrada: TFormEntrada
       TabOrder = 2
       OnExit = CodLocalEditExit
     end
+    object QtdProdEdit: TEdit
+      Left = 159
+      Top = 201
+      Width = 121
+      Height = 21
+      Anchors = [akLeft, akBottom]
+      MaxLength = 4
+      NumbersOnly = True
+      TabOrder = 7
+    end
     object ModoLote: TEdit
       Left = 230
       Top = 120
       Width = 25
       Height = 21
       TabStop = False
-      TabOrder = 7
+      TabOrder = 8
     end
     object LimparLocal: TBitBtn
       Left = 269
@@ -169,7 +179,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 8
+      TabOrder = 9
       TabStop = False
       OnClick = LimparLocalClick
     end
@@ -181,7 +191,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 9
+      TabOrder = 10
       TabStop = False
       OnClick = LimparProdClick
     end
@@ -238,13 +248,6 @@ object FormEntrada: TFormEntrada
         TabOrder = 0
         Width = 121
       end
-    end
-    object QtdProdEdit: TNumberBox
-      Left = 159
-      Top = 203
-      Width = 121
-      Height = 21
-      TabOrder = 10
     end
   end
   inline FrameButtons1: TFrameButtons

@@ -9,7 +9,7 @@ uses
   Vcl.ComCtrls, dxCore, cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit,
   cxCalendar, fm_buttons, System.ImageList, Vcl.ImgList, Vcl.Buttons, Uni,
   dxCameraControl, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient,
-  IdExplicitTLSClientServerBase, IdMessageClient, IdIMAP4, Vcl.NumberBox;
+  IdExplicitTLSClientServerBase, IdMessageClient, IdIMAP4;
 
 type
   TFormEntrada = class(TForm)
@@ -27,6 +27,7 @@ type
     CodLocalEdit: TEdit;
     FrameButtons1: TFrameButtons;
     Label7: TLabel;
+    QtdProdEdit: TEdit;
     ModoLote: TEdit;
     LimparProd: TBitBtn;
     LimparLocal: TBitBtn;
@@ -37,7 +38,6 @@ type
     DtFabricacaoEdit: TcxDateEdit;
     LoteEdit: TEdit;
     Label4: TLabel;
-    QtdProdEdit: TNumberBox;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -189,7 +189,6 @@ begin
     DtFabricacaoEdit.Clear;
     DtVencimentoEdit.Clear;
     CodProdEdit.SetFocus;
-    QtdProdEdit.Value := 0;
 
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
@@ -298,7 +297,6 @@ begin
 
     if FrameButtons1.ModoEdit.Text = 'N' then
     begin
-
       q1.SQL.Text := 'select nextval(''tb_entradas_cod_seq'') as ent_codigo';
 
       q1.Open;
@@ -362,25 +360,6 @@ begin
       try
         q1.ExecSQL;
         Mensagem('Operação realizada com sucesso!');
-
-        if FrameButtons1.ModoEdit.Text = 'N' then
-        begin
-          // Criar movimentação de entrada
-          q1.SQL.Clear;
-          q1.SQL.Add('insert into tb_movimentacoes');
-          q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade)');
-          q1.SQL.Add('values');
-          q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
-
-          q1.ParamByName('produto').Value := CodProdEdit.Text;
-          q1.ParamByName('local').Value := CodLocalEdit.Text;
-          q1.ParamByName('lote').Value := LoteEdit.Text;
-          q1.ParamByName('operacao').Value := 'E';
-          q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
-
-          q1.ExecSQL;
-        end;
-
         PagEntradas.gridEntradasDBTableView1.DataController.RefreshExternalData;
         Close;
       except on e:exception do

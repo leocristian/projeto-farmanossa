@@ -265,7 +265,7 @@ begin
 
         if ModoEdit.Text = 'N' then
         begin
-          // Criar movimentação de saída
+          // Criar movimentação
           q1.SQL.Clear;
           q1.SQL.Add('insert into tb_movimentacoes');
           q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade)');
@@ -275,7 +275,7 @@ begin
           q1.ParamByName('produto').Value := CodProdEdit.Text;
           q1.ParamByName('local').Value := CodLocalEdit.Text;
           q1.ParamByName('lote').Value := CodLote;
-          q1.ParamByName('operacao').Value := 'S';
+          q1.ParamByName('operacao').Value := 'E';
           q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 
           q1.ExecSQL;

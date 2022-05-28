@@ -1456,7 +1456,7 @@ object PagRelatorios: TPagRelatorios
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."lote_dtvencimento"]')
+            '[frxDBDataset1."lote_devencimento"]')
         end
         object frxDBDataset1frxDBDataset17: TfrxMemoView
           IndexTag = 1

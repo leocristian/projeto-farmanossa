@@ -166,7 +166,7 @@ begin
 
       q1.SQL.Clear;
       q1.SQL.Add('insert into tb_produtos values ');
-      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status_entrada, :prod_status_saida, :prod_status)');
+      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status, :prod_status_entrada, :prod_status_saida)');
 
       q1.ParamByName('prod_codigo').Value := prod_codigo;
       msg_confirma := 'Confirmar inclusão do produto?';

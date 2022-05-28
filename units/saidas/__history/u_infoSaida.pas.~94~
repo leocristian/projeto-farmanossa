@@ -275,7 +275,7 @@ begin
           q1.ParamByName('produto').Value := CodProdEdit.Text;
           q1.ParamByName('local').Value := CodLocalEdit.Text;
           q1.ParamByName('lote').Value := CodLote;
-          q1.ParamByName('operacao').Value := 'S';
+          q1.ParamByName('operacao').Value := 'E';
           q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 
           q1.ExecSQL;
