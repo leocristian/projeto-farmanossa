@@ -34,6 +34,7 @@ type
     sai_data_hora: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure NovaSaidaClick(Sender: TObject);
+    procedure Detalhar1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,7 +48,12 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_infoSaida;
+uses u_dm1, u_infoSaida, u_detalharSaida;
+
+procedure TPagSaidas.Detalhar1Click(Sender: TObject);
+begin
+  DetalharSaidaForm.ShowModal;
+end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);
 begin

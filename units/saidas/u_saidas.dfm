@@ -82,6 +82,7 @@ object PagSaidas: TPagSaidas
       object sai_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'sai_codigo'
+        DataBinding.IsNullValueType = True
       end
       object sai_produto: TcxGridDBColumn
         AlternateCaption = 'Integer'
@@ -92,23 +93,27 @@ object PagSaidas: TPagSaidas
       object sai_local: TcxGridDBColumn
         Caption = 'Local de Estoque'
         DataBinding.FieldName = 'sai_local'
+        DataBinding.IsNullValueType = True
         Width = 125
       end
       object sai_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Lote'
         DataBinding.FieldName = 'sai_lote'
+        DataBinding.IsNullValueType = True
         Width = 72
       end
       object sai_quantidade: TcxGridDBColumn
         Caption = 'Quantidade'
         DataBinding.FieldName = 'sai_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 90
       end
       object sai_data_hora: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Data e Hora'
         DataBinding.FieldName = 'sai_data_hora'
+        DataBinding.IsNullValueType = True
         Width = 86
       end
     end
@@ -129,6 +134,7 @@ object PagSaidas: TPagSaidas
     Top = 136
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...  (F1)'
+      OnClick = Detalhar1Click
     end
     object NovaSaida: TMenuItem
       Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadoria  (F2)'
