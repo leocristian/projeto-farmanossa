@@ -9,7 +9,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, MemDS, DBAccess, Uni, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, Vcl.ExtCtrls;
+  cxGrid, Vcl.ExtCtrls, fr_estilo, Vcl.StdCtrls;
 
 type
   TLotesProdutoForm = class(TForm)
@@ -23,7 +23,13 @@ type
     lote_dtfabricacao: TcxGridDBColumn;
     lote_dtvencimento: TcxGridDBColumn;
     lote_quantidade: TcxGridDBColumn;
+    FrameGrid1: TFrameGrid;
+    FecharBtn: TButton;
+    loc_descricao: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
+    procedure FecharBtnClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -39,6 +45,27 @@ implementation
 
 uses u_estoque, u_dm1;
 
+procedure TLotesProdutoForm.FecharBtnClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TLotesProdutoForm.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  tb_lotes.Close;
+end;
+
+procedure TLotesProdutoForm.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
+end;
+
 procedure TLotesProdutoForm.FormShow(Sender: TObject);
 var
   index, prod_codigo: Integer;
@@ -50,7 +77,13 @@ begin
   tb_lotes.Close;
   tb_lotes.Connection := dm1.con1;
 
-  tb_lotes.SQL.text := 'select * from tb_lotes where lote_produto = :cod_produto';
+  tb_lotes.SQL.Clear;
+
+  tb_lotes.SQL.Add('select lote_codigo, lote_local, loc_descricao, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
+  tb_lotes.SQL.Add('from tb_lotes ');
+  tb_lotes.SQL.Add('inner join tb_locais_estoque');
+  tb_lotes.SQL.Add('on loc_codigo = lote_local');
+  tb_lotes.SQL.Add('where lote_produto = :cod_produto');
   tb_lotes.ParamByName('cod_produto').Value := prod_codigo;
 
   ds_lotes.DataSet := tb_lotes;

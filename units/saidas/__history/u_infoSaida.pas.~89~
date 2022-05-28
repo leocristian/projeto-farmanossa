@@ -32,6 +32,9 @@ type
     ModoEdit: TEdit;
     CancelarBtn: TButton;
     ConfirmarBtn: TBitBtn;
+    LimparProd: TBitBtn;
+    LimparLocal: TBitBtn;
+    Label4: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CodProdEditExit(Sender: TObject);
@@ -41,6 +44,9 @@ type
     procedure CancelarBtnClick(Sender: TObject);
     procedure ConfirmarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -55,7 +61,7 @@ implementation
 {$R *.dfm}
 
 uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote, u_saidas,
-  u_buscaProduto;
+  u_buscaProduto, u_buscaLocal;
 
 procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
 begin
@@ -74,17 +80,25 @@ begin
   BuscaProdutoForm.ShowModal;
 end;
 
+procedure TFormSaida.SpeedButton2Click(Sender: TObject);
+begin
+  BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'S';
+  BuscaLocalForm.ShowModal;
+end;
+
 procedure TFormSaida.VerLotesBtnClick(Sender: TObject);
 begin
-  if ExisteInputVazio(Self) then
+  if (CodProdEdit.text = '') or (CodLocalEdit.Text = '') then
   begin
-    Aviso('Preencha todos os campos!');
+    Aviso('Informe o Produto e o Local de Estoque!');
     CodProdEdit.SetFocus;
     Exit;
   end;
+
   SelecionaLoteForm.Close;
   SelecionaLoteForm.Parent := pn_lotes;
   SelecionaLoteForm.Show;
+
 end;
 
 procedure TFormSaida.CancelarBtnClick(Sender: TObject);
@@ -166,7 +180,7 @@ begin
       end
       else if q1.FieldByName('prod_status_saida').Value = 'INATIVO' then
       begin
-        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite entrada!');
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite saida!');
         CodProdEdit.Clear;
         DescProdEdit.Clear;
         CodProdEdit.SetFocus;
@@ -195,25 +209,30 @@ var
 begin
   if ConfirmarBtn.Font.Color = clRed then
   begin
-    Aviso('Selecione o lote para realizar saída');
+    Aviso('Selecione o lote para realizar saída!');
     Exit;
   end;
 
   indexLote := SelecionaLoteForm.gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
   codLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[0];
-  qtdLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[3];
-
-  if qtdLote < QtdProdEdit.Value then
-  begin
-    Aviso('Quantidade no lote é insuficiente!');
-    exit;
-  end;
 
   if Confirma('Confirmar Saída?') then
   begin
     try
       q1 := TUniQuery.Create(nil);
       q1.Connection := dm1.con1;
+
+      q1.SQL.Text := 'select prod_estoque_negativo from tb_produtos where prod_codigo = :produto';
+      q1.ParamByName('produto').Value := CodProdEdit.Text;
+
+      q1.Open;
+      if q1.FieldByName('prod_estoque_negativo').Value = 'NEGAR' then
+      begin
+        Aviso('Produto não permite estoque negativo!');
+        QtdProdEdit.SetFocus;
+        exit;
+      end;
+      q1.Close;
 
       q1.SQL.Text := 'select nextval(''tb_saidas_cod_seq'') as codProximo';
 
@@ -275,6 +294,18 @@ begin
     SelecionaLoteForm.Close;
     ConfirmarBtn.Font.Color := clRed;
   end;
+end;
+
+procedure TFormSaida.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+  DescLocalEdit.Clear;
+end;
+
+procedure TFormSaida.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
+  DescProdEdit.Clear;
 end;
 
 end.

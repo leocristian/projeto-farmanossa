@@ -179,6 +179,8 @@ object FormSaida: TFormSaida
     Height = 303
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 135
+    ExplicitHeight = 319
     object Label4: TLabel
       Left = 181
       Top = 128
@@ -200,6 +202,7 @@ object FormSaida: TFormSaida
     Height = 86
     Align = alBottom
     TabOrder = 2
+    ExplicitTop = 438
     object ModoEdit: TEdit
       Left = 462
       Top = 36

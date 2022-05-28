@@ -3,17 +3,19 @@ object LotesProdutoForm: TLotesProdutoForm
   Top = 0
   BorderStyle = bsDialog
   Caption = 'LotesProdutoForm'
-  ClientHeight = 425
-  ClientWidth = 644
+  ClientHeight = 435
+  ClientWidth = 700
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsMDIForm
   KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  Visible = True
   OnClose = FormClose
   OnKeyPress = FormKeyPress
   OnShow = FormShow
@@ -21,18 +23,19 @@ object LotesProdutoForm: TLotesProdutoForm
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
-    Top = 375
-    Width = 644
+    Top = 385
+    Width = 700
     Height = 50
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = 375
     ExplicitWidth = 673
     DesignSize = (
-      644
+      700
       50)
     object FecharBtn: TButton
-      Left = 553
+      Left = 609
       Top = 13
       Width = 75
       Height = 25
@@ -46,11 +49,12 @@ object LotesProdutoForm: TLotesProdutoForm
   object gridLotes: TcxGrid
     Left = 0
     Top = 0
-    Width = 644
-    Height = 375
+    Width = 700
+    Height = 385
     Align = alClient
     TabOrder = 1
     ExplicitWidth = 673
+    ExplicitHeight = 375
     object gridLotesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -75,16 +79,11 @@ object LotesProdutoForm: TLotesProdutoForm
       ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = ds_lotes
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <
-        item
-          Kind = skSum
-          FieldName = 'lote_quantidade'
-          Column = lote_quantidade
-          DisplayText = 'Total:'
-        end>
+      DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
       OptionsView.FocusRect = False
+      OptionsView.ColumnAutoWidth = True
       OptionsView.Footer = True
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
@@ -122,6 +121,7 @@ object LotesProdutoForm: TLotesProdutoForm
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'lote_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 101
       end
     end
@@ -130,13 +130,13 @@ object LotesProdutoForm: TLotesProdutoForm
     end
   end
   inline FrameGrid1: TFrameGrid
-    Left = 176
-    Top = 375
+    Left = 184
+    Top = 391
     Width = 73
     Height = 26
     TabOrder = 2
-    ExplicitLeft = 176
-    ExplicitTop = 375
+    ExplicitLeft = 184
+    ExplicitTop = 391
     ExplicitWidth = 73
     ExplicitHeight = 26
     inherited estiloGrid: TcxStyleRepository

@@ -78,7 +78,7 @@ object LotesProdutoForm: TLotesProdutoForm
       DataController.Summary.FooterSummaryItems = <
         item
           Kind = skSum
-          FieldName = 'lote_quantidade'
+          FieldName = 'estoque_total'
           Column = lote_quantidade
           DisplayText = 'Total:'
         end>
@@ -122,6 +122,7 @@ object LotesProdutoForm: TLotesProdutoForm
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'lote_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 101
       end
     end

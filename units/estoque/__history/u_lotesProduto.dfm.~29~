@@ -4,7 +4,7 @@ object LotesProdutoForm: TLotesProdutoForm
   BorderStyle = bsDialog
   Caption = 'LotesProdutoForm'
   ClientHeight = 425
-  ClientWidth = 644
+  ClientWidth = 673
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,17 +22,16 @@ object LotesProdutoForm: TLotesProdutoForm
   object Panel1: TPanel
     Left = 0
     Top = 375
-    Width = 644
+    Width = 673
     Height = 50
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 673
     DesignSize = (
-      644
+      673
       50)
     object FecharBtn: TButton
-      Left = 553
+      Left = 582
       Top = 13
       Width = 75
       Height = 25
@@ -40,17 +39,15 @@ object LotesProdutoForm: TLotesProdutoForm
       Caption = 'Fechar'
       TabOrder = 0
       OnClick = FecharBtnClick
-      ExplicitLeft = 582
     end
   end
   object gridLotes: TcxGrid
     Left = 0
     Top = 0
-    Width = 644
+    Width = 673
     Height = 375
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 673
     object gridLotesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -75,13 +72,7 @@ object LotesProdutoForm: TLotesProdutoForm
       ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = ds_lotes
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <
-        item
-          Kind = skSum
-          FieldName = 'lote_quantidade'
-          Column = lote_quantidade
-          DisplayText = 'Total:'
-        end>
+      DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
       OptionsView.FocusRect = False
@@ -122,6 +113,7 @@ object LotesProdutoForm: TLotesProdutoForm
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'lote_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 101
       end
     end

@@ -30,7 +30,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.MainFormOnTaskbar := True;
+//  Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFormLogin, FormLogin);
   Application.CreateForm(Tdm1, dm1);
   Application.CreateForm(TFormPrincipal, FormPrincipal);
