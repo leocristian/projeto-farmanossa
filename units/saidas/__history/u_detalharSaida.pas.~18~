@@ -124,10 +124,8 @@ begin
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := True;
-      LoteEdit.ReadOnly := True;
-      pn_datas.enabled := False;
+      pn_datas.enabled := true;
       FrameButtons1.SalvarBtn.Visible := True;
-
       FrameButtons1.SalvarBtn.Caption := 'Salvar';
     end;
   end;
