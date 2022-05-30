@@ -70,9 +70,13 @@ begin
   if Key = VK_F1 then
     Detalhar1Click(Sender)
   else if Key = VK_F2 then
+<<<<<<< HEAD
     NovaSaidaClick(Sender)
   else if Key = VK_F3 then
     AlterarSaidaClick(Sender);
+=======
+    NovaSaidaClick(Sender);
+>>>>>>> be3e4538928ae846858e3d5eb9b2defd082d3d09
 end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);
