@@ -210,6 +210,10 @@
             <Form>FormRel3</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="units\relatorios\filtros\u_filtro_rel_4.pas">
+            <Form>FormRel4</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
