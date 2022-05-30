@@ -25,9 +25,6 @@ object BuscaLocalForm: TBuscaLocalForm
     Height = 73
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = 88
-    ExplicitTop = -6
-    ExplicitWidth = 641
     DesignSize = (
       584
       73)
@@ -66,7 +63,6 @@ object BuscaLocalForm: TBuscaLocalForm
       Images = ImageList1
       TabOrder = 2
       OnClick = BuscaBtnClick
-      ExplicitLeft = 381
     end
   end
   inline FrameButtons1: TFrameButtons
@@ -76,18 +72,21 @@ object BuscaLocalForm: TBuscaLocalForm
     Height = 93
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = -62
-    ExplicitTop = 8
+    ExplicitTop = 322
+    ExplicitWidth = 584
     inherited ModoEdit: TEdit
       Left = 345
+      ExplicitLeft = 345
     end
     inherited CancelarBtn: TButton
       Left = 475
       OnClick = FrameButtons1CancelarBtnClick
+      ExplicitLeft = 475
     end
     inherited SalvarBtn: TBitBtn
       Left = 394
       OnClick = FrameButtons1SalvarBtnClick
+      ExplicitLeft = 394
     end
   end
   object gridLocais: TcxGrid
@@ -97,8 +96,6 @@ object BuscaLocalForm: TBuscaLocalForm
     Height = 249
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 67
-    ExplicitWidth = 641
     object gridLocaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -135,17 +132,20 @@ object BuscaLocalForm: TBuscaLocalForm
       object loc_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'loc_codigo'
+        DataBinding.IsNullValueType = True
       end
       object loc_descricao: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
         Width = 361
       end
       object loc_status: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Status'
         DataBinding.FieldName = 'loc_status'
+        DataBinding.IsNullValueType = True
         Width = 63
       end
     end

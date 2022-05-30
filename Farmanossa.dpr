@@ -28,7 +28,8 @@ uses
   u_detalharSaida in 'units\saidas\u_detalharSaida.pas' {DetalharSaidaForm},
   u_relatorios in 'units\relatorios\u_relatorios.pas' {PagRelatorios},
   u_filtro_rel_1 in 'units\relatorios\filtros\u_filtro_rel_1.pas' {FormRel1},
-  u_filtro_rel_2 in 'units\relatorios\filtros\u_filtro_rel_2.pas' {FormRel2};
+  u_filtro_rel_2 in 'units\relatorios\filtros\u_filtro_rel_2.pas' {FormRel2},
+  u_filtro_rel_3 in 'units\relatorios\filtros\u_filtro_rel_3.pas' {FormRel3};
 
 {$R *.res}
 
@@ -59,6 +60,7 @@ begin
   Application.CreateForm(TPagRelatorios, PagRelatorios);
   Application.CreateForm(TFormRel1, FormRel1);
   Application.CreateForm(TFormRel2, FormRel2);
+  Application.CreateForm(TFormRel3, FormRel3);
   Application.Run;
 end.
 

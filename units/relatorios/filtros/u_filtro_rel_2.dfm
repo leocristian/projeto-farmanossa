@@ -23,7 +23,6 @@ object FormRel2: TFormRel2
     Height = 107
     Align = alBottom
     TabOrder = 0
-    ExplicitTop = 350
     DesignSize = (
       584
       107)
@@ -62,7 +61,6 @@ object FormRel2: TFormRel2
     Height = 81
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 728
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -84,10 +82,6 @@ object FormRel2: TFormRel2
     Height = 263
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = 208
-    ExplicitTop = 134
-    ExplicitWidth = 250
-    ExplicitHeight = 200
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -108,11 +102,13 @@ object FormRel2: TFormRel2
       object prod_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
       end
     end
     object grid_produtosLevel1: TcxGridLevel

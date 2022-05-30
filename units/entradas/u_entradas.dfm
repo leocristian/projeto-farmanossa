@@ -74,6 +74,7 @@ object PagEntradas: TPagEntradas
         AlternateCaption = 'Descri'#231#227'o do Produto'
         Caption = 'Descri'#231#227'o do Produto'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
         Width = 271
       end
       object ent_local: TcxGridDBColumn
@@ -86,6 +87,7 @@ object PagEntradas: TPagEntradas
         AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o do local de Estoque'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
         Width = 200
       end
       object ent_lote: TcxGridDBColumn
@@ -169,7 +171,7 @@ object PagEntradas: TPagEntradas
       Caption = '-'
     end
     object CancelarEntrada1: TMenuItem
-      Caption = 'Cancelar Entrada'
+      Caption = 'Cancelar Entrada (F4)'
       OnClick = CancelarEntrada1Click
     end
   end

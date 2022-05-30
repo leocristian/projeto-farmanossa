@@ -22,16 +22,17 @@ type
     RelBox: TComboBox;
     Label2: TLabel;
     pn_relatorio: TPanel;
-    rel_3: TfrxReport;
-    db_rel_3: TfrxDBDataset;
     rel_4: TfrxReport;
     db_rel_4: TfrxDBDataset;
-    tb_rel_3: TUniTable;
-    ds_rel_3: TDataSource;
     tb_rel_4: TUniTable;
     ds_rel_4: TDataSource;
+    rel_3: TfrxReport;
+    db_rel_3: TfrxDBDataset;
+    tb_rel_3: TUniTable;
+    ds_rel_3: TDataSource;
     procedure RelBoxChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -45,7 +46,17 @@ implementation
 
 {$R *.dfm}
 
-uses u_filtro_rel_1, u_dm1, u_filtro_rel_2;
+uses u_filtro_rel_1, u_dm1, u_filtro_rel_2, u_filtro_rel_3, u_filtro_rel_4;
+
+procedure TPagRelatorios.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
+end;
 
 procedure TPagRelatorios.FormShow(Sender: TObject);
 begin
@@ -68,34 +79,13 @@ begin
   end
   else if RelBox.ItemIndex = 2 then
   begin
-    tb_rel_3.Close;
-    tb_rel_3.Connection := dm1.con1;
-
-    tb_rel_3.SQL.Clear;
-    tb_rel_3.SQL.Add('select prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
-    tb_rel_3.SQL.Add('from tb_produtos');
-    tb_rel_3.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-
-    ds_rel_3.DataSet := tb_rel_3;
-    tb_rel_3.Open;
-    rel_3.ShowReport;
-    tb_rel_3.Close;
+    FormRel3.Parent := pn_relatorio;
+    FormRel3.Show;
   end
   else if RelBox.ItemIndex = 3 then
   begin
-    tb_rel_4.Close;
-    tb_rel_4.Connection := dm1.con1;
-
-    tb_rel_4.SQL.Clear;
-    tb_rel_4.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
-    tb_rel_4.SQL.Add('from tb_produtos');
-    tb_rel_4.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-    tb_rel_4.SQL.Add('inner join tb_locais_estoque on lote_local = loc_codigo');
-
-    ds_rel_4.DataSet := tb_rel_4;
-    tb_rel_4.Open;
-    rel_4.ShowReport;
-    tb_rel_4.Close;
+    FormRel4.Parent := pn_relatorio;
+    FormRel4.Show;
   end;
 end;
 

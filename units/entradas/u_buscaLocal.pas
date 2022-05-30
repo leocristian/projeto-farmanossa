@@ -52,7 +52,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_infoSaida, u_infoEntrada;
+uses u_dm1, u_controleForm, u_infoSaida, u_infoEntrada, u_filtro_rel_1;
 
 procedure TBuscaLocalForm.BuscaBtnClick(Sender: TObject);
 var
@@ -147,25 +147,32 @@ begin
   descLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[1];
   statusLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[2];
 
-  if statusLoc = 'INATIVO' then
+  if (FrameButtons1.ModoEdit.Text = 'E') or (FrameButtons1.ModoEdit.Text = 'S') then
   begin
-    Aviso('O Local de Estoque ' + descLoc + ' está INATIVO!');
-    Exit;
-  end;
-
-  if FrameButtons1.ModoEdit.Text = 'E' then
-  begin
-    FormEntrada.CodLocalEdit.Text := IntToStr(codLoc);
-    FormEntrada.DescLocalEdit.Text := descLoc;
-    FormEntrada.LoteEdit.SetFocus;
+    if statusLoc = 'INATIVO' then
+    begin
+      Aviso('O Local de Estoque ' + descLoc + ' está INATIVO!');
+      Exit;
+    end;
+    if FrameButtons1.ModoEdit.Text = 'E' then
+    begin
+      FormEntrada.CodLocalEdit.Text := IntToStr(codLoc);
+      FormEntrada.DescLocalEdit.Text := descLoc;
+      FormEntrada.LoteEdit.SetFocus;
+    end
+    else if FrameButtons1.ModoEdit.Text = 'S' then
+    begin
+      FormSaida.CodLocalEdit.Text := IntToStr(codLoc);
+      FormSaida.DescLocalEdit.Text := descLoc;
+      FormSaida.QtdProdEdit.SetFocus;
+    end
   end
-  else if FrameButtons1.ModoEdit.Text = 'S' then
+  else if FrameButtons1.ModoEdit.Text = 'R1' then
   begin
-    FormSaida.CodLocalEdit.Text := IntToStr(codLoc);
-    FormSaida.DescLocalEdit.Text := descLoc;
-    FormSaida.QtdProdEdit.SetFocus;
+    FormRel1.CodLocalEdit.Text := IntToStr(codLoc);
+    FormRel1.DescLocalEdit.Text := descLoc;
+    FormRel1.Rel1Btn.SetFocus;
   end;
-
   Close;
 end;
 

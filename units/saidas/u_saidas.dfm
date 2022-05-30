@@ -87,6 +87,7 @@ object PagSaidas: TPagSaidas
       object sai_produto: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Produto'
+        DataBinding.FieldName = 'sai_produto'
         DataBinding.IsNullValueType = True
         Width = 121
       end

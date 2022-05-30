@@ -1,0 +1,218 @@
+unit u_filtro_rel_1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  System.ImageList, Vcl.ImgList, Data.DB, MemDS, DBAccess, Uni, frxClass,
+  frxDBSet;
+
+type
+  TFormRel1 = class(TForm)
+    pn_filtro: TPanel;
+    Label2: TLabel;
+    CodProdEdit: TEdit;
+    BuscaProdutoBtn: TSpeedButton;
+    LimparProd: TBitBtn;
+    DescProdEdit: TEdit;
+    Label3: TLabel;
+    CodLocalEdit: TEdit;
+    BuscaLocalBtn: TSpeedButton;
+    LimparLocal: TBitBtn;
+    DescLocalEdit: TEdit;
+    Rel1Btn: TBitBtn;
+    ImageList1: TImageList;
+    rel_1: TfrxReport;
+    db_rel_1: TfrxDBDataset;
+    tb_rel_1: TUniTable;
+    ds_rel_1: TDataSource;
+    procedure Rel1BtnClick(Sender: TObject);
+    procedure CodProdEditClick(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
+    procedure CodLocalEditClick(Sender: TObject);
+    procedure BuscaProdutoBtnClick(Sender: TObject);
+    procedure BuscaLocalBtnClick(Sender: TObject);
+    procedure CodProdEditExit(Sender: TObject);
+    procedure CodLocalEditExit(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormRel1: TFormRel1;
+
+implementation
+
+{$R *.dfm}
+
+uses u_dm1, u_controleForm, u_buscaProduto, u_buscaLocal;
+
+procedure TFormRel1.BuscaLocalBtnClick(Sender: TObject);
+begin
+  BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'R1';
+  BuscaLocalForm.Show;
+end;
+
+procedure TFormRel1.BuscaProdutoBtnClick(Sender: TObject);
+begin
+  BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'R1';
+  BuscaProdutoForm.Show;
+end;
+
+procedure TFormRel1.CodLocalEditClick(Sender: TObject);
+begin
+  CodLocalEdit.SetFocus;
+end;
+
+procedure TFormRel1.CodLocalEditExit(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+
+  if CodLocalEdit.text = '' then Exit;
+
+  DescLocalEdit.Clear;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Text := 'select loc_descricao from tb_locais_estoque where loc_codigo = :codigo';
+    q1.ParamByName('codigo').Value := CodLocalEdit.Text;
+
+    q1.Open;
+
+    if q1.RecordCount = 1 then
+    begin
+      DescLocalEdit.Text := q1.FieldByName('loc_descricao').Value;
+      Rel1Btn.SetFocus;
+    end
+    else
+    begin
+      CodLocalEdit.Clear;
+      CodLocalEdit.SetFocus;
+    end;
+
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
+
+procedure TFormRel1.CodProdEditClick(Sender: TObject);
+begin
+  CodProdEdit.SetFocus;
+end;
+
+procedure TFormRel1.CodProdEditExit(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+
+  if CodProdEdit.text = '' then Exit;
+
+  DescProdEdit.Clear;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Text := 'select prod_descricao from tb_produtos where prod_codigo = :codigo';
+    q1.ParamByName('codigo').Value := CodProdEdit.Text;
+
+    q1.Open;
+
+    if q1.RecordCount = 1 then
+    begin
+      DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
+      codLocalEdit.SetFocus;
+    end
+    else
+    begin
+      CodProdEdit.Clear;
+      CodProdEdit.SetFocus;
+    end;
+
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
+
+procedure TFormRel1.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
+end;
+
+procedure TFormRel1.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+  DescLocalEdit.Clear;
+end;
+
+procedure TFormRel1.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
+  DescProdEdit.Clear;
+end;
+
+procedure TFormRel1.Rel1BtnClick(Sender: TObject);
+begin
+
+  tb_rel_1.Close;
+  tb_rel_1.Connection := dm1.con1;
+
+  tb_rel_1.SQL.Clear;
+  tb_rel_1.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao,');
+  tb_rel_1.SQL.Add('lote_dtvencimento, lote_quantidade, mov_data, mov_hora, mov_operacao, mov_quantidade');
+  tb_rel_1.SQL.Add('from tb_locais_estoque');
+  tb_rel_1.SQL.Add('inner join tb_lotes on lote_local = loc_codigo');
+  tb_rel_1.SQL.Add('inner join tb_produtos on lote_produto = prod_codigo');
+  tb_rel_1.SQL.Add('inner join tb_movimentacoes on mov_produto = prod_codigo and mov_local = loc_codigo');
+
+  if CodProdEdit.Text <> '' then
+  begin
+    tb_rel_1.SQL.Add('where prod_codigo = :produto');
+    tb_rel_1.ParamByName('produto').Value := StrToInt(CodProdEdit.Text);
+  end;
+  if CodLocalEdit.Text <> '' then
+  begin
+    tb_rel_1.SQL.Add('and loc_codigo = :local');
+    tb_rel_1.ParamByName('local').Value := StrToInt(CodLocalEdit.Text);
+  end;
+
+  if (CodProdEdit.Text = '') and (CodLocalEdit.Text = '') then
+  begin
+    if not Confirma('Você não especificou nenhum produto e lote, a consulta irá retornar todos os registros, deseja continuar?') then
+    begin
+      Exit;
+    end;
+  end;
+
+  ds_rel_1.DataSet := tb_rel_1;
+  tb_rel_1.Open;
+
+  if tb_rel_1.RecordCount = 0 then
+  begin
+    Aviso('Nenhuma movimentação encontrada no produto ou local especificado!');
+    Exit;
+  end;
+
+  rel_1.ShowReport;
+  tb_rel_1.Close;
+  
+end;
+
+end.

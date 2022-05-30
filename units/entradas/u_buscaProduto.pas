@@ -55,7 +55,8 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_infoEntrada, u_infoSaida;
+uses u_dm1, u_controleForm, u_infoEntrada, u_infoSaida, u_filtro_rel_1,
+  u_filtro_rel_4;
 
 procedure TBuscaProdutoForm.BuscaBtnClick(Sender: TObject);
 var
@@ -154,28 +155,42 @@ begin
   statusProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[3];
   statusEnt := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[4];
 
-  if statusProd = 'INATIVO' then
+  if (FrameButtons1.ModoEdit.text = 'E') or (FrameButtons1.ModoEdit.Text = 'S') then
   begin
-    Aviso('O Produto ' + descProd + ' está INATIVO!');
-    Exit;
-  end;
-  if statusEnt = 'INATIVO' then
-  begin
-    Aviso('O Produto ' + descProd + ' NÃO permite entrada!');
-    Exit;
-  end;
-
-  if FrameButtons1.ModoEdit.Text = 'E' then
-  begin
-    FormEntrada.CodProdEdit.Text := IntToStr(codProd);
-    FormEntrada.DescProdEdit.Text := descProd;
-    FormEntrada.CodLocalEdit.SetFocus;
+    if statusProd = 'INATIVO' then
+    begin
+      Aviso('O Produto ' + descProd + ' está INATIVO!');
+      Exit;
+    end;
+    if statusEnt = 'INATIVO' then
+    begin
+      Aviso('O Produto ' + descProd + ' NÃO permite entrada!');
+      Exit;
+    end;
+    if FrameButtons1.ModoEdit.Text = 'E' then
+    begin
+      FormEntrada.CodProdEdit.Text := IntToStr(codProd);
+      FormEntrada.DescProdEdit.Text := descProd;
+      FormEntrada.CodLocalEdit.SetFocus;
+    end
+    else if FrameButtons1.ModoEdit.Text = 'S' then
+    begin
+      FormSaida.CodProdEdit.Text := IntToStr(codProd);
+      FormSaida.DescProdEdit.Text := descProd;
+      FormSaida.CodLocalEdit.SetFocus;
+    end;
   end
-  else if FrameButtons1.ModoEdit.Text = 'S' then
+  else if FrameButtons1.ModoEdit.Text = 'R1' then
   begin
-    FormSaida.CodProdEdit.Text := IntToStr(codProd);
-    FormSaida.DescProdEdit.Text := descProd;
-    FormSaida.CodLocalEdit.SetFocus;
+    FormRel1.CodProdEdit.Text := IntToStr(codProd);
+    FormRel1.DescProdEdit.Text := descProd;
+    FormRel1.CodLocalEdit.SetFocus;
+  end
+  else if FrameButtons1.ModoEdit.Text = 'R4' then
+  begin
+    FormRel4.CodProdEdit.Text := IntToStr(codProd);
+    FormRel4.DescprodEdit.Text := descProd;
+    FormRel4.RelBtn.SetFocus;
   end;
 
   Close;

@@ -64,6 +64,7 @@ end;
 
 procedure TFormRel2.FormShow(Sender: TObject);
 begin
+
   tb_produtos.Close;
   tb_produtos.Connection := dm1.con1;
 
@@ -75,6 +76,9 @@ begin
 
   ds_produtos.DataSet := tb_produtos;
   tb_produtos.Open;
+
+  grid_produtosDBTableView1.DataController.ClearSelection;
+  Checkbox1.Checked := False;
 end;
 
 procedure TFormRel2.Rel1BtnClick(Sender: TObject);
