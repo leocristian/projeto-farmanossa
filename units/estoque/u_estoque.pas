@@ -49,6 +49,8 @@ type
     procedure LocalEditClick(Sender: TObject);
     procedure QuantidadeEditClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure CampoProdBoxChange(Sender: TObject);
+    procedure LocalSelecaoChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -178,6 +180,20 @@ begin
   QuantidadeEdit.SetFocus;
 end;
 
+procedure TPagEstoque.CampoProdBoxChange(Sender: TObject);
+begin
+  ProdEdit.Clear;
+
+  if CampoProdBox.Text = 'CÓDIGO' then
+  begin
+    ProdEdit.NumbersOnly := True;
+  end
+  else
+  begin
+    ProdEdit.NumbersOnly := False;
+  end;
+end;
+
 procedure TPagEstoque.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   tb_estoque.Close;
@@ -186,6 +202,21 @@ end;
 procedure TPagEstoque.LocalEditClick(Sender: TObject);
 begin
   LocalEdit.SetFocus;
+end;
+
+procedure TPagEstoque.LocalSelecaoChange(Sender: TObject);
+begin
+
+  LocalEdit.Clear;
+
+  if LocalSelecao.Text = 'CÓDIGO' then
+  begin
+    LocalEdit.NumbersOnly := True;
+  end
+  else
+  begin
+    LocalEdit.NumbersOnly := False;
+  end;
 end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);

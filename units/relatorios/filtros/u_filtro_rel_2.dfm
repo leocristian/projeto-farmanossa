@@ -4,7 +4,7 @@ object FormRel2: TFormRel2
   BorderStyle = bsNone
   Caption = 'FormRel2'
   ClientHeight = 451
-  ClientWidth = 584
+  ClientWidth = 617
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,19 +19,20 @@ object FormRel2: TFormRel2
   object pn_button: TPanel
     Left = 0
     Top = 344
-    Width = 584
+    Width = 617
     Height = 107
     Align = alBottom
     TabOrder = 0
+    ExplicitWidth = 584
     DesignSize = (
-      584
+      617
       107)
     object Rel1Btn: TBitBtn
-      Left = 408
+      Left = 416
       Top = 21
       Width = 161
       Height = 65
-      Anchors = [akTop, akRight]
+      Anchors = [akLeft, akBottom]
       Caption = 'Visualizar relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -57,10 +58,11 @@ object FormRel2: TFormRel2
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 584
+    Width = 617
     Height = 81
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 584
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -78,10 +80,11 @@ object FormRel2: TFormRel2
   object grid_produtos: TcxGrid
     Left = 0
     Top = 81
-    Width = 584
+    Width = 617
     Height = 263
     Align = alClient
     TabOrder = 2
+    ExplicitWidth = 584
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>

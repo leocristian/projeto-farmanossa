@@ -25,8 +25,8 @@ object PagRelatorios: TPagRelatorios
     Align = alTop
     TabOrder = 0
     object Label1: TLabel
-      Left = 152
-      Top = 44
+      Left = 166
+      Top = 38
       Width = 297
       Height = 33
       Caption = 'Relat'#243'rios de Estoque'
@@ -38,7 +38,7 @@ object PagRelatorios: TPagRelatorios
       ParentFont = False
     end
     object Image1: TImage
-      Left = 32
+      Left = 46
       Top = 20
       Width = 81
       Height = 81
@@ -387,15 +387,15 @@ object PagRelatorios: TPagRelatorios
     Align = alTop
     TabOrder = 1
     object Label2: TLabel
-      Left = 32
-      Top = 19
+      Left = 46
+      Top = 24
       Width = 144
       Height = 13
       Caption = 'Selecione o relat'#243'rio desejado'
     end
     object RelBox: TComboBox
-      Left = 32
-      Top = 38
+      Left = 46
+      Top = 43
       Width = 473
       Height = 21
       Style = csDropDownList
@@ -417,7 +417,6 @@ object PagRelatorios: TPagRelatorios
     Height = 288
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 201
   end
   object rel_4: TfrxReport
     Version = '2022.2.3'
