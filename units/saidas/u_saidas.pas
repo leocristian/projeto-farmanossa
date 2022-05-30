@@ -35,6 +35,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure NovaSaidaClick(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure AlterarSaidaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,10 +52,27 @@ implementation
 
 uses u_dm1, u_infoSaida, u_detalharSaida;
 
+procedure TPagSaidas.AlterarSaidaClick(Sender: TObject);
+begin
+  DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'A';
+  DetalharSaidaForm.ShowModal;
+end;
+
 procedure TPagSaidas.Detalhar1Click(Sender: TObject);
 begin
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'V';
   DetalharSaidaForm.ShowModal;
+end;
+
+procedure TPagSaidas.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Detalhar1Click(Sender)
+  else if Key = VK_F2 then
+    NovaSaidaClick(Sender)
+  else if Key = VK_F3 then
+    AlterarSaidaClick(Sender);
 end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);

@@ -23,7 +23,6 @@ object PagSaidas: TPagSaidas
     Height = 109
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = -191
     ExplicitWidth = 661
     inherited ImageList1: TImageList
       Left = 616
@@ -47,10 +46,6 @@ object PagSaidas: TPagSaidas
     Height = 235
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = -62
-    ExplicitTop = 21
-    ExplicitWidth = 723
-    ExplicitHeight = 323
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -72,6 +67,7 @@ object PagSaidas: TPagSaidas
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_saidas
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -83,42 +79,43 @@ object PagSaidas: TPagSaidas
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
-      object ent_codigo: TcxGridDBColumn
+      object sai_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
-        DataBinding.FieldName = 'ent_codigo'
+        DataBinding.FieldName = 'sai_codigo'
         DataBinding.IsNullValueType = True
       end
-      object ent_produto: TcxGridDBColumn
+      object sai_produto: TcxGridDBColumn
+        AlternateCaption = 'Integer'
         Caption = 'Produto'
-        DataBinding.FieldName = 'ent_produto'
+        DataBinding.FieldName = 'sai_produto'
         DataBinding.IsNullValueType = True
+        Width = 121
       end
-      object ent_local: TcxGridDBColumn
-        Caption = 'Local de estoque'
-        DataBinding.FieldName = 'ent_local'
+      object sai_local: TcxGridDBColumn
+        Caption = 'Local de Estoque'
+        DataBinding.FieldName = 'sai_local'
         DataBinding.IsNullValueType = True
-        Width = 129
+        Width = 125
       end
-      object ent_lote: TcxGridDBColumn
+      object sai_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Lote'
-        DataBinding.FieldName = 'ent_lote'
+        DataBinding.FieldName = 'sai_lote'
         DataBinding.IsNullValueType = True
-        Width = 96
+        Width = 72
       end
-      object ent_quantidade: TcxGridDBColumn
-        AlternateCaption = 'DateTime'
+      object sai_quantidade: TcxGridDBColumn
         Caption = 'Quantidade'
-        DataBinding.FieldName = 'ent_quantidade'
+        DataBinding.FieldName = 'sai_quantidade'
         DataBinding.IsNullValueType = True
-        Width = 102
+        Width = 90
       end
-      object ent_data_hora: TcxGridDBColumn
-        AlternateCaption = 'DateTime'
-        Caption = 'Data e Hora da entrada'
-        DataBinding.FieldName = 'ent_data_hora'
+      object sai_data_hora: TcxGridDBColumn
+        AlternateCaption = 'Integer'
+        Caption = 'Data e Hora'
+        DataBinding.FieldName = 'sai_data_hora'
         DataBinding.IsNullValueType = True
-        Width = 196
+        Width = 86
       end
     end
     object gridSaidasLevel1: TcxGridLevel
@@ -138,6 +135,7 @@ object PagSaidas: TPagSaidas
     Top = 136
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...  (F1)'
+      OnClick = Detalhar1Click
     end
     object NovaSaida: TMenuItem
       Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadoria  (F2)'

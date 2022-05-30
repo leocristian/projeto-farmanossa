@@ -3,8 +3,8 @@ object FormRel4: TFormRel4
   Top = 0
   BorderStyle = bsNone
   Caption = 'FormRel4'
-  ClientHeight = 484
-  ClientWidth = 778
+  ClientHeight = 297
+  ClientWidth = 714
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,14 +19,12 @@ object FormRel4: TFormRel4
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 778
-    Height = 484
+    Width = 714
+    Height = 297
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 56
-    ExplicitTop = -40
-    ExplicitWidth = 762
-    ExplicitHeight = 445
+    ExplicitWidth = 778
+    ExplicitHeight = 484
     object BuscaProdutoBtn: TSpeedButton
       Left = 195
       Top = 93

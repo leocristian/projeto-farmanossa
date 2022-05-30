@@ -72,6 +72,8 @@ begin
   tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
   tb_produtos.SQL.Add('order by prod_codigo');
 
+  tb_produtos.Open;
+
   ds_produtos.DataSet := tb_produtos;
   tb_produtos.Open;
 

@@ -140,7 +140,7 @@ end;
 procedure TBuscaProdutoForm.FrameButtons1SalvarBtnClick(Sender: TObject);
 var
   indexProd, codProd: Integer;
-  descProd, statusProd, statusEnt: String;
+  descProd, statusProd, statusEnt, statusSai: String;
 
 begin
   if FrameButtons1.SalvarBtn.Font.Color = clRed then
@@ -154,6 +154,7 @@ begin
   descProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[1];
   statusProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[3];
   statusEnt := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[4];
+  statusSai := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[5];
 
   if (FrameButtons1.ModoEdit.text = 'E') or (FrameButtons1.ModoEdit.Text = 'S') then
   begin
@@ -162,19 +163,24 @@ begin
       Aviso('O Produto ' + descProd + ' está INATIVO!');
       Exit;
     end;
-    if statusEnt = 'INATIVO' then
-    begin
-      Aviso('O Produto ' + descProd + ' NÃO permite entrada!');
-      Exit;
-    end;
     if FrameButtons1.ModoEdit.Text = 'E' then
     begin
+      if statusEnt = 'INATIVO' then
+      begin
+        Aviso('O Produto ' + descProd + ' NÃO permite entrada!');
+        Exit;
+      end;
       FormEntrada.CodProdEdit.Text := IntToStr(codProd);
       FormEntrada.DescProdEdit.Text := descProd;
       FormEntrada.CodLocalEdit.SetFocus;
     end
     else if FrameButtons1.ModoEdit.Text = 'S' then
     begin
+      if statusSai = 'INATIVO' then
+      begin
+        Aviso('O Produto ' + descProd + ' NÃO permite saída!');
+        Exit;
+      end;
       FormSaida.CodProdEdit.Text := IntToStr(codProd);
       FormSaida.DescProdEdit.Text := descProd;
       FormSaida.CodLocalEdit.SetFocus;

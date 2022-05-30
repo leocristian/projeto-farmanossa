@@ -58,9 +58,10 @@ object PagEstoque: TPagEstoque
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemIndex = 0
+      ItemIndex = 1
       TabOrder = 5
-      Text = 'C'#211'DIGO'
+      Text = 'DESCRI'#199#194'O'
+      OnChange = LocalSelecaoChange
       Items.Strings = (
         'C'#211'DIGO'
         'DESCRI'#199#194'O')
@@ -111,9 +112,10 @@ object PagEstoque: TPagEstoque
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemIndex = 0
+      ItemIndex = 1
       TabOrder = 0
-      Text = 'C'#211'DIGO'
+      Text = 'DESCRI'#199#194'O'
+      OnChange = CampoProdBoxChange
       Items.Strings = (
         'C'#211'DIGO'
         'DESCRI'#199#194'O')

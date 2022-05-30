@@ -26,11 +26,11 @@ uses
   u_estoque in 'units\estoque\u_estoque.pas' {PagEstoque},
   u_lotesProduto in 'units\estoque\u_lotesProduto.pas' {LotesProdutoForm},
   u_detalharSaida in 'units\saidas\u_detalharSaida.pas' {DetalharSaidaForm},
-  u_relatorios in 'units\relatorios\u_relatorios.pas' {PagRelatorios},
   u_filtro_rel_1 in 'units\relatorios\filtros\u_filtro_rel_1.pas' {FormRel1},
   u_filtro_rel_2 in 'units\relatorios\filtros\u_filtro_rel_2.pas' {FormRel2},
   u_filtro_rel_3 in 'units\relatorios\filtros\u_filtro_rel_3.pas' {FormRel3},
-  u_filtro_rel_4 in 'units\relatorios\filtros\u_filtro_rel_4.pas' {FormRel4};
+  u_filtro_rel_4 in 'units\relatorios\filtros\u_filtro_rel_4.pas' {FormRel4},
+  u_relatorios in 'units\relatorios\u_relatorios.pas';
 
 {$R *.res}
 

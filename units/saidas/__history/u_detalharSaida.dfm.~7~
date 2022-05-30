@@ -12,10 +12,8 @@ object DetalharSaidaForm: TDetalharSaidaForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
-  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -27,6 +25,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = -6
     DesignSize = (
       552
       204)
@@ -113,6 +112,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       MaxLength = 50
       ReadOnly = True
       TabOrder = 3
+      ExplicitWidth = 371
     end
     object DescLocalEdit: TEdit
       Left = 308
@@ -125,6 +125,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       MaxLength = 70
       ReadOnly = True
       TabOrder = 4
+      ExplicitWidth = 371
     end
     object CodLocalEdit: TEdit
       Left = 159
@@ -221,20 +222,17 @@ object DetalharSaidaForm: TDetalharSaidaForm
     Height = 93
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 204
-    ExplicitWidth = 552
+    ExplicitLeft = 8
+    ExplicitTop = 8
     inherited ModoEdit: TEdit
       Left = 313
-      ExplicitLeft = 313
     end
     inherited CancelarBtn: TButton
       Left = 443
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 443
     end
     inherited SalvarBtn: TBitBtn
       Left = 362
-      ExplicitLeft = 362
     end
   end
   object ImageList1: TImageList

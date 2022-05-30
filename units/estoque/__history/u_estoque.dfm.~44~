@@ -14,6 +14,7 @@ object PagEstoque: TPagEstoque
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object pn_filtro: TPanel
@@ -23,8 +24,6 @@ object PagEstoque: TPagEstoque
     Height = 137
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
-    ExplicitWidth = 823
     object Label2: TLabel
       Left = 23
       Top = 94
@@ -60,7 +59,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 0
+      TabOrder = 5
       Text = 'C'#211'DIGO'
       Items.Strings = (
         'C'#211'DIGO'
@@ -72,7 +71,8 @@ object PagEstoque: TPagEstoque
       Width = 328
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 1
+      TabOrder = 6
+      OnClick = LocalEditClick
     end
     object QuantidadeBox: TComboBox
       Left = 283
@@ -81,7 +81,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 2
+      TabOrder = 3
       Text = 'MOSTRAR TUDO'
       OnChange = QuantidadeBoxChange
       Items.Strings = (
@@ -98,7 +98,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 3
+      TabOrder = 2
       Text = 'TODOS'
       Items.Strings = (
         'TODOS'
@@ -112,7 +112,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 4
+      TabOrder = 0
       Text = 'C'#211'DIGO'
       Items.Strings = (
         'C'#211'DIGO'
@@ -124,7 +124,8 @@ object PagEstoque: TPagEstoque
       Width = 328
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 5
+      TabOrder = 1
+      OnClick = ProdEditClick
     end
     object BitBtn1: TBitBtn
       Left = 619
@@ -134,7 +135,7 @@ object PagEstoque: TPagEstoque
       Caption = 'Consultar'
       ImageIndex = 0
       Images = ImageList1
-      TabOrder = 6
+      TabOrder = 7
       OnClick = BitBtn1Click
     end
     object QuantidadeEdit: TNumberBox
@@ -143,8 +144,9 @@ object PagEstoque: TPagEstoque
       Width = 50
       Height = 21
       MaxLength = 5
-      TabOrder = 7
+      TabOrder = 4
       Visible = False
+      OnClick = QuantidadeEditClick
     end
   end
   object gridEstoque: TcxGrid
@@ -155,8 +157,6 @@ object PagEstoque: TPagEstoque
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
-    ExplicitTop = 143
-    ExplicitWidth = 823
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -192,33 +192,39 @@ object PagEstoque: TPagEstoque
         AlternateCaption = 'Descri'#231#227'o'
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
         Width = 266
       end
       object prod_status: TcxGridDBColumn
         Caption = 'Status'
         DataBinding.FieldName = 'prod_status'
+        DataBinding.IsNullValueType = True
         Width = 74
       end
       object loc_codigo: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'C'#243'digo do Local de estoque'
         DataBinding.FieldName = 'loc_codigo'
-        Width = 149
+        DataBinding.IsNullValueType = True
+        Width = 164
       end
       object loc_descricao: TcxGridDBColumn
         Caption = 'Local de estoque'
         DataBinding.FieldName = 'loc_descricao'
-        Width = 192
+        DataBinding.IsNullValueType = True
+        Width = 196
       end
       object qtd_estoque: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Quantidade em Estoque'
         DataBinding.FieldName = 'qtd_estoque'
+        DataBinding.IsNullValueType = True
         Width = 144
       end
     end
