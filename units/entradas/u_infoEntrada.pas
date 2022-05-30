@@ -384,9 +384,15 @@ begin
         PagEntradas.gridEntradasDBTableView1.DataController.RefreshExternalData;
         Close;
       except on e:exception do
-        Erro('Erro!' + #13 + e.Message);
+        if e.Message.Contains('tb_lotes_pkey') then
+        begin
+          Aviso('Erro, lote já pertence a outro produto!');
+        end
+        else
+        begin
+          Aviso('Erro!' + #13 + e.Message);
+        end;
       end;
-
     end;
   finally
     q1.Close;

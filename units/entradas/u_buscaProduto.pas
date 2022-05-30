@@ -139,7 +139,7 @@ end;
 procedure TBuscaProdutoForm.FrameButtons1SalvarBtnClick(Sender: TObject);
 var
   indexProd, codProd: Integer;
-  descProd, statusProd: String;
+  descProd, statusProd, statusEnt: String;
 
 begin
   if FrameButtons1.SalvarBtn.Font.Color = clRed then
@@ -152,10 +152,16 @@ begin
   codProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[0];
   descProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[1];
   statusProd := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[3];
+  statusEnt := gridProdutosDBTableView1.ViewData.Records[indexProd].Values[4];
 
   if statusProd = 'INATIVO' then
   begin
     Aviso('O Produto ' + descProd + ' está INATIVO!');
+    Exit;
+  end;
+  if statusEnt = 'INATIVO' then
+  begin
+    Aviso('O Produto ' + descProd + ' NÃO permite entrada!');
     Exit;
   end;
 

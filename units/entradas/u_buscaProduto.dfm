@@ -26,7 +26,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
     Height = 73
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 805
     DesignSize = (
       787
       73)
@@ -54,7 +53,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 1
-      ExplicitWidth = 636
     end
     object BuscaBtn: TBitBtn
       Left = 747
@@ -66,7 +64,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
       Images = ImageList1
       TabOrder = 2
       OnClick = BuscaBtnClick
-      ExplicitLeft = 765
     end
   end
   inline FrameGrid1: TFrameGrid
@@ -92,8 +89,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
     Height = 278
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 805
-    ExplicitHeight = 279
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -181,27 +176,27 @@ object BuscaProdutoForm: TBuscaProdutoForm
     Height = 80
     Align = alBottom
     TabOrder = 3
-    ExplicitTop = 352
-    ExplicitWidth = 805
+    ExplicitTop = 351
+    ExplicitWidth = 787
     ExplicitHeight = 80
     inherited ModoEdit: TEdit
       Left = 548
       Top = 26
-      ExplicitLeft = 566
+      ExplicitLeft = 548
       ExplicitTop = 26
     end
     inherited CancelarBtn: TButton
       Left = 678
       Top = 23
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 696
+      ExplicitLeft = 678
       ExplicitTop = 23
     end
     inherited SalvarBtn: TBitBtn
       Left = 597
       Top = 23
       OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 615
+      ExplicitLeft = 597
       ExplicitTop = 23
     end
   end

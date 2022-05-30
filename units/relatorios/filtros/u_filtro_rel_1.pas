@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
-  System.ImageList, Vcl.ImgList;
+  System.ImageList, Vcl.ImgList, Data.DB, MemDS, DBAccess, Uni, frxClass,
+  frxDBSet;
 
 type
   TFormRel1 = class(TForm)
@@ -20,7 +21,17 @@ type
     SpeedButton2: TSpeedButton;
     LimparLocal: TBitBtn;
     DescLocalEdit: TEdit;
+    Rel1Btn: TBitBtn;
     ImageList1: TImageList;
+    rel_1: TfrxReport;
+    db_rel_1: TfrxDBDataset;
+    tb_rel_1: TUniTable;
+    ds_rel_1: TDataSource;
+    procedure Rel1BtnClick(Sender: TObject);
+    procedure CodProdEditClick(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
+    procedure CodLocalEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,5 +44,69 @@ var
 implementation
 
 {$R *.dfm}
+
+uses u_dm1, u_controleForm;
+
+procedure TFormRel1.CodLocalEditClick(Sender: TObject);
+begin
+  CodLocalEdit.SetFocus;
+end;
+
+procedure TFormRel1.CodProdEditClick(Sender: TObject);
+begin
+  CodProdEdit.SetFocus;
+end;
+
+procedure TFormRel1.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.SetFocus;
+  DescLocalEdit.SetFocus;
+end;
+
+procedure TFormRel1.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
+  DescProdEdit.Clear;
+end;
+
+procedure TFormRel1.Rel1BtnClick(Sender: TObject);
+begin
+
+  tb_rel_1.Close;
+  tb_rel_1.Connection := dm1.con1;
+
+  tb_rel_1.SQL.Clear;
+  tb_rel_1.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao,');
+  tb_rel_1.SQL.Add('lote_dtvencimento, lote_quantidade, mov_data, mov_hora, mov_operacao, mov_quantidade');
+  tb_rel_1.SQL.Add('from tb_locais_estoque');
+  tb_rel_1.SQL.Add('inner join tb_lotes on lote_local = loc_codigo');
+  tb_rel_1.SQL.Add('inner join tb_produtos on lote_produto = prod_codigo');
+  tb_rel_1.SQL.Add('inner join tb_movimentacoes on mov_produto = prod_codigo and mov_local = loc_codigo');
+
+  if CodProdEdit.Text <> '' then
+  begin
+    tb_rel_1.SQL.Add('where prod_codigo = :produto');
+    tb_rel_1.ParamByName('produto').Value := StrToInt(CodProdEdit.Text);
+  end;
+  if CodLocalEdit.Text <> '' then
+  begin
+    tb_rel_1.SQL.Add('and loc_codigo = :local');
+    tb_rel_1.ParamByName('local').Value := StrToInt(CodLocalEdit.Text);
+  end;
+
+  if (CodProdEdit.Text = '') and (CodLocalEdit.Text = '') then
+  begin
+    if not Confirma('Você não especificou nenhum produto e lote, a consulta irá retornar todos os registros, deseja continuar?') then
+    begin
+      Exit;
+    end;
+  end;
+
+  ds_rel_1.DataSet := tb_rel_1;
+  tb_rel_1.Open;
+  rel_1.ShowReport;
+  tb_rel_1.Close;
+  
+end;
 
 end.

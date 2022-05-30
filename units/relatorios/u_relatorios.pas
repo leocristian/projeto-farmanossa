@@ -22,18 +22,10 @@ type
     RelBox: TComboBox;
     Label2: TLabel;
     pn_relatorio: TPanel;
-    db_rel_1: TfrxDBDataset;
-    rel_2: TfrxReport;
-    db_rel_2: TfrxDBDataset;
     rel_3: TfrxReport;
     db_rel_3: TfrxDBDataset;
     rel_4: TfrxReport;
     db_rel_4: TfrxDBDataset;
-    tb_rel_1: TUniTable;
-    ds_rel_1: TDataSource;
-    rel_1: TfrxReport;
-    tb_rel_2: TUniTable;
-    ds_rel_2: TDataSource;
     tb_rel_3: TUniTable;
     ds_rel_3: TDataSource;
     tb_rel_4: TUniTable;
@@ -53,48 +45,26 @@ implementation
 
 {$R *.dfm}
 
-uses u_filtro_rel_1, u_dm1;
+uses u_filtro_rel_1, u_dm1, u_filtro_rel_2;
 
 procedure TPagRelatorios.FormShow(Sender: TObject);
 begin
-  RelBox.ItemIndex :=  -1;
+  RelBox.ItemIndex :=  0;
+  FormRel1.Parent := pn_relatorio;
+  FormRel1.Show;
 end;
 
 procedure TPagRelatorios.RelBoxChange(Sender: TObject);
 begin
   if RelBox.ItemIndex = 0 then
   begin
-    tb_rel_1.Close;
-    tb_rel_1.Connection := dm1.con1;
-
-    tb_rel_1.SQL.Clear;
-    tb_rel_1.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao,');
-    tb_rel_1.SQL.Add('lote_dtvencimento, lote_quantidade, mov_data, mov_hora, mov_operacao, mov_quantidade');
-    tb_rel_1.SQL.Add('from tb_locais_estoque');
-    tb_rel_1.SQL.Add('inner join tb_lotes on lote_local = loc_codigo');
-    tb_rel_1.SQL.Add('inner join tb_produtos on lote_produto = prod_codigo');
-    tb_rel_1.SQL.Add('inner join tb_movimentacoes on mov_produto = prod_codigo and mov_local = loc_codigo');
-
-    ds_rel_1.DataSet := tb_rel_1;
-    tb_rel_1.Open;
-    rel_1.ShowReport;
-    tb_rel_1.Close;
+    FormRel1.Parent := pn_relatorio;
+    FormRel1.Show;
   end
   else if RelBox.ItemIndex = 1 then
   begin
-    tb_rel_2.Close;
-    tb_rel_2.Connection := dm1.con1;
-
-    tb_rel_2.SQL.Clear;
-    tb_rel_2.SQL.Add('select prod_codigo, prod_descricao, sum(lote_quantidade) as qtd_total');
-    tb_rel_2.SQL.Add('from tb_produtos');
-    tb_rel_2.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-    tb_rel_2.SQL.Add('group by prod_codigo, prod_descricao');
-
-    ds_rel_2.DataSet := tb_rel_2;
-    tb_rel_2.Open;
-    rel_2.ShowReport;
-    tb_rel_2.Close;
+    FormRel2.Parent := pn_relatorio;
+    FormRel2.Show;
   end
   else if RelBox.ItemIndex = 2 then
   begin
