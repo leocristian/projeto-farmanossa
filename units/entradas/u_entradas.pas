@@ -124,6 +124,8 @@ end;
 procedure TPagEntradas.FormShow(Sender: TObject);
 begin
 
+  FrameBusca1.BuscaEdit.SetFocus;
+
   tb_entradas.Close;
   tb_entradas.Connection := dm1.con1;
 

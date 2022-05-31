@@ -4002,7 +4002,7 @@ object FormPrincipal: TFormPrincipal
       Stretch = True
       Transparent = True
     end
-    object EncerrarBtn: TBitBtn
+    object BitBtn1: TBitBtn
       Left = 736
       Top = 3
       Width = 49
@@ -4011,7 +4011,7 @@ object FormPrincipal: TFormPrincipal
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 3
-      OnClick = EncerrarBtnClick
+      OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
       Left = 681
@@ -4025,7 +4025,7 @@ object FormPrincipal: TFormPrincipal
       OnClick = BitBtn2Click
     end
     object BitBtn3: TBitBtn
-      Left = 255
+      Left = 351
       Top = 19
       Width = 49
       Height = 37
@@ -4037,10 +4037,9 @@ object FormPrincipal: TFormPrincipal
     object BuscaFuncEdit: TEdit
       Left = 72
       Top = 27
-      Width = 177
+      Width = 257
       Height = 21
       CharCase = ecUpperCase
-      MaxLength = 5
       TabOrder = 0
       OnKeyPress = BuscaFuncEditKeyPress
     end

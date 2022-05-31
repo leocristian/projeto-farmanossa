@@ -82,7 +82,6 @@ begin
       arq_ini.WriteString('usuario', 'login', LoginInput.Text);
       LimparInputs(self);
       FormPrincipal.Show;
-      FormLogin.Visible := False;
       qtd_tentativas := 3;
       label_qtdTentativas.Caption := qtd_tentativas.ToString;
     end

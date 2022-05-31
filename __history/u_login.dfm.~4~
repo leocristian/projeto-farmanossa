@@ -1070,6 +1070,9 @@ object FormLogin: TFormLogin
     Height = 299
     Align = alClient
     TabOrder = 0
+    ExplicitTop = -6
+    ExplicitWidth = 508
+    ExplicitHeight = 324
     DesignSize = (
       472
       299)

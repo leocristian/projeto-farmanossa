@@ -51,6 +51,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CampoProdBoxChange(Sender: TObject);
     procedure LocalSelecaoChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -197,6 +198,11 @@ end;
 procedure TPagEstoque.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   tb_estoque.Close;
+end;
+
+procedure TPagEstoque.FormShow(Sender: TObject);
+begin
+  ProdEdit.SetFocus;
 end;
 
 procedure TPagEstoque.LocalEditClick(Sender: TObject);

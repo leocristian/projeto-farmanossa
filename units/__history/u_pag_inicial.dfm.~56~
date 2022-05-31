@@ -4002,7 +4002,7 @@ object FormPrincipal: TFormPrincipal
       Stretch = True
       Transparent = True
     end
-    object EncerrarBtn: TBitBtn
+    object BitBtn1: TBitBtn
       Left = 736
       Top = 3
       Width = 49
@@ -4011,7 +4011,7 @@ object FormPrincipal: TFormPrincipal
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 3
-      OnClick = EncerrarBtnClick
+      OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
       Left = 681
