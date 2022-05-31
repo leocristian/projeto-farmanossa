@@ -67,7 +67,7 @@ implementation
 uses u_buscaProduto, u_buscaLocal, u_dm1, u_controleForm, u_entradas,
   u_infoLote;
 
-procedure AtualizarMovimentacao(codOp: TCaption; prod: TCaption; local: TCaption; lote: TCaption; qtd: TCaption);
+procedure TFormEntrada.AtualizarMovimentacao(codOp: TCaption; prod: TCaption; local: TCaption; lote: TCaption; qtd: TCaption);
 var
   q1: TUniQuery;
 
@@ -90,7 +90,7 @@ begin
     try
       q1.ExecSQL;
     except on e:exception do
-      Aviso('Erro!' + e.message);
+      Aviso('Erro atualizar movimentacao!' + e.message);
     end;
   finally
     q1.Close;
@@ -275,6 +275,7 @@ begin
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := true;
+      pn_datas.Enabled := False;
       FrameButtons1.SalvarBtn.Visible := true;
       FrameButtons1.SalvarBtn.Caption := 'Salvar Alterações';
       CodProdEdit.SetFocus;
@@ -403,16 +404,21 @@ begin
           q1.SQL.Add('insert into tb_movimentacoes');
           q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade, mov_cod_operacao)');
           q1.SQL.Add('values');
-          q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade, :operacao)');
+          q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade, :cod_operacao)');
 
           q1.ParamByName('produto').Value := CodProdEdit.Text;
           q1.ParamByName('local').Value := CodLocalEdit.Text;
           q1.ParamByName('lote').Value := LoteEdit.Text;
           q1.ParamByName('operacao').Value := 'E';
           q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
-          q1.ParamByName('operacao').Value := CodEdit.text;
+          q1.ParamByName('cod_operacao').Value := ent_codigo;
 
-          q1.ExecSQL;
+          try
+            q1.ExecSQL;
+          except on e:exception do
+            Aviso(e.message);
+          end;
+
         end;
 
         PagEntradas.gridEntradasDBTableView1.DataController.RefreshExternalData;

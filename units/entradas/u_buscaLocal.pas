@@ -158,7 +158,8 @@ begin
     begin
       FormEntrada.CodLocalEdit.Text := IntToStr(codLoc);
       FormEntrada.DescLocalEdit.Text := descLoc;
-      FormEntrada.LoteEdit.SetFocus;
+      if FormEntrada.LoteEdit.Enabled then
+        FormEntrada.LoteEdit.SetFocus;
     end
     else if FrameButtons1.ModoEdit.Text = 'S' then
     begin
