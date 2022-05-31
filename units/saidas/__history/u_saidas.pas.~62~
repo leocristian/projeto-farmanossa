@@ -94,17 +94,17 @@ end;
 procedure TPagSaidas.BuscarBtnClick(Sender: TObject);
 begin
 
-  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
-  begin
-    Aviso('Informe um período válido!');
-    Exit;
-  end;
-
-  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
-  begin
-    Aviso('Informe o código para busca!');
-    Exit;
-  end;
+//  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
+//  begin
+//    Aviso('Informe um período válido!');
+//    Exit;
+//  end;
+//
+//  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
+//  begin
+//    Aviso('Informe o código para busca!');
+//    Exit;
+//  end;
 
   tb_saidas.Close;
   tb_saidas.Connection := dm1.con1;

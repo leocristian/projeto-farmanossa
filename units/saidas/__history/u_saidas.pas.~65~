@@ -94,17 +94,17 @@ end;
 procedure TPagSaidas.BuscarBtnClick(Sender: TObject);
 begin
 
-  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
-  begin
-    Aviso('Informe um período válido!');
-    Exit;
-  end;
-
-  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
-  begin
-    Aviso('Informe o código para busca!');
-    Exit;
-  end;
+//  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
+//  begin
+//    Aviso('Informe um período válido!');
+//    Exit;
+//  end;
+//
+//  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
+//  begin
+//    Aviso('Informe o código para busca!');
+//    Exit;
+//  end;
 
   tb_saidas.Close;
   tb_saidas.Connection := dm1.con1;
@@ -115,7 +115,7 @@ begin
   tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
   tb_saidas.SQL.Add('where (sai_data_hora::date >= :dataInicial');
   tb_saidas.SQL.Add('and sai_data_hora::date <= :dataFinal)');
-  tb_saidas.SQL.Add('and (sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal)');
+  tb_saidas.SQL.Add('or (sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal)');
 
   tb_saidas.ParamByName('dataInicial').Value := DataInicialEdit.Date;
   tb_saidas.ParamByName('dataFinal').Value := DataFinalEdit.Date;

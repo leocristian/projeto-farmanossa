@@ -1,4 +1,4 @@
-unit u_saidas;
+ï»¿unit u_saidas;
 
 interface
 
@@ -9,11 +9,13 @@ uses
   cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, Vcl.Menus, MemDS, DBAccess, Uni,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxClasses, cxGridCustomView, cxGrid, fr_estilo;
+  cxClasses, cxGridCustomView, cxGrid, fr_estilo, Vcl.ExtCtrls, cxContainer,
+  Vcl.ComCtrls, dxCore, cxDateUtils, Vcl.Buttons, Vcl.StdCtrls, Vcl.NumberBox,
+  cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, System.ImageList,
+  Vcl.ImgList;
 
 type
   TPagSaidas = class(TForm)
-    FrameBusca1: TFrameBusca;
     tb_saidas: TUniTable;
     ds_saidas: TDataSource;
     PopupSaidas: TPopupMenu;
@@ -32,12 +34,36 @@ type
     sai_lote: TcxGridDBColumn;
     sai_quantidade: TcxGridDBColumn;
     sai_data_hora: TcxGridDBColumn;
+    pn_busca: TPanel;
+    FrameGrid2: TFrameGrid;
+    dataBox: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    LimparDatasBtn: TButton;
+    DataInicialEdit: TcxDateEdit;
+    DataFinalEdit: TcxDateEdit;
+    CodigoBox: TGroupBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    CodInicialEdit: TNumberBox;
+    CodFinalEdit: TNumberBox;
+    Button2: TButton;
+    BuscarBtn: TBitBtn;
+    MostrarTudoBtn: TButton;
+    ImageList1: TImageList;
     procedure FormShow(Sender: TObject);
     procedure NovaSaidaClick(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure AlterarSaidaClick(Sender: TObject);
     procedure CancelarSaidaClick(Sender: TObject);
+    procedure DataInicialEditClick(Sender: TObject);
+    procedure DataFinalEditClick(Sender: TObject);
+    procedure LimparDatasBtnClick(Sender: TObject);
+    procedure CodInicialEditClick(Sender: TObject);
+    procedure CodFinalEditClick(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure BuscarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,12 +88,58 @@ begin
   DetalharSaidaForm.ShowModal;
 end;
 
+procedure TPagSaidas.BuscarBtnClick(Sender: TObject);
+begin
+
+  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
+  begin
+    Aviso('Informe um perÃ­odo vÃ¡lido!');
+    Exit;
+  end;
+
+  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
+  begin
+    Aviso('Informe o cÃ³digo para busca!');
+    Exit;
+  end;
+
+  tb_entradas.Close;
+  tb_entradas.Connection := dm1.con1;
+
+  tb_entradas.SQL.Clear;
+  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
+  tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
+  tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
+  tb_entradas.SQL.Add('where (ent_data_hora::date >= :dataInicial');
+  tb_entradas.SQL.Add('and ent_data_hora::date <= :dataFinal)');
+  tb_entradas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
+
+  tb_entradas.ParamByName('dataInicial').Value := DataInicialEdit.Date;
+  tb_entradas.ParamByName('dataFinal').Value := DataFinalEdit.Date;
+  tb_entradas.ParamByName('codigoInicial').Value := CodInicialEdit.Value;
+  tb_entradas.ParamByName('codigoFInal').Value := CodFinalEdit.Value;
+
+  ds_entradas.DataSet := tb_entradas;
+
+  tb_entradas.Open;
+
+end;
+
+procedure TPagSaidas.Button2Click(Sender: TObject);
+begin
+  CodInicialEdit.Clear;
+  CodFinalEdit.Clear;
+end;
+
 procedure TPagSaidas.CancelarSaidaClick(Sender: TObject);
 var
   q1: TUniQuery;
-  index, codigo, lote: Integer;
+  index, codigo, lote, quantidade: Integer;
 
 begin
+  if not tb_saidas.Active then exit;
+  if tb_saidas.RecordCount = 0 then exit;
+
   try
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;
@@ -80,14 +152,16 @@ begin
     index := Pagsaidas.gridSaidasDBTableView1.DataController.GetSelectedRowIndex(0);
     codigo := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[0];
     lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[3];
+    quantidade := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[4];
 
     q1.ParamByName('lote').Value := lote;
+    q1.ParamByName('quantidade').Value := quantidade;
     q1.ParamByName('saida').Value := codigo;
 
-    if Confirma('Confirmar cancelamento de saída? Operação irreversível!') then
+    if Confirma('Confirmar cancelamento de saÃ­da? OperaÃ§Ã£o irreversÃ­vel!') then
     begin
       q1.ExecSQL;
-      Mensagem('Saída cancelada com sucesso!');
+      Mensagem('SaÃ­da cancelada com sucesso!');
       PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
     end;
 
@@ -95,6 +169,26 @@ begin
     q1.Close;
     FreeAndNil(q1);
   end;
+end;
+
+procedure TPagSaidas.CodFinalEditClick(Sender: TObject);
+begin
+  CodFinalEdit.SetFocus;
+end;
+
+procedure TPagSaidas.CodInicialEditClick(Sender: TObject);
+begin
+  CodInicialEdit.SetFocus;
+end;
+
+procedure TPagSaidas.DataFinalEditClick(Sender: TObject);
+begin
+  DataFinalEdit.SetFocus;
+end;
+
+procedure TPagSaidas.DataInicialEditClick(Sender: TObject);
+begin
+  DataInicialEdit.SetFocus;
 end;
 
 procedure TPagSaidas.Detalhar1Click(Sender: TObject);
@@ -129,6 +223,12 @@ begin
   tb_saidas.Open;
 
 //  dm1.con1.Open;
+end;
+
+procedure TPagSaidas.LimparDatasBtnClick(Sender: TObject);
+begin
+  DataInicialEdit.Clear;
+  DataFinalEdit.Clear;
 end;
 
 procedure TPagSaidas.NovaSaidaClick(Sender: TObject);

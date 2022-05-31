@@ -143,6 +143,7 @@ begin
   tb_entradas.ParamByName('codigoFInal').Value := CodFinalEdit.Value;
 
   ds_entradas.DataSet := tb_entradas;
+
   tb_entradas.Open;
 
 end;

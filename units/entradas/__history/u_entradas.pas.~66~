@@ -102,7 +102,10 @@ begin
   tb_entradas.Close;
   tb_entradas.Connection := dm1.con1;
 
-  tb_entradas.SQL.Text := 'select * from tb_entradas';
+  tb_entradas.SQL.Clear;
+  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
+  tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
+  tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
 
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Open;
@@ -110,15 +113,34 @@ end;
 
 procedure TPagEntradas.BuscarBtnClick(Sender: TObject);
 begin
+
+  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
+  begin
+    Aviso('Informe um período válido!');
+    Exit;
+  end;
+
+  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
+  begin
+    Aviso('Informe o código para busca!');
+    Exit;
+  end;
+
   tb_entradas.Close;
   tb_entradas.Connection := dm1.con1;
+
   tb_entradas.SQL.Clear;
-  tb_entradas.SQL.Add('select * from tb_entradas');
-  tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial');
-  tb_entradas.SQL.Add('and ent_data_hora::date <= :dataFinal');
+  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
+  tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
+  tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
+  tb_entradas.SQL.Add('where (ent_data_hora::date >= :dataInicial');
+  tb_entradas.SQL.Add('and ent_data_hora::date <= :dataFinal)');
+  tb_entradas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
 
   tb_entradas.ParamByName('dataInicial').Value := DataInicialEdit.Date;
   tb_entradas.ParamByName('dataFinal').Value := DataFinalEdit.Date;
+  tb_entradas.ParamByName('codigoInicial').Value := CodInicialEdit.Value;
+  tb_entradas.ParamByName('codigoFInal').Value := CodFinalEdit.Value;
 
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Open;

@@ -3,7 +3,7 @@ object PagSaidas: TPagSaidas
   Top = 0
   Caption = 'PagSaidas'
   ClientHeight = 344
-  ClientWidth = 661
+  ClientWidth = 774
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,36 +18,28 @@ object PagSaidas: TPagSaidas
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  inline FrameBusca1: TFrameBusca
-    Left = 0
-    Top = 0
-    Width = 661
-    Height = 109
-    Align = alTop
-    TabOrder = 0
-    ExplicitWidth = 661
-    inherited ImageList1: TImageList
-      Left = 616
-    end
-  end
   inline FrameGrid1: TFrameGrid
-    Left = 495
-    Top = 0
+    Left = 351
+    Top = 144
     Width = 77
     Height = 86
-    TabOrder = 1
-    ExplicitLeft = 495
+    TabOrder = 0
+    ExplicitLeft = 351
+    ExplicitTop = 144
     inherited estiloGrid: TcxStyleRepository
       PixelsPerInch = 96
     end
   end
   object gridSaidas: TcxGrid
     Left = 0
-    Top = 109
-    Width = 661
-    Height = 235
+    Top = 121
+    Width = 774
+    Height = 223
     Align = alClient
-    TabOrder = 2
+    TabOrder = 1
+    ExplicitTop = 248
+    ExplicitWidth = 661
+    ExplicitHeight = 96
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -117,11 +109,142 @@ object PagSaidas: TPagSaidas
         Caption = 'Data e Hora'
         DataBinding.FieldName = 'sai_data_hora'
         DataBinding.IsNullValueType = True
-        Width = 86
+        Width = 128
       end
     end
     object gridSaidasLevel1: TcxGridLevel
       GridView = gridSaidasDBTableView1
+    end
+  end
+  object pn_busca: TPanel
+    Left = 0
+    Top = 0
+    Width = 774
+    Height = 121
+    Align = alTop
+    TabOrder = 2
+    ExplicitLeft = -11
+    ExplicitWidth = 785
+    inline FrameGrid2: TFrameGrid
+      Left = 672
+      Top = 89
+      Width = 25
+      Height = 26
+      TabOrder = 0
+      ExplicitLeft = 672
+      ExplicitTop = 89
+      ExplicitWidth = 25
+      ExplicitHeight = 26
+      inherited estiloGrid: TcxStyleRepository
+        Top = 8
+        PixelsPerInch = 96
+      end
+    end
+    object dataBox: TGroupBox
+      Left = 40
+      Top = 10
+      Width = 257
+      Height = 95
+      Caption = 'Data de Entrada'
+      TabOrder = 1
+      object Label1: TLabel
+        Left = 19
+        Top = 27
+        Width = 31
+        Height = 13
+        Caption = 'Inicial:'
+      end
+      object Label2: TLabel
+        Left = 24
+        Top = 55
+        Width = 26
+        Height = 13
+        Caption = 'Final:'
+      end
+      object LimparDatasBtn: TButton
+        Left = 191
+        Top = 39
+        Width = 50
+        Height = 25
+        Caption = 'Limpar'
+        TabOrder = 2
+        OnClick = LimparDatasBtnClick
+      end
+      object DataInicialEdit: TcxDateEdit
+        Left = 56
+        Top = 24
+        TabOrder = 0
+        OnClick = DataInicialEditClick
+        Width = 105
+      end
+      object DataFinalEdit: TcxDateEdit
+        Left = 56
+        Top = 51
+        TabOrder = 1
+        OnClick = DataFinalEditClick
+        Width = 105
+      end
+    end
+    object CodigoBox: TGroupBox
+      Left = 328
+      Top = 10
+      Width = 185
+      Height = 95
+      Caption = 'N'#250'mero da entrada'
+      TabOrder = 2
+      object Label3: TLabel
+        Left = 11
+        Top = 27
+        Width = 31
+        Height = 13
+        Caption = 'Inicial:'
+      end
+      object Label4: TLabel
+        Left = 16
+        Top = 55
+        Width = 26
+        Height = 13
+        Caption = 'Final:'
+      end
+      object CodInicialEdit: TNumberBox
+        Left = 48
+        Top = 24
+        Width = 57
+        Height = 21
+        TabOrder = 0
+      end
+      object CodFinalEdit: TNumberBox
+        Left = 48
+        Top = 51
+        Width = 57
+        Height = 21
+        TabOrder = 1
+      end
+      object Button2: TButton
+        Left = 120
+        Top = 39
+        Width = 50
+        Height = 25
+        Caption = 'Limpar'
+        TabOrder = 2
+      end
+    end
+    object BuscarBtn: TBitBtn
+      Left = 552
+      Top = 41
+      Width = 81
+      Height = 42
+      Caption = 'Filtrar'
+      ImageIndex = 0
+      TabOrder = 3
+    end
+    object MostrarTudoBtn: TButton
+      Left = 639
+      Top = 41
+      Width = 84
+      Height = 42
+      Caption = 'Mostrar tudo'
+      TabOrder = 4
     end
   end
   object tb_saidas: TUniTable
@@ -151,7 +274,8 @@ object PagSaidas: TPagSaidas
       Caption = '-'
     end
     object CancelarSaida: TMenuItem
-      Caption = 'Cancelar Sa'#237'da'
+      Caption = 'Cancelar Sa'#237'da (F4)'
+      OnClick = CancelarSaidaClick
     end
   end
 end

@@ -76,45 +76,47 @@ object PagSaidas: TPagSaidas
       object sai_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'sai_codigo'
+        DataBinding.IsNullValueType = True
       end
       object sai_produto: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Produto'
         DataBinding.FieldName = 'sai_produto'
+        DataBinding.IsNullValueType = True
         Width = 121
       end
-      object prod_descricao: TcxGridDBColumn
-        Caption = 'Descri'#231#227'o do Produto'
-        DataBinding.FieldName = 'prod_descricao'
-        Width = 187
-      end
       object sai_local: TcxGridDBColumn
-        Caption = 'Descri'#231#227'o do Local'
+        Caption = 'Local de Estoque'
         DataBinding.FieldName = 'sai_local'
         DataBinding.IsNullValueType = True
         Width = 125
-      end
-      object loc_descricao: TcxGridDBColumn
-        AlternateCaption = 'String'
-        DataBinding.FieldName = 'loc_descricao'
-        Width = 148
       end
       object sai_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Lote'
         DataBinding.FieldName = 'sai_lote'
+        DataBinding.IsNullValueType = True
         Width = 72
       end
       object sai_quantidade: TcxGridDBColumn
         Caption = 'Quantidade'
         DataBinding.FieldName = 'sai_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 90
       end
       object sai_data_hora: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Data e Hora'
         DataBinding.FieldName = 'sai_data_hora'
+        DataBinding.IsNullValueType = True
         Width = 128
+      end
+      object prod_descricao: TcxGridDBColumn
+        DataBinding.FieldName = 'prod_descricao'
+      end
+      object loc_descricao: TcxGridDBColumn
+        AlternateCaption = 'String'
+        DataBinding.FieldName = 'loc_descricao'
       end
     end
     object gridSaidasLevel1: TcxGridLevel

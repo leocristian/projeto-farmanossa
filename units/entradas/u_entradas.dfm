@@ -5,7 +5,7 @@ object PagEntradas: TPagEntradas
   BorderStyle = bsSingle
   Caption = 'PagEntradas'
   ClientHeight = 412
-  ClientWidth = 723
+  ClientWidth = 785
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,11 +24,12 @@ object PagEntradas: TPagEntradas
   object gridEntradas: TcxGrid
     Left = 0
     Top = 121
-    Width = 723
+    Width = 785
     Height = 291
     Align = alClient
     TabOrder = 0
     ExplicitTop = 95
+    ExplicitWidth = 723
     ExplicitHeight = 323
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
@@ -121,11 +122,12 @@ object PagEntradas: TPagEntradas
   object pn_busca: TPanel
     Left = 0
     Top = 0
-    Width = 723
+    Width = 785
     Height = 121
     Align = alTop
     TabOrder = 1
     ExplicitTop = -6
+    ExplicitWidth = 723
     inline FrameGrid1: TFrameGrid
       Left = 672
       Top = 89
