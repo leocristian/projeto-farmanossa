@@ -86,7 +86,7 @@ begin
   tb_locais.Connection := dm1.con1;
 
   tb_locais.SQL.Clear;
-  tb_locais.SQL.Add('select * from tb_locais');
+  tb_locais.SQL.Add('select * from tb_locais_estoque');
 
   if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
     if FrameBusca1.BuscaEdit.Text = '' then
