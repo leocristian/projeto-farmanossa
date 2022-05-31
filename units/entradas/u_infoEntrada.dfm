@@ -26,6 +26,7 @@ object FormEntrada: TFormEntrada
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = -6
     DesignSize = (
       659
       242)
@@ -107,17 +108,6 @@ object FormEntrada: TFormEntrada
       TabOrder = 0
       Text = '0000'
     end
-    object CodProdEdit: TEdit
-      Left = 159
-      Top = 66
-      Width = 65
-      Height = 21
-      Anchors = [akLeft, akBottom]
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 1
-      OnExit = CodProdEditExit
-    end
     object DescProdEdit: TEdit
       Left = 308
       Top = 67
@@ -128,7 +118,7 @@ object FormEntrada: TFormEntrada
       CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
-      TabOrder = 5
+      TabOrder = 3
     end
     object DescLocalEdit: TEdit
       Left = 308
@@ -140,18 +130,7 @@ object FormEntrada: TFormEntrada
       CharCase = ecUpperCase
       MaxLength = 70
       ReadOnly = True
-      TabOrder = 6
-    end
-    object CodLocalEdit: TEdit
-      Left = 159
-      Top = 93
-      Width = 65
-      Height = 21
-      Anchors = [akLeft, akBottom]
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 2
-      OnExit = CodLocalEditExit
+      TabOrder = 4
     end
     object ModoLote: TEdit
       Left = 230
@@ -159,7 +138,7 @@ object FormEntrada: TFormEntrada
       Width = 25
       Height = 21
       TabStop = False
-      TabOrder = 7
+      TabOrder = 5
     end
     object LimparLocal: TBitBtn
       Left = 269
@@ -169,7 +148,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 8
+      TabOrder = 6
       TabStop = False
       OnClick = LimparLocalClick
     end
@@ -181,7 +160,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 9
+      TabOrder = 7
       TabStop = False
       OnClick = LimparProdClick
     end
@@ -193,7 +172,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       MaxLength = 4
       NumbersOnly = True
-      TabOrder = 3
+      TabOrder = 1
       OnExit = LoteEditExit
     end
     object pn_datas: TPanel
@@ -202,7 +181,7 @@ object FormEntrada: TFormEntrada
       Width = 245
       Height = 53
       BevelOuter = bvNone
-      TabOrder = 4
+      TabOrder = 2
       DesignSize = (
         245
         53)
@@ -244,7 +223,7 @@ object FormEntrada: TFormEntrada
       Top = 203
       Width = 121
       Height = 21
-      TabOrder = 10
+      TabOrder = 8
     end
   end
   inline FrameButtons1: TFrameButtons
@@ -254,7 +233,7 @@ object FormEntrada: TFormEntrada
     Height = 87
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 242
+    ExplicitTop = 248
     ExplicitWidth = 659
     ExplicitHeight = 87
     inherited ModoEdit: TEdit
@@ -279,6 +258,22 @@ object FormEntrada: TFormEntrada
       ExplicitTop = 26
       ExplicitWidth = 120
     end
+  end
+  object CodProdEdit: TEdit
+    Left = 159
+    Top = 69
+    Width = 65
+    Height = 21
+    TabOrder = 2
+    OnExit = CodProdEditExit
+  end
+  object CodLocalEdit: TEdit
+    Left = 159
+    Top = 93
+    Width = 65
+    Height = 21
+    TabOrder = 3
+    OnExit = CodLocalEditExit
   end
   object ImageList1: TImageList
     Left = 312

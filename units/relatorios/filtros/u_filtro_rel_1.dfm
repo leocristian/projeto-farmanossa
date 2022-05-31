@@ -395,7 +395,7 @@ object FormRel1: TFormRel1
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."loc_codigo"]')
+            '[frxDBDataset1."mov_local"]')
         end
         object frxDBDataset1frxDBDataset11: TfrxMemoView
           IndexTag = 1
@@ -415,7 +415,7 @@ object FormRel1: TFormRel1
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."prod_codigo"]')
+            '[frxDBDataset1."mov_produto"]')
         end
         object frxDBDataset1frxDBDataset13: TfrxMemoView
           IndexTag = 1
@@ -435,7 +435,7 @@ object FormRel1: TFormRel1
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."lote_codigo"]')
+            '[frxDBDataset1."mov_lote"]')
         end
         object frxDBDataset1frxDBDataset15: TfrxMemoView
           IndexTag = 1

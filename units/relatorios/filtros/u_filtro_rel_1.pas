@@ -175,12 +175,11 @@ begin
   tb_rel_1.Connection := dm1.con1;
 
   tb_rel_1.SQL.Clear;
-  tb_rel_1.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao,');
-  tb_rel_1.SQL.Add('lote_dtvencimento, lote_quantidade, mov_data, mov_hora, mov_operacao, mov_quantidade');
-  tb_rel_1.SQL.Add('from tb_locais_estoque');
-  tb_rel_1.SQL.Add('inner join tb_lotes on lote_local = loc_codigo');
-  tb_rel_1.SQL.Add('inner join tb_produtos on lote_produto = prod_codigo');
-  tb_rel_1.SQL.Add('inner join tb_movimentacoes on mov_produto = prod_codigo and mov_local = loc_codigo');
+  tb_rel_1.SQL.Add('select mov_local, loc_descricao, mov_produto, prod_descricao, mov_lote, lote_dtfabricacao, lote_dtvencimento,');
+  tb_rel_1.SQL.Add('mov_data, mov_hora, mov_operacao, mov_quantidade from tb_movimentacoes');
+  tb_rel_1.SQL.Add('inner join tb_produtos on mov_produto = prod_codigo');
+  tb_rel_1.SQL.Add('inner join tb_locais_estoque on mov_local = loc_codigo');
+  tb_rel_1.SQL.Add('inner join tb_lotes on mov_lote = lote_codigo');
 
   if CodProdEdit.Text <> '' then
   begin

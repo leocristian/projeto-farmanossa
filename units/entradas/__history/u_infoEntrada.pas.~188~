@@ -20,11 +20,9 @@ type
     Label3: TLabel;
     SpeedButton1: TSpeedButton;
     ImageList1: TImageList;
-    CodProdEdit: TEdit;
     DescProdEdit: TEdit;
     DescLocalEdit: TEdit;
     SpeedButton2: TSpeedButton;
-    CodLocalEdit: TEdit;
     FrameButtons1: TFrameButtons;
     Label7: TLabel;
     ModoLote: TEdit;
@@ -38,6 +36,8 @@ type
     LoteEdit: TEdit;
     Label4: TLabel;
     QtdProdEdit: TNumberBox;
+    CodProdEdit: TEdit;
+    CodLocalEdit: TEdit;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -51,6 +51,7 @@ type
     procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
+    procedure AtualizarMovimentacao(codOp: TCaption; prod: TCaption; local: TCaption; lote: TCaption; qtd: TCaption);
   public
     { Public declarations }
   end;
@@ -65,6 +66,37 @@ implementation
 
 uses u_buscaProduto, u_buscaLocal, u_dm1, u_controleForm, u_entradas,
   u_infoLote;
+
+procedure TFormEntrada.AtualizarMovimentacao(codOp: TCaption; prod: TCaption; local: TCaption; lote: TCaption; qtd: TCaption);
+var
+  q1: TUniQuery;
+
+begin
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Clear;
+    q1.SQL.Add('update tb_movimentacoes set mov_produto = :produto, mov_local = :local');
+    q1.SQL.Add('mov_lote = :lote, mov_quantidade = :quantidade;');
+    q1.SQL.Add('where mov_cod_operacao = :operacao');
+
+    q1.ParamByName('produto').Value := prod;
+    q1.ParamByName('local').Value := local;
+    q1.ParamByName('lote').Value := lote;
+    q1.ParamByName('quantidade').Value := qtd;
+    q1.ParamByName('operacao').Value := codOp;
+
+    try
+      q1.ExecSQL;
+    except on e:exception do
+      Aviso('Erro atualizar movimentacao!' + e.message);
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
 
 procedure TFormEntrada.CodLocalEditExit(Sender: TObject);
 var
@@ -163,14 +195,12 @@ end;
 
 procedure TFormEntrada.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Key = #13 then
   begin
-    if Key = #13 then
-    begin
-      Key := #0;
-      Perform(wm_nextdlgctl, 0, 0);
-    end
-    else if key = #27 then close
-  end;
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
 end;
 
 procedure TFormEntrada.FormShow(Sender: TObject);
@@ -189,6 +219,7 @@ begin
     DtFabricacaoEdit.Clear;
     DtVencimentoEdit.Clear;
     CodProdEdit.SetFocus;
+    QtdProdEdit.Value := 0;
 
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
@@ -339,10 +370,13 @@ begin
       end
       else if ModoLote.Text = 'A' then
       begin
-        // Atualizar novo lote selecionado
+        // Atualizar lote com a nova quantidade
         q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
         q1.SQL.Add('where lote_codigo = :lote;');
       end;
+
+      // Atualizar movimentação do prouto
+      AtualizarMovimentacao(CodEdit.Text, CodProdEdit.Text, CodLocalEdit.Text, LoteEdit.Text, QtdProdEdit.Text);
 
       q1.SQL.Add('update tb_entradas set ');
       q1.SQL.Add('ent_produto = :produto, ent_local = :local, ent_lote = :lote, ');
@@ -367,15 +401,16 @@ begin
           // Criar movimentação de entrada
           q1.SQL.Clear;
           q1.SQL.Add('insert into tb_movimentacoes');
-          q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade)');
+          q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade, mov_cod_operacao)');
           q1.SQL.Add('values');
-          q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
+          q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade, :operacao)');
 
           q1.ParamByName('produto').Value := CodProdEdit.Text;
           q1.ParamByName('local').Value := CodLocalEdit.Text;
           q1.ParamByName('lote').Value := LoteEdit.Text;
           q1.ParamByName('operacao').Value := 'E';
           q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+          q1.ParamByName('operacao').Value := CodEdit.text;
 
           q1.ExecSQL;
         end;
@@ -383,9 +418,15 @@ begin
         PagEntradas.gridEntradasDBTableView1.DataController.RefreshExternalData;
         Close;
       except on e:exception do
-        Erro('Erro!' + #13 + e.Message);
+        if e.Message.Contains('tb_lotes_pkey') then
+        begin
+          Aviso('Erro, lote já pertence a outro produto!');
+        end
+        else
+        begin
+          Aviso('Erro!' + #13 + e.Message);
+        end;
       end;
-
     end;
   finally
     q1.Close;
