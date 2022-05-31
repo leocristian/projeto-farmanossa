@@ -242,7 +242,6 @@ object PagEntradas: TPagEntradas
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 3
-      OnClick = BuscarBtnClick
     end
     object MostrarTudoBtn: TButton
       Left = 639

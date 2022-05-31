@@ -17,7 +17,6 @@ object PagEntradas: TPagEntradas
   PopupMenu = PopupEntradas
   WindowState = wsMaximized
   OnKeyDown = FormKeyDown
-  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -60,8 +59,6 @@ object PagEntradas: TPagEntradas
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
-      Styles.ContentEven = FrameGrid1.linhas
-      Styles.Header = FrameGrid1.header
       object ent_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ent_codigo'
@@ -127,15 +124,14 @@ object PagEntradas: TPagEntradas
     TabOrder = 1
     ExplicitTop = -6
     inline FrameGrid1: TFrameGrid
-      Left = 672
-      Top = 89
-      Width = 25
-      Height = 26
+      Left = 632
+      Top = 19
+      Width = 77
+      Height = 59
       TabOrder = 0
-      ExplicitLeft = 672
-      ExplicitTop = 89
-      ExplicitWidth = 25
-      ExplicitHeight = 26
+      ExplicitLeft = 632
+      ExplicitTop = 19
+      ExplicitHeight = 59
       inherited estiloGrid: TcxStyleRepository
         Top = 8
         PixelsPerInch = 96
@@ -168,21 +164,19 @@ object PagEntradas: TPagEntradas
         Width = 50
         Height = 25
         Caption = 'Limpar'
-        TabOrder = 2
+        TabOrder = 0
         OnClick = LimparDatasBtnClick
       end
       object DataInicialEdit: TcxDateEdit
         Left = 56
         Top = 24
-        TabOrder = 0
-        OnClick = DataInicialEditClick
+        TabOrder = 1
         Width = 105
       end
       object DataFinalEdit: TcxDateEdit
         Left = 56
         Top = 51
-        TabOrder = 1
-        OnClick = DataFinalEditClick
+        TabOrder = 2
         Width = 105
       end
     end
@@ -213,7 +207,6 @@ object PagEntradas: TPagEntradas
         Width = 57
         Height = 21
         TabOrder = 0
-        OnClick = CodInicialEditClick
       end
       object CodFinalEdit: TNumberBox
         Left = 48
@@ -221,7 +214,6 @@ object PagEntradas: TPagEntradas
         Width = 57
         Height = 21
         TabOrder = 1
-        OnClick = CodFinalEditClick
       end
       object Button2: TButton
         Left = 120
@@ -236,22 +228,11 @@ object PagEntradas: TPagEntradas
     object BuscarBtn: TBitBtn
       Left = 552
       Top = 41
-      Width = 81
+      Width = 57
       Height = 42
-      Caption = 'Filtrar'
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 3
-      OnClick = BuscarBtnClick
-    end
-    object MostrarTudoBtn: TButton
-      Left = 639
-      Top = 41
-      Width = 84
-      Height = 42
-      Caption = 'Mostrar tudo'
-      TabOrder = 4
-      OnClick = MostrarTudoBtnClick
     end
   end
   object PopupEntradas: TPopupMenu

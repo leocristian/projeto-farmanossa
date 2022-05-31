@@ -127,15 +127,14 @@ object PagEntradas: TPagEntradas
     TabOrder = 1
     ExplicitTop = -6
     inline FrameGrid1: TFrameGrid
-      Left = 672
-      Top = 89
-      Width = 25
-      Height = 26
+      Left = 632
+      Top = 19
+      Width = 77
+      Height = 59
       TabOrder = 0
-      ExplicitLeft = 672
-      ExplicitTop = 89
-      ExplicitWidth = 25
-      ExplicitHeight = 26
+      ExplicitLeft = 632
+      ExplicitTop = 19
+      ExplicitHeight = 59
       inherited estiloGrid: TcxStyleRepository
         Top = 8
         PixelsPerInch = 96
@@ -236,22 +235,11 @@ object PagEntradas: TPagEntradas
     object BuscarBtn: TBitBtn
       Left = 552
       Top = 41
-      Width = 81
+      Width = 57
       Height = 42
-      Caption = 'Filtrar'
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 3
-      OnClick = BuscarBtnClick
-    end
-    object MostrarTudoBtn: TButton
-      Left = 639
-      Top = 41
-      Width = 84
-      Height = 42
-      Caption = 'Mostrar tudo'
-      TabOrder = 4
-      OnClick = MostrarTudoBtnClick
     end
   end
   object PopupEntradas: TPopupMenu
