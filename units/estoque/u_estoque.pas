@@ -96,11 +96,11 @@ begin
   end
   else if QuantidadeBox.ItemIndex = 2 then
   begin
-    tb_estoque.SQL.Add('where result.qtd_estoque >= :qtd');
+    tb_estoque.SQL.Add('where result.qtd_estoque > :qtd');
   end
   else if QuantidadeBox.ItemIndex = 3 then
   begin
-   tb_estoque.SQL.Add('where result.qtd_estoque <= :qtd');
+   tb_estoque.SQL.Add('where result.qtd_estoque < :qtd');
   end
   else if QuantidadeBox.ItemIndex = 4 then
   begin

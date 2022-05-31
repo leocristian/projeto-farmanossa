@@ -26,6 +26,7 @@ object FormOperador: TFormOperador
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 456
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -127,21 +128,21 @@ object FormOperador: TFormOperador
     Height = 93
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 152
-    ExplicitWidth = 489
+    ExplicitTop = 182
+    ExplicitWidth = 456
+    inherited SalvarBtn: TButton
+      Left = 291
+      OnClick = SalvarBtnClick
+      ExplicitLeft = 258
+    end
     inherited ModoEdit: TEdit
       Left = 250
-      ExplicitLeft = 250
+      ExplicitLeft = 217
     end
     inherited CancelarBtn: TButton
       Left = 380
       OnClick = CancelarBtnClick
-      ExplicitLeft = 380
-    end
-    inherited SalvarBtn: TBitBtn
-      Left = 291
-      OnClick = SalvarBtnClick
-      ExplicitLeft = 291
+      ExplicitLeft = 347
     end
   end
 end

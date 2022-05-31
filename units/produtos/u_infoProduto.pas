@@ -98,6 +98,7 @@ begin
   begin
     Caption := 'Incluir Produto';
     pn_form.Enabled := True;
+    CodEdit.Text := '00';
     DescricaoEdit.SetFocus;
     DescricaoEdit.Clear;
     FrameButtons.SalvarBtn.Visible := True;

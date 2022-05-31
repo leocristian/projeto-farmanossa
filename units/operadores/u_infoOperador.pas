@@ -95,6 +95,7 @@ begin
   begin
     Caption := 'Incluir Operador';
     pn_form.Enabled := True;
+    CodEdit.Text := '00';
     NomeEdit.SetFocus;
     NomeEdit.Clear;
     LoginEdit.Clear;

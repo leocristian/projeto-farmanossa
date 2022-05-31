@@ -92,6 +92,7 @@ begin
     Caption := 'Incluir Local de estoque';
     pn_form.Enabled := True;
     DescricaoEdit.SetFocus;
+    CodEdit.text := '00';
     DescricaoEdit.Clear;
     FrameButtons.SalvarBtn.Visible := True;
     StatusBox.ItemIndex := 0;
