@@ -34,6 +34,9 @@ type
     procedure Detalhar1Click(Sender: TObject);
     procedure N2AlterarregistroatualF31Click(Sender: TObject);
     procedure N3ExcluirF41Click(Sender: TObject);
+    procedure FrameBusca1BuscaSelectChange(Sender: TObject);
+    procedure FrameBusca1BuscaEditClick(Sender: TObject);
+    procedure FrameBusca1BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -69,6 +72,55 @@ begin
   tb_locais.Active := True;
 
 //  dm1.con1.Open;
+end;
+
+procedure TPagLocais.FrameBusca1BitBtn1Click(Sender: TObject);
+var
+  strBusca: String;
+
+begin
+
+  strBusca := FrameBusca1.BuscaEdit.Text;
+
+  tb_locais.Close;
+  tb_locais.Connection := dm1.con1;
+
+  tb_locais.SQL.Clear;
+  tb_locais.SQL.Add('select * from tb_locais');
+
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+    if FrameBusca1.BuscaEdit.Text = '' then
+      tb_locais.SQL.Add('where 1=1')
+    else
+      tb_locais.SQL.Add('where loc_codigo = ' + strBusca)
+  else if FrameBusca1.BuscaSelect.Text = 'DESCRIÇÃO' then
+    tb_locais.SQL.Add('where loc_descricao like ' + QuotedStr('%' + strBusca + '%'));
+
+  ds_locais.DataSet := tb_locais;
+  tb_locais.Open;
+
+end;
+
+procedure TPagLocais.FrameBusca1BuscaEditClick(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.SetFocus;
+end;
+
+procedure TPagLocais.FrameBusca1BuscaSelectChange(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.Clear;
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := True;
+    FrameBusca1.BuscaEdit.MaxLength := 5;
+  end
+  else
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := False;
+    FrameBusca1.BuscaEdit.MaxLength := 70;
+  end;
+
+  FrameBusca1.BuscaEdit.SetFocus;
 end;
 
 procedure TPagLocais.N1Incluirnovoregistro1Click(Sender: TObject);

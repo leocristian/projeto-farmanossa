@@ -101,6 +101,22 @@ object PagLocais: TPagLocais
     Align = alTop
     TabOrder = 2
     ExplicitWidth = 751
+    inherited BuscaSelect: TComboBox
+      Text = 'DESCRI'#199#195'O'
+      OnChange = FrameBusca1BuscaSelectChange
+      Items.Strings = (
+        'DESCRI'#199#195'O'
+        'C'#211'DIGO')
+    end
+    inherited BuscaEdit: TEdit
+      CharCase = ecUpperCase
+      OnClick = FrameBusca1BuscaEditClick
+    end
+    inherited BitBtn1: TBitBtn
+      Top = 40
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitTop = 40
+    end
   end
   object PopupLocais: TPopupMenu
     Left = 668

@@ -23,6 +23,7 @@ object FrameBusca: TFrameBusca
     Width = 186
     Height = 21
     TabOrder = 1
+    OnKeyPress = BuscaEditKeyPress
   end
   object BitBtn1: TBitBtn
     Left = 392

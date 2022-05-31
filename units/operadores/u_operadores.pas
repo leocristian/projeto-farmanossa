@@ -37,6 +37,9 @@ type
     procedure N2AlterarregistroatualF31Click(Sender: TObject);
     procedure N3ExcluirF41Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FrameBusca1BuscaSelectChange(Sender: TObject);
+    procedure FrameBusca1BuscaEditClick(Sender: TObject);
+    procedure FrameBusca1BitBtn1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -80,15 +83,64 @@ end;
 
 procedure TPagOperador.FormShow(Sender: TObject);
 begin
-//  dm1.con1.Close;
+  FrameBusca1.BuscaEdit.SetFocus;
 
+  tb_operadores.Close;
   tb_operadores.Connection := dm1.con1;
-  tb_operadores.TableName := 'tb_operadores';
+  tb_operadores.SQL.Text := 'select ope_codigo, ope_nome from tb_operadores';
 
   ds_operadores.DataSet := tb_operadores;
-  tb_operadores.Active := True;
+  tb_operadores.Open;
 
-//  dm1.con1.Open;
+end;
+
+procedure TPagOperador.FrameBusca1BitBtn1Click(Sender: TObject);
+var
+  strBusca: String;
+
+begin
+
+  strBusca := FrameBusca1.BuscaEdit.Text;
+
+  tb_operadores.Close;
+  tb_operadores.Connection := dm1.con1;
+
+  tb_operadores.SQL.Clear;
+  tb_operadores.SQL.Add('select ope_codigo, ope_nome from tb_operadores');
+
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+    if FrameBusca1.BuscaEdit.Text = '' then
+      tb_operadores.SQL.Add('where 1=1')
+    else
+      tb_operadores.SQL.Add('where ope_codigo = ' + strBusca)
+  else if FrameBusca1.BuscaSelect.Text = 'NOME COMPLETO' then
+    tb_operadores.SQL.Add('where ope_nome like ' + QuotedStr('%' + strBusca + '%'));
+
+  ds_operadores.DataSet := tb_operadores;
+  tb_operadores.Open;
+
+end;
+
+procedure TPagOperador.FrameBusca1BuscaEditClick(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.SetFocus;
+end;
+
+procedure TPagOperador.FrameBusca1BuscaSelectChange(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.Clear;
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := True;
+    FrameBusca1.BuscaEdit.MaxLength := 5;
+  end
+  else
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := False;
+    FrameBusca1.BuscaEdit.MaxLength := 70;
+  end;
+
+  FrameBusca1.BuscaEdit.SetFocus;
 end;
 
 procedure TPagOperador.N1Incluirnovoregistro1Click(Sender: TObject);

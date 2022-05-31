@@ -63,14 +63,14 @@ object PagOperador: TPagOperador
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
       object ope_codigo: TcxGridDBColumn
+        AlternateCaption = 'Integer'
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ope_codigo'
-        DataBinding.IsNullValueType = True
       end
       object ope_nome: TcxGridDBColumn
+        AlternateCaption = 'String'
         Caption = 'Nome Completo'
         DataBinding.FieldName = 'ope_nome'
-        DataBinding.IsNullValueType = True
         Width = 221
       end
     end
@@ -104,7 +104,29 @@ object PagOperador: TPagOperador
     Height = 109
     Align = alTop
     TabOrder = 2
+    ExplicitTop = -6
     ExplicitWidth = 787
+    inherited BuscaSelect: TComboBox
+      Text = 'NOME COMPLETO'
+      OnChange = FrameBusca1BuscaSelectChange
+      Items.Strings = (
+        'NOME COMPLETO'
+        'C'#211'DIGO')
+    end
+    inherited BuscaEdit: TEdit
+      Width = 259
+      CharCase = ecUpperCase
+      MaxLength = 70
+      OnClick = FrameBusca1BuscaEditClick
+      ExplicitWidth = 259
+    end
+    inherited BitBtn1: TBitBtn
+      Left = 424
+      Top = 40
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 424
+      ExplicitTop = 40
+    end
     inherited ImageList1: TImageList
       Left = 608
       Top = 40

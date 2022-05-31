@@ -13,7 +13,7 @@ type
     BuscaEdit: TEdit;
     BitBtn1: TBitBtn;
     ImageList1: TImageList;
-    procedure BitBtn2Click(Sender: TObject);
+    procedure BuscaEditKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -26,11 +26,12 @@ implementation
 
 uses u_controleForm;
 
-procedure TFrameBusca.BitBtn2Click(Sender: TObject);
+procedure TFrameBusca.BuscaEditKeyPress(Sender: TObject; var Key: Char);
 begin
-  if Confirma('Deseja encerrar o sistema?') then
+  if Key = #13 then
   begin
-    Application.Terminate;
+    Key := #0;
+    BitBtn1.SetFocus;
   end;
 end;
 

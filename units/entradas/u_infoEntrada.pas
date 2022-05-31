@@ -363,22 +363,6 @@ begin
       q1.SQL.Add('update tb_lotes set lote_quantidade = :quantidade, lote_produto = :produto, lote_local = :local');
       q1.SQL.Add('where lote_codigo = :lote;');
 
-//      if ModoLote.Text = 'N' then
-//      begin
-//        q1.SQL.Add('insert into tb_lotes (lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade) values (');
-//        q1.SQL.Add(':lote, :dtfabricacao, :dtvencimento, :quantidade);');
-//        q1.ParamByName('dtfabricacao').Value := DtFabricacaoEdit.Date;
-//        q1.ParamByName('dtvencimento').Value := DtVencimentoEdit.Date;
-//      end
-//      else if ModoLote.Text = 'A' then
-//      begin
-//        // Atualizar lote com a nova quantidade
-//        q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
-//        q1.SQL.Add('where lote_codigo = :lote;');
-//      end;
-
-      // Atualizar movimentação do prouto
-
       q1.SQL.Add('update tb_entradas set ');
       q1.SQL.Add('ent_produto = :produto, ent_local = :local, ent_lote = :lote, ');
       q1.SQL.Add('ent_quantidade = :quantidade');

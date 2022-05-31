@@ -37,6 +37,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure N3ExcluirF41Click(Sender: TObject);
     procedure N2AlterarregistroatualF31Click(Sender: TObject);
+    procedure FrameBusca1BuscaSelectChange(Sender: TObject);
+    procedure FrameBusca1BuscaEditClick(Sender: TObject);
+    procedure FrameBusca1BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,13 +68,63 @@ procedure TPagProdutos.FormShow(Sender: TObject);
 begin
 //  dm1.con1.Close;
 
+  tb_produtos.Close;
   tb_produtos.Connection := dm1.con1;
-  tb_produtos.TableName := 'tb_produtos';
+  tb_produtos.SQL.Text := 'select * from tb_produtos';
 
   ds_produtos.DataSet := tb_produtos;
-  tb_produtos.Active := True;
+  tb_produtos.Open;
 
 //  dm1.con1.Open;
+end;
+
+procedure TPagProdutos.FrameBusca1BitBtn1Click(Sender: TObject);
+var
+  strBusca: String;
+
+begin
+
+  strBusca := FrameBusca1.BuscaEdit.Text;
+
+  tb_produtos.Close;
+  tb_produtos.Connection := dm1.con1;
+
+  tb_produtos.SQL.Clear;
+  tb_produtos.SQL.Add('select * from tb_produtos');
+
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+    if FrameBusca1.BuscaEdit.Text = '' then
+      tb_produtos.SQL.Add('where 1=1')
+    else
+      tb_produtos.SQL.Add('where prod_codigo = ' + strBusca)
+  else if FrameBusca1.BuscaSelect.Text = 'DESCRIÇÃO' then
+    tb_produtos.SQL.Add('where prod_descricao like ' + QuotedStr('%' + strBusca + '%'));
+
+  ds_produtos.DataSet := tb_produtos;
+  tb_produtos.Open;
+
+end;
+
+procedure TPagProdutos.FrameBusca1BuscaEditClick(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.SetFocus;
+end;
+
+procedure TPagProdutos.FrameBusca1BuscaSelectChange(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.Clear;
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := True;
+    FrameBusca1.BuscaEdit.MaxLength := 5;
+  end
+  else
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := False;
+    FrameBusca1.BuscaEdit.MaxLength := 70;
+  end;
+
+  FrameBusca1.BuscaEdit.SetFocus;
 end;
 
 procedure TPagProdutos.N1Incluirnovoregistro1Click(Sender: TObject);

@@ -39,6 +39,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure CodProdEditExit(Sender: TObject);
+    procedure CodLocalEditExit(Sender: TObject);
+    procedure FrameButtons1SalvarBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,12 +50,108 @@ type
 
 var
   DetalharSaidaForm: TDetalharSaidaForm;
+  loteAnterior: String;
 
 implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_saidas;
+uses u_dm1, u_saidas, u_controleForm;
+
+procedure TDetalharSaidaForm.CodLocalEditExit(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+
+  if CodLocalEdit.Text = '' then exit;
+
+  DescLocalEdit.Clear;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Text := 'select loc_descricao, loc_status from tb_locais_estoque where loc_codigo = :codigo';
+    q1.ParamByName('codigo').Value := CodLocalEdit.Text;
+
+    q1.Open;
+
+    if q1.RecordCount = 1 then
+    begin
+      if q1.FieldByName('loc_status').Value = 'INATIVO' then
+      begin
+        Aviso('O local de estoque ' + q1.FieldByName('loc_descricao').Value + ' está INATIVO');
+        CodLocalEdit.Clear;
+        DescLocalEdit.Clear;
+        CodLocalEdit.SetFocus;
+      end
+      else
+      begin
+        DescLocalEdit.Text := q1.FieldByName('loc_descricao').Value;
+      end;
+    end
+    else
+    begin
+      CodLocalEdit.Clear;
+      CodLocalEdit.SetFocus;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
+
+procedure TDetalharSaidaForm.CodProdEditExit(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+
+  if CodProdEdit.Text = '' then exit;
+
+  DescProdEdit.Clear;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_saida from tb_produtos where prod_codigo = :codigo';
+    q1.ParamByName('codigo').Value := CodProdEdit.Text;
+
+    q1.Open;
+
+    if q1.RecordCount = 1 then
+    begin
+    if q1.FieldByName('prod_status').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else if q1.FieldByName('prod_status_saida').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite saida!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else
+      begin
+        DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
+      end;
+    end
+    else
+    begin
+      CodProdEdit.Clear;
+      CodProdEdit.SetFocus;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
 
 procedure TDetalharSaidaForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -118,25 +217,68 @@ begin
     begin
       pn_form.Enabled := False;
       pn_datas.Enabled := False;
+
       FrameButtons1.SalvarBtn.Visible := False;
       FrameButtons1.CancelarBtn.Caption := 'Fechar';
     end
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := True;
+      CodProdEdit.Enabled := False;
+      DescProdEdit.Enabled := False;
+      CodLocalEdit.Enabled := False;
+      DescLocalEdit.Enabled := False;
+      loteAnterior := QtdProdEdit.text;
+      QtdProdEdit.SetFocus;
       LoteEdit.ReadOnly := True;
+      LoteEdit.Enabled := False;
       pn_datas.enabled := False;
       FrameButtons1.SalvarBtn.Visible := True;
 
       FrameButtons1.SalvarBtn.Caption := 'Salvar';
     end;
   end;
-  
+
 end;
 
 procedure TDetalharSaidaForm.FrameButtons1CancelarBtnClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TDetalharSaidaForm.FrameButtons1SalvarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Clear;
+
+    q1.SQL.Add('update tb_lotes set lote_quantidade = ((lote_quantidade + :QtdAnterior) - :quantidade) ');
+    q1.SQL.Add(' where lote_codigo = :lote;');
+
+    q1.SQL.Add('update tb_saidas set sai_quantidade = :quantidade');
+    q1.SQL.Add('where sai_codigo = :codigo');
+
+    q1.ParamByName('codigo').Value := CodEdit.Text;
+    q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+    q1.ParamByName('QtdAnterior').Value := loteAnterior;
+    q1.ParamByName('lote').Value := LoteEdit.Text;
+
+    if Confirma('Confirmar alterações?') then
+    begin
+      q1.ExecSQL;
+      Mensagem('Alterações salvas!');
+      close;
+      PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
 end;
 
 end.

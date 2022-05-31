@@ -48,14 +48,12 @@ end;
 
 procedure TFormOperador.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Key = #13 then
   begin
-    if Key = #13 then
-    begin
-      Key := #0;
-      Perform(wm_nextdlgctl, 0, 0);
-    end
-    else if key = #27 then close
-  end;
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
 end;
 
 procedure TFormOperador.FormShow(Sender: TObject);
@@ -174,6 +172,7 @@ begin
       q1.SQL.Add(' values (:ope_codigo, :ope_nome, md5(:ope_login), md5(:ope_senha))');
 
       q1.ParamByName('ope_codigo').Value := ope_cod;
+      q1.ParamByName('ope_nome').Value := NomeEdit.Text;
       q1.ParamByName('ope_login').Value := AdicionarSemente(LoginEdit.Text);
       q1.ParamByName('ope_senha').Value := AdicionarSemente(SenhaEdit.Text);
     end

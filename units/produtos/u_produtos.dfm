@@ -73,6 +73,7 @@ object PagProdutos: TPagProdutos
         AlternateCaption = 'String'
         Caption = 'Status'
         DataBinding.FieldName = 'prod_status'
+        DataBinding.IsNullValueType = True
         Width = 75
       end
       object prod_estoque_negativo: TcxGridDBColumn
@@ -85,12 +86,14 @@ object PagProdutos: TPagProdutos
       object prod_status_entrada: TcxGridDBColumn
         Caption = 'Status Entrada'
         DataBinding.FieldName = 'prod_status_entrada'
+        DataBinding.IsNullValueType = True
         Width = 100
       end
       object prod_status_saida: TcxGridDBColumn
         AlternateCaption = 'prod_status_saida'
         Caption = 'Status Sa'#237'da'
         DataBinding.FieldName = 'prod_status_saida'
+        DataBinding.IsNullValueType = True
         Width = 94
       end
     end
@@ -121,6 +124,24 @@ object PagProdutos: TPagProdutos
     Align = alTop
     TabOrder = 2
     ExplicitWidth = 819
+    inherited BuscaSelect: TComboBox
+      Text = 'DESCRI'#199#195'O'
+      OnChange = FrameBusca1BuscaSelectChange
+      Items.Strings = (
+        'DESCRI'#199#195'O'
+        'C'#211'DIGO')
+    end
+    inherited BuscaEdit: TEdit
+      CharCase = ecUpperCase
+      OnClick = FrameBusca1BuscaEditClick
+    end
+    inherited BitBtn1: TBitBtn
+      Left = 376
+      Top = 40
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 376
+      ExplicitTop = 40
+    end
   end
   object PopupProdutos: TPopupMenu
     Left = 717

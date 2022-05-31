@@ -37,6 +37,7 @@ type
     procedure Detalhar1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure AlterarSaidaClick(Sender: TObject);
+    procedure CancelarSaidaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -50,16 +51,62 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_infoSaida, u_detalharSaida;
+uses u_dm1, u_infoSaida, u_detalharSaida, u_controleForm;
 
 procedure TPagSaidas.AlterarSaidaClick(Sender: TObject);
 begin
+  if not tb_saidas.Active then exit;
+  if tb_saidas.RecordCount = 0 then exit;
+
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'A';
   DetalharSaidaForm.ShowModal;
 end;
 
-procedure TPagSaidas.Detalhar1Click(Sender: TObject);
+procedure TPagSaidas.CancelarSaidaClick(Sender: TObject);
+var
+  q1: TUniQuery;
+  index, codigo, lote, quantidade: Integer;
+
 begin
+  if not tb_saidas.Active then exit;
+  if tb_saidas.RecordCount = 0 then exit;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Clear;
+
+    q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade) where lote_codigo = :lote;');
+    q1.SQL.Add('delete from tb_saidas where sai_codigo = :saida');
+
+    index := Pagsaidas.gridSaidasDBTableView1.DataController.GetSelectedRowIndex(0);
+    codigo := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[0];
+    lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[3];
+    quantidade := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[4];
+
+    q1.ParamByName('lote').Value := lote;
+    q1.ParamByName('quantidade').Value := quantidade;
+    q1.ParamByName('saida').Value := codigo;
+
+    if Confirma('Confirmar cancelamento de saída? Operação irreversível!') then
+    begin
+      q1.ExecSQL;
+      Mensagem('Saída cancelada com sucesso!');
+      PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
+    end;
+
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
+
+procedure TPagSaidas.Detalhar1Click(Sender: TObject);
+begiN
+  if not tb_saidas.Active then exit;
+  if tb_saidas.RecordCount = 0 then exit;
+
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'V';
   DetalharSaidaForm.ShowModal;
 end;
@@ -73,7 +120,6 @@ begin
     NovaSaidaClick(Sender)
   else if Key = VK_F3 then
     AlterarSaidaClick(Sender);
-
 end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);

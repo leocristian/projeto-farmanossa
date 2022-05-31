@@ -26,6 +26,12 @@ object PagSaidas: TPagSaidas
     Align = alTop
     TabOrder = 0
     ExplicitWidth = 661
+    inherited BitBtn1: TBitBtn
+      Left = 384
+      Top = 40
+      ExplicitLeft = 384
+      ExplicitTop = 40
+    end
     inherited ImageList1: TImageList
       Left = 616
     end
@@ -116,8 +122,7 @@ object PagSaidas: TPagSaidas
         AlternateCaption = 'Integer'
         Caption = 'Data e Hora'
         DataBinding.FieldName = 'sai_data_hora'
-        DataBinding.IsNullValueType = True
-        Width = 86
+        Width = 128
       end
     end
     object gridSaidasLevel1: TcxGridLevel
@@ -151,7 +156,8 @@ object PagSaidas: TPagSaidas
       Caption = '-'
     end
     object CancelarSaida: TMenuItem
-      Caption = 'Cancelar Sa'#237'da'
+      Caption = 'Cancelar Sa'#237'da (F4)'
+      OnClick = CancelarSaidaClick
     end
   end
 end

@@ -268,15 +268,16 @@ begin
           // Criar movimentação de saída
           q1.SQL.Clear;
           q1.SQL.Add('insert into tb_movimentacoes');
-          q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade)');
+          q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade, mov_cod_operacao)');
           q1.SQL.Add('values');
-          q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
+          q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade, :cod_operacao)');
 
           q1.ParamByName('produto').Value := CodProdEdit.Text;
           q1.ParamByName('local').Value := CodLocalEdit.Text;
           q1.ParamByName('lote').Value := CodLote;
           q1.ParamByName('operacao').Value := 'S';
           q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+          q1.ParamByName('cod_operacao').Value := codSaida;
 
           q1.ExecSQL;
         end;
