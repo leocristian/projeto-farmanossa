@@ -44,6 +44,7 @@ type
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
   private
     { Private declarations }
+
   public
     { Public declarations }
   end;
@@ -272,6 +273,24 @@ begin
     begin
       q1.ExecSQL;
       Mensagem('Alterações salvas!');
+
+      q1.SQL.Clear;
+      q1.SQL.Add('update tb_movimentacoes set mov_produto = :produto, mov_local = :local,');
+      q1.SQL.Add('mov_lote = :lote, mov_quantidade = :quantidade ');
+      q1.SQL.Add('where mov_cod_operacao = :operacao');
+
+      q1.ParamByName('produto').Value := CodProdEdit.Text;
+      q1.ParamByName('local').Value := CodLocalEdit.Text;
+      q1.ParamByName('lote').Value := LoteEdit.Text;
+      q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
+      q1.ParamByName('operacao').Value := CodEdit.Text;;
+
+      try
+        q1.ExecSQL;
+      except on e:exception do
+        Aviso('Erro atualizar movimentacao!' + e.message);
+      end;
+
       close;
       PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
     end;

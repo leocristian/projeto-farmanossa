@@ -165,6 +165,9 @@ begin
     begin
       q1.ExecSQL;
       Mensagem('Saída cancelada com sucesso!');
+      q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :saida';
+      q1.ParamByName('saida').Value := codigo;
+      q1.ExecSQL;
       PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
     end;
 

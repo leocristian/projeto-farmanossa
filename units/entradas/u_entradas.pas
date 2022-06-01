@@ -178,6 +178,9 @@ begin
       try
         q1.ExecSQL;
         Mensagem('Entrada cancelada com sucesso!');
+        q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
+        q1.ParamByName('entrada').Value := codigo;
+        q1.ExecSQL;
         gridEntradasDBTableView1.DataController.RefreshExternalData;
       except on e:exception do
         Erro('Erro!' + #13 + e.Message);

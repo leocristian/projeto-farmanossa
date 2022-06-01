@@ -74,6 +74,7 @@ object PagSaidas: TPagSaidas
       object sai_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'sai_codigo'
+        DataBinding.IsNullValueType = True
       end
       object sai_produto: TcxGridDBColumn
         AlternateCaption = 'Integer'
@@ -98,18 +99,21 @@ object PagSaidas: TPagSaidas
         AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o do Local'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
         Width = 148
       end
       object sai_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Lote'
         DataBinding.FieldName = 'sai_lote'
+        DataBinding.IsNullValueType = True
         Width = 72
       end
       object sai_quantidade: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'sai_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 90
       end
       object sai_data_hora: TcxGridDBColumn

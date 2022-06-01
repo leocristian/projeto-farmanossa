@@ -44,12 +44,14 @@ type
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
   private
     { Private declarations }
+
   public
     { Public declarations }
   end;
 
 var
   DetalharSaidaForm: TDetalharSaidaForm;
+  loteAnterior: String;
 
 implementation
 
@@ -223,7 +225,12 @@ begin
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := True;
-      CodProdEdit.SetFocus;
+      CodProdEdit.Enabled := False;
+      DescProdEdit.Enabled := False;
+      CodLocalEdit.Enabled := False;
+      DescLocalEdit.Enabled := False;
+      loteAnterior := QtdProdEdit.text;
+      QtdProdEdit.SetFocus;
       LoteEdit.ReadOnly := True;
       LoteEdit.Enabled := False;
       pn_datas.enabled := False;
@@ -238,6 +245,41 @@ end;
 procedure TDetalharSaidaForm.FrameButtons1CancelarBtnClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TDetalharSaidaForm.FrameButtons1SalvarBtnClick(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Clear;
+
+    q1.SQL.Add('update tb_lotes set lote_quantidade = ((lote_quantidade + :QtdAnterior) - :quantidade) ');
+    q1.SQL.Add(' where lote_codigo = :lote;');
+
+    q1.SQL.Add('update tb_saidas set sai_quantidade = :quantidade');
+    q1.SQL.Add('where sai_codigo = :codigo');
+
+    q1.ParamByName('codigo').Value := CodEdit.Text;
+    q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+    q1.ParamByName('QtdAnterior').Value := loteAnterior;
+    q1.ParamByName('lote').Value := LoteEdit.Text;
+
+    if Confirma('Confirmar alterações?') then
+    begin
+      q1.ExecSQL;
+      Mensagem('Alterações salvas!');
+      close;
+      PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
 end;
 
 end.

@@ -213,6 +213,13 @@ begin
     Exit;
   end;
 
+  if QtdProdEdit.Value = 0 then
+  begin
+    Aviso('Informe a quantidade de produtos a sair do estoque!');
+    QtdProdEdit.SetFocus;
+    Exit;
+  end;
+
   indexLote := SelecionaLoteForm.gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
   codLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[0];
   qtdLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[3];
