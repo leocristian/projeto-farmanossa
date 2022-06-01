@@ -182,7 +182,6 @@ object BuscaProdutoForm: TBuscaProdutoForm
     inherited ModoEdit: TEdit
       Left = 548
       Top = 26
-      Visible = True
       ExplicitLeft = 548
       ExplicitTop = 26
     end

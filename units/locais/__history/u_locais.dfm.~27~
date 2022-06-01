@@ -10,29 +10,21 @@ object PagLocais: TPagLocais
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   PopupMenu = PopupLocais
   WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 751
-    Height = 81
-    Align = alTop
-    Caption = 'Panel1'
-    TabOrder = 0
-  end
   object gridLocais: TcxGrid
     Left = 0
-    Top = 81
+    Top = 109
     Width = 751
-    Height = 361
+    Height = 333
     Align = alClient
-    TabOrder = 1
-    ExplicitTop = 87
+    TabOrder = 0
     object gridLocaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -70,16 +62,19 @@ object PagLocais: TPagLocais
       object loc_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'loc_codigo'
+        DataBinding.IsNullValueType = True
       end
       object loc_descricao: TcxGridDBColumn
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
         Width = 183
       end
       object loc_status: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Status'
         DataBinding.FieldName = 'loc_status'
+        DataBinding.IsNullValueType = True
       end
     end
     object gridLocaisLevel1: TcxGridLevel
@@ -91,13 +86,38 @@ object PagLocais: TPagLocais
     Top = 8
     Width = 77
     Height = 51
-    TabOrder = 2
+    TabOrder = 1
     ExplicitLeft = 648
     ExplicitTop = 8
     ExplicitHeight = 51
     inherited estiloGrid: TcxStyleRepository
       Top = 8
       PixelsPerInch = 96
+    end
+  end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 751
+    Height = 109
+    Align = alTop
+    TabOrder = 2
+    ExplicitWidth = 751
+    inherited BuscaSelect: TComboBox
+      Text = 'DESCRI'#199#195'O'
+      OnChange = FrameBusca1BuscaSelectChange
+      Items.Strings = (
+        'DESCRI'#199#195'O'
+        'C'#211'DIGO')
+    end
+    inherited BuscaEdit: TEdit
+      CharCase = ecUpperCase
+      OnClick = FrameBusca1BuscaEditClick
+    end
+    inherited BitBtn1: TBitBtn
+      Top = 40
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitTop = 40
     end
   end
   object PopupLocais: TPopupMenu
@@ -116,9 +136,11 @@ object PagLocais: TPagLocais
     end
     object N2AlterarregistroatualF31: TMenuItem
       Caption = '2 - Alterar registro atual'
+      OnClick = N2AlterarregistroatualF31Click
     end
     object N3ExcluirF41: TMenuItem
       Caption = '3 - Excluir'
+      OnClick = N3ExcluirF41Click
     end
   end
   object tb_locais: TUniTable

@@ -1,4 +1,4 @@
-ï»¿unit u_saidas;
+unit u_saidas;
 
 interface
 
@@ -51,6 +51,8 @@ type
     BuscarBtn: TBitBtn;
     MostrarTudoBtn: TButton;
     ImageList1: TImageList;
+    prod_descricao: TcxGridDBColumn;
+    loc_descricao: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure NovaSaidaClick(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
@@ -94,13 +96,13 @@ begin
 
   if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
   begin
-    Aviso('Informe um perÃ­odo vÃ¡lido!');
+    Aviso('Informe um período válido!');
     Exit;
   end;
 
   if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
   begin
-    Aviso('Informe o cÃ³digo para busca!');
+    Aviso('Informe o código para busca!');
     Exit;
   end;
 
@@ -108,17 +110,17 @@ begin
   tb_saidas.Connection := dm1.con1;
 
   tb_saidas.SQL.Clear;
-  tb_saidas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
-  tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
-  tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
-  tb_saidas.SQL.Add('where (ent_data_hora::date >= :dataInicial');
-  tb_saidas.SQL.Add('and ent_data_hora::date <= :dataFinal)');
-  tb_saidas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
+  tb_saidas.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
+  tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
+  tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
+  tb_saidas.SQL.Add('where (sai_data_hora::date >= :dataInicial');
+  tb_saidas.SQL.Add('and sai_data_hora::date <= :dataFinal)');
+  tb_saidas.SQL.Add('and (sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal)');
 
   tb_saidas.ParamByName('dataInicial').Value := DataInicialEdit.Date;
   tb_saidas.ParamByName('dataFinal').Value := DataFinalEdit.Date;
   tb_saidas.ParamByName('codigoInicial').Value := CodInicialEdit.Value;
-  tb_saidas.ParamByName('codigoFInal').Value := CodFinalEdit.Value;
+  tb_saidas.ParamByName('codigoFinal').Value := CodFinalEdit.Value;
 
   ds_saidas.DataSet := tb_saidas;
 
@@ -152,17 +154,17 @@ begin
 
     index := Pagsaidas.gridSaidasDBTableView1.DataController.GetSelectedRowIndex(0);
     codigo := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[0];
-    lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[3];
-    quantidade := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[4];
-
+    lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[5];
+    quantidade := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[6];
+     showmessage('aqui');
     q1.ParamByName('lote').Value := lote;
     q1.ParamByName('quantidade').Value := quantidade;
     q1.ParamByName('saida').Value := codigo;
 
-    if Confirma('Confirmar cancelamento de saÃ­da? OperaÃ§Ã£o irreversÃ­vel!') then
+    if Confirma('Confirmar cancelamento de saída? Operação irreversível!') then
     begin
       q1.ExecSQL;
-      Mensagem('SaÃ­da cancelada com sucesso!');
+      Mensagem('Saída cancelada com sucesso!');
       PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
     end;
 
@@ -209,21 +211,23 @@ begin
   else if Key = VK_F2 then
     NovaSaidaClick(Sender)
   else if Key = VK_F3 then
-    AlterarSaidaClick(Sender);
+    AlterarSaidaClick(Sender)
+  else if Key = VK_F4 then
+    CancelarSaidaClick(Sender);
 end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);
 begin
-//  dm1.con1.Close;
-
   tb_saidas.Close;
   tb_saidas.Connection := dm1.con1;
-  tb_saidas.TableName := 'tb_saidas';
+
+  tb_saidas.SQL.Clear;
+  tb_saidas.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
+  tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
+  tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
 
   ds_saidas.DataSet := tb_saidas;
   tb_saidas.Open;
-
-//  dm1.con1.Open;
 end;
 
 procedure TPagSaidas.LimparDatasBtnClick(Sender: TObject);
@@ -234,16 +238,16 @@ end;
 
 procedure TPagSaidas.MostrarTudoBtnClick(Sender: TObject);
 begin
-  tb_entradas.Close;
-  tb_entradas.Connection := dm1.con1;
+  tb_saidas.Close;
+  tb_saidas.Connection := dm1.con1;
 
-  tb_entradas.SQL.Clear;
-  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
-  tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
-  tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
+  tb_saidas.SQL.Clear;
+  tb_saidas.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
+  tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
+  tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
 
-  ds_entradas.DataSet := tb_entradas;
-  tb_entradas.Open;
+  ds_saidas.DataSet := tb_saidas;
+  tb_saidas.Open;
 end;
 
 procedure TPagSaidas.NovaSaidaClick(Sender: TObject);

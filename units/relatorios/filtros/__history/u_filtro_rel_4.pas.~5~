@@ -132,7 +132,7 @@ begin
 
   if tb_rel_4.RecordCount = 0 then
   begin
-    Aviso('Este produto não está em estoque!');
+    Aviso('Nenhuma movimentação encontrada no produto informado!');
     Exit;
   end;
 

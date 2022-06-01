@@ -10,9 +10,11 @@ object PagProdutos: TPagProdutos
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   PopupMenu = PopupProdutos
   WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -23,8 +25,6 @@ object PagProdutos: TPagProdutos
     Height = 357
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 136
-    ExplicitHeight = 330
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -70,6 +70,13 @@ object PagProdutos: TPagProdutos
         DataBinding.FieldName = 'prod_descricao'
         DataBinding.IsNullValueType = True
         Width = 313
+      end
+      object prod_status: TcxGridDBColumn
+        AlternateCaption = 'String'
+        Caption = 'Status'
+        DataBinding.FieldName = 'prod_status'
+        DataBinding.IsNullValueType = True
+        Width = 75
       end
       object prod_estoque_negativo: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o'
@@ -118,27 +125,46 @@ object PagProdutos: TPagProdutos
     Height = 109
     Align = alTop
     TabOrder = 2
+    ExplicitWidth = 819
+    inherited BuscaSelect: TComboBox
+      Text = 'DESCRI'#199#195'O'
+      OnChange = FrameBusca1BuscaSelectChange
+      Items.Strings = (
+        'DESCRI'#199#195'O'
+        'C'#211'DIGO')
+    end
+    inherited BuscaEdit: TEdit
+      CharCase = ecUpperCase
+      OnClick = FrameBusca1BuscaEditClick
+    end
+    inherited BitBtn1: TBitBtn
+      Left = 376
+      Top = 40
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 376
+      ExplicitTop = 40
+    end
   end
   object PopupProdutos: TPopupMenu
     Left = 717
     Top = 120
     object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
+      Caption = 'Detalhar... (F1)'
       OnClick = Detalhar1Click
     end
     object N1: TMenuItem
       Caption = '-'
     end
     object N1Incluirnovoregistro1: TMenuItem
-      Caption = '1 - Incluir novo registro'
+      Caption = '1 - Incluir novo registro (F2)'
       OnClick = N1Incluirnovoregistro1Click
     end
     object N2AlterarregistroatualF31: TMenuItem
-      Caption = '2 - Alterar registro atual'
+      Caption = '2 - Alterar registro atual (F3)'
       OnClick = N2AlterarregistroatualF31Click
     end
     object N3ExcluirF41: TMenuItem
-      Caption = '3 - Excluir'
+      Caption = '3 - Excluir (F4)'
       OnClick = N3ExcluirF41Click
     end
   end

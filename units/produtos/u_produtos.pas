@@ -40,6 +40,7 @@ type
     procedure FrameBusca1BuscaSelectChange(Sender: TObject);
     procedure FrameBusca1BuscaEditClick(Sender: TObject);
     procedure FrameBusca1BitBtn1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -62,6 +63,19 @@ begin
 
   FormProduto.FrameButtons.ModoEdit.Text := 'V';
   FormProduto.ShowModal;
+end;
+
+procedure TPagProdutos.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Detalhar1Click(Sender)
+  else if Key = VK_F2 then
+    N1Incluirnovoregistro1Click(Sender)
+  else if Key = VK_F3 then
+    N2AlterarregistroatualF31Click(Sender)
+  else if Key = VK_F4 then
+    N3ExcluirF41Click(Sender);
 end;
 
 procedure TPagProdutos.FormShow(Sender: TObject);

@@ -37,6 +37,9 @@ object PagSaidas: TPagSaidas
     Height = 223
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 248
+    ExplicitWidth = 661
+    ExplicitHeight = 96
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -78,24 +81,21 @@ object PagSaidas: TPagSaidas
         AlternateCaption = 'Integer'
         Caption = 'Produto'
         DataBinding.FieldName = 'sai_produto'
-        DataBinding.IsNullValueType = True
         Width = 121
       end
       object prod_descricao: TcxGridDBColumn
         Caption = 'Descri'#231#227'o do Produto'
         DataBinding.FieldName = 'prod_descricao'
-        DataBinding.IsNullValueType = True
         Width = 187
       end
       object sai_local: TcxGridDBColumn
-        Caption = 'Local de Estoque'
+        Caption = 'Descri'#231#227'o do Local'
         DataBinding.FieldName = 'sai_local'
         DataBinding.IsNullValueType = True
         Width = 125
       end
       object loc_descricao: TcxGridDBColumn
         AlternateCaption = 'String'
-        Caption = 'Descri'#231#227'o do Local'
         DataBinding.FieldName = 'loc_descricao'
         Width = 148
       end
@@ -106,7 +106,6 @@ object PagSaidas: TPagSaidas
         Width = 72
       end
       object sai_quantidade: TcxGridDBColumn
-        AlternateCaption = 'Integer'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'sai_quantidade'
         Width = 90
@@ -115,7 +114,6 @@ object PagSaidas: TPagSaidas
         AlternateCaption = 'Integer'
         Caption = 'Data e Hora'
         DataBinding.FieldName = 'sai_data_hora'
-        DataBinding.IsNullValueType = True
         Width = 128
       end
     end
@@ -130,6 +128,8 @@ object PagSaidas: TPagSaidas
     Height = 121
     Align = alTop
     TabOrder = 2
+    ExplicitLeft = -11
+    ExplicitWidth = 785
     inline FrameGrid2: TFrameGrid
       Left = 672
       Top = 89

@@ -27,7 +27,6 @@ object FormEntrada: TFormEntrada
     BevelOuter = bvNone
     TabOrder = 0
     ExplicitTop = -6
-    ExplicitWidth = 575
     DesignSize = (
       659
       242)
@@ -109,17 +108,6 @@ object FormEntrada: TFormEntrada
       TabOrder = 0
       Text = '0000'
     end
-    object CodProdEdit: TEdit
-      Left = 159
-      Top = 66
-      Width = 65
-      Height = 21
-      Anchors = [akLeft, akBottom]
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 1
-      OnExit = CodProdEditExit
-    end
     object DescProdEdit: TEdit
       Left = 308
       Top = 67
@@ -130,8 +118,7 @@ object FormEntrada: TFormEntrada
       CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
-      TabOrder = 4
-      ExplicitWidth = 261
+      TabOrder = 3
     end
     object DescLocalEdit: TEdit
       Left = 308
@@ -143,29 +130,7 @@ object FormEntrada: TFormEntrada
       CharCase = ecUpperCase
       MaxLength = 70
       ReadOnly = True
-      TabOrder = 5
-      ExplicitWidth = 261
-    end
-    object CodLocalEdit: TEdit
-      Left = 159
-      Top = 93
-      Width = 65
-      Height = 21
-      Anchors = [akLeft, akBottom]
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 2
-      OnExit = CodLocalEditExit
-    end
-    object QtdProdEdit: TEdit
-      Left = 159
-      Top = 201
-      Width = 121
-      Height = 21
-      Anchors = [akLeft, akBottom]
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 6
+      TabOrder = 4
     end
     object ModoLote: TEdit
       Left = 230
@@ -173,7 +138,7 @@ object FormEntrada: TFormEntrada
       Width = 25
       Height = 21
       TabStop = False
-      TabOrder = 7
+      TabOrder = 5
     end
     object LimparLocal: TBitBtn
       Left = 269
@@ -183,7 +148,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 8
+      TabOrder = 6
       TabStop = False
       OnClick = LimparLocalClick
     end
@@ -195,7 +160,7 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 9
+      TabOrder = 7
       TabStop = False
       OnClick = LimparProdClick
     end
@@ -207,8 +172,58 @@ object FormEntrada: TFormEntrada
       Anchors = [akLeft, akBottom]
       MaxLength = 4
       NumbersOnly = True
-      TabOrder = 3
+      TabOrder = 1
       OnExit = LoteEditExit
+    end
+    object pn_datas: TPanel
+      Left = 41
+      Top = 144
+      Width = 245
+      Height = 53
+      BevelOuter = bvNone
+      TabOrder = 2
+      DesignSize = (
+        245
+        53)
+      object Label6: TLabel
+        Left = 12
+        Top = 33
+        Width = 100
+        Height = 13
+        Anchors = [akLeft, akBottom]
+        Caption = 'Data de vencimento:'
+        ExplicitTop = 62
+      end
+      object Label5: TLabel
+        Left = 18
+        Top = 6
+        Width = 95
+        Height = 13
+        Anchors = [akLeft, akBottom]
+        Caption = 'Data de fabrica'#231#227'o:'
+        ExplicitTop = 35
+      end
+      object DtVencimentoEdit: TcxDateEdit
+        Left = 118
+        Top = 30
+        Anchors = [akLeft, akBottom]
+        TabOrder = 1
+        Width = 121
+      end
+      object DtFabricacaoEdit: TcxDateEdit
+        Left = 118
+        Top = 3
+        Anchors = [akLeft, akBottom]
+        TabOrder = 0
+        Width = 121
+      end
+    end
+    object QtdProdEdit: TNumberBox
+      Left = 159
+      Top = 203
+      Width = 121
+      Height = 21
+      TabOrder = 8
     end
   end
   inline FrameButtons1: TFrameButtons
@@ -217,21 +232,21 @@ object FormEntrada: TFormEntrada
     Width = 659
     Height = 87
     Align = alBottom
-    TabOrder = 2
-    ExplicitTop = 242
-    ExplicitWidth = 575
+    TabOrder = 1
+    ExplicitTop = 248
+    ExplicitWidth = 659
     ExplicitHeight = 87
     inherited ModoEdit: TEdit
       Left = 353
       Top = 40
-      ExplicitLeft = 269
+      ExplicitLeft = 353
       ExplicitTop = 40
     end
     inherited CancelarBtn: TButton
       Left = 566
       Top = 26
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 486
+      ExplicitLeft = 566
       ExplicitTop = 26
     end
     inherited SalvarBtn: TBitBtn
@@ -239,55 +254,26 @@ object FormEntrada: TFormEntrada
       Top = 26
       Width = 120
       OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 360
+      ExplicitLeft = 440
       ExplicitTop = 26
       ExplicitWidth = 120
     end
   end
-  object pn_datas: TPanel
-    Left = 41
-    Top = 144
-    Width = 245
-    Height = 53
-    BevelOuter = bvNone
-    TabOrder = 1
-    DesignSize = (
-      245
-      53)
-    object Label6: TLabel
-      Left = 12
-      Top = 33
-      Width = 100
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      Caption = 'Data de vencimento:'
-      ExplicitTop = 62
-    end
-    object Label5: TLabel
-      Left = 18
-      Top = 6
-      Width = 95
-      Height = 13
-      Anchors = [akLeft, akBottom]
-      Caption = 'Data de fabrica'#231#227'o:'
-      ExplicitTop = 35
-    end
-    object DtVencimentoEdit: TcxDateEdit
-      Left = 118
-      Top = 30
-      Anchors = [akLeft, akBottom]
-      TabOrder = 1
-      ExplicitTop = 59
-      Width = 121
-    end
-    object DtFabricacaoEdit: TcxDateEdit
-      Left = 118
-      Top = 3
-      Anchors = [akLeft, akBottom]
-      TabOrder = 0
-      ExplicitTop = 32
-      Width = 121
-    end
+  object CodProdEdit: TEdit
+    Left = 159
+    Top = 69
+    Width = 65
+    Height = 21
+    TabOrder = 2
+    OnExit = CodProdEditExit
+  end
+  object CodLocalEdit: TEdit
+    Left = 159
+    Top = 93
+    Width = 65
+    Height = 21
+    TabOrder = 3
+    OnExit = CodLocalEditExit
   end
   object ImageList1: TImageList
     Left = 312

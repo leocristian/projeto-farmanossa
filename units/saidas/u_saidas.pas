@@ -154,8 +154,8 @@ begin
 
     index := Pagsaidas.gridSaidasDBTableView1.DataController.GetSelectedRowIndex(0);
     codigo := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[0];
-    lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[3];
-    quantidade := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[4];
+    lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[5];
+    quantidade := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[6];
 
     q1.ParamByName('lote').Value := lote;
     q1.ParamByName('quantidade').Value := quantidade;
@@ -211,7 +211,9 @@ begin
   else if Key = VK_F2 then
     NovaSaidaClick(Sender)
   else if Key = VK_F3 then
-    AlterarSaidaClick(Sender);
+    AlterarSaidaClick(Sender)
+  else if Key = VK_F4 then
+    CancelarSaidaClick(Sender);
 end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);

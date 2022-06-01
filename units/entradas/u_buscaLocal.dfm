@@ -76,7 +76,6 @@ object BuscaLocalForm: TBuscaLocalForm
     ExplicitWidth = 584
     inherited ModoEdit: TEdit
       Left = 345
-      Visible = True
       ExplicitLeft = 345
     end
     inherited CancelarBtn: TButton

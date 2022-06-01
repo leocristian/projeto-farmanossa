@@ -94,17 +94,17 @@ end;
 procedure TPagSaidas.BuscarBtnClick(Sender: TObject);
 begin
 
-//  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
-//  begin
-//    Aviso('Informe um período válido!');
-//    Exit;
-//  end;
-//
-//  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
-//  begin
-//    Aviso('Informe o código para busca!');
-//    Exit;
-//  end;
+  if (DataInicialEdit.Text = '') or (DataFinalEdit.Text = '') then
+  begin
+    Aviso('Informe um período válido!');
+    Exit;
+  end;
+
+  if (CodInicialEdit.Value = 0) or (CodFinalEdit.Value = 0) then
+  begin
+    Aviso('Informe o código para busca!');
+    Exit;
+  end;
 
   tb_saidas.Close;
   tb_saidas.Connection := dm1.con1;
@@ -113,7 +113,9 @@ begin
   tb_saidas.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
   tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
   tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
-  tb_saidas.SQL.Add('where(sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal)');
+  tb_saidas.SQL.Add('where (sai_data_hora::date >= :dataInicial');
+  tb_saidas.SQL.Add('and sai_data_hora::date <= :dataFinal)');
+  tb_saidas.SQL.Add('and (sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal)');
 
   tb_saidas.ParamByName('dataInicial').Value := DataInicialEdit.Date;
   tb_saidas.ParamByName('dataFinal').Value := DataFinalEdit.Date;
@@ -149,7 +151,7 @@ begin
 
     q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade) where lote_codigo = :lote;');
     q1.SQL.Add('delete from tb_saidas where sai_codigo = :saida');
-
+    showmessage('aqui');
     index := Pagsaidas.gridSaidasDBTableView1.DataController.GetSelectedRowIndex(0);
     codigo := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[0];
     lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[3];
@@ -209,7 +211,9 @@ begin
   else if Key = VK_F2 then
     NovaSaidaClick(Sender)
   else if Key = VK_F3 then
-    AlterarSaidaClick(Sender);
+    AlterarSaidaClick(Sender)
+  else if Key = VK_F4 then
+    CancelarSaidaClick(Sender);
 end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);
