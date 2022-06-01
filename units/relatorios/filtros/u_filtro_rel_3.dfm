@@ -23,7 +23,6 @@ object FormRel3: TFormRel3
     Height = 107
     Align = alBottom
     TabOrder = 0
-    ExplicitWidth = 813
     DesignSize = (
       593
       107)
@@ -62,7 +61,6 @@ object FormRel3: TFormRel3
     Height = 81
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 813
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -84,7 +82,6 @@ object FormRel3: TFormRel3
     Height = 334
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 813
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -92,6 +89,8 @@ object FormRel3: TFormRel3
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = prod_descricao
       OptionsSelection.CellSelect = False
       OptionsSelection.MultiSelect = True
       OptionsSelection.CheckBoxPosition = cbpIndicator

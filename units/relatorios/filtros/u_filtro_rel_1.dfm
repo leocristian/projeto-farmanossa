@@ -1,10 +1,11 @@
 object FormRel1: TFormRel1
   Left = 0
   Top = 0
+  BorderIcons = []
   BorderStyle = bsNone
   Caption = 'FormRel1'
-  ClientHeight = 297
-  ClientWidth = 671
+  ClientHeight = 303
+  ClientWidth = 670
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,10 +22,12 @@ object FormRel1: TFormRel1
   object pn_filtro: TPanel
     Left = 0
     Top = 0
-    Width = 671
-    Height = 297
+    Width = 670
+    Height = 303
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 671
+    ExplicitHeight = 297
     object Label2: TLabel
       Left = 76
       Top = 97

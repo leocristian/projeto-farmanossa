@@ -1,9 +1,11 @@
 object PagRelatorios: TPagRelatorios
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'PagRelatorios'
-  ClientHeight = 497
-  ClientWidth = 805
+  ClientHeight = 507
+  ClientWidth = 815
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,10 +22,11 @@ object PagRelatorios: TPagRelatorios
   object pn_cabecalho: TPanel
     Left = 0
     Top = 0
-    Width = 805
+    Width = 815
     Height = 121
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 805
     object Label1: TLabel
       Left = 166
       Top = 38
@@ -382,10 +385,11 @@ object PagRelatorios: TPagRelatorios
   object pn_busca: TPanel
     Left = 0
     Top = 121
-    Width = 805
+    Width = 815
     Height = 88
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 805
     object Label2: TLabel
       Left = 46
       Top = 24
@@ -413,10 +417,12 @@ object PagRelatorios: TPagRelatorios
   object pn_relatorio: TPanel
     Left = 0
     Top = 209
-    Width = 805
-    Height = 288
+    Width = 815
+    Height = 298
     Align = alClient
     TabOrder = 2
+    ExplicitWidth = 805
+    ExplicitHeight = 288
   end
   object rel_4: TfrxReport
     Version = '2022.2.3'

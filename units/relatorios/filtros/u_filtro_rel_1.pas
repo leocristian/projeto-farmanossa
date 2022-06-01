@@ -214,7 +214,8 @@ begin
 
   if tb_rel_1.RecordCount = 0 then
   begin
-    Aviso('Nenhuma movimentação encontrada no produto ou local informado!');
+    Aviso('Nenhuma movimentação encontrada!');
+    CodProdEdit.SetFocus;
     Exit;
   end;
 

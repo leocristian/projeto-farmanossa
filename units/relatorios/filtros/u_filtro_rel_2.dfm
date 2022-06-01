@@ -89,6 +89,8 @@ object FormRel2: TFormRel2
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = prod_descricao
       OptionsSelection.CellSelect = False
       OptionsSelection.MultiSelect = True
       OptionsSelection.CheckBoxPosition = cbpIndicator
@@ -98,6 +100,7 @@ object FormRel2: TFormRel2
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
       Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
       object prod_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'

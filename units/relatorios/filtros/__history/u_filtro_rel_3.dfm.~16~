@@ -4,7 +4,7 @@ object FormRel3: TFormRel3
   BorderStyle = bsNone
   Caption = 'FormRel3'
   ClientHeight = 522
-  ClientWidth = 813
+  ClientWidth = 593
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,21 +19,20 @@ object FormRel3: TFormRel3
   object pn_button: TPanel
     Left = 0
     Top = 415
-    Width = 813
+    Width = 593
     Height = 107
     Align = alBottom
     TabOrder = 0
-    ExplicitTop = 344
-    ExplicitWidth = 584
+    ExplicitWidth = 813
     DesignSize = (
-      813
+      593
       107)
-    object Rel1Btn: TBitBtn
-      Left = 637
+    object RelBtn: TBitBtn
+      Left = 376
       Top = 21
       Width = 161
       Height = 65
-      Anchors = [akTop, akRight]
+      Anchors = [akLeft, akBottom]
       Caption = 'Visualizar relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -44,8 +43,7 @@ object FormRel3: TFormRel3
       Images = ImageList1
       ParentFont = False
       TabOrder = 0
-      OnClick = Rel1BtnClick
-      ExplicitLeft = 408
+      OnClick = RelBtnClick
     end
     object CheckBox1: TCheckBox
       Left = 24
@@ -54,16 +52,17 @@ object FormRel3: TFormRel3
       Height = 17
       Caption = 'Marcar todos'
       TabOrder = 1
+      OnClick = CheckBox1Click
     end
   end
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 813
+    Width = 593
     Height = 81
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 584
+    ExplicitWidth = 813
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -81,12 +80,11 @@ object FormRel3: TFormRel3
   object grid_produtos: TcxGrid
     Left = 0
     Top = 81
-    Width = 813
+    Width = 593
     Height = 334
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 584
-    ExplicitHeight = 263
+    ExplicitWidth = 813
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -110,7 +108,7 @@ object FormRel3: TFormRel3
         DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
-        AlternateCaption = 'Integer'
+        AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
         DataBinding.IsNullValueType = True
@@ -137,8 +135,8 @@ object FormRel3: TFormRel3
     end
   end
   object ImageList1: TImageList
-    Left = 352
-    Top = 104
+    Left = 336
+    Top = 136
     Bitmap = {
       494C010104000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
@@ -412,14 +410,14 @@ object FormRel3: TFormRel3
       000000000000}
   end
   object ds_produtos: TDataSource
-    Left = 504
-    Top = 104
+    Left = 480
+    Top = 136
   end
   object tb_produtos: TUniTable
-    Left = 416
-    Top = 104
+    Left = 400
+    Top = 136
   end
-  object rel_2: TfrxReport
+  object rel_3: TfrxReport
     Version = '2022.2.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -427,8 +425,8 @@ object FormRel3: TFormRel3
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 44709.805296006950000000
-    ReportOptions.LastChange = 44709.805296006950000000
+    ReportOptions.CreateDate = 44709.814468969900000000
+    ReportOptions.LastChange = 44709.814468969900000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -436,10 +434,10 @@ object FormRel3: TFormRel3
       ''
       'end.')
     Left = 120
-    Top = 104
+    Top = 136
     Datasets = <
       item
-        DataSet = db_rel_2
+        DataSet = db_rel_3
         DataSetName = 'frxDBDataset1'
       end>
     Variables = <>
@@ -539,7 +537,9 @@ object FormRel3: TFormRel3
           Fill.BackColor = clGray
           HAlign = haCenter
           Memo.UTF8W = (
-            'Rela'#231#227'o de produtos para confer'#234'ncia de estoque')
+            
+              'Rela'#231#227'o de produtos para confer'#234'ncia de estoque consolidado por ' +
+              'lote')
           ParentFont = False
           Style = 'Title'
           VAlign = vaCenter
@@ -571,30 +571,74 @@ object FormRel3: TFormRel3
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
-          Left = 7.558120000000000000
-          Width = 117.172820000000000000
+          Width = 94.488250000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
-            'C'#243'digo do produto')
+            'Cod. Produto')
+          ParentFont = False
         end
         object Memo7: TfrxMemoView
           AllowVectorExport = True
-          Left = 124.727180000000000000
-          Width = 442.222820000000000000
+          Left = 94.490000000000000000
+          Width = 196.549060000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
-            'Descri'#231#227'o do produto')
+            'Descri'#231#227'o do Produto')
         end
         object Memo8: TfrxMemoView
           AllowVectorExport = True
-          Left = 566.948120000000000000
-          Width = 75.571880000000000000
+          Left = 291.040000000000000000
+          Width = 52.908120000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Lote')
+          ParentFont = False
+        end
+        object Memo9: TfrxMemoView
+          AllowVectorExport = True
+          Left = 343.951880000000000000
+          Width = 120.948120000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
+            'Data de Fabrica'#231#227'o')
+        end
+        object Memo10: TfrxMemoView
+          AllowVectorExport = True
+          Left = 464.900000000000000000
+          Width = 128.508120000000000000
+          Height = 18.897650000000000000
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Data de Vencimento')
+        end
+        object Memo11: TfrxMemoView
+          AllowVectorExport = True
+          Left = 589.602820000000000000
+          Width = 75.617180000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
             'Quantidade')
+          ParentFont = False
         end
       end
       object MasterData1: TfrxMasterData
@@ -604,17 +648,16 @@ object FormRel3: TFormRel3
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 30.236240000000000000
+        Height = 18.897650000000000000
         Top = 151.181200000000000000
         Width = 718.110700000000000000
-        DataSet = db_rel_2
+        DataSet = db_rel_3
         DataSetName = 'frxDBDataset1'
         RowCount = 0
         object frxDBDataset1frxDBDataset1: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 7.560000000000000000
-          Width = 109.609060000000000000
+          Width = 86.930000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -627,21 +670,27 @@ object FormRel3: TFormRel3
             '[frxDBDataset1."prod_codigo"]')
           ParentFont = False
         end
-        object Memo9: TfrxMemoView
+        object Memo12: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 124.730000000000000000
-          Width = 449.780000000000000000
+          Left = 94.490000000000000000
+          Width = 196.550000000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."prod_descricao"]')
+          ParentFont = False
         end
-        object frxDBDataset1frxDBDataset11: TfrxMemoView
+        object Memo13: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 566.950000000000000000
-          Width = 68.010000000000000000
+          Left = 291.040000000000000000
+          Width = 45.350000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -651,7 +700,56 @@ object FormRel3: TFormRel3
           Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
-            '[frxDBDataset1."qtd_total"]')
+            '[frxDBDataset1."lote_codigo"]')
+          ParentFont = False
+        end
+        object Memo14: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 343.950000000000000000
+          Width = 120.950000000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."lote_dtfabricacao"]')
+          ParentFont = False
+        end
+        object Memo15: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 468.650000000000000000
+          Width = 124.760000000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset1."lote_dtvencimento"]')
+          ParentFont = False
+        end
+        object frxDBDataset1frxDBDataset11: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 593.410000000000000000
+          Width = 71.810000000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          HAlign = haRight
+          Memo.UTF8W = (
+            '[frxDBDataset1."lote_quantidade"]')
           ParentFont = False
         end
       end
@@ -663,7 +761,7 @@ object FormRel3: TFormRel3
         FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
-        Top = 241.889920000000000000
+        Top = 230.551330000000000000
         Width = 718.110700000000000000
         object Memo3: TfrxMemoView
           Align = baWidth
@@ -696,21 +794,21 @@ object FormRel3: TFormRel3
       end
     end
   end
-  object db_rel_2: TfrxDBDataset
+  object db_rel_3: TfrxDBDataset
     UserName = 'frxDBDataset1'
     CloseDataSource = False
-    DataSet = tb_rel_2
+    DataSet = tb_rel_3
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 184
-    Top = 104
+    Left = 160
+    Top = 136
   end
-  object tb_rel_2: TUniTable
-    Left = 248
-    Top = 104
+  object tb_rel_3: TUniTable
+    Left = 216
+    Top = 136
   end
-  object ds_rel_2: TDataSource
-    Left = 296
-    Top = 105
+  object ds_rel_3: TDataSource
+    Left = 264
+    Top = 137
   end
 end

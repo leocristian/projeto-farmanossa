@@ -275,6 +275,7 @@ begin
       pn_form.Enabled := true;
       pn_datas.Enabled := False;
       LoteEdit.Enabled := False;
+      ModoLote.Text := 'A';
       FrameButtons1.SalvarBtn.Visible := true;
       FrameButtons1.SalvarBtn.Caption := 'Salvar Alterações';
       CodProdEdit.SetFocus;
