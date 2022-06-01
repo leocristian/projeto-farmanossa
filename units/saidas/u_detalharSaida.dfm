@@ -27,7 +27,6 @@ object DetalharSaidaForm: TDetalharSaidaForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = -6
     DesignSize = (
       552
       204)
@@ -99,7 +98,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       Top = 36
       Width = 65
       Height = 21
-      MaxLength = 4
+      MaxLength = 5
       NumbersOnly = True
       TabOrder = 1
       OnExit = CodProdEditExit

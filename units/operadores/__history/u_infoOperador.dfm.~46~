@@ -3,8 +3,8 @@ object FormOperador: TFormOperador
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Adicionar Operador'
-  ClientHeight = 269
-  ClientWidth = 459
+  ClientHeight = 245
+  ClientWidth = 489
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,12 +21,11 @@ object FormOperador: TFormOperador
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 459
+    Width = 489
     Height = 177
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 489
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -123,24 +122,24 @@ object FormOperador: TFormOperador
   end
   inline FrameButtons: TFrameButtons
     Left = 0
-    Top = 176
-    Width = 459
+    Top = 152
+    Width = 489
     Height = 93
     Align = alBottom
     TabOrder = 1
     ExplicitTop = 152
     ExplicitWidth = 489
     inherited ModoEdit: TEdit
-      Left = 220
+      Left = 250
       ExplicitLeft = 250
     end
     inherited CancelarBtn: TButton
-      Left = 350
+      Left = 380
       OnClick = CancelarBtnClick
       ExplicitLeft = 380
     end
     inherited SalvarBtn: TBitBtn
-      Left = 261
+      Left = 291
       OnClick = SalvarBtnClick
       ExplicitLeft = 291
     end

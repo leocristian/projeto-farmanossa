@@ -264,6 +264,8 @@ object FormEntrada: TFormEntrada
     Top = 69
     Width = 65
     Height = 21
+    MaxLength = 5
+    NumbersOnly = True
     TabOrder = 2
     OnExit = CodProdEditExit
   end
@@ -272,6 +274,8 @@ object FormEntrada: TFormEntrada
     Top = 93
     Width = 65
     Height = 21
+    MaxLength = 5
+    NumbersOnly = True
     TabOrder = 3
     OnExit = CodLocalEditExit
   end

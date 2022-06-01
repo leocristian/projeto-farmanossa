@@ -1,11 +1,10 @@
-object DetalharSaidaForm: TDetalharSaidaForm
+object FormEntrada: TFormEntrada
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
-  Caption = 'DetalharSaidaForm'
-  ClientHeight = 297
-  ClientWidth = 552
+  Caption = 'Entrada de Mercadoria'
+  ClientHeight = 329
+  ClientWidth = 659
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,93 +21,99 @@ object DetalharSaidaForm: TDetalharSaidaForm
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 552
-    Height = 204
+    Width = 659
+    Height = 242
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      552
-      204)
+      659
+      242)
     object Label1: TLabel
       Left = 116
-      Top = 10
+      Top = 40
       Width = 37
       Height = 13
+      Anchors = [akLeft, akBottom]
       Caption = 'C'#243'digo:'
+      ExplicitTop = 34
     end
     object Label2: TLabel
       Left = 111
-      Top = 39
+      Top = 69
       Width = 42
       Height = 13
+      Anchors = [akLeft, akBottom]
       Caption = 'Produto:'
+      ExplicitTop = 63
     end
     object Label3: TLabel
       Left = 68
-      Top = 66
+      Top = 96
       Width = 85
       Height = 13
+      Anchors = [akLeft, akBottom]
       Caption = 'Local de estoque:'
+      ExplicitTop = 90
     end
     object SpeedButton1: TSpeedButton
       Left = 230
-      Top = 36
+      Top = 66
       Width = 33
-      Height = 21
+      Height = 23
+      Anchors = [akLeft, akBottom]
       ImageIndex = 0
       Images = ImageList1
+      OnClick = SpeedButton1Click
+      ExplicitTop = 53
     end
     object SpeedButton2: TSpeedButton
       Left = 230
-      Top = 63
+      Top = 93
       Width = 33
-      Height = 21
+      Height = 23
+      Anchors = [akLeft, akBottom]
       ImageIndex = 0
       Images = ImageList1
+      OnClick = SpeedButton2Click
+      ExplicitTop = 80
     end
     object Label7: TLabel
       Left = 32
-      Top = 98
+      Top = 205
       Width = 121
       Height = 13
+      Anchors = [akLeft, akBottom]
       Caption = 'Quantidade de produtos:'
     end
     object Label4: TLabel
-      Left = 128
-      Top = 125
+      Left = 129
+      Top = 128
       Width = 25
       Height = 13
+      Anchors = [akLeft, akBottom]
       Caption = 'Lote:'
     end
     object CodEdit: TEdit
       Left = 159
-      Top = 7
+      Top = 37
       Width = 65
       Height = 21
       TabStop = False
+      Anchors = [akLeft, akBottom]
       Enabled = False
       MaxLength = 5
       ReadOnly = True
       TabOrder = 0
       Text = '0000'
     end
-    object CodProdEdit: TEdit
-      Left = 159
-      Top = 36
-      Width = 65
-      Height = 21
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 1
-    end
     object DescProdEdit: TEdit
       Left = 308
-      Top = 37
-      Width = 218
+      Top = 67
+      Width = 341
       Height = 21
       TabStop = False
-      Anchors = [akLeft, akTop, akRight]
+      Anchors = [akLeft, akRight, akBottom]
       CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
@@ -116,50 +121,59 @@ object DetalharSaidaForm: TDetalharSaidaForm
     end
     object DescLocalEdit: TEdit
       Left = 308
-      Top = 65
-      Width = 218
+      Top = 95
+      Width = 341
       Height = 21
       TabStop = False
-      Anchors = [akLeft, akTop, akRight]
+      Anchors = [akLeft, akRight, akBottom]
       CharCase = ecUpperCase
       MaxLength = 70
       ReadOnly = True
       TabOrder = 4
     end
-    object CodLocalEdit: TEdit
-      Left = 159
-      Top = 63
-      Width = 65
+    object ModoLote: TEdit
+      Left = 230
+      Top = 120
+      Width = 25
       Height = 21
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 2
-    end
-    object QtdProdEdit: TNumberBox
-      Left = 159
-      Top = 90
-      Width = 65
-      Height = 21
-      MaxLength = 5
+      TabStop = False
       TabOrder = 5
-    end
-    object LimparProd: TBitBtn
-      Left = 269
-      Top = 35
-      Width = 33
-      Height = 22
-      ImageIndex = 1
-      Images = ImageList1
-      TabOrder = 6
+      Visible = False
     end
     object LimparLocal: TBitBtn
       Left = 269
-      Top = 63
+      Top = 94
       Width = 33
       Height = 22
+      Anchors = [akLeft, akBottom]
+      ImageIndex = 1
+      Images = ImageList1
+      TabOrder = 6
+      TabStop = False
+      OnClick = LimparLocalClick
+    end
+    object LimparProd: TBitBtn
+      Left = 269
+      Top = 66
+      Width = 33
+      Height = 23
+      Anchors = [akLeft, akBottom]
       ImageIndex = 1
       Images = ImageList1
       TabOrder = 7
+      TabStop = False
+      OnClick = LimparProdClick
+    end
+    object LoteEdit: TEdit
+      Left = 159
+      Top = 120
+      Width = 65
+      Height = 21
+      Anchors = [akLeft, akBottom]
+      MaxLength = 4
+      NumbersOnly = True
+      TabOrder = 1
+      OnExit = LoteEditExit
     end
     object pn_datas: TPanel
       Left = 41
@@ -167,7 +181,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       Width = 245
       Height = 53
       BevelOuter = bvNone
-      TabOrder = 8
+      TabOrder = 2
       DesignSize = (
         245
         53)
@@ -204,42 +218,66 @@ object DetalharSaidaForm: TDetalharSaidaForm
         Width = 121
       end
     end
-    object LoteEdit: TEdit
+    object QtdProdEdit: TNumberBox
       Left = 159
-      Top = 120
-      Width = 65
+      Top = 203
+      Width = 121
       Height = 21
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 9
+      TabOrder = 8
     end
   end
   inline FrameButtons1: TFrameButtons
     Left = 0
-    Top = 204
-    Width = 552
-    Height = 93
+    Top = 242
+    Width = 659
+    Height = 87
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 204
-    ExplicitWidth = 552
+    ExplicitTop = 242
+    ExplicitWidth = 659
+    ExplicitHeight = 87
     inherited ModoEdit: TEdit
-      Left = 313
-      ExplicitLeft = 313
+      Left = 353
+      Top = 40
+      ExplicitLeft = 353
+      ExplicitTop = 40
     end
     inherited CancelarBtn: TButton
-      Left = 443
+      Left = 566
+      Top = 26
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 443
+      ExplicitLeft = 566
+      ExplicitTop = 26
     end
     inherited SalvarBtn: TBitBtn
-      Left = 362
-      ExplicitLeft = 362
+      Left = 440
+      Top = 26
+      Width = 120
+      OnClick = FrameButtons1SalvarBtnClick
+      ExplicitLeft = 440
+      ExplicitTop = 26
+      ExplicitWidth = 120
     end
   end
+  object CodProdEdit: TEdit
+    Left = 159
+    Top = 69
+    Width = 65
+    Height = 21
+    TabOrder = 2
+    OnExit = CodProdEditExit
+  end
+  object CodLocalEdit: TEdit
+    Left = 159
+    Top = 93
+    Width = 65
+    Height = 21
+    TabOrder = 3
+    OnExit = CodLocalEditExit
+  end
   object ImageList1: TImageList
-    Left = 32
-    Top = 16
+    Left = 312
+    Top = 8
     Bitmap = {
       494C010102000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
