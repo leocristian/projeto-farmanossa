@@ -5,7 +5,7 @@ object PagEstoque: TPagEstoque
   BorderStyle = bsSingle
   Caption = 'PagEstoque'
   ClientHeight = 483
-  ClientWidth = 1126
+  ClientWidth = 963
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,10 +21,11 @@ object PagEstoque: TPagEstoque
   object pn_filtro: TPanel
     Left = 0
     Top = 0
-    Width = 1126
+    Width = 963
     Height = 137
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 1126
     object Label2: TLabel
       Left = 23
       Top = 94
@@ -73,6 +74,7 @@ object PagEstoque: TPagEstoque
       Width = 328
       Height = 21
       CharCase = ecUpperCase
+      MaxLength = 50
       TabOrder = 6
       OnClick = LocalEditClick
     end
@@ -127,6 +129,7 @@ object PagEstoque: TPagEstoque
       Width = 328
       Height = 21
       CharCase = ecUpperCase
+      MaxLength = 50
       TabOrder = 1
       OnClick = ProdEditClick
     end
@@ -155,11 +158,12 @@ object PagEstoque: TPagEstoque
   object gridEstoque: TcxGrid
     Left = 0
     Top = 137
-    Width = 1126
+    Width = 963
     Height = 346
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
+    ExplicitWidth = 1126
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -185,6 +189,7 @@ object PagEstoque: TPagEstoque
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20

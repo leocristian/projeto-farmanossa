@@ -5,7 +5,7 @@ object PagEntradas: TPagEntradas
   BorderStyle = bsSingle
   Caption = 'PagEntradas'
   ClientHeight = 412
-  ClientWidth = 723
+  ClientWidth = 785
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,18 +17,17 @@ object PagEntradas: TPagEntradas
   PopupMenu = PopupEntradas
   WindowState = wsMaximized
   OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object gridEntradas: TcxGrid
     Left = 0
     Top = 121
-    Width = 723
+    Width = 785
     Height = 291
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 95
-    ExplicitHeight = 323
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -55,10 +54,14 @@ object PagEntradas: TPagEntradas
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = ent_codigo
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
       object ent_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ent_codigo'
@@ -118,20 +121,20 @@ object PagEntradas: TPagEntradas
   object pn_busca: TPanel
     Left = 0
     Top = 0
-    Width = 723
+    Width = 785
     Height = 121
     Align = alTop
     TabOrder = 1
-    ExplicitTop = -6
     inline FrameGrid1: TFrameGrid
-      Left = 632
-      Top = 19
-      Width = 77
-      Height = 59
+      Left = 672
+      Top = 89
+      Width = 25
+      Height = 26
       TabOrder = 0
-      ExplicitLeft = 632
-      ExplicitTop = 19
-      ExplicitHeight = 59
+      ExplicitLeft = 672
+      ExplicitTop = 89
+      ExplicitWidth = 25
+      ExplicitHeight = 26
       inherited estiloGrid: TcxStyleRepository
         Top = 8
         PixelsPerInch = 96
@@ -164,20 +167,21 @@ object PagEntradas: TPagEntradas
         Width = 50
         Height = 25
         Caption = 'Limpar'
-        TabOrder = 0
+        TabOrder = 2
         OnClick = LimparDatasBtnClick
       end
       object DataInicialEdit: TcxDateEdit
         Left = 56
         Top = 24
-        TabOrder = 1
+        TabOrder = 0
         OnClick = DataInicialEditClick
         Width = 105
       end
       object DataFinalEdit: TcxDateEdit
         Left = 56
         Top = 51
-        TabOrder = 2
+        TabOrder = 1
+        OnClick = DataFinalEditClick
         Width = 105
       end
     end
@@ -208,6 +212,7 @@ object PagEntradas: TPagEntradas
         Width = 57
         Height = 21
         TabOrder = 0
+        OnClick = CodInicialEditClick
       end
       object CodFinalEdit: TNumberBox
         Left = 48
@@ -215,6 +220,7 @@ object PagEntradas: TPagEntradas
         Width = 57
         Height = 21
         TabOrder = 1
+        OnClick = CodFinalEditClick
       end
       object Button2: TButton
         Left = 120
@@ -229,11 +235,22 @@ object PagEntradas: TPagEntradas
     object BuscarBtn: TBitBtn
       Left = 552
       Top = 41
-      Width = 57
+      Width = 81
       Height = 42
+      Caption = 'Filtrar'
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 3
+      OnClick = BuscarBtnClick
+    end
+    object MostrarTudoBtn: TButton
+      Left = 639
+      Top = 41
+      Width = 84
+      Height = 42
+      Caption = 'Mostrar tudo'
+      TabOrder = 4
+      OnClick = MostrarTudoBtnClick
     end
   end
   object PopupEntradas: TPopupMenu

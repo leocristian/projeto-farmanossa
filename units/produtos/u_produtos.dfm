@@ -53,6 +53,7 @@ object PagProdutos: TPagProdutos
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = prod_descricao
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20

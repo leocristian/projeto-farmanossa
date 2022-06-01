@@ -96,6 +96,7 @@ object FormRel2: TFormRel2
       OptionsSelection.CheckBoxPosition = cbpIndicator
       OptionsSelection.CheckBoxVisibility = [cbvDataRow]
       OptionsSelection.ShowCheckBoxesDynamically = True
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20

@@ -53,6 +53,7 @@ object PagLocais: TPagLocais
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = loc_descricao
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20

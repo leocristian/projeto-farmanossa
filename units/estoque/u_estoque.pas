@@ -188,10 +188,12 @@ begin
   if CampoProdBox.Text = 'CÓDIGO' then
   begin
     ProdEdit.NumbersOnly := True;
+    ProdEdit.MaxLength := 5;
   end
   else
   begin
     ProdEdit.NumbersOnly := False;
+    ProdEdit.MaxLength := 50;
   end;
 end;
 
@@ -218,10 +220,12 @@ begin
   if LocalSelecao.Text = 'CÓDIGO' then
   begin
     LocalEdit.NumbersOnly := True;
+    LocalEdit.MaxLength := 5;
   end
   else
   begin
     LocalEdit.NumbersOnly := False;
+    LocalEdit.MaxLength := 50;
   end;
 end;
 

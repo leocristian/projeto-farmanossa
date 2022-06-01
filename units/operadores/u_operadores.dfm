@@ -56,6 +56,7 @@ object PagOperador: TPagOperador
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = ope_nome
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = '  '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20

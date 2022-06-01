@@ -4047,6 +4047,7 @@ object FormPrincipal: TFormPrincipal
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 5
+      NumbersOnly = True
       TabOrder = 0
       OnKeyPress = BuscaFuncEditKeyPress
     end

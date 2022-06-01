@@ -65,6 +65,7 @@ object PagSaidas: TPagSaidas
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = sai_codigo
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20

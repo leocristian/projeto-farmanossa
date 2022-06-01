@@ -5,7 +5,7 @@ object PagEstoque: TPagEstoque
   BorderStyle = bsSingle
   Caption = 'PagEstoque'
   ClientHeight = 483
-  ClientWidth = 1126
+  ClientWidth = 963
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,17 +14,18 @@ object PagEstoque: TPagEstoque
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_filtro: TPanel
     Left = 0
     Top = 0
-    Width = 1126
+    Width = 963
     Height = 137
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
-    ExplicitWidth = 823
+    ExplicitWidth = 1126
     object Label2: TLabel
       Left = 23
       Top = 94
@@ -59,9 +60,10 @@ object PagEstoque: TPagEstoque
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemIndex = 0
+      ItemIndex = 1
       TabOrder = 5
-      Text = 'C'#211'DIGO'
+      Text = 'DESCRI'#199#194'O'
+      OnChange = LocalSelecaoChange
       Items.Strings = (
         'C'#211'DIGO'
         'DESCRI'#199#194'O')
@@ -73,6 +75,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       CharCase = ecUpperCase
       TabOrder = 6
+      OnClick = LocalEditClick
     end
     object QuantidadeBox: TComboBox
       Left = 283
@@ -111,9 +114,10 @@ object PagEstoque: TPagEstoque
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemIndex = 0
+      ItemIndex = 1
       TabOrder = 0
-      Text = 'C'#211'DIGO'
+      Text = 'DESCRI'#199#194'O'
+      OnChange = CampoProdBoxChange
       Items.Strings = (
         'C'#211'DIGO'
         'DESCRI'#199#194'O')
@@ -125,6 +129,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       CharCase = ecUpperCase
       TabOrder = 1
+      OnClick = ProdEditClick
     end
     object BitBtn1: TBitBtn
       Left = 619
@@ -145,18 +150,18 @@ object PagEstoque: TPagEstoque
       MaxLength = 5
       TabOrder = 4
       Visible = False
+      OnClick = QuantidadeEditClick
     end
   end
   object gridEstoque: TcxGrid
     Left = 0
     Top = 137
-    Width = 1126
+    Width = 963
     Height = 346
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
-    ExplicitTop = 143
-    ExplicitWidth = 823
+    ExplicitWidth = 1126
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -182,6 +187,7 @@ object PagEstoque: TPagEstoque
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -192,33 +198,39 @@ object PagEstoque: TPagEstoque
         AlternateCaption = 'Descri'#231#227'o'
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
         Width = 266
       end
       object prod_status: TcxGridDBColumn
         Caption = 'Status'
         DataBinding.FieldName = 'prod_status'
+        DataBinding.IsNullValueType = True
         Width = 74
       end
       object loc_codigo: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'C'#243'digo do Local de estoque'
         DataBinding.FieldName = 'loc_codigo'
+        DataBinding.IsNullValueType = True
         Width = 164
       end
       object loc_descricao: TcxGridDBColumn
         Caption = 'Local de estoque'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
         Width = 196
       end
       object qtd_estoque: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Quantidade em Estoque'
         DataBinding.FieldName = 'qtd_estoque'
+        DataBinding.IsNullValueType = True
         Width = 144
       end
     end
