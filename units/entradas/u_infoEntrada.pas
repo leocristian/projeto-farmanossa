@@ -216,6 +216,7 @@ begin
     pn_datas.Enabled := true;
     FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
+    LoteEdit.Enabled := True;
     DtFabricacaoEdit.Clear;
     DtVencimentoEdit.Clear;
     CodProdEdit.SetFocus;
@@ -374,8 +375,6 @@ begin
     q1.ParamByName('local').Value := CodLocalEdit.Text;
     q1.ParamByName('lote').Value := LoteEdit.Text;
     q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
-
-    showmessage(q1.SQL.Text);
 
     if Confirma('Confirmar operação?') then
     begin

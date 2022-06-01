@@ -37,6 +37,7 @@ type
     procedure CodProdEditExit(Sender: TObject);
     procedure CodLocalEditExit(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -154,6 +155,14 @@ begin
     Perform(wm_nextdlgctl, 0, 0);
   end
   else if key = #27 then close
+end;
+
+procedure TFormRel1.FormShow(Sender: TObject);
+begin
+  CodProdEdit.Clear;
+  DescProdEdit.Clear;
+  CodLocalEdit.Clear;
+  DescLocalEdit.Clear;
 end;
 
 procedure TFormRel1.LimparLocalClick(Sender: TObject);

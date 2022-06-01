@@ -38,6 +38,7 @@ type
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
+    procedure CampoBuscaChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,7 +52,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_infoSaida, u_infoEntrada;
+uses u_dm1, u_controleForm, u_infoSaida, u_infoEntrada, u_filtro_rel_1;
 
 procedure TBuscaLocalForm.BuscaBtnClick(Sender: TObject);
 var
@@ -87,6 +88,19 @@ begin
 
 end;
 
+procedure TBuscaLocalForm.CampoBuscaChange(Sender: TObject);
+begin
+  CampoEdit.Clear;
+  if CampoBusca.Text = 'CÓDIGO' then
+  begin
+    CampoEdit.NumbersOnly := True;
+  end
+  else
+  begin
+    CampoEdit.NumbersOnly := False;
+  end;
+end;
+
 procedure TBuscaLocalForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   tb_locais.Close;
@@ -106,6 +120,7 @@ procedure TBuscaLocalForm.FormShow(Sender: TObject);
 begin
   CampoEdit.Clear;
   CampoEdit.SetFocus;
+  CampoBusca.ItemIndex := 0;
   tb_locais.Close;
   FrameButtons1.SalvarBtn.Font.Color := clRed;
 end;
@@ -132,26 +147,33 @@ begin
   descLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[1];
   statusLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[2];
 
-  if statusLoc = 'INATIVO' then
+  if (FrameButtons1.ModoEdit.Text = 'E') or (FrameButtons1.ModoEdit.Text = 'S') then
   begin
-    Aviso('O Produto ' + descLoc + ' está INATIVO!');
-    Exit;
-  end;
-
-  if FrameButtons1.ModoEdit.Text = 'E' then
-  begin
-    FormEntrada.CodLocalEdit.Text := IntToStr(codLoc);
-    FormEntrada.DescLocalEdit.Text := descLoc;
-    FormEntrada.LoteEdit.SetFocus;
+    if statusLoc = 'INATIVO' then
+    begin
+      Aviso('O Local de Estoque ' + descLoc + ' está INATIVO!');
+      Exit;
+    end;
+    if FrameButtons1.ModoEdit.Text = 'E' then
+    begin
+      FormEntrada.CodLocalEdit.Text := IntToStr(codLoc);
+      FormEntrada.DescLocalEdit.Text := descLoc;
+      if FormEntrada.LoteEdit.Enabled then
+        FormEntrada.LoteEdit.SetFocus;
+    end
+    else if FrameButtons1.ModoEdit.Text = 'S' then
+    begin
+      FormSaida.CodLocalEdit.Text := IntToStr(codLoc);
+      FormSaida.DescLocalEdit.Text := descLoc;
+      FormSaida.QtdProdEdit.SetFocus;
+    end
   end
-  else if FrameButtons1.ModoEdit.Text = 'S' then
+  else if FrameButtons1.ModoEdit.Text = 'R1' then
   begin
-    FormSaida.CodLocalEdit.Text := IntToStr(codLoc);
-    FormSaida.DescLocalEdit.Text := descLoc;
-    FormSaida.CodLocalEdit.SetFocus;
-    FormEntrada.LoteEdit.SetFocus;
+    FormRel1.CodLocalEdit.Text := IntToStr(codLoc);
+    FormRel1.DescLocalEdit.Text := descLoc;
+    FormRel1.Rel1Btn.SetFocus;
   end;
-
   Close;
 end;
 

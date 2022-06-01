@@ -26,7 +26,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Panel2: TPanel;
-    BitBtn1: TBitBtn;
+    EncerrarBtn: TBitBtn;
     ImageList1: TImageList;
     Image1: TImage;
     BitBtn2: TBitBtn;
@@ -38,13 +38,15 @@ type
     procedure CadProdutosClick(Sender: TObject);
     procedure CadLocaisClick(Sender: TObject);
     procedure EntradaMercClick(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure EncerrarBtnClick(Sender: TObject);
     procedure SaidaMercClick(Sender: TObject);
     procedure ConsultaEstoqueClick(Sender: TObject);
     procedure RelEstoqueClick(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure BuscaFuncEditKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -67,7 +69,7 @@ begin
   Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
   Params.WndParent := GetDesktopWindow;
 end;
-procedure TFormPrincipal.BitBtn1Click(Sender: TObject);
+procedure TFormPrincipal.EncerrarBtnClick(Sender: TObject);
 begin
   if Confirma('Deseja realmente encerrar o sistema?') then
   begin
@@ -92,9 +94,20 @@ begin
   else if BuscaFuncEdit.Text = '1000' then EntradaMercClick(Sender)
   else if BuscaFuncEdit.Text = '1100' then SaidaMercClick(Sender)
   else if BuscaFuncEdit.Text = '1200' then ConsultaEstoqueClick(Sender)
-  else if BuscaFuncEdit.Text = 'REL' then RelEstoqueClick(Sender);
+  else if BuscaFuncEdit.Text = 'REL' then RelEstoqueClick(Sender)
+  else BuscaFuncEdit.SetFocus;
 
   BuscaFuncEdit.Clear;
+end;
+
+procedure TFormPrincipal.BuscaFuncEditKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then EncerrarBtnClick(Sender);
 end;
 
 procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
@@ -130,6 +143,17 @@ end;
 procedure TFormPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Application.terminate;
+end;
+
+procedure TFormPrincipal.FormShow(Sender: TObject);
+begin
+  PagOperador.Close;
+  PagProdutos.Close;
+  PagLocais.Close;
+  PagEntradas.Close;
+  PagSaidas.Close;
+  PagEstoque.Close;
+  PagRelatorios.Close;
 end;
 
 procedure TFormPrincipal.RelEstoqueClick(Sender: TObject);

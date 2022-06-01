@@ -94,10 +94,12 @@ begin
   if CampoBusca.Text = 'CÓDIGO' then
   begin
     CampoEdit.NumbersOnly := True;
+    CampoEdit.MaxLength := 5;
   end
   else
   begin
     CampoEdit.NumbersOnly := False;
+    CampoEdit.MaxLength := 50;
   end;
 end;
 

@@ -32,6 +32,7 @@ type
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     BuscaFuncEdit: TEdit;
+    Label3: TLabel;
 
     procedure CreateParams(var Params: TCreateParams); override;
     procedure CadOperadoresClick(Sender: TObject);

@@ -77,8 +77,8 @@ begin
     q1.Connection := dm1.con1;
 
     q1.SQL.Clear;
-    q1.SQL.Add('update tb_movimentacoes set mov_produto = :produto, mov_local = :local');
-    q1.SQL.Add('mov_lote = :lote, mov_quantidade = :quantidade;');
+    q1.SQL.Add('update tb_movimentacoes set mov_produto = :produto, mov_local = :local,');
+    q1.SQL.Add('mov_lote = :lote, mov_quantidade = :quantidade ');
     q1.SQL.Add('where mov_cod_operacao = :operacao');
 
     q1.ParamByName('produto').Value := prod;
@@ -238,12 +238,9 @@ begin
       q1.SQL.Add('select e.ent_codigo, e.ent_produto, p.prod_descricao, e.ent_local,');
       q1.SQL.Add('l.loc_descricao, e.ent_lote, lotes.lote_dtfabricacao, lotes.lote_dtvencimento, e.ent_quantidade');
       q1.SQL.Add(' from tb_produtos as p');
-      q1.SQL.Add('inner join tb_entradas as e');
-      q1.SQL.Add('on ent_produto = prod_codigo');
-      q1.SQL.Add('inner join tb_locais_estoque as l');
-      q1.SQL.Add('on loc_codigo = ent_local');
-      q1.SQL.Add('inner join tb_lotes as lotes');
-      q1.SQL.Add('on lote_codigo = ent_lote');
+      q1.SQL.Add('inner join tb_entradas as e on ent_produto = prod_codigo');
+      q1.SQL.Add('inner join tb_locais_estoque as l on loc_codigo = ent_local');
+      q1.SQL.Add('inner join tb_lotes as lotes on lote_codigo = ent_lote');
       q1.SQL.Add('where ent_codigo = :codigo');
 
       q1.ParamByName('codigo').Value := codigo;
@@ -275,6 +272,8 @@ begin
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := true;
+      pn_datas.Enabled := False;
+      LoteEdit.Enabled := False;
       FrameButtons1.SalvarBtn.Visible := true;
       FrameButtons1.SalvarBtn.Caption := 'Salvar Alterações';
       CodProdEdit.SetFocus;
@@ -361,27 +360,13 @@ begin
       q1.SQL.Clear;
       ent_codigo := CodEdit.Text;
 
-      if ModoLote.Text = 'N' then
-      begin
-        q1.SQL.Add('insert into tb_lotes (lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade) values (');
-        q1.SQL.Add(':lote, :dtfabricacao, :dtvencimento, :quantidade);');
-        q1.ParamByName('dtfabricacao').Value := DtFabricacaoEdit.Date;
-        q1.ParamByName('dtvencimento').Value := DtVencimentoEdit.Date;
-      end
-      else if ModoLote.Text = 'A' then
-      begin
-        // Atualizar lote com a nova quantidade
-        q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
-        q1.SQL.Add('where lote_codigo = :lote;');
-      end;
-
-      // Atualizar movimentação do prouto
-      AtualizarMovimentacao(CodEdit.Text, CodProdEdit.Text, CodLocalEdit.Text, LoteEdit.Text, QtdProdEdit.Text);
+      q1.SQL.Add('update tb_lotes set lote_quantidade = :quantidade, lote_produto = :produto, lote_local = :local');
+      q1.SQL.Add('where lote_codigo = :lote;');
 
       q1.SQL.Add('update tb_entradas set ');
       q1.SQL.Add('ent_produto = :produto, ent_local = :local, ent_lote = :lote, ');
       q1.SQL.Add('ent_quantidade = :quantidade');
-      q1.SQl.Add('where ent_codigo = :codigo')
+      q1.SQl.Add('where ent_codigo = :codigo;')
     end;
 
     q1.ParamByName('codigo').Value := ent_codigo;
@@ -389,6 +374,8 @@ begin
     q1.ParamByName('local').Value := CodLocalEdit.Text;
     q1.ParamByName('lote').Value := LoteEdit.Text;
     q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
+
+    showmessage(q1.SQL.Text);
 
     if Confirma('Confirmar operação?') then
     begin
@@ -418,6 +405,10 @@ begin
             Aviso(e.message);
           end;
 
+        end
+        else if FrameButtons1.ModoEdit.Text = 'A' then
+        begin
+          AtualizarMovimentacao(CodEdit.Text, CodProdEdit.Text, CodLocalEdit.Text, LoteEdit.Text, QtdProdEdit.Text);
         end;
 
         PagEntradas.gridEntradasDBTableView1.DataController.RefreshExternalData;

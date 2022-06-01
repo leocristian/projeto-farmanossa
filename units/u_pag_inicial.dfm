@@ -1072,6 +1072,7 @@ object FormPrincipal: TFormPrincipal
     Height = 402
     Align = alClient
     TabOrder = 0
+    ExplicitTop = 79
     DesignSize = (
       813
       402)
@@ -1126,8 +1127,6 @@ object FormPrincipal: TFormPrincipal
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 8
     DesignSize = (
       813
       73)
@@ -4002,6 +4001,13 @@ object FormPrincipal: TFormPrincipal
       Stretch = True
       Transparent = True
     end
+    object Label3: TLabel
+      Left = 72
+      Top = 11
+      Width = 157
+      Height = 13
+      Caption = 'Digite o c'#243'digo da funcionalidade'
+    end
     object EncerrarBtn: TBitBtn
       Left = 736
       Top = 3
@@ -4025,7 +4031,7 @@ object FormPrincipal: TFormPrincipal
       OnClick = BitBtn2Click
     end
     object BitBtn3: TBitBtn
-      Left = 255
+      Left = 263
       Top = 19
       Width = 49
       Height = 37
@@ -4037,7 +4043,7 @@ object FormPrincipal: TFormPrincipal
     object BuscaFuncEdit: TEdit
       Left = 72
       Top = 27
-      Width = 177
+      Width = 185
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 5

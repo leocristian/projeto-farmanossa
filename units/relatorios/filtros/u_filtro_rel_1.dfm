@@ -15,6 +15,7 @@ object FormRel1: TFormRel1
   OldCreateOrder = False
   WindowState = wsMaximized
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_filtro: TPanel

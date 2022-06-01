@@ -28,9 +28,6 @@ object PagEntradas: TPagEntradas
     Height = 291
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 95
-    ExplicitWidth = 723
-    ExplicitHeight = 323
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -57,11 +54,13 @@ object PagEntradas: TPagEntradas
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = ent_codigo
       OptionsSelection.CellSelect = False
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
       Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
       object ent_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
@@ -126,8 +125,6 @@ object PagEntradas: TPagEntradas
     Height = 121
     Align = alTop
     TabOrder = 1
-    ExplicitTop = -6
-    ExplicitWidth = 723
     inline FrameGrid1: TFrameGrid
       Left = 672
       Top = 89

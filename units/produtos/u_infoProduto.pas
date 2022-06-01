@@ -99,12 +99,14 @@ begin
     Caption := 'Incluir Produto';
     pn_form.Enabled := True;
     CodEdit.Text := '00';
+
     DescricaoEdit.SetFocus;
     DescricaoEdit.Clear;
     FrameButtons.SalvarBtn.Visible := True;
     EstNegativoBox.ItemIndex := 0;
     StatusEntBox.ItemIndex := 0;
-    StatusSaiBox.ItemIndex := 0
+    StatusSaiBox.ItemIndex := 0;
+    StatusProdBox.ItemIndex := 0;
   end
   else if FrameButtons.ModoEdit.Text = 'A' then
   begin
