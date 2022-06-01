@@ -27,6 +27,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = -6
     DesignSize = (
       552
       204)
@@ -113,7 +114,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       CharCase = ecUpperCase
       MaxLength = 50
       ReadOnly = True
-      TabOrder = 3
+      TabOrder = 6
     end
     object DescLocalEdit: TEdit
       Left = 308
@@ -125,7 +126,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       CharCase = ecUpperCase
       MaxLength = 70
       ReadOnly = True
-      TabOrder = 4
+      TabOrder = 7
     end
     object CodLocalEdit: TEdit
       Left = 159
@@ -143,7 +144,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       Width = 65
       Height = 21
       MaxLength = 5
-      TabOrder = 5
+      TabOrder = 3
     end
     object LimparProd: TBitBtn
       Left = 269
@@ -152,7 +153,8 @@ object DetalharSaidaForm: TDetalharSaidaForm
       Height = 22
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 6
+      TabOrder = 8
+      TabStop = False
     end
     object LimparLocal: TBitBtn
       Left = 269
@@ -161,7 +163,8 @@ object DetalharSaidaForm: TDetalharSaidaForm
       Height = 22
       ImageIndex = 1
       Images = ImageList1
-      TabOrder = 7
+      TabOrder = 9
+      TabStop = False
     end
     object pn_datas: TPanel
       Left = 41
@@ -169,7 +172,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       Width = 245
       Height = 53
       BevelOuter = bvNone
-      TabOrder = 8
+      TabOrder = 5
       DesignSize = (
         245
         53)
@@ -213,7 +216,7 @@ object DetalharSaidaForm: TDetalharSaidaForm
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      TabOrder = 9
+      TabOrder = 4
     end
   end
   inline FrameButtons1: TFrameButtons
