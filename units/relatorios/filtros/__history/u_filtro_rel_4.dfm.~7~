@@ -242,7 +242,7 @@ object FormRel4: TFormRel4
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.822115416670000000
-    ReportOptions.LastChange = 44714.630544212960000000
+    ReportOptions.LastChange = 44714.626589016200000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -464,7 +464,7 @@ object FormRel4: TFormRel4
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 56.692950000000000000
+        Height = 37.795300000000000000
         Top = 151.181200000000000000
         Width = 1046.929810000000000000
         DataSet = db_rel_4
@@ -494,7 +494,7 @@ object FormRel4: TFormRel4
           AllowVectorExport = True
           Left = 83.149870000000000000
           Width = 132.289190000000000000
-          Height = 37.795300000000000000
+          Height = 18.897650000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
@@ -525,7 +525,7 @@ object FormRel4: TFormRel4
           AllowVectorExport = True
           Left = 343.949060000000000000
           Width = 215.440940000000000000
-          Height = 37.795300000000000000
+          Height = 18.897650000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
@@ -603,7 +603,7 @@ object FormRel4: TFormRel4
         FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
-        Top = 268.346630000000000000
+        Top = 249.448980000000000000
         Width = 1046.929810000000000000
         object Memo3: TfrxMemoView
           Align = baWidth

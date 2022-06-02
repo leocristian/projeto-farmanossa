@@ -126,6 +126,7 @@ begin
   end;
 
   tb_rel_3.SQL.Add(')');
+  tb_rel_3.SQL.Add('order by prod_codigo, lote_dtvencimento');
 
   ds_rel_3.DataSet := tb_rel_3;
   tb_rel_3.Open;

@@ -242,7 +242,7 @@ object FormRel4: TFormRel4
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.822115416670000000
-    ReportOptions.LastChange = 44714.630544212960000000
+    ReportOptions.LastChange = 44709.822115416670000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -320,9 +320,8 @@ object FormRel4: TFormRel4
       Width = 1000.000000000000000000
     end
     object Page1: TfrxReportPage
-      Orientation = poLandscape
-      PaperWidth = 297.000000000000000000
-      PaperHeight = 210.000000000000000000
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
       PaperSize = 9
       LeftMargin = 10.000000000000000000
       RightMargin = 10.000000000000000000
@@ -339,11 +338,11 @@ object FormRel4: TFormRel4
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
-        Width = 1046.929810000000000000
+        Width = 718.110700000000000000
         object Memo1: TfrxMemoView
           Align = baWidth
           AllowVectorExport = True
-          Width = 1046.929810000000000000
+          Width = 718.110700000000000000
           Height = 22.677180000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -369,7 +368,7 @@ object FormRel4: TFormRel4
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
-        Width = 1046.929810000000000000
+        Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           AllowVectorExport = True
           Width = 718.110236220000000000
@@ -404,8 +403,8 @@ object FormRel4: TFormRel4
         end
         object Memo8: TfrxMemoView
           AllowVectorExport = True
-          Left = 230.559190000000000000
-          Width = 86.930940000000000000
+          Left = 177.639060000000000000
+          Width = 71.810940000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
@@ -413,7 +412,7 @@ object FormRel4: TFormRel4
         end
         object Memo9: TfrxMemoView
           AllowVectorExport = True
-          Left = 343.946710000000000000
+          Left = 249.447650000000000000
           Width = 151.182350000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -422,7 +421,7 @@ object FormRel4: TFormRel4
         end
         object Memo10: TfrxMemoView
           AllowVectorExport = True
-          Left = 566.950000000000000000
+          Left = 400.630000000000000000
           Width = 34.000940000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -431,7 +430,7 @@ object FormRel4: TFormRel4
         end
         object Memo11: TfrxMemoView
           AllowVectorExport = True
-          Left = 612.278120000000000000
+          Left = 434.629060000000000000
           Width = 94.480940000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -440,7 +439,7 @@ object FormRel4: TFormRel4
         end
         object Memo12: TfrxMemoView
           AllowVectorExport = True
-          Left = 733.229060000000000000
+          Left = 529.109060000000000000
           Width = 94.480940000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -449,7 +448,7 @@ object FormRel4: TFormRel4
         end
         object Memo13: TfrxMemoView
           AllowVectorExport = True
-          Left = 861.730000000000000000
+          Left = 623.629060000000000000
           Width = 94.480940000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -464,17 +463,17 @@ object FormRel4: TFormRel4
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 56.692950000000000000
+        Height = 18.897650000000000000
         Top = 151.181200000000000000
-        Width = 1046.929810000000000000
+        Width = 718.110700000000000000
         DataSet = db_rel_4
         DataSetName = 'frxDBDataset1'
         RowCount = 0
         object frxDBDataset1frxDBDataset1: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 34.020000000000000000
-          Width = 41.570000000000000000
+          Left = 11.340000000000000000
+          Width = 64.250000000000000000
           Height = 18.897650000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
@@ -493,8 +492,8 @@ object FormRel4: TFormRel4
           IndexTag = 1
           AllowVectorExport = True
           Left = 83.149870000000000000
-          Width = 132.289190000000000000
-          Height = 37.795300000000000000
+          Width = 86.930130000000000000
+          Height = 18.897650000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
@@ -504,8 +503,8 @@ object FormRel4: TFormRel4
         object frxDBDataset1frxDBDataset12: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 275.919060000000000000
-          Width = 41.570940000000000000
+          Left = 170.079870000000000000
+          Width = 71.811070000000000000
           Height = 18.897650000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
@@ -523,9 +522,9 @@ object FormRel4: TFormRel4
         object frxDBDataset1frxDBDataset13: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 343.949060000000000000
-          Width = 215.440940000000000000
-          Height = 37.795300000000000000
+          Left = 249.450000000000000000
+          Width = 151.180000000000000000
+          Height = 18.897650000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
@@ -535,7 +534,7 @@ object FormRel4: TFormRel4
         object frxDBDataset1frxDBDataset14: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 566.950000000000000000
+          Left = 400.630000000000000000
           Width = 26.440940000000000000
           Height = 18.897650000000000000
           DataSet = db_rel_4
@@ -554,7 +553,7 @@ object FormRel4: TFormRel4
         object frxDBDataset1frxDBDataset15: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 612.279060000000000000
+          Left = 434.630000000000000000
           Width = 94.480000000000000000
           Height = 18.897650000000000000
           DataSet = db_rel_4
@@ -566,7 +565,7 @@ object FormRel4: TFormRel4
         object frxDBDataset1frxDBDataset16: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 733.230000000000000000
+          Left = 529.110000000000000000
           Width = 94.480000000000000000
           Height = 18.897650000000000000
           DataSet = db_rel_4
@@ -578,7 +577,7 @@ object FormRel4: TFormRel4
         object frxDBDataset1frxDBDataset17: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 861.729870000000000000
+          Left = 631.149060000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
           DataSet = db_rel_4
@@ -603,12 +602,12 @@ object FormRel4: TFormRel4
         FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
-        Top = 268.346630000000000000
-        Width = 1046.929810000000000000
+        Top = 230.551330000000000000
+        Width = 718.110700000000000000
         object Memo3: TfrxMemoView
           Align = baWidth
           AllowVectorExport = True
-          Width = 1046.929810000000000000
+          Width = 718.110700000000000000
           Frame.Typ = [ftTop]
           Frame.Width = 2.000000000000000000
         end
@@ -624,7 +623,7 @@ object FormRel4: TFormRel4
         object Memo5: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 971.339210000000000000
+          Left = 642.520100000000000000
           Top = 1.000000000000000000
           Width = 75.590600000000000000
           Height = 22.677180000000000000

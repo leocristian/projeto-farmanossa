@@ -64,14 +64,19 @@ end;
 
 procedure TFormRel2.FormShow(Sender: TObject);
 begin
+
   tb_produtos.Close;
   tb_produtos.Connection := dm1.con1;
 
-  tb_produtos.SQL.Text := 'select prod_codigo, prod_descricao from tb_produtos order by prod_codigo';
-  tb_produtos.Open;
+  tb_produtos.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
+  tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
+  tb_produtos.SQL.Add('order by prod_codigo');
 
   ds_produtos.DataSet := tb_produtos;
   tb_produtos.Open;
+
+  grid_produtosDBTableView1.DataController.ClearSelection;
+  Checkbox1.Checked := False;
 end;
 
 procedure TFormRel2.Rel1BtnClick(Sender: TObject);
@@ -107,7 +112,6 @@ begin
 
   tb_rel_2.SQL.Add('where prod_codigo in (');
 
-  aviso(listaCod.Count.ToString);
   count := 0;
   for i in listaCod do
   begin
@@ -125,12 +129,13 @@ begin
   tb_rel_2.SQL.Add(')');
   tb_rel_2.SQL.Add('group by prod_codigo, prod_descricao');
 
-  Aviso(tb_rel_2.SQL.Text);
-//  ds_rel_2.DataSet := tb_rel_2;
-//
-//  tb_rel_2.Open;
-//  rel_2.ShowReport;
-//  tb_rel_2.Close;
+  ds_rel_2.DataSet := tb_rel_2;
+
+  tb_rel_2.Open;
+  rel_2.ShowReport;
+  tb_rel_2.Close;
+
+  FreeAndNil(listaCod);
 end;
 
 end.

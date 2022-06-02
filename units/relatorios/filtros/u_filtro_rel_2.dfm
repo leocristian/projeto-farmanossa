@@ -427,7 +427,7 @@ object FormRel2: TFormRel2
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.805296006950000000
-    ReportOptions.LastChange = 44709.805296006950000000
+    ReportOptions.LastChange = 44714.631455405090000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -505,8 +505,9 @@ object FormRel2: TFormRel2
       Width = 1000.000000000000000000
     end
     object Page1: TfrxReportPage
-      PaperWidth = 210.000000000000000000
-      PaperHeight = 297.000000000000000000
+      Orientation = poLandscape
+      PaperWidth = 297.000000000000000000
+      PaperHeight = 210.000000000000000000
       PaperSize = 9
       LeftMargin = 10.000000000000000000
       RightMargin = 10.000000000000000000
@@ -523,11 +524,11 @@ object FormRel2: TFormRel2
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
-        Width = 718.110700000000000000
+        Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
           Align = baWidth
           AllowVectorExport = True
-          Width = 718.110700000000000000
+          Width = 1046.929810000000000000
           Height = 22.677180000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -553,7 +554,7 @@ object FormRel2: TFormRel2
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
-        Width = 718.110700000000000000
+        Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           AllowVectorExport = True
           Width = 718.110236220000000000
@@ -579,7 +580,7 @@ object FormRel2: TFormRel2
         end
         object Memo7: TfrxMemoView
           AllowVectorExport = True
-          Left = 124.727180000000000000
+          Left = 200.287180000000000000
           Width = 442.222820000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -588,7 +589,7 @@ object FormRel2: TFormRel2
         end
         object Memo8: TfrxMemoView
           AllowVectorExport = True
-          Left = 566.948120000000000000
+          Left = 876.868120000000000000
           Width = 75.571880000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -603,17 +604,17 @@ object FormRel2: TFormRel2
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 30.236240000000000000
+        Height = 37.795300000000000000
         Top = 151.181200000000000000
-        Width = 718.110700000000000000
+        Width = 1046.929810000000000000
         DataSet = db_rel_2
         DataSetName = 'frxDBDataset1'
         RowCount = 0
         object frxDBDataset1frxDBDataset1: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 7.560000000000000000
-          Width = 109.609060000000000000
+          Left = 86.940000000000000000
+          Width = 37.790000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -629,9 +630,9 @@ object FormRel2: TFormRel2
         object Memo9: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 124.730000000000000000
+          Left = 200.290000000000000000
           Width = 449.780000000000000000
-          Height = 18.897650000000000000
+          Height = 34.015770000000000000
           Frame.Typ = []
           Memo.UTF8W = (
             '[frxDBDataset1."prod_descricao"]')
@@ -639,7 +640,7 @@ object FormRel2: TFormRel2
         object frxDBDataset1frxDBDataset11: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 566.950000000000000000
+          Left = 876.870000000000000000
           Width = 68.010000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -662,12 +663,12 @@ object FormRel2: TFormRel2
         FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
-        Top = 241.889920000000000000
-        Width = 718.110700000000000000
+        Top = 249.448980000000000000
+        Width = 1046.929810000000000000
         object Memo3: TfrxMemoView
           Align = baWidth
           AllowVectorExport = True
-          Width = 718.110700000000000000
+          Width = 1046.929810000000000000
           Frame.Typ = [ftTop]
           Frame.Width = 2.000000000000000000
         end
@@ -683,9 +684,9 @@ object FormRel2: TFormRel2
         object Memo5: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 642.520100000000000000
+          Left = 959.977480000000000000
           Top = 1.000000000000000000
-          Width = 75.590600000000000000
+          Width = 86.952330000000000000
           Height = 22.677180000000000000
           Frame.Typ = []
           HAlign = haRight
