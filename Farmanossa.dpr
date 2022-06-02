@@ -30,7 +30,10 @@ uses
   u_filtro_rel_2 in 'units\relatorios\filtros\u_filtro_rel_2.pas' {FormRel2},
   u_filtro_rel_3 in 'units\relatorios\filtros\u_filtro_rel_3.pas' {FormRel3},
   u_filtro_rel_4 in 'units\relatorios\filtros\u_filtro_rel_4.pas' {FormRel4},
-  u_relatorios in 'units\relatorios\u_relatorios.pas';
+  u_relatorios in 'units\relatorios\u_relatorios.pas',
+  fm_filtroDataCod in 'units\frames\fm_filtroDataCod.pas' {FiltroDataCod: TFrame},
+  u_selecionaProdutos in 'units\relatorios\u_selecionaProdutos.pas' {SelecionaProdutosForm},
+  u_selecionarLocais in 'units\relatorios\u_selecionarLocais.pas' {SelecionarLocaisForm};
 
 {$R *.res}
 
@@ -63,6 +66,8 @@ begin
   Application.CreateForm(TFormRel2, FormRel2);
   Application.CreateForm(TFormRel3, FormRel3);
   Application.CreateForm(TFormRel4, FormRel4);
+  Application.CreateForm(TSelecionaProdutosForm, SelecionaProdutosForm);
+  Application.CreateForm(TSelecionarLocaisForm, SelecionarLocaisForm);
   Application.Run;
 end.
 
