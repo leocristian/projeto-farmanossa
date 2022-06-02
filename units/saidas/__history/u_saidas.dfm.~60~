@@ -1,7 +1,7 @@
 object PagSaidas: TPagSaidas
   Left = 0
   Top = 0
-  Caption = 'Sa'#237'das de Mercadorias'
+  Caption = 'PagSaidas'
   ClientHeight = 344
   ClientWidth = 774
   Color = clBtnFace
@@ -32,9 +32,9 @@ object PagSaidas: TPagSaidas
   end
   object gridSaidas: TcxGrid
     Left = 0
-    Top = 124
+    Top = 122
     Width = 774
-    Height = 220
+    Height = 222
     Align = alClient
     TabOrder = 1
     ExplicitTop = 121
@@ -135,25 +135,26 @@ object PagSaidas: TPagSaidas
     Left = 0
     Top = 0
     Width = 774
-    Height = 124
+    Height = 122
     Align = alTop
     TabOrder = 2
+    ExplicitLeft = -77
     inherited pn_busca: TPanel
       Width = 774
       ExplicitWidth = 851
       ExplicitHeight = 122
+      inherited FrameGrid2: TFrameGrid
+        inherited estiloGrid: TcxStyleRepository
+          PixelsPerInch = 96
+        end
+      end
       inherited dataBox: TGroupBox
         inherited DataFinalEdit: TcxDateEdit
           OnClick = nil
         end
       end
-      inherited CodigoBox: TGroupBox
-        inherited CodInicialEdit: TNumberBox
-          OnClick = FiltroDataCod1CodInicialEditClick
-        end
-      end
-      inherited BuscarBtn: TBitBtn
-        OnClick = BuscarBtnClick
+      inherited MostrarTudoBtn: TButton
+        OnClick = nil
       end
     end
   end

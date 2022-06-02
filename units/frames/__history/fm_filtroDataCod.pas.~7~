@@ -1,0 +1,73 @@
+unit fm_filtroDataCod;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.ComCtrls,
+  dxCore, cxDateUtils, Vcl.Buttons, Vcl.StdCtrls, Vcl.NumberBox, cxTextEdit,
+  cxMaskEdit, cxDropDownEdit, cxCalendar, fr_estilo, Vcl.ExtCtrls,
+  System.ImageList, Vcl.ImgList;
+
+type
+  TFiltroDataCodigo = class(TFrame)
+    pn_busca: TPanel;
+    FrameGrid2: TFrameGrid;
+    dataBox: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    LimparDatasBtn: TButton;
+    DataInicialEdit: TcxDateEdit;
+    DataFinalEdit: TcxDateEdit;
+    CodigoBox: TGroupBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    CodInicialEdit: TNumberBox;
+    CodFinalEdit: TNumberBox;
+    Button2: TButton;
+    BuscarBtn: TBitBtn;
+    MostrarTudoBtn: TButton;
+    ImageList1: TImageList;
+    procedure DataInicialEditClick(Sender: TObject);
+    procedure DataFinalEditDblClick(Sender: TObject);
+    procedure LimparDatasBtnClick(Sender: TObject);
+    procedure CodInicialEditClick(Sender: TObject);
+    procedure CodFinalEditClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFiltroDataCodigo.CodFinalEditClick(Sender: TObject);
+begin
+  CodFinalEdit.SetFocus;
+end;
+
+procedure TFiltroDataCodigo.CodInicialEditClick(Sender: TObject);
+begin
+  CodInicialEdit.SetFocus;
+end;
+
+procedure TFiltroDataCodigo.DataFinalEditDblClick(Sender: TObject);
+begin
+  DataFinalEdit.SetFocus;
+end;
+
+procedure TFiltroDataCodigo.DataInicialEditClick(Sender: TObject);
+begin
+  DataInicialEdit.SetFocus;
+end;
+
+procedure TFiltroDataCodigo.LimparDatasBtnClick(Sender: TObject);
+begin
+  DataInicialEdit.Clear;
+  DataFinalEdit.Clear;
+end;
+
+end.

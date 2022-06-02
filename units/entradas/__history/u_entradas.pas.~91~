@@ -200,10 +200,8 @@ begin
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Open;
 
-  FiltroDataCod1.DataInicialEdit.Date := Date;
-  FiltroDataCod1.DataFinalEdit.Date := Date;
-  FiltroDataCod1.CodInicialEdit.Clear;
-  FiltroDataCod1.CodFinalEdit.Clear;
+  DataInicialEdit.Date := Date;
+  DataFinalEdit.Date := Date;
 end;
 
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);

@@ -1,196 +1,142 @@
-object PagSaidas: TPagSaidas
+object FiltroDataCodigo: TFiltroDataCodigo
   Left = 0
   Top = 0
-  Caption = 'Sa'#237'das de Mercadorias'
-  ClientHeight = 344
-  ClientWidth = 774
-  Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
-  Font.Style = []
-  KeyPreview = True
-  OldCreateOrder = False
-  PopupMenu = PopupSaidas
-  WindowState = wsMaximized
-  OnKeyDown = FormKeyDown
-  OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 13
-  inline FrameGrid1: TFrameGrid
-    Left = 351
-    Top = 144
-    Width = 77
-    Height = 86
-    TabOrder = 0
-    ExplicitLeft = 351
-    ExplicitTop = 144
-    inherited estiloGrid: TcxStyleRepository
-      PixelsPerInch = 96
-    end
-  end
-  object gridSaidas: TcxGrid
-    Left = 0
-    Top = 124
-    Width = 774
-    Height = 220
-    Align = alClient
-    TabOrder = 1
-    ExplicitTop = 121
-    ExplicitHeight = 223
-    object gridSaidasDBTableView1: TcxGridDBTableView
-      Navigator.Buttons.CustomButtons = <>
-      Navigator.Buttons.Insert.Enabled = False
-      Navigator.Buttons.Insert.Visible = False
-      Navigator.Buttons.Append.Enabled = False
-      Navigator.Buttons.Delete.Enabled = False
-      Navigator.Buttons.Delete.Visible = False
-      Navigator.Buttons.Edit.Enabled = False
-      Navigator.Buttons.Edit.Visible = False
-      Navigator.Buttons.Post.Enabled = False
-      Navigator.Buttons.Post.Visible = False
-      Navigator.Buttons.Cancel.Enabled = False
-      Navigator.Buttons.Cancel.Visible = False
-      Navigator.Buttons.Refresh.Enabled = False
-      Navigator.Buttons.Refresh.Visible = False
-      Navigator.Buttons.Filter.Enabled = False
-      Navigator.Buttons.Filter.Visible = False
-      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
-      Navigator.InfoPanel.Visible = True
-      Navigator.Visible = True
-      ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = ds_saidas
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      OptionsBehavior.IncSearch = True
-      OptionsBehavior.IncSearchItem = sai_codigo
-      OptionsSelection.CellSelect = False
-      OptionsView.NoDataToDisplayInfoText = ' '
-      OptionsView.GroupByBox = False
-      OptionsView.Indicator = True
-      OptionsView.IndicatorWidth = 20
-      Styles.ContentEven = FrameGrid1.linhas
-      Styles.IncSearch = FrameGrid1.buscaIncremental
-      Styles.Header = FrameGrid1.header
-      object sai_codigo: TcxGridDBColumn
-        Caption = 'C'#243'digo'
-        DataBinding.FieldName = 'sai_codigo'
-        DataBinding.IsNullValueType = True
-      end
-      object sai_produto: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Produto'
-        DataBinding.FieldName = 'sai_produto'
-        DataBinding.IsNullValueType = True
-        Width = 121
-      end
-      object prod_descricao: TcxGridDBColumn
-        Caption = 'Descri'#231#227'o do Produto'
-        DataBinding.FieldName = 'prod_descricao'
-        DataBinding.IsNullValueType = True
-        Width = 187
-      end
-      object sai_local: TcxGridDBColumn
-        Caption = 'Local de Estoque'
-        DataBinding.FieldName = 'sai_local'
-        DataBinding.IsNullValueType = True
-        Width = 125
-      end
-      object loc_descricao: TcxGridDBColumn
-        AlternateCaption = 'String'
-        Caption = 'Descri'#231#227'o do Local'
-        DataBinding.FieldName = 'loc_descricao'
-        DataBinding.IsNullValueType = True
-        Width = 148
-      end
-      object sai_lote: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Lote'
-        DataBinding.FieldName = 'sai_lote'
-        DataBinding.IsNullValueType = True
-        Width = 72
-      end
-      object sai_quantidade: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Quantidade'
-        DataBinding.FieldName = 'sai_quantidade'
-        DataBinding.IsNullValueType = True
-        Width = 90
-      end
-      object sai_data_hora: TcxGridDBColumn
-        AlternateCaption = 'Integer'
-        Caption = 'Data e Hora'
-        DataBinding.FieldName = 'sai_data_hora'
-        DataBinding.IsNullValueType = True
-        Width = 128
-      end
-    end
-    object gridSaidasLevel1: TcxGridLevel
-      GridView = gridSaidasDBTableView1
-    end
-  end
-  inline FiltroDataCod1: TFiltroDataCod
+  Width = 851
+  Height = 122
+  TabOrder = 0
+  object pn_busca: TPanel
     Left = 0
     Top = 0
-    Width = 774
-    Height = 124
-    Align = alTop
-    TabOrder = 2
-    inherited pn_busca: TPanel
-      Width = 774
-      ExplicitWidth = 851
-      ExplicitHeight = 122
-      inherited dataBox: TGroupBox
-        inherited DataFinalEdit: TcxDateEdit
-          OnClick = nil
-        end
+    Width = 851
+    Height = 122
+    Align = alClient
+    TabOrder = 0
+    ExplicitWidth = 774
+    ExplicitHeight = 121
+    inline FrameGrid2: TFrameGrid
+      Left = 672
+      Top = 89
+      Width = 25
+      Height = 26
+      TabOrder = 0
+      ExplicitLeft = 672
+      ExplicitTop = 89
+      ExplicitWidth = 25
+      ExplicitHeight = 26
+      inherited estiloGrid: TcxStyleRepository
+        Top = 8
+        PixelsPerInch = 96
       end
-      inherited CodigoBox: TGroupBox
-        inherited CodInicialEdit: TNumberBox
-          OnClick = FiltroDataCod1CodInicialEditClick
-        end
+    end
+    object dataBox: TGroupBox
+      Left = 40
+      Top = 10
+      Width = 257
+      Height = 95
+      Caption = 'Data de Entrada'
+      TabOrder = 1
+      object Label1: TLabel
+        Left = 19
+        Top = 27
+        Width = 31
+        Height = 13
+        Caption = 'Inicial:'
       end
-      inherited BuscarBtn: TBitBtn
-        OnClick = BuscarBtnClick
+      object Label2: TLabel
+        Left = 24
+        Top = 55
+        Width = 26
+        Height = 13
+        Caption = 'Final:'
+      end
+      object LimparDatasBtn: TButton
+        Left = 191
+        Top = 39
+        Width = 50
+        Height = 25
+        Caption = 'Limpar'
+        TabOrder = 2
+      end
+      object DataInicialEdit: TcxDateEdit
+        Left = 56
+        Top = 24
+        TabOrder = 0
+        OnClick = DataInicialEditClick
+        Width = 105
+      end
+      object DataFinalEdit: TcxDateEdit
+        Left = 56
+        Top = 51
+        TabOrder = 1
+        Width = 105
       end
     end
-  end
-  object tb_saidas: TUniTable
-    Left = 480
-    Top = 136
-  end
-  object ds_saidas: TDataSource
-    Left = 560
-    Top = 136
-  end
-  object PopupSaidas: TPopupMenu
-    Left = 633
-    Top = 136
-    object Detalhar1: TMenuItem
-      Caption = 'Detalhar...  (F1)'
-      OnClick = Detalhar1Click
+    object CodigoBox: TGroupBox
+      Left = 328
+      Top = 10
+      Width = 185
+      Height = 95
+      Caption = 'N'#250'mero da entrada'
+      TabOrder = 2
+      object Label3: TLabel
+        Left = 11
+        Top = 27
+        Width = 31
+        Height = 13
+        Caption = 'Inicial:'
+      end
+      object Label4: TLabel
+        Left = 16
+        Top = 55
+        Width = 26
+        Height = 13
+        Caption = 'Final:'
+      end
+      object CodInicialEdit: TNumberBox
+        Left = 48
+        Top = 24
+        Width = 57
+        Height = 21
+        TabOrder = 0
+      end
+      object CodFinalEdit: TNumberBox
+        Left = 48
+        Top = 51
+        Width = 57
+        Height = 21
+        TabOrder = 1
+      end
+      object Button2: TButton
+        Left = 120
+        Top = 39
+        Width = 50
+        Height = 25
+        Caption = 'Limpar'
+        TabOrder = 2
+      end
     end
-    object NovaSaida: TMenuItem
-      Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadoria  (F2)'
-      OnClick = NovaSaidaClick
+    object BuscarBtn: TBitBtn
+      Left = 544
+      Top = 41
+      Width = 81
+      Height = 42
+      Caption = 'Filtrar'
+      ImageIndex = 0
+      Images = ImageList1
+      TabOrder = 3
     end
-    object AlterarSaida: TMenuItem
-      Caption = '2 - Alterar sa'#237'da de mercadoria  (F3)'
-      OnClick = AlterarSaidaClick
-    end
-    object N1: TMenuItem
-      Caption = '-'
-    end
-    object CancelarSaida: TMenuItem
-      Caption = 'Cancelar Sa'#237'da (F4)'
-      OnClick = CancelarSaidaClick
+    object MostrarTudoBtn: TButton
+      Left = 639
+      Top = 41
+      Width = 84
+      Height = 42
+      Caption = 'Mostrar tudo'
+      TabOrder = 4
     end
   end
   object ImageList1: TImageList
-    Left = 448
-    Top = 200
+    Left = 768
+    Top = 46
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

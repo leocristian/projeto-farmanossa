@@ -1,7 +1,7 @@
 object PagSaidas: TPagSaidas
   Left = 0
   Top = 0
-  Caption = 'Sa'#237'das de Mercadorias'
+  Caption = 'PagSaidas'
   ClientHeight = 344
   ClientWidth = 774
   Color = clBtnFace

@@ -85,10 +85,12 @@ begin
      (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
   begin
     tb_saidas.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
-    tb_saidas.SQL.Add('and sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
 
     tb_saidas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
     tb_saidas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+
+    tb_saidas.SQL.Add('and sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
+
     tb_saidas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
     tb_saidas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
   end

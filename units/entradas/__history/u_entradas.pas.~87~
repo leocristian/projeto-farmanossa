@@ -90,24 +90,6 @@ begin
     tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
     tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
     tb_entradas.ParamByName('codigoFInal').Value := FiltroDataCod1.CodFinalEdit.Value;
-  end
-  else
-  begin
-    if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
-    begin
-      tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
-
-      tb_entradas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
-      tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
-    end;
-
-    if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
-    begin
-      tb_entradas.SQL.Add('where ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal');
-
-      tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-      tb_entradas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
-    end;
   end;
 
   ds_entradas.DataSet := tb_entradas;
@@ -200,10 +182,8 @@ begin
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Open;
 
-  FiltroDataCod1.DataInicialEdit.Date := Date;
-  FiltroDataCod1.DataFinalEdit.Date := Date;
-  FiltroDataCod1.CodInicialEdit.Clear;
-  FiltroDataCod1.CodFinalEdit.Clear;
+  DataInicialEdit.Date := Date;
+  DataFinalEdit.Date := Date;
 end;
 
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);

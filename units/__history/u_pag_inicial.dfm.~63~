@@ -1072,6 +1072,8 @@ object FormPrincipal: TFormPrincipal
     Height = 380
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 813
+    ExplicitHeight = 402
     DesignSize = (
       738
       380)
@@ -1083,6 +1085,8 @@ object FormPrincipal: TFormPrincipal
       Anchors = []
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 126
+      ExplicitTop = 128
       DesignSize = (
         561
         145)
@@ -1126,6 +1130,7 @@ object FormPrincipal: TFormPrincipal
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitWidth = 813
     DesignSize = (
       738
       73)
@@ -4017,6 +4022,7 @@ object FormPrincipal: TFormPrincipal
       Images = ImageList1
       TabOrder = 3
       OnClick = EncerrarBtnClick
+      ExplicitLeft = 736
     end
     object BitBtn2: TBitBtn
       Left = 606
@@ -4028,6 +4034,7 @@ object FormPrincipal: TFormPrincipal
       Images = ImageList1
       TabOrder = 2
       OnClick = BitBtn2Click
+      ExplicitLeft = 681
     end
     object BitBtn3: TBitBtn
       Left = 263
@@ -4046,6 +4053,7 @@ object FormPrincipal: TFormPrincipal
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 5
+      NumbersOnly = True
       TabOrder = 0
       OnKeyPress = BuscaFuncEditKeyPress
     end
