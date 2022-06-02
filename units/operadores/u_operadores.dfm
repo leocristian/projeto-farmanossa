@@ -3,7 +3,7 @@ object PagOperador: TPagOperador
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'PagOperador'
+  Caption = 'Operadores do Sistema'
   ClientHeight = 428
   ClientWidth = 787
   Color = clBtnFace

@@ -1,7 +1,7 @@
 object PagProdutos: TPagProdutos
   Left = 0
   Top = 0
-  Caption = 'PagProdutos'
+  Caption = 'Produtos'
   ClientHeight = 466
   ClientWidth = 819
   Color = clBtnFace

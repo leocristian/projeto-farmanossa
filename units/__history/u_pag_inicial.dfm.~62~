@@ -2,8 +2,8 @@ object FormPrincipal: TFormPrincipal
   Left = 0
   Top = 0
   Caption = 'Menu'
-  ClientHeight = 475
-  ClientWidth = 813
+  ClientHeight = 453
+  ClientWidth = 738
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1068,21 +1068,25 @@ object FormPrincipal: TFormPrincipal
   object pn_principal: TPanel
     Left = 0
     Top = 73
-    Width = 813
-    Height = 402
+    Width = 738
+    Height = 380
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 813
+    ExplicitHeight = 402
     DesignSize = (
-      813
-      402)
+      738
+      380)
     object Panel1: TPanel
-      Left = 126
-      Top = 128
+      Left = 89
+      Top = 117
       Width = 561
       Height = 145
       Anchors = []
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 126
+      ExplicitTop = 128
       DesignSize = (
         561
         145)
@@ -1121,15 +1125,14 @@ object FormPrincipal: TFormPrincipal
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 813
+    Width = 738
     Height = 73
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 8
+    ExplicitWidth = 813
     DesignSize = (
-      813
+      738
       73)
     object Image1: TImage
       Left = 16
@@ -4002,8 +4005,15 @@ object FormPrincipal: TFormPrincipal
       Stretch = True
       Transparent = True
     end
-    object BitBtn1: TBitBtn
-      Left = 736
+    object Label3: TLabel
+      Left = 72
+      Top = 11
+      Width = 157
+      Height = 13
+      Caption = 'Digite o c'#243'digo da funcionalidade'
+    end
+    object EncerrarBtn: TBitBtn
+      Left = 661
       Top = 3
       Width = 49
       Height = 46
@@ -4011,10 +4021,11 @@ object FormPrincipal: TFormPrincipal
       ImageIndex = 0
       Images = ImageList1
       TabOrder = 3
-      OnClick = BitBtn1Click
+      OnClick = EncerrarBtnClick
+      ExplicitLeft = 736
     end
     object BitBtn2: TBitBtn
-      Left = 681
+      Left = 606
       Top = 3
       Width = 49
       Height = 46
@@ -4023,9 +4034,10 @@ object FormPrincipal: TFormPrincipal
       Images = ImageList1
       TabOrder = 2
       OnClick = BitBtn2Click
+      ExplicitLeft = 681
     end
     object BitBtn3: TBitBtn
-      Left = 351
+      Left = 263
       Top = 19
       Width = 49
       Height = 37
@@ -4037,10 +4049,13 @@ object FormPrincipal: TFormPrincipal
     object BuscaFuncEdit: TEdit
       Left = 72
       Top = 27
-      Width = 257
+      Width = 185
       Height = 21
       CharCase = ecUpperCase
+      MaxLength = 5
+      NumbersOnly = True
       TabOrder = 0
+      OnKeyPress = BuscaFuncEditKeyPress
     end
   end
   object mn_principal: TMainMenu
@@ -4087,8 +4102,8 @@ object FormPrincipal: TFormPrincipal
   object ImageList1: TImageList
     Height = 60
     Width = 60
-    Left = 608
-    Top = 9
+    Left = 544
+    Top = 17
     Bitmap = {
       494C01010300080004003C003C00FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000F00000003C000000010020000000000000E1

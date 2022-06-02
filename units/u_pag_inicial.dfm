@@ -1,9 +1,9 @@
 object FormPrincipal: TFormPrincipal
   Left = 0
   Top = 0
-  Caption = 'Menu'
-  ClientHeight = 475
-  ClientWidth = 813
+  Caption = 'Menu Principal'
+  ClientHeight = 453
+  ClientWidth = 738
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1068,22 +1068,25 @@ object FormPrincipal: TFormPrincipal
   object pn_principal: TPanel
     Left = 0
     Top = 73
-    Width = 813
-    Height = 402
+    Width = 738
+    Height = 380
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 79
+    ExplicitWidth = 813
+    ExplicitHeight = 402
     DesignSize = (
-      813
-      402)
+      738
+      380)
     object Panel1: TPanel
-      Left = 126
-      Top = 128
+      Left = 89
+      Top = 117
       Width = 561
       Height = 145
       Anchors = []
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 126
+      ExplicitTop = 128
       DesignSize = (
         561
         145)
@@ -1122,13 +1125,14 @@ object FormPrincipal: TFormPrincipal
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 813
+    Width = 738
     Height = 73
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitWidth = 813
     DesignSize = (
-      813
+      738
       73)
     object Image1: TImage
       Left = 16
@@ -4009,7 +4013,7 @@ object FormPrincipal: TFormPrincipal
       Caption = 'Digite o c'#243'digo da funcionalidade'
     end
     object EncerrarBtn: TBitBtn
-      Left = 736
+      Left = 661
       Top = 3
       Width = 49
       Height = 46
@@ -4018,9 +4022,10 @@ object FormPrincipal: TFormPrincipal
       Images = ImageList1
       TabOrder = 3
       OnClick = EncerrarBtnClick
+      ExplicitLeft = 736
     end
     object BitBtn2: TBitBtn
-      Left = 681
+      Left = 606
       Top = 3
       Width = 49
       Height = 46
@@ -4029,6 +4034,7 @@ object FormPrincipal: TFormPrincipal
       Images = ImageList1
       TabOrder = 2
       OnClick = BitBtn2Click
+      ExplicitLeft = 681
     end
     object BitBtn3: TBitBtn
       Left = 263
@@ -4096,8 +4102,8 @@ object FormPrincipal: TFormPrincipal
   object ImageList1: TImageList
     Height = 60
     Width = 60
-    Left = 608
-    Top = 9
+    Left = 544
+    Top = 17
     Bitmap = {
       494C01010300080004003C003C00FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000F00000003C000000010020000000000000E1

@@ -213,6 +213,7 @@ begin
   if FrameButtons1.ModoEdit.Text = 'N' then
   begin
     pn_form.Enabled := true;
+    Caption := 'Nova Entrada';
     pn_datas.Enabled := true;
     FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
@@ -267,12 +268,14 @@ begin
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin
       pn_form.Enabled := false;
+      Caption := 'Exibir Entrada';
       FrameButtons1.SalvarBtn.Visible := false;
       FrameButtons1.SalvarBtn.Caption := 'Confirmar Entrada';
     end
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := true;
+      Caption := 'Alterar Entrada';
       pn_datas.Enabled := False;
       LoteEdit.Enabled := False;
       ModoLote.Text := 'A';

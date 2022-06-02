@@ -218,13 +218,14 @@ begin
     begin
       pn_form.Enabled := False;
       pn_datas.Enabled := False;
-
+      Caption := 'Exibir Saída';
       FrameButtons1.SalvarBtn.Visible := False;
       FrameButtons1.CancelarBtn.Caption := 'Fechar';
     end
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := True;
+      Caption := 'Alterar Saída';
       CodProdEdit.Enabled := False;
       DescProdEdit.Enabled := False;
       CodLocalEdit.Enabled := False;

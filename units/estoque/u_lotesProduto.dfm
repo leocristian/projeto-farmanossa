@@ -2,7 +2,7 @@ object LotesProdutoForm: TLotesProdutoForm
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'LotesProdutoForm'
+  Caption = 'Lotes do Produto'
   ClientHeight = 425
   ClientWidth = 644
   Color = clBtnFace
@@ -27,7 +27,6 @@ object LotesProdutoForm: TLotesProdutoForm
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 673
     DesignSize = (
       644
       50)
@@ -40,7 +39,6 @@ object LotesProdutoForm: TLotesProdutoForm
       Caption = 'Fechar'
       TabOrder = 0
       OnClick = FecharBtnClick
-      ExplicitLeft = 582
     end
   end
   object gridLotes: TcxGrid
@@ -50,7 +48,6 @@ object LotesProdutoForm: TLotesProdutoForm
     Height = 375
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 673
     object gridLotesDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.First.Visible = True
@@ -122,6 +119,7 @@ object LotesProdutoForm: TLotesProdutoForm
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'lote_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 101
       end
     end

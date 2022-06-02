@@ -3,7 +3,7 @@ object PagEntradas: TPagEntradas
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'PagEntradas'
+  Caption = 'Entradas de Mercadorias'
   ClientHeight = 412
   ClientWidth = 785
   Color = clBtnFace

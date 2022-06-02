@@ -1,7 +1,7 @@
 object PagLocais: TPagLocais
   Left = 0
   Top = 0
-  Caption = 'PagLocais'
+  Caption = 'Locais de Estoque'
   ClientHeight = 442
   ClientWidth = 751
   Color = clBtnFace

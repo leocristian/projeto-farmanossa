@@ -22,14 +22,6 @@ type
     RelBox: TComboBox;
     Label2: TLabel;
     pn_relatorio: TPanel;
-    rel_4: TfrxReport;
-    db_rel_4: TfrxDBDataset;
-    tb_rel_4: TUniTable;
-    ds_rel_4: TDataSource;
-    rel_3: TfrxReport;
-    db_rel_3: TfrxDBDataset;
-    tb_rel_3: TUniTable;
-    ds_rel_3: TDataSource;
     procedure RelBoxChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);

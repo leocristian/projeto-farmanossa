@@ -2,7 +2,7 @@ object FormSaida: TFormSaida
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'FormSaida'
+  Caption = 'Nova Sa'#237'da'
   ClientHeight = 518
   ClientWidth = 705
   Color = clBtnFace

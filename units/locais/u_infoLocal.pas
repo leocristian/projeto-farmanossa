@@ -100,6 +100,7 @@ begin
   else if FrameButtons.ModoEdit.Text = 'A' then
   begin
     pn_form.Enabled := True;
+    Caption := 'Alterar Local de estoque';
     DescricaoEdit.SetFocus;
     FrameButtons.SalvarBtn.Visible := True;
 

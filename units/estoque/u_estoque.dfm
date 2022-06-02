@@ -3,7 +3,7 @@ object PagEstoque: TPagEstoque
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'PagEstoque'
+  Caption = 'Consultar Estoque'
   ClientHeight = 483
   ClientWidth = 963
   Color = clBtnFace
@@ -25,7 +25,6 @@ object PagEstoque: TPagEstoque
     Height = 137
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 1126
     object Label2: TLabel
       Left = 23
       Top = 94
@@ -163,7 +162,6 @@ object PagEstoque: TPagEstoque
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
-    ExplicitWidth = 1126
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
