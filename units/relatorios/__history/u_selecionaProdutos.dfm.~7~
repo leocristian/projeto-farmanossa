@@ -1,0 +1,152 @@
+object SelecionaProdutosForm: TSelecionaProdutosForm
+  Left = 0
+  Top = 0
+  Caption = 'Selecionar Produtos'
+  ClientHeight = 471
+  ClientWidth = 608
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poOwnerFormCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pn_buscaProd: TPanel
+    Left = 0
+    Top = 0
+    Width = 608
+    Height = 81
+    Align = alTop
+    TabOrder = 0
+    ExplicitTop = -6
+    object Label1: TLabel
+      Left = 24
+      Top = 29
+      Width = 422
+      Height = 19
+      Caption = 'Selecione os produtos a serem exibidos no relat'#243'rio'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowFrame
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    inline FrameGrid1: TFrameGrid
+      Left = 496
+      Top = 8
+      Width = 41
+      Height = 41
+      TabOrder = 0
+      ExplicitLeft = 496
+      ExplicitTop = 8
+      ExplicitWidth = 41
+      ExplicitHeight = 41
+      inherited estiloGrid: TcxStyleRepository
+        Left = 8
+        Top = 8
+        PixelsPerInch = 96
+      end
+    end
+  end
+  object grid_produtos: TcxGrid
+    Left = 0
+    Top = 81
+    Width = 608
+    Height = 311
+    Align = alClient
+    TabOrder = 1
+    ExplicitHeight = 296
+    object grid_produtosDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_produtos
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsSelection.CellSelect = False
+      OptionsSelection.MultiSelect = True
+      OptionsSelection.CheckBoxPosition = cbpIndicator
+      OptionsSelection.CheckBoxVisibility = [cbvDataRow]
+      OptionsSelection.ShowCheckBoxesDynamically = True
+      OptionsView.NoDataToDisplayInfoText = ' '
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object prod_codigo: TcxGridDBColumn
+        AlternateCaption = 'C'#243'digo'
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'prod_codigo'
+      end
+      object prod_descricao: TcxGridDBColumn
+        AlternateCaption = 'Descri'#231#227'o'
+        Caption = 'Descri'#231#227'o'
+        DataBinding.FieldName = 'prod_descricao'
+        Width = 459
+      end
+    end
+    object grid_produtosLevel1: TcxGridLevel
+      GridView = grid_produtosDBTableView1
+    end
+  end
+  object pn_button: TPanel
+    Left = 0
+    Top = 392
+    Width = 608
+    Height = 79
+    Align = alBottom
+    TabOrder = 2
+    DesignSize = (
+      608
+      79)
+    object Rel1Btn: TBitBtn
+      Left = 456
+      Top = 20
+      Width = 121
+      Height = 38
+      Anchors = [akLeft, akBottom]
+      Caption = 'Selecionar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ImageIndex = 2
+      ParentFont = False
+      TabOrder = 0
+      ExplicitTop = 48
+    end
+    object CheckBox1: TCheckBox
+      Left = 24
+      Top = 31
+      Width = 97
+      Height = 17
+      Caption = 'Marcar todos'
+      TabOrder = 1
+      OnClick = CheckBox1Click
+    end
+    object ModoEdit: TEdit
+      Left = 401
+      Top = 32
+      Width = 24
+      Height = 21
+      TabOrder = 2
+    end
+  end
+  object ds_produtos: TDataSource
+    Left = 504
+    Top = 104
+  end
+  object tb_produtos: TUniTable
+    Left = 416
+    Top = 104
+  end
+end

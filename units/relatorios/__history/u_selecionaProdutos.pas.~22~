@@ -1,0 +1,122 @@
+unit u_selecionaProdutos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
+  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections;
+
+type
+  TSelecionaProdutosForm = class(TForm)
+    pn_buscaProd: TPanel;
+    Label1: TLabel;
+    grid_produtos: TcxGrid;
+    grid_produtosDBTableView1: TcxGridDBTableView;
+    grid_produtosLevel1: TcxGridLevel;
+    pn_button: TPanel;
+    Rel1Btn: TBitBtn;
+    CheckBox1: TCheckBox;
+    FrameGrid1: TFrameGrid;
+    ModoEdit: TEdit;
+    ds_produtos: TDataSource;
+    tb_produtos: TUniTable;
+    prod_codigo: TcxGridDBColumn;
+    prod_descricao: TcxGridDBColumn;
+    procedure FormShow(Sender: TObject);
+    procedure CheckBox1Click(Sender: TObject);
+    procedure Rel1BtnClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  SelecionaProdutosForm: TSelecionaProdutosForm;
+
+implementation
+
+{$R *.dfm}
+
+uses u_dm1, u_controleForm, u_filtro_rel_1;
+
+procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
+begin
+  if CheckBox1.Checked then
+  begin
+    grid_produtosDBTableView1.DataController.SelectAll
+  end
+  else
+  begin
+    grid_produtosDBTableView1.DataController.ClearSelection;
+  end;
+end;
+
+procedure TSelecionaProdutosForm.FormShow(Sender: TObject);
+begin
+  tb_produtos.Close;
+  tb_produtos.Connection := dm1.con1;
+
+  tb_produtos.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
+  tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
+  tb_produtos.SQL.Add('order by prod_codigo');
+
+  ds_produtos.DataSet := tb_produtos;
+  tb_produtos.Open;
+
+  grid_produtosDBTableView1.DataController.ClearSelection;
+  Checkbox1.Checked := False;
+end;
+
+procedure TSelecionaProdutosForm.Rel1BtnClick(Sender: TObject);
+var
+  listaCod: TList<Integer>;
+  codSelecionado, indexSelecionado, i, count: Integer;
+  codigos: String;
+
+begin
+  if grid_produtosDBTableView1.Controller.SelectedRowCount = 0 then
+  begin
+    Aviso('Selecione os produtos para gerar o relatório!');
+    Exit;
+  end;
+
+  listaCod := TList<Integer>.Create;
+
+  for i := 0 to grid_produtosDBTableView1.Controller.SelectedRowCount - 1 do
+  begin
+    indexSelecionado := grid_produtosDBTableView1.DataController.GetSelectedRowIndex(i);
+    codSelecionado := grid_produtosDBTableView1.ViewData.Records[indexSelecionado].Values[0];
+    listaCod.Add(codSelecionado);
+  end;
+
+  count := 0;
+  for i in listaCod do
+  begin
+    if count = listaCod.Count-1 then
+    begin
+      codigos := codigos + i.ToString;
+    end
+    else
+    begin
+      codigos := codigos + i.ToString + ',';
+    end;
+    count := count + 1;
+  end;
+
+  showmessage(codigos);
+  if ModoEdit.Text = 'R1' then
+  begin
+    FormRel1.CodProdEdit.Text := codigos;
+    close;
+  end;
+
+  FreeAndNil(listaCod);
+end;
+
+end.

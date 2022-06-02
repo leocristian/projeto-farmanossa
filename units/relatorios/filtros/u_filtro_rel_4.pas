@@ -11,23 +11,28 @@ uses
 type
   TFormRel4 = class(TForm)
     pn_form: TPanel;
-    BuscaProdutoBtn: TSpeedButton;
-    CodProdEdit: TEdit;
-    Label2: TLabel;
-    LimparProd: TBitBtn;
-    DescProdEdit: TEdit;
     RelBtn: TBitBtn;
-    ImageList1: TImageList;
     rel_4: TfrxReport;
     db_rel_4: TfrxDBDataset;
     tb_rel_4: TUniTable;
     ds_rel_4: TDataSource;
+    Label2: TLabel;
+    BuscaProdutoBtn: TSpeedButton;
+    Label3: TLabel;
+    BuscaLocalBtn: TSpeedButton;
+    CodProdEdit: TEdit;
+    CodLocalEdit: TEdit;
+    LimparLocal: TBitBtn;
+    LimparProd: TBitBtn;
+    ImageList1: TImageList;
     procedure CodProdEditClick(Sender: TObject);
-    procedure CodProdEditExit(Sender: TObject);
     procedure LimparProdClick(Sender: TObject);
     procedure BuscaProdutoBtnClick(Sender: TObject);
     procedure RelBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure BuscaLocalBtnClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
+    procedure CodLocalEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,12 +46,24 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_buscaProduto, u_controleForm;
+uses u_dm1, u_buscaProduto, u_controleForm, u_selecionaProdutos,
+  u_selecionarLocais;
+
+procedure TFormRel4.BuscaLocalBtnClick(Sender: TObject);
+begin
+  SelecionarLocaisForm.ModoEdit.Text := 'R4';
+  SelecionarLocaisForm.Show;
+end;
 
 procedure TFormRel4.BuscaProdutoBtnClick(Sender: TObject);
 begin
-  BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'R4';
-  BuscaProdutoForm.Show;
+  SelecionaProdutosForm.ModoEdit.Text := 'R4';
+  SelecionaProdutosForm.Show;
+end;
+
+procedure TFormRel4.CodLocalEditClick(Sender: TObject);
+begin
+  CodLocalEdit.SetFocus;
 end;
 
 procedure TFormRel4.CodProdEditClick(Sender: TObject);
@@ -54,52 +71,20 @@ begin
   CodProdEdit.SetFocus;
 end;
 
-procedure TFormRel4.CodProdEditExit(Sender: TObject);
-var
-  q1: TUniQuery;
-
-begin
-
-  if CodProdEdit.text = '' then Exit;
-
-  DescProdEdit.Clear;
-
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
-
-    q1.SQL.Text := 'select prod_descricao from tb_produtos where prod_codigo = :codigo';
-    q1.ParamByName('codigo').Value := CodProdEdit.Text;
-
-    q1.Open;
-
-    if q1.RecordCount = 1 then
-    begin
-      DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
-      RelBtn.SetFocus;
-    end
-    else
-    begin
-      CodProdEdit.Clear;
-      CodProdEdit.SetFocus;
-    end;
-
-  finally
-    q1.Close;
-    FreeAndNil(q1);
-  end;
-end;
-
 procedure TFormRel4.FormShow(Sender: TObject);
 begin
   CodProdEdit.Clear;
-  DescProdEdit.Clear;
+  CodLocalEdit.Clear;
+end;
+
+procedure TFormRel4.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
 end;
 
 procedure TFormRel4.LimparProdClick(Sender: TObject);
 begin
   CodProdEdit.Clear;
-  DescProdEdit.Clear;
 end;
 
 procedure TFormRel4.RelBtnClick(Sender: TObject);
@@ -116,13 +101,16 @@ begin
 
   if CodProdEdit.Text <> '' then
   begin
-    tb_rel_4.SQL.Add('where prod_codigo = :codigo');
-    tb_rel_4.SQL.Add('order by loc_codigo, lote_dtvencimento');
-    tb_rel_4.ParamByName('codigo').Value := StrToInt(CodProdEdit.Text);
-  end
-  else
+    tb_rel_4.SQL.Add('where prod_codigo in (' + CodProdEdit.Text + ')');
+  end;
+  if CodLocalEdit.Text <> '' then
   begin
-    if not Confirma('Você não especificou nenhum produto, a consulta irá retornar todos os registros, deseja continuar?') then
+    tb_rel_4.SQL.Add('and loc_codigo in (' + CodLocalEdit.Text + ')');
+  end;
+
+  if (CodProdEdit.Text = '') and (CodLocalEdit.Text = '') then
+  begin
+    if not Confirma('Você não especificou nenhum produto e local, a consulta irá retornar todos os registros, deseja continuar?') then
     begin
       Exit;
     end;

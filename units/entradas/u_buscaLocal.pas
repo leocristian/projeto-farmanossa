@@ -173,7 +173,6 @@ begin
   else if FrameButtons1.ModoEdit.Text = 'R1' then
   begin
     FormRel1.CodLocalEdit.Text := IntToStr(codLoc);
-    FormRel1.DescLocalEdit.Text := descLoc;
     FormRel1.Rel1Btn.SetFocus;
   end;
   Close;

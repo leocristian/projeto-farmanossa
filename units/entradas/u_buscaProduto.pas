@@ -191,13 +191,11 @@ begin
   else if FrameButtons1.ModoEdit.Text = 'R1' then
   begin
     FormRel1.CodProdEdit.Text := IntToStr(codProd);
-    FormRel1.DescProdEdit.Text := descProd;
     FormRel1.CodLocalEdit.SetFocus;
   end
   else if FrameButtons1.ModoEdit.Text = 'R4' then
   begin
     FormRel4.CodProdEdit.Text := IntToStr(codProd);
-    FormRel4.DescprodEdit.Text := descProd;
     FormRel4.RelBtn.SetFocus;
   end;
 
