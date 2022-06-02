@@ -63,21 +63,29 @@ begin
   begin
     FormRel1.Parent := pn_relatorio;
     FormRel1.Show;
+    FormRel1.LimparProdClick(Sender);
+    FormRel1.LimparLocalClick(Sender);
   end
   else if RelBox.ItemIndex = 1 then
   begin
     FormRel2.Parent := pn_relatorio;
     FormRel2.Show;
+    FormRel2.grid_produtosDBTableView1.DataController.ClearSelection;
+    FormRel2.Checkbox1.Checked := False;
   end
   else if RelBox.ItemIndex = 2 then
   begin
     FormRel3.Parent := pn_relatorio;
     FormRel3.Show;
+    FormRel3.grid_produtosDBTableView1.DataController.ClearSelection;
+    FormRel3.CheckBox1.Checked := False;
   end
   else if RelBox.ItemIndex = 3 then
   begin
     FormRel4.Parent := pn_relatorio;
     FormRel4.Show;
+    FormRel4.LimparProdClick(Sender);
+    FormRel4.LimparLocalClick(Sender);
   end;
 end;
 

@@ -184,10 +184,15 @@ object PagEstoque: TPagEstoque
       ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = ds_estoque
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          Column = qtd_estoque
+        end>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
       OptionsView.NoDataToDisplayInfoText = ' '
+      OptionsView.Footer = True
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -230,7 +235,6 @@ object PagEstoque: TPagEstoque
         AlternateCaption = 'Integer'
         Caption = 'Quantidade em Estoque'
         DataBinding.FieldName = 'qtd_estoque'
-        DataBinding.IsNullValueType = True
         Width = 144
       end
     end

@@ -28,8 +28,6 @@ object PagEntradas: TPagEntradas
     Height = 288
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 121
-    ExplicitHeight = 291
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -53,12 +51,17 @@ object PagEntradas: TPagEntradas
       ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = ds_entradas
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          Column = ent_quantidade
+        end>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = ent_codigo
       OptionsSelection.CellSelect = False
       OptionsView.NoDataToDisplayInfoText = ' '
+      OptionsView.Footer = True
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -128,16 +131,11 @@ object PagEntradas: TPagEntradas
     Height = 124
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = -66
+    ExplicitWidth = 785
     inherited pn_busca: TPanel
       Width = 785
-      ExplicitWidth = 851
+      ExplicitWidth = 785
       ExplicitHeight = 124
-      inherited dataBox: TGroupBox
-        inherited DataFinalEdit: TcxDateEdit
-          OnClick = nil
-        end
-      end
       inherited BuscarBtn: TBitBtn
         OnClick = BuscarBtnClick
       end

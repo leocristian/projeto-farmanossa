@@ -37,8 +37,6 @@ object PagSaidas: TPagSaidas
     Height = 220
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 121
-    ExplicitHeight = 223
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -62,12 +60,18 @@ object PagSaidas: TPagSaidas
       ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = ds_saidas
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          Column = sai_quantidade
+        end>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = sai_codigo
       OptionsSelection.CellSelect = False
       OptionsView.NoDataToDisplayInfoText = ' '
+      OptionsView.Footer = True
+      OptionsView.FooterMultiSummaries = True
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -138,15 +142,10 @@ object PagSaidas: TPagSaidas
     Height = 124
     Align = alTop
     TabOrder = 2
+    ExplicitWidth = 774
     inherited pn_busca: TPanel
       Width = 774
-      ExplicitWidth = 851
-      ExplicitHeight = 122
-      inherited dataBox: TGroupBox
-        inherited DataFinalEdit: TcxDateEdit
-          OnClick = nil
-        end
-      end
+      ExplicitHeight = 124
       inherited CodigoBox: TGroupBox
         inherited CodInicialEdit: TNumberBox
           OnClick = FiltroDataCod1CodInicialEditClick

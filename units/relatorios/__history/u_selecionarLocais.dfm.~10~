@@ -23,6 +23,7 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Height = 81
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 593
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -60,6 +61,9 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Height = 207
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 75
+    ExplicitWidth = 574
+    ExplicitHeight = 197
     object grid_locaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -83,12 +87,10 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       object loc_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'loc_codigo'
-        DataBinding.IsNullValueType = True
       end
       object loc_descricao: TcxGridDBColumn
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'loc_descricao'
-        DataBinding.IsNullValueType = True
       end
     end
     object grid_locaisLevel1: TcxGridLevel
@@ -102,6 +104,8 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Height = 101
     Align = alBottom
     TabOrder = 2
+    ExplicitTop = 278
+    ExplicitWidth = 778
     DesignSize = (
       584
       101)
@@ -137,7 +141,6 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       Width = 25
       Height = 21
       TabOrder = 2
-      Visible = False
     end
   end
   object tb_locais: TUniTable

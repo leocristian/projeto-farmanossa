@@ -1,10 +1,10 @@
-object SelecionarLocaisForm: TSelecionarLocaisForm
+object SelecionaProdutosForm: TSelecionaProdutosForm
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'Selecionar Locais de estoque'
-  ClientHeight = 389
-  ClientWidth = 584
+  Caption = 'Selecionar Produtos'
+  ClientHeight = 481
+  ClientWidth = 618
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,16 +19,18 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 584
+    Width = 618
     Height = 81
     Align = alTop
     TabOrder = 0
+    ExplicitTop = -6
+    ExplicitWidth = 608
     object Label1: TLabel
       Left = 24
       Top = 29
-      Width = 491
+      Width = 422
       Height = 19
-      Caption = 'Selecione os locais de estoque a serem exibidos no relat'#243'rio'
+      Caption = 'Selecione os produtos a serem exibidos no relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowFrame
       Font.Height = -16
@@ -38,32 +40,34 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     end
     inline FrameGrid1: TFrameGrid
       Left = 496
-      Top = 7
+      Top = 8
       Width = 41
       Height = 41
       TabOrder = 0
       ExplicitLeft = 496
-      ExplicitTop = 7
+      ExplicitTop = 8
       ExplicitWidth = 41
       ExplicitHeight = 41
       inherited estiloGrid: TcxStyleRepository
         Left = 8
-        Top = 8
+        Top = 16
         PixelsPerInch = 96
       end
     end
   end
-  object grid_locais: TcxGrid
+  object grid_produtos: TcxGrid
     Left = 0
     Top = 81
-    Width = 584
-    Height = 207
+    Width = 618
+    Height = 321
     Align = alClient
     TabOrder = 1
-    object grid_locaisDBTableView1: TcxGridDBTableView
+    ExplicitWidth = 608
+    ExplicitHeight = 296
+    object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = ds_locais
+      DataController.DataSource = ds_produtos
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -80,36 +84,39 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
-      object loc_codigo: TcxGridDBColumn
+      object prod_codigo: TcxGridDBColumn
+        AlternateCaption = 'C'#243'digo'
         Caption = 'C'#243'digo'
-        DataBinding.FieldName = 'loc_codigo'
-        DataBinding.IsNullValueType = True
+        DataBinding.FieldName = 'prod_codigo'
       end
-      object loc_descricao: TcxGridDBColumn
+      object prod_descricao: TcxGridDBColumn
+        AlternateCaption = 'Descri'#231#227'o'
         Caption = 'Descri'#231#227'o'
-        DataBinding.FieldName = 'loc_descricao'
-        DataBinding.IsNullValueType = True
+        DataBinding.FieldName = 'prod_descricao'
+        Width = 459
       end
     end
-    object grid_locaisLevel1: TcxGridLevel
-      GridView = grid_locaisDBTableView1
+    object grid_produtosLevel1: TcxGridLevel
+      GridView = grid_produtosDBTableView1
     end
   end
   object pn_button: TPanel
     Left = 0
-    Top = 288
-    Width = 584
-    Height = 101
+    Top = 402
+    Width = 618
+    Height = 79
     Align = alBottom
     TabOrder = 2
+    ExplicitTop = 392
+    ExplicitWidth = 608
     DesignSize = (
-      584
-      101)
-    object RelBtn: TBitBtn
-      Left = 398
-      Top = 31
-      Width = 139
-      Height = 50
+      618
+      79)
+    object Rel1Btn: TBitBtn
+      Left = 456
+      Top = 20
+      Width = 121
+      Height = 38
       Anchors = [akLeft, akBottom]
       Caption = 'Selecionar'
       Font.Charset = DEFAULT_CHARSET
@@ -120,11 +127,12 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       ImageIndex = 2
       ParentFont = False
       TabOrder = 0
-      OnClick = RelBtnClick
+      OnClick = Rel1BtnClick
+      ExplicitTop = 48
     end
     object CheckBox1: TCheckBox
       Left = 24
-      Top = 45
+      Top = 31
       Width = 97
       Height = 17
       Caption = 'Marcar todos'
@@ -132,20 +140,19 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       OnClick = CheckBox1Click
     end
     object ModoEdit: TEdit
-      Left = 344
-      Top = 40
-      Width = 25
+      Left = 401
+      Top = 32
+      Width = 24
       Height = 21
       TabOrder = 2
-      Visible = False
     end
   end
-  object tb_locais: TUniTable
-    Left = 416
+  object ds_produtos: TDataSource
+    Left = 504
     Top = 104
   end
-  object ds_locais: TDataSource
-    Left = 480
+  object tb_produtos: TUniTable
+    Left = 416
     Top = 104
   end
 end

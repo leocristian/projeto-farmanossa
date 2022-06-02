@@ -23,8 +23,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     Height = 81
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
-    ExplicitWidth = 608
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -62,8 +60,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     Height = 321
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 608
-    ExplicitHeight = 296
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -88,11 +84,13 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
         AlternateCaption = 'C'#243'digo'
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
         Width = 459
       end
     end
@@ -107,8 +105,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     Height = 79
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 392
-    ExplicitWidth = 608
     DesignSize = (
       618
       79)
@@ -128,7 +124,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       ParentFont = False
       TabOrder = 0
       OnClick = Rel1BtnClick
-      ExplicitTop = 48
     end
     object CheckBox1: TCheckBox
       Left = 24
@@ -145,6 +140,7 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       Width = 24
       Height = 21
       TabOrder = 2
+      Visible = False
     end
   end
   object ds_produtos: TDataSource
