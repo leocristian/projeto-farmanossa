@@ -427,7 +427,7 @@ object FormRel2: TFormRel2
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.805296006950000000
-    ReportOptions.LastChange = 44714.631455405090000000
+    ReportOptions.LastChange = 44714.641233171290000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -571,30 +571,48 @@ object FormRel2: TFormRel2
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
-          Left = 7.558120000000000000
-          Width = 117.172820000000000000
+          Left = 11.318120000000000000
+          Width = 124.731880000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'C'#243'digo do produto')
+          ParentFont = False
         end
         object Memo7: TfrxMemoView
           AllowVectorExport = True
-          Left = 200.287180000000000000
+          Left = 192.708590000000000000
           Width = 442.222820000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Descri'#231#227'o do produto')
+          ParentFont = False
         end
         object Memo8: TfrxMemoView
           AllowVectorExport = True
-          Left = 876.868120000000000000
-          Width = 75.571880000000000000
+          Left = 880.628120000000000000
+          Width = 79.351880000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Quantidade')
+          ParentFont = False
         end
       end
       object MasterData1: TfrxMasterData

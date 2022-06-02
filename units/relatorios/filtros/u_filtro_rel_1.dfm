@@ -151,7 +151,7 @@ object FormRel1: TFormRel1
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.779944594900000000
-    ReportOptions.LastChange = 44714.628231180560000000
+    ReportOptions.LastChange = 44714.640644953700000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -296,101 +296,167 @@ object FormRel1: TFormRel1
         object Memo6: TfrxMemoView
           AllowVectorExport = True
           Left = 11.339530000000000000
-          Width = 79.370470000000000000
+          Width = 86.930470000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Loc. C'#243'digo')
+          ParentFont = False
         end
         object Memo7: TfrxMemoView
           AllowVectorExport = True
           Left = 351.520000000000000000
           Width = 143.640000000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Prod. Descri'#231#227'o')
+          ParentFont = False
         end
         object Memo8: TfrxMemoView
           AllowVectorExport = True
           Left = 502.717650000000000000
           Width = 34.012350000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Lote')
+          ParentFont = False
         end
         object Memo9: TfrxMemoView
           AllowVectorExport = True
           Left = 548.059060000000000000
-          Width = 94.490940000000000000
+          Width = 105.800940000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Dt. Fabrica'#231#227'o')
+          ParentFont = False
         end
         object Memo10: TfrxMemoView
           AllowVectorExport = True
           Left = 653.857650000000000000
-          Width = 94.492350000000000000
+          Width = 102.051410000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Dt. Vencimento')
+          ParentFont = False
         end
         object Memo11: TfrxMemoView
           AllowVectorExport = True
           Left = 763.467650000000000000
           Width = 71.812350000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Mov. Data')
+          ParentFont = False
         end
         object Memo12: TfrxMemoView
           AllowVectorExport = True
           Left = 850.410000000000000000
           Width = 71.813290000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Mov. Hora')
+          ParentFont = False
         end
         object Memo13: TfrxMemoView
           AllowVectorExport = True
           Left = 937.337650000000000000
           Width = 22.671410000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Op.')
+          ParentFont = False
         end
         object Memo14: TfrxMemoView
           AllowVectorExport = True
           Left = 971.339530000000000000
-          Width = 75.590470000000000000
+          Width = 79.370470000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Quantidade')
+          ParentFont = False
         end
         object Memo15: TfrxMemoView
           AllowVectorExport = True
           Left = 260.800000000000000000
           Width = 90.710000000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Prod. C'#243'digo')
+          ParentFont = False
         end
         object Memo16: TfrxMemoView
           AllowVectorExport = True
-          Left = 90.709530000000000000
+          Left = 98.268590000000000000
           Width = 113.390470000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Loc. Descri'#231#227'o')
+          ParentFont = False
         end
       end
       object MasterData1: TfrxMasterData
@@ -411,7 +477,7 @@ object FormRel1: TFormRel1
         object frxDBDataset1frxDBDataset1: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 49.138120000000000000
+          Left = 49.140000000000000000
           Width = 34.011880000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -556,9 +622,9 @@ object FormRel1: TFormRel1
         object Memo5: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 975.118740000000000000
+          Left = 971.338260000000000000
           Top = 1.000000000000000000
-          Width = 71.811070000000000000
+          Width = 75.591550000000000000
           Height = 22.677180000000000000
           Frame.Typ = []
           HAlign = haRight

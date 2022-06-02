@@ -426,7 +426,7 @@ object FormRel3: TFormRel3
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.814468969900000000
-    ReportOptions.LastChange = 44714.630244375000000000
+    ReportOptions.LastChange = 44714.642876076390000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -572,13 +572,13 @@ object FormRel3: TFormRel3
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
-          Width = 117.170000000000000000
+          Width = 132.289060000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
           Font.Name = 'Arial'
-          Font.Style = []
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'C'#243'digo do Produto')
@@ -589,9 +589,15 @@ object FormRel3: TFormRel3
           Left = 173.870940000000000000
           Width = 196.549060000000000000
           Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Descri'#231#227'o do Produto')
+          ParentFont = False
         end
         object Memo8: TfrxMemoView
           AllowVectorExport = True
@@ -602,7 +608,7 @@ object FormRel3: TFormRel3
           Font.Color = clBlack
           Font.Height = -13
           Font.Name = 'Arial'
-          Font.Style = []
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Lote')
@@ -611,31 +617,43 @@ object FormRel3: TFormRel3
         object Memo9: TfrxMemoView
           AllowVectorExport = True
           Left = 563.171880000000000000
-          Width = 120.948120000000000000
-          Height = 18.897650000000000000
-          Frame.Typ = []
-          Memo.UTF8W = (
-            'Data de Fabrica'#231#227'o')
-        end
-        object Memo10: TfrxMemoView
-          AllowVectorExport = True
-          Left = 737.038590000000000000
-          Width = 128.508120000000000000
-          Height = 18.897650000000000000
-          Frame.Typ = []
-          Memo.UTF8W = (
-            'Data de Vencimento')
-        end
-        object Memo11: TfrxMemoView
-          AllowVectorExport = True
-          Left = 895.722820000000000000
-          Width = 75.617180000000000000
+          Width = 136.067180000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
           Font.Name = 'Arial'
-          Font.Style = []
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Data de Fabrica'#231#227'o')
+          ParentFont = False
+        end
+        object Memo10: TfrxMemoView
+          AllowVectorExport = True
+          Left = 737.038590000000000000
+          Width = 136.071410000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Data de Vencimento')
+          ParentFont = False
+        end
+        object Memo11: TfrxMemoView
+          AllowVectorExport = True
+          Left = 895.722820000000000000
+          Width = 83.177180000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             'Quantidade')
@@ -691,7 +709,7 @@ object FormRel3: TFormRel3
         object Memo13: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 487.590000000000000000
+          Left = 495.150000000000000000
           Width = 45.350000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET

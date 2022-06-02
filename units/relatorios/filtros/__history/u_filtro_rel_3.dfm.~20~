@@ -4,7 +4,7 @@ object FormRel3: TFormRel3
   BorderStyle = bsNone
   Caption = 'FormRel3'
   ClientHeight = 522
-  ClientWidth = 813
+  ClientWidth = 593
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,21 +19,19 @@ object FormRel3: TFormRel3
   object pn_button: TPanel
     Left = 0
     Top = 415
-    Width = 813
+    Width = 593
     Height = 107
     Align = alBottom
     TabOrder = 0
-    ExplicitTop = 344
-    ExplicitWidth = 584
     DesignSize = (
-      813
+      593
       107)
     object RelBtn: TBitBtn
-      Left = 637
+      Left = 376
       Top = 21
       Width = 161
       Height = 65
-      Anchors = [akTop, akRight]
+      Anchors = [akLeft, akBottom]
       Caption = 'Visualizar relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -45,7 +43,6 @@ object FormRel3: TFormRel3
       ParentFont = False
       TabOrder = 0
       OnClick = RelBtnClick
-      ExplicitLeft = 408
     end
     object CheckBox1: TCheckBox
       Left = 24
@@ -60,11 +57,10 @@ object FormRel3: TFormRel3
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 813
+    Width = 593
     Height = 81
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 584
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -82,12 +78,10 @@ object FormRel3: TFormRel3
   object grid_produtos: TcxGrid
     Left = 0
     Top = 81
-    Width = 813
+    Width = 593
     Height = 334
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 584
-    ExplicitHeight = 263
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -95,11 +89,14 @@ object FormRel3: TFormRel3
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = prod_descricao
       OptionsSelection.CellSelect = False
       OptionsSelection.MultiSelect = True
       OptionsSelection.CheckBoxPosition = cbpIndicator
       OptionsSelection.CheckBoxVisibility = [cbvDataRow]
       OptionsSelection.ShowCheckBoxesDynamically = True
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -108,10 +105,13 @@ object FormRel3: TFormRel3
       object prod_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
+        AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
       end
     end
     object grid_produtosLevel1: TcxGridLevel
@@ -426,7 +426,7 @@ object FormRel3: TFormRel3
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.814468969900000000
-    ReportOptions.LastChange = 44709.814468969900000000
+    ReportOptions.LastChange = 44714.630244375000000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -504,8 +504,9 @@ object FormRel3: TFormRel3
       Width = 1000.000000000000000000
     end
     object Page1: TfrxReportPage
-      PaperWidth = 210.000000000000000000
-      PaperHeight = 297.000000000000000000
+      Orientation = poLandscape
+      PaperWidth = 297.000000000000000000
+      PaperHeight = 210.000000000000000000
       PaperSize = 9
       LeftMargin = 10.000000000000000000
       RightMargin = 10.000000000000000000
@@ -522,11 +523,11 @@ object FormRel3: TFormRel3
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 18.897650000000000000
-        Width = 718.110700000000000000
+        Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
           Align = baWidth
           AllowVectorExport = True
-          Width = 718.110700000000000000
+          Width = 1046.929810000000000000
           Height = 22.677180000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -554,7 +555,7 @@ object FormRel3: TFormRel3
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 68.031540000000000000
-        Width = 718.110700000000000000
+        Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
           AllowVectorExport = True
           Width = 718.110236220000000000
@@ -571,7 +572,7 @@ object FormRel3: TFormRel3
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
-          Width = 94.488250000000000000
+          Width = 117.170000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -580,12 +581,12 @@ object FormRel3: TFormRel3
           Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
-            'Cod. Produto')
+            'C'#243'digo do Produto')
           ParentFont = False
         end
         object Memo7: TfrxMemoView
           AllowVectorExport = True
-          Left = 94.490000000000000000
+          Left = 173.870940000000000000
           Width = 196.549060000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -594,7 +595,7 @@ object FormRel3: TFormRel3
         end
         object Memo8: TfrxMemoView
           AllowVectorExport = True
-          Left = 291.040000000000000000
+          Left = 487.590000000000000000
           Width = 52.908120000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -609,7 +610,7 @@ object FormRel3: TFormRel3
         end
         object Memo9: TfrxMemoView
           AllowVectorExport = True
-          Left = 343.951880000000000000
+          Left = 563.171880000000000000
           Width = 120.948120000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -618,7 +619,7 @@ object FormRel3: TFormRel3
         end
         object Memo10: TfrxMemoView
           AllowVectorExport = True
-          Left = 464.900000000000000000
+          Left = 737.038590000000000000
           Width = 128.508120000000000000
           Height = 18.897650000000000000
           Frame.Typ = []
@@ -627,7 +628,7 @@ object FormRel3: TFormRel3
         end
         object Memo11: TfrxMemoView
           AllowVectorExport = True
-          Left = 589.602820000000000000
+          Left = 895.722820000000000000
           Width = 75.617180000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -648,16 +649,17 @@ object FormRel3: TFormRel3
         FillGap.Bottom = 0
         FillGap.Right = 0
         Frame.Typ = []
-        Height = 18.897650000000000000
+        Height = 49.133890000000000000
         Top = 151.181200000000000000
-        Width = 718.110700000000000000
+        Width = 1046.929810000000000000
         DataSet = db_rel_3
         DataSetName = 'frxDBDataset1'
         RowCount = 0
         object frxDBDataset1frxDBDataset1: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Width = 86.930000000000000000
+          Left = 75.600000000000000000
+          Width = 41.570000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -673,9 +675,9 @@ object FormRel3: TFormRel3
         object Memo12: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 94.490000000000000000
-          Width = 196.550000000000000000
-          Height = 18.897650000000000000
+          Left = 173.870940000000000000
+          Width = 279.700000000000000000
+          Height = 41.574830000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
@@ -689,7 +691,7 @@ object FormRel3: TFormRel3
         object Memo13: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 291.040000000000000000
+          Left = 487.590000000000000000
           Width = 45.350000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -706,7 +708,7 @@ object FormRel3: TFormRel3
         object Memo14: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 343.950000000000000000
+          Left = 563.170000000000000000
           Width = 120.950000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -722,7 +724,7 @@ object FormRel3: TFormRel3
         object Memo15: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 468.650000000000000000
+          Left = 740.788590000000000000
           Width = 124.760000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -738,7 +740,7 @@ object FormRel3: TFormRel3
         object frxDBDataset1frxDBDataset11: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Left = 593.410000000000000000
+          Left = 899.530000000000000000
           Width = 71.810000000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -761,12 +763,12 @@ object FormRel3: TFormRel3
         FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
-        Top = 230.551330000000000000
-        Width = 718.110700000000000000
+        Top = 260.787570000000000000
+        Width = 1046.929810000000000000
         object Memo3: TfrxMemoView
           Align = baWidth
           AllowVectorExport = True
-          Width = 718.110700000000000000
+          Width = 1046.929810000000000000
           Frame.Typ = [ftTop]
           Frame.Width = 2.000000000000000000
         end
@@ -782,7 +784,7 @@ object FormRel3: TFormRel3
         object Memo5: TfrxMemoView
           Align = baRight
           AllowVectorExport = True
-          Left = 642.520100000000000000
+          Left = 971.339210000000000000
           Top = 1.000000000000000000
           Width = 75.590600000000000000
           Height = 22.677180000000000000
