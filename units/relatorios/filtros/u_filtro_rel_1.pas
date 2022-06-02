@@ -210,6 +210,8 @@ begin
   end;
 
   ds_rel_1.DataSet := tb_rel_1;
+
+  tb_rel_1.SQL.Add('order by mov_data');
   tb_rel_1.Open;
 
   if tb_rel_1.RecordCount = 0 then

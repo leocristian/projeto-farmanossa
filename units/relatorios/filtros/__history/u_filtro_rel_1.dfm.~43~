@@ -1,10 +1,11 @@
 object FormRel1: TFormRel1
   Left = 0
   Top = 0
+  BorderIcons = []
   BorderStyle = bsNone
   Caption = 'FormRel1'
-  ClientHeight = 297
-  ClientWidth = 671
+  ClientHeight = 303
+  ClientWidth = 670
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,15 +16,18 @@ object FormRel1: TFormRel1
   OldCreateOrder = False
   WindowState = wsMaximized
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_filtro: TPanel
     Left = 0
     Top = 0
-    Width = 671
-    Height = 297
+    Width = 670
+    Height = 303
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 671
+    ExplicitHeight = 297
     object Label2: TLabel
       Left = 76
       Top = 97
@@ -33,10 +37,11 @@ object FormRel1: TFormRel1
     end
     object BuscaProdutoBtn: TSpeedButton
       Left = 195
-      Top = 94
+      Top = 92
       Width = 33
       Height = 23
       ImageIndex = 0
+      Images = ImageList1
       OnClick = BuscaProdutoBtnClick
     end
     object Label3: TLabel
@@ -52,6 +57,7 @@ object FormRel1: TFormRel1
       Width = 33
       Height = 23
       ImageIndex = 0
+      Images = ImageList1
       OnClick = BuscaLocalBtnClick
     end
     object CodProdEdit: TEdit
@@ -67,10 +73,11 @@ object FormRel1: TFormRel1
     end
     object LimparProd: TBitBtn
       Left = 234
-      Top = 94
+      Top = 92
       Width = 33
       Height = 23
       ImageIndex = 1
+      Images = ImageList1
       TabOrder = 1
       TabStop = False
       OnClick = LimparProdClick
@@ -103,6 +110,7 @@ object FormRel1: TFormRel1
       Width = 33
       Height = 22
       ImageIndex = 1
+      Images = ImageList1
       TabOrder = 4
       TabStop = False
       OnClick = LimparLocalClick
@@ -130,6 +138,7 @@ object FormRel1: TFormRel1
       Font.Name = 'Tahoma'
       Font.Style = []
       ImageIndex = 2
+      Images = ImageList1
       ParentFont = False
       TabOrder = 6
       OnClick = Rel1BtnClick
@@ -390,7 +399,7 @@ object FormRel1: TFormRel1
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."loc_codigo"]')
+            '[frxDBDataset1."mov_local"]')
         end
         object frxDBDataset1frxDBDataset11: TfrxMemoView
           IndexTag = 1
@@ -410,7 +419,7 @@ object FormRel1: TFormRel1
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."prod_codigo"]')
+            '[frxDBDataset1."mov_produto"]')
         end
         object frxDBDataset1frxDBDataset13: TfrxMemoView
           IndexTag = 1
@@ -430,7 +439,7 @@ object FormRel1: TFormRel1
           Height = 18.897650000000000000
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."lote_codigo"]')
+            '[frxDBDataset1."mov_lote"]')
         end
         object frxDBDataset1frxDBDataset15: TfrxMemoView
           IndexTag = 1
