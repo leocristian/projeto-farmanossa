@@ -37,6 +37,7 @@ type
     loc_descricao: TcxGridDBColumn;
     ImageList1: TImageList;
     FiltroDataCod1: TFiltroDataCod;
+    FrameGrid1: TFrameGrid;
     procedure NovaEntradaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CancelarEntrada1Click(Sender: TObject);

@@ -12,7 +12,7 @@ uses
   cxGrid, MemDS, DBAccess, Uni, fr_estilo, fm_busca, System.ImageList,
   Vcl.ImgList, Vcl.Buttons, Vcl.StdCtrls, Vcl.NumberBox, Vcl.ComCtrls,
   cxContainer, dxCore, cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit,
-  cxCalendar;
+  cxCalendar, fm_filtroDataCod;
 
 type
   TPagEntradas = class(TForm)
@@ -35,40 +35,16 @@ type
     AlterarEntrada: TMenuItem;
     prod_descricao: TcxGridDBColumn;
     loc_descricao: TcxGridDBColumn;
-    pn_busca: TPanel;
-    FrameGrid1: TFrameGrid;
-    dataBox: TGroupBox;
-    Label1: TLabel;
-    Label2: TLabel;
-    LimparDatasBtn: TButton;
-    CodigoBox: TGroupBox;
-    Label3: TLabel;
-    Label4: TLabel;
-    CodInicialEdit: TNumberBox;
-    CodFinalEdit: TNumberBox;
-    Button2: TButton;
-    BuscarBtn: TBitBtn;
     ImageList1: TImageList;
-    DataInicialEdit: TcxDateEdit;
-    DataFinalEdit: TcxDateEdit;
-    MostrarTudoBtn: TButton;
+    FiltroDataCod1: TFiltroDataCod;
     procedure NovaEntradaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CancelarEntrada1Click(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure AlterarEntradaClick(Sender: TObject);
-    procedure LimparDatasBtnClick(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure DataInicialEditClick(Sender: TObject);
-    procedure DataFinalEditClick(Sender: TObject);
-    procedure CodInicialEditClick(Sender: TObject);
-    procedure CodFinalEditClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure MostrarTudoBtnClick(Sender: TObject);
     procedure BuscarBtnClick(Sender: TObject);
-    procedure DataFinalEditFocusChanged(Sender: TObject);
-    procedure CodFinalEditEnter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -93,26 +69,6 @@ begin
   FormEntrada.ShowModal;
 end;
 
-procedure TPagEntradas.LimparDatasBtnClick(Sender: TObject);
-begin
-  DataInicialEdit.Clear;
-  DataFinalEdit.Clear;
-end;
-
-procedure TPagEntradas.MostrarTudoBtnClick(Sender: TObject);
-begin
-  tb_entradas.Close;
-  tb_entradas.Connection := dm1.con1;
-
-  tb_entradas.SQL.Clear;
-  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
-  tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
-  tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
-
-  ds_entradas.DataSet := tb_entradas;
-  tb_entradas.Open;
-end;
-
 procedure TPagEntradas.BuscarBtnClick(Sender: TObject);
 begin
 
@@ -123,25 +79,39 @@ begin
   tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
   tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
   tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
-  tb_entradas.SQL.Add('where (ent_data_hora::date >= :dataInicial');
-  tb_entradas.SQL.Add('and ent_data_hora::date <= :dataFinal)');
-  tb_entradas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
 
-  tb_entradas.ParamByName('dataInicial').Value := DataInicialEdit.Date;
-  tb_entradas.ParamByName('dataFinal').Value := DataFinalEdit.Date;
-  tb_entradas.ParamByName('codigoInicial').Value := CodInicialEdit.Value;
-  tb_entradas.ParamByName('codigoFInal').Value := CodFinalEdit.Value;
+  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') and
+     (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+  begin
+    tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
+    tb_entradas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
+
+    tb_entradas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+    tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+    tb_entradas.ParamByName('codigoFInal').Value := FiltroDataCod1.CodFinalEdit.Value;
+  end
+  else
+  begin
+    if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
+    begin
+      tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
+
+      tb_entradas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+      tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    end;
+
+    if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+    begin
+      tb_entradas.SQL.Add('where ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal');
+
+      tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+      tb_entradas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+    end;
+  end;
 
   ds_entradas.DataSet := tb_entradas;
-
   tb_entradas.Open;
-
-end;
-
-procedure TPagEntradas.Button2Click(Sender: TObject);
-begin
-  CodInicialEdit.Clear;
-  CodFinalEdit.Clear;
 end;
 
 procedure TPagEntradas.CancelarEntrada1Click(Sender: TObject);
@@ -180,36 +150,6 @@ begin
       FreeAndNil(q1);
     end;
   end;
-end;
-
-procedure TPagEntradas.CodFinalEditClick(Sender: TObject);
-begin
-  CodFinalEdit.SetFocus;
-end;
-
-procedure TPagEntradas.CodFinalEditEnter(Sender: TObject);
-begin
-  CodFinalEdit.Value := CodInicialEdit.Value;
-end;
-
-procedure TPagEntradas.CodInicialEditClick(Sender: TObject);
-begin
-  CodInicialEdit.SetFocus;
-end;
-
-procedure TPagEntradas.DataFinalEditClick(Sender: TObject);
-begin
-  DataFinalEdit.SetFocus;
-end;
-
-procedure TPagEntradas.DataFinalEditFocusChanged(Sender: TObject);
-begin
-  DataFinalEdit.Date := DataInicialEdit.Date;
-end;
-
-procedure TPagEntradas.DataInicialEditClick(Sender: TObject);
-begin
-  DataInicialEdit.SetFocus;
 end;
 
 procedure TPagEntradas.Detalhar1Click(Sender: TObject);
@@ -260,8 +200,10 @@ begin
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Open;
 
-  DataInicialEdit.Date := Date;
-  DataFinalEdit.Date := Date;
+  FiltroDataCod1.DataInicialEdit.Date := Date;
+  FiltroDataCod1.DataFinalEdit.Date := Date;
+  FiltroDataCod1.CodInicialEdit.Clear;
+  FiltroDataCod1.CodFinalEdit.Clear;
 end;
 
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);

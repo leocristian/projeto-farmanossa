@@ -62,6 +62,9 @@ object PagEntradas: TPagEntradas
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
       object ent_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ent_codigo'
@@ -138,6 +141,18 @@ object PagEntradas: TPagEntradas
       inherited BuscarBtn: TBitBtn
         OnClick = BuscarBtnClick
       end
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 640
+    Top = 8
+    Width = 77
+    Height = 86
+    TabOrder = 2
+    ExplicitLeft = 640
+    ExplicitTop = 8
+    inherited estiloGrid: TcxStyleRepository
+      PixelsPerInch = 96
     end
   end
   object PopupEntradas: TPopupMenu
