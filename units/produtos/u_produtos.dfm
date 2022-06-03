@@ -136,6 +136,7 @@ object PagProdutos: TPagProdutos
     end
     inherited BuscaEdit: TEdit
       CharCase = ecUpperCase
+      MaxLength = 50
       OnClick = FrameBusca1BuscaEditClick
     end
     inherited BitBtn1: TBitBtn

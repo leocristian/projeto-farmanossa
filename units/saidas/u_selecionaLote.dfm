@@ -74,9 +74,14 @@ object SelecionaLoteForm: TSelecionaLoteForm
       OnCellClick = gridLotesDBTableView1CellClick
       DataController.DataSource = ds_lotes
       DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <
+        item
+          Kind = skSum
+          Column = lote_quantidade
+        end>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.Footer = True
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20

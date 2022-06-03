@@ -118,7 +118,7 @@ object PagOperador: TPagOperador
     inherited BuscaEdit: TEdit
       Width = 259
       CharCase = ecUpperCase
-      MaxLength = 70
+      MaxLength = 50
       OnClick = FrameBusca1BuscaEditClick
       ExplicitWidth = 259
     end

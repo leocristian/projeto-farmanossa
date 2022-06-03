@@ -135,7 +135,7 @@ begin
   else
   begin
     FrameBusca1.BuscaEdit.NumbersOnly := False;
-    FrameBusca1.BuscaEdit.MaxLength := 70;
+    FrameBusca1.BuscaEdit.MaxLength := 50;
   end;
 
   FrameBusca1.BuscaEdit.SetFocus;

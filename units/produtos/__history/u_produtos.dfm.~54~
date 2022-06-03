@@ -1,29 +1,31 @@
-object PagLocais: TPagLocais
+object PagProdutos: TPagProdutos
   Left = 0
   Top = 0
-  Caption = 'PagLocais'
-  ClientHeight = 442
-  ClientWidth = 751
+  Caption = 'Produtos'
+  ClientHeight = 466
+  ClientWidth = 819
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
-  PopupMenu = PopupLocais
+  PopupMenu = PopupProdutos
   WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object gridLocais: TcxGrid
+  object gridProdutos: TcxGrid
     Left = 0
     Top = 109
-    Width = 751
-    Height = 333
+    Width = 819
+    Height = 357
     Align = alClient
     TabOrder = 0
-    object gridLocaisDBTableView1: TcxGridDBTableView
+    object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
       Navigator.Buttons.Insert.Visible = False
@@ -44,51 +46,75 @@ object PagLocais: TPagLocais
       Navigator.InfoPanel.Visible = True
       Navigator.Visible = True
       ScrollbarAnnotations.CustomAnnotations = <>
-      DataController.DataSource = ds_locais
+      DataController.DataSource = ds_produtos
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
-      OptionsBehavior.IncSearchItem = loc_descricao
+      OptionsBehavior.IncSearchItem = prod_descricao
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
-      object loc_codigo: TcxGridDBColumn
+      object prod_codigo: TcxGridDBColumn
+        AlternateCaption = 'C'#243'digo'
         Caption = 'C'#243'digo'
-        DataBinding.FieldName = 'loc_codigo'
+        DataBinding.FieldName = 'prod_codigo'
         DataBinding.IsNullValueType = True
       end
-      object loc_descricao: TcxGridDBColumn
+      object prod_descricao: TcxGridDBColumn
         Caption = 'Descri'#231#227'o'
-        DataBinding.FieldName = 'loc_descricao'
+        DataBinding.FieldName = 'prod_descricao'
         DataBinding.IsNullValueType = True
-        Width = 183
+        Width = 313
       end
-      object loc_status: TcxGridDBColumn
+      object prod_status: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Status'
-        DataBinding.FieldName = 'loc_status'
+        DataBinding.FieldName = 'prod_status'
         DataBinding.IsNullValueType = True
+        Width = 75
+      end
+      object prod_estoque_negativo: TcxGridDBColumn
+        AlternateCaption = 'Descri'#231#227'o'
+        Caption = 'Estoque Negativo'
+        DataBinding.FieldName = 'prod_estoque_negativo'
+        DataBinding.IsNullValueType = True
+        Width = 133
+      end
+      object prod_status_entrada: TcxGridDBColumn
+        Caption = 'Status Entrada'
+        DataBinding.FieldName = 'prod_status_entrada'
+        DataBinding.IsNullValueType = True
+        Width = 100
+      end
+      object prod_status_saida: TcxGridDBColumn
+        AlternateCaption = 'prod_status_saida'
+        Caption = 'Status Sa'#237'da'
+        DataBinding.FieldName = 'prod_status_saida'
+        DataBinding.IsNullValueType = True
+        Width = 94
       end
     end
-    object gridLocaisLevel1: TcxGridLevel
-      GridView = gridLocaisDBTableView1
+    object gridProdutosLevel1: TcxGridLevel
+      GridView = gridProdutosDBTableView1
     end
   end
   inline FrameGrid1: TFrameGrid
-    Left = 648
+    Left = 688
     Top = 8
     Width = 77
-    Height = 51
+    Height = 49
     TabOrder = 1
-    ExplicitLeft = 648
+    ExplicitLeft = 688
     ExplicitTop = 8
-    ExplicitHeight = 51
+    ExplicitHeight = 49
     inherited estiloGrid: TcxStyleRepository
+      Left = 16
       Top = 8
       PixelsPerInch = 96
     end
@@ -96,11 +122,11 @@ object PagLocais: TPagLocais
   inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
-    Width = 751
+    Width = 819
     Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 751
+    ExplicitWidth = 819
     inherited BuscaSelect: TComboBox
       Text = 'DESCRI'#199#195'O'
       OnChange = FrameBusca1BuscaSelectChange
@@ -108,36 +134,48 @@ object PagLocais: TPagLocais
         'DESCRI'#199#195'O'
         'C'#211'DIGO')
     end
+    inherited BuscaEdit: TEdit
+      CharCase = ecUpperCase
+      OnClick = FrameBusca1BuscaEditClick
+    end
+    inherited BitBtn1: TBitBtn
+      Left = 376
+      Top = 40
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 376
+      ExplicitTop = 40
+    end
   end
-  object PopupLocais: TPopupMenu
-    Left = 668
-    Top = 128
+  object PopupProdutos: TPopupMenu
+    Left = 717
+    Top = 120
     object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
+      Caption = 'Detalhar... (F1)'
       OnClick = Detalhar1Click
     end
     object N1: TMenuItem
       Caption = '-'
     end
     object N1Incluirnovoregistro1: TMenuItem
-      Caption = '1 - Incluir novo registro'
+      Caption = '1 - Incluir novo registro (F2)'
       OnClick = N1Incluirnovoregistro1Click
     end
     object N2AlterarregistroatualF31: TMenuItem
-      Caption = '2 - Alterar registro atual'
+      Caption = '2 - Alterar registro atual (F3)'
       OnClick = N2AlterarregistroatualF31Click
     end
     object N3ExcluirF41: TMenuItem
-      Caption = '3 - Excluir'
+      Caption = '3 - Excluir (F4)'
       OnClick = N3ExcluirF41Click
     end
   end
-  object tb_locais: TUniTable
+  object ds_produtos: TDataSource
+    AutoEdit = False
     Left = 512
-    Top = 128
+    Top = 120
   end
-  object ds_locais: TDataSource
-    Left = 576
-    Top = 128
+  object tb_produtos: TUniTable
+    Left = 608
+    Top = 120
   end
 end

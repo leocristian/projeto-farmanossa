@@ -56,10 +56,10 @@ object FormRel4: TFormRel4
       OnClick = BuscaLocalBtnClick
     end
     object RelBtn: TBitBtn
-      Left = 230
+      Left = 215
       Top = 184
-      Width = 146
-      Height = 49
+      Width = 161
+      Height = 65
       Caption = 'Visualizar relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -124,7 +124,7 @@ object FormRel4: TFormRel4
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.822115416670000000
-    ReportOptions.LastChange = 44715.343307696760000000
+    ReportOptions.LastChange = 44714.642165798610000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -424,7 +424,7 @@ object FormRel4: TFormRel4
           AllowVectorExport = True
           Left = 83.149870000000000000
           Width = 132.289190000000000000
-          Height = 49.133890000000000000
+          Height = 37.795300000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []

@@ -9,11 +9,10 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, MemDS, DBAccess, Uni, fr_estilo;
+  cxGrid, MemDS, DBAccess, Uni, fr_estilo, fm_busca;
 
 type
   TPagLocais = class(TForm)
-    Panel1: TPanel;
     PopupLocais: TPopupMenu;
     Detalhar1: TMenuItem;
     N1: TMenuItem;
@@ -29,11 +28,16 @@ type
     loc_descricao: TcxGridDBColumn;
     loc_status: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
+    FrameBusca1: TFrameBusca;
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
     procedure N2AlterarregistroatualF31Click(Sender: TObject);
     procedure N3ExcluirF41Click(Sender: TObject);
+    procedure FrameBusca1BuscaSelectChange(Sender: TObject);
+    procedure FrameBusca1BuscaEditClick(Sender: TObject);
+    procedure FrameBusca1BitBtn1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -58,16 +62,79 @@ begin
   FormLocal.ShowModal;
 end;
 
+procedure TPagLocais.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Detalhar1Click(Sender)
+  else if Key = VK_F2 then
+    N1Incluirnovoregistro1Click(Sender)
+  else if Key = VK_F3 then
+    N2AlterarregistroatualF31Click(Sender)
+  else if Key = VK_F4 then
+    N3ExcluirF41Click(Sender);
+end;
+
 procedure TPagLocais.FormShow(Sender: TObject);
 begin
-  dm1.con1.Close;
-  dm1.con1.Open;
+//  dm1.con1.Close;
 
   tb_locais.Connection := dm1.con1;
   tb_locais.TableName := 'tb_locais_estoque';
 
   ds_locais.DataSet := tb_locais;
   tb_locais.Active := True;
+
+//  dm1.con1.Open;
+end;
+
+procedure TPagLocais.FrameBusca1BitBtn1Click(Sender: TObject);
+var
+  strBusca: String;
+
+begin
+
+  strBusca := FrameBusca1.BuscaEdit.Text;
+
+  tb_locais.Close;
+  tb_locais.Connection := dm1.con1;
+
+  tb_locais.SQL.Clear;
+  tb_locais.SQL.Add('select * from tb_locais_estoque');
+
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+    if FrameBusca1.BuscaEdit.Text = '' then
+      tb_locais.SQL.Add('where 1=1')
+    else
+      tb_locais.SQL.Add('where loc_codigo = ' + strBusca)
+  else if FrameBusca1.BuscaSelect.Text = 'DESCRIÇÃO' then
+    tb_locais.SQL.Add('where loc_descricao like ' + QuotedStr('%' + strBusca + '%'));
+
+  ds_locais.DataSet := tb_locais;
+  tb_locais.Open;
+
+end;
+
+procedure TPagLocais.FrameBusca1BuscaEditClick(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.SetFocus;
+end;
+
+procedure TPagLocais.FrameBusca1BuscaSelectChange(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.Clear;
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := True;
+    FrameBusca1.BuscaEdit.MaxLength := 5;
+  end
+  else
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := False;
+    FrameBusca1.BuscaEdit.MaxLength := 70;
+  end;
+
+  FrameBusca1.BuscaEdit.SetFocus;
 end;
 
 procedure TPagLocais.N1Incluirnovoregistro1Click(Sender: TObject);

@@ -113,11 +113,14 @@ object PagLocais: TPagLocais
     end
     inherited BuscaEdit: TEdit
       CharCase = ecUpperCase
+      MaxLength = 50
       OnClick = FrameBusca1BuscaEditClick
     end
     inherited BitBtn1: TBitBtn
+      Left = 368
       Top = 40
       OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 368
       ExplicitTop = 40
     end
   end

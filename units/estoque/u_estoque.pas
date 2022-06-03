@@ -87,12 +87,12 @@ begin
   // Manipular a quantidade do produto
   if QuantidadeBox.ItemIndex = 0 then
   begin
-    tb_estoque.SQL.Add('where result.qtd_estoque >= :qtd');
-    QuantidadeEdit.Value := 0;
+    tb_estoque.SQL.Add('where :qtd=:qtd');
+    QuantidadeEdit.Value := 1;
   end
   else if QuantidadeBox.ItemIndex = 1 then
   begin
-    tb_estoque.SQL.Add('where result.qtd_estoque > :qtd');
+    tb_estoque.SQL.Add('where result.qtd_estoque != :qtd');
     QuantidadeEdit.Value := 0;
   end
   else if QuantidadeBox.ItemIndex = 2 then

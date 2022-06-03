@@ -56,10 +56,10 @@ object FormRel4: TFormRel4
       OnClick = BuscaLocalBtnClick
     end
     object RelBtn: TBitBtn
-      Left = 230
+      Left = 215
       Top = 184
-      Width = 146
-      Height = 49
+      Width = 161
+      Height = 65
       Caption = 'Visualizar relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText

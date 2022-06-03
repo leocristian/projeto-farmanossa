@@ -3,7 +3,7 @@ object PagOperador: TPagOperador
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'PagOperador'
+  Caption = 'Operadores do Sistema'
   ClientHeight = 428
   ClientWidth = 787
   Color = clBtnFace
@@ -56,6 +56,7 @@ object PagOperador: TPagOperador
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = ope_nome
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = '  '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -63,11 +64,13 @@ object PagOperador: TPagOperador
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
       object ope_codigo: TcxGridDBColumn
+        AlternateCaption = 'Integer'
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'ope_codigo'
         DataBinding.IsNullValueType = True
       end
       object ope_nome: TcxGridDBColumn
+        AlternateCaption = 'String'
         Caption = 'Nome Completo'
         DataBinding.FieldName = 'ope_nome'
         DataBinding.IsNullValueType = True
@@ -104,7 +107,6 @@ object PagOperador: TPagOperador
     Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitTop = -6
     ExplicitWidth = 787
     inherited BuscaSelect: TComboBox
       Text = 'NOME COMPLETO'
@@ -123,6 +125,7 @@ object PagOperador: TPagOperador
     inherited BitBtn1: TBitBtn
       Left = 424
       Top = 40
+      OnClick = FrameBusca1BitBtn1Click
       ExplicitLeft = 424
       ExplicitTop = 40
     end
