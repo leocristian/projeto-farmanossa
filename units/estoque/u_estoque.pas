@@ -42,6 +42,7 @@ type
     qtd_estoque: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     QuantidadeEdit: TNumberBox;
+    SpeedButton1: TSpeedButton;
     procedure BitBtn1Click(Sender: TObject);
     procedure LotesProdutoClick(Sender: TObject);
     procedure QuantidadeBoxChange(Sender: TObject);
@@ -52,6 +53,7 @@ type
     procedure CampoProdBoxChange(Sender: TObject);
     procedure LocalSelecaoChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -169,6 +171,7 @@ begin
   if (QuantidadeBox.ItemIndex <> 0) and (QuantidadeBox.ItemIndex <> 1) then
   begin
     QuantidadeEdit.Visible := True;
+    QuantidadeEdit.Value := 0;
   end
   else
   begin
@@ -179,6 +182,14 @@ end;
 procedure TPagEstoque.QuantidadeEditClick(Sender: TObject);
 begin
   QuantidadeEdit.SetFocus;
+end;
+
+procedure TPagEstoque.SpeedButton1Click(Sender: TObject);
+begin
+  ProdEdit.Clear;
+  LocalEdit.Clear;
+  QuantidadeEdit.Value := 0;
+  ProdEdit.SetFocus;
 end;
 
 procedure TPagEstoque.CampoProdBoxChange(Sender: TObject);
