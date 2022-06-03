@@ -41,7 +41,7 @@ object FormRel4: TFormRel4
     end
     object Label3: TLabel
       Left = 33
-      Top = 124
+      Top = 132
       Width = 85
       Height = 13
       Caption = 'Local de estoque:'

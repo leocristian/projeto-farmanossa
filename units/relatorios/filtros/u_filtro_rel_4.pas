@@ -116,6 +116,7 @@ begin
     end;
   end;
 
+  tb_rel_4.SQL.Add('order by loc_codigo, lote_dtvencimento');
   ds_rel_4.DataSet := tb_rel_4;
   tb_rel_4.Open;
 
