@@ -101,6 +101,7 @@ end;
 
 procedure TFormLocal.SalvarBtnClick(Sender: TObject);
 var
+  q1: TUniQuery;
   loc_codigo: Integer;
   msg_confirma: String;
 
@@ -134,7 +135,7 @@ begin
       dm1.q1.SQL.Add('update tb_locais_estoque set ');
       dm1.q1.SQL.Add('loc_descricao = :loc_descricao, loc_status = :loc_status ');
       dm1.q1.SQL.Add('where loc_codigo = :loc_codigo');
-      dm1.q1.ParamByName('loc_codigo').Value := CodEdit.Text;
+      q1.ParamByName('loc_codigo').Value := CodEdit.Text;
       msg_confirma := 'Salvar alterações?';
     end;
 
@@ -153,7 +154,7 @@ begin
       end;
     end;
   finally
-    dm1.q1.Close;
+    q1.Close;
   end;
 end;
 

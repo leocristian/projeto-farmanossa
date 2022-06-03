@@ -101,6 +101,7 @@ end;
 
 procedure TFormLocal.SalvarBtnClick(Sender: TObject);
 var
+  q1: TUniQuery;
   loc_codigo: Integer;
   msg_confirma: String;
 

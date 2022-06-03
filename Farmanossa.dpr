@@ -70,5 +70,3 @@ begin
   Application.CreateForm(TSelecionarLocaisForm, SelecionarLocaisForm);
   Application.Run;
 end.
-
-
