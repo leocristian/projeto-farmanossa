@@ -1,4 +1,4 @@
-ï»¿unit u_infoLocal;
+unit u_infoLocal;
 
 interface
 
@@ -17,6 +17,7 @@ type
     DescricaoEdit: TEdit;
     StatusBox: TComboBox;
     FrameButtons: TFrameButtons;
+    edc_cod: TEdit;
     procedure CancelarBtnClick(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -65,24 +66,22 @@ begin
     pn_form.Enabled := False;
     FrameButtons.SalvarBtn.Visible := False;
 
-    index := gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
-    codigo := gridProdutosDBTableView1.ViewData.Records[index].Values[0];
+    index := PagLocais.gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
+    codigo := PagLocais.gridLocaisDBTableView1.ViewData.Records[index].Values[0];
 
     try
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
 
-      q1.SQL.Text := 'select * from tb_produtos where prod_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+      q1.SQL.Text := 'select * from tb_locais_estoque where loc_codigo = :codigo';
+      q1.ParamByName('codigo').Value := StrToInt(edc_cod.Text);
 
       q1.Open;
 
-      CodEdit.Text := q1.FieldByName('prod_codigo').Value;
-      DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
+      CodEdit.Text := q1.FieldByName('loc_codigo').Value;
+      DescricaoEdit.Text := q1.FieldByName('loc_descricao').Value;
 
-      EstNegativoBox.ItemIndex := EstNegativoBox.items.IndexOf(q1.FieldByName('prod_estoque_negativo').Value);
-      StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(q1.FieldByName('prod_status_entrada').Value);
-      StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(q1.FieldByName('prod_status_saida').Value);
+      StatusBox.ItemIndex := StatusBox.Items.IndexOf(q1.FieldByName('loc_status').Value);
 
     finally
       q1.Close;
@@ -94,9 +93,39 @@ begin
     Caption := 'Incluir Local de estoque';
     pn_form.Enabled := True;
     DescricaoEdit.SetFocus;
+    CodEdit.text := '00';
     DescricaoEdit.Clear;
     FrameButtons.SalvarBtn.Visible := True;
     StatusBox.ItemIndex := 0;
+  end
+  else if FrameButtons.ModoEdit.Text = 'A' then
+  begin
+    pn_form.Enabled := True;
+    Caption := 'Alterar Local de estoque';
+    DescricaoEdit.SetFocus;
+    FrameButtons.SalvarBtn.Visible := True;
+
+    index := PagLocais.gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
+    codigo := PagLocais.gridLocaisDBTableView1.ViewData.Records[index].Values[0];
+
+    try
+      q1 := TUniQuery.Create(q1);
+      q1.Connection := dm1.con1;
+
+      q1.SQL.Text := 'select * from tb_locais_estoque where loc_codigo = :codigo';
+      q1.ParamByName('codigo').Value := StrToInt(edc_cod.Text);
+
+      q1.Open;
+
+      CodEdit.Text := q1.FieldByName('loc_codigo').Value;
+      DescricaoEdit.Text := q1.FieldByName('loc_descricao').Value;
+
+      StatusBox.ItemIndex := StatusBox.Items.IndexOf(q1.FieldByName('loc_status').Value);
+
+    finally
+      q1.Close;
+      FreeAndNil(q1);
+    end;
   end;
 end;
 
@@ -131,16 +160,16 @@ begin
       q1.SQL.Add('(:loc_codigo, :loc_descricao, :loc_status)');
 
       q1.ParamByName('loc_codigo').Value := loc_codigo;
-      msg_confirma := 'Confirmar inclusÃ£o do local de estoque?';
+      msg_confirma := 'Confirmar inclusão do local de estoque?';
     end
     else if FrameButtons.ModoEdit.Text = 'A' then
     begin
       q1.SQL.Clear;
-      q1.SQL.Add('update tb_locis_estoque set ');
-      q1.SQL.Add('(loc_descricao = :loc_descricao, loc_status = :loc_status, ');
+      q1.SQL.Add('update tb_locais_estoque set ');
+      q1.SQL.Add('loc_descricao = :loc_descricao, loc_status = :loc_status ');
       q1.SQL.Add('where loc_codigo = :loc_codigo');
       q1.ParamByName('loc_codigo').Value := CodEdit.Text;
-      msg_confirma := 'Salvar alteraÃ§Ãµes?';
+      msg_confirma := 'Salvar alterações?';
     end;
 
     q1.ParamByName('loc_descricao').Value := DescricaoEdit.Text;
@@ -149,7 +178,8 @@ begin
     if Confirma(msg_confirma) then
     try
       q1.ExecSQL;
-      Mensagem('OperaÃ§Ã£o concluÃ­da!');
+      Mensagem('Operação concluída!');
+      PagLocais.gridLocaisDBTableView1.DataController.RefreshExternalData;
       Close;
     except on e:exception do
         Erro('Erro: ' + #13 + e.Message);

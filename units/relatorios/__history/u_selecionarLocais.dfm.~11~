@@ -1,9 +1,10 @@
-object SelecionarLotesForm: TSelecionarLotesForm
+object SelecionarLocaisForm: TSelecionarLocaisForm
   Left = 0
   Top = 0
-  Caption = 'Selecionar Lotes'
-  ClientHeight = 379
-  ClientWidth = 574
+  BorderStyle = bsDialog
+  Caption = 'Selecionar Locais de estoque'
+  ClientHeight = 389
+  ClientWidth = 584
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,22 +12,23 @@ object SelecionarLotesForm: TSelecionarLotesForm
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poOwnerFormCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 574
+    Width = 584
     Height = 81
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 593
     object Label1: TLabel
       Left = 24
       Top = 29
-      Width = 390
+      Width = 491
       Height = 19
-      Caption = 'Selecione os lotes a serem exibidos no relat'#243'rio'
+      Caption = 'Selecione os locais de estoque a serem exibidos no relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowFrame
       Font.Height = -16
@@ -51,23 +53,21 @@ object SelecionarLotesForm: TSelecionarLotesForm
       end
     end
   end
-  object grid_lotes: TcxGrid
+  object grid_locais: TcxGrid
     Left = 0
     Top = 81
-    Width = 574
-    Height = 197
+    Width = 584
+    Height = 207
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 778
-    ExplicitHeight = 206
-    object grid_lotesDBTableView1: TcxGridDBTableView
+    object grid_locaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_locais
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
-      OptionsBehavior.IncSearchItem = loc_descricao
       OptionsSelection.CellSelect = False
       OptionsSelection.MultiSelect = True
       OptionsSelection.CheckBoxPosition = cbpIndicator
@@ -83,35 +83,35 @@ object SelecionarLotesForm: TSelecionarLotesForm
       object loc_codigo: TcxGridDBColumn
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'loc_codigo'
+        DataBinding.IsNullValueType = True
       end
       object loc_descricao: TcxGridDBColumn
-        AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
       end
     end
-    object grid_lotesLevel1: TcxGridLevel
-      GridView = grid_lotesDBTableView1
+    object grid_locaisLevel1: TcxGridLevel
+      GridView = grid_locaisDBTableView1
     end
   end
   object pn_button: TPanel
     Left = 0
-    Top = 278
-    Width = 574
+    Top = 288
+    Width = 584
     Height = 101
     Align = alBottom
     TabOrder = 2
-    ExplicitWidth = 778
     DesignSize = (
-      574
+      584
       101)
     object RelBtn: TBitBtn
-      Left = 376
-      Top = 15
-      Width = 161
-      Height = 65
+      Left = 398
+      Top = 31
+      Width = 139
+      Height = 50
       Anchors = [akLeft, akBottom]
-      Caption = 'Visualizar relat'#243'rio'
+      Caption = 'Selecionar'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -120,7 +120,7 @@ object SelecionarLotesForm: TSelecionarLotesForm
       ImageIndex = 2
       ParentFont = False
       TabOrder = 0
-      ExplicitTop = 21
+      OnClick = RelBtnClick
     end
     object CheckBox1: TCheckBox
       Left = 24
@@ -129,13 +129,22 @@ object SelecionarLotesForm: TSelecionarLotesForm
       Height = 17
       Caption = 'Marcar todos'
       TabOrder = 1
+      OnClick = CheckBox1Click
+    end
+    object ModoEdit: TEdit
+      Left = 344
+      Top = 40
+      Width = 25
+      Height = 21
+      TabOrder = 2
+      Visible = False
     end
   end
-  object tb_lotes: TUniTable
+  object tb_locais: TUniTable
     Left = 416
     Top = 104
   end
-  object ds_lotes: TDataSource
+  object ds_locais: TDataSource
     Left = 480
     Top = 104
   end

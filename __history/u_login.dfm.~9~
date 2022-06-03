@@ -1070,6 +1070,8 @@ object FormLogin: TFormLogin
     Height = 318
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 464
+    ExplicitHeight = 305
     DesignSize = (
       472
       318)
@@ -1091,7 +1093,6 @@ object FormLogin: TFormLogin
       Anchors = [akRight, akBottom]
       ImageIndex = 0
       Images = ImageList1
-      Flat = True
       ParentShowHint = False
       ShowHint = True
       StyleElements = [seFont, seClient]
@@ -1161,6 +1162,8 @@ object FormLogin: TFormLogin
       CharCase = ecUpperCase
       MaxLength = 20
       TabOrder = 0
+      ExplicitLeft = 113
+      ExplicitTop = 106
     end
     object SenhaInput: TEdit
       Left = 121
@@ -1172,6 +1175,8 @@ object FormLogin: TFormLogin
       MaxLength = 20
       PasswordChar = '*'
       TabOrder = 1
+      ExplicitLeft = 113
+      ExplicitTop = 156
     end
     object EntrarBtn: TBitBtn
       Left = 176
@@ -1188,6 +1193,8 @@ object FormLogin: TFormLogin
       ParentFont = False
       TabOrder = 2
       OnClick = EntrarBtnClick
+      ExplicitLeft = 168
+      ExplicitTop = 223
     end
     object CancelarBtn: TBitBtn
       Left = 267
@@ -1204,6 +1211,8 @@ object FormLogin: TFormLogin
       ParentFont = False
       TabOrder = 3
       OnClick = CancelarBtnClick
+      ExplicitLeft = 259
+      ExplicitTop = 223
     end
   end
   object ImageList1: TImageList

@@ -1,7 +1,7 @@
 object PagLocais: TPagLocais
   Left = 0
   Top = 0
-  Caption = 'PagLocais'
+  Caption = 'Locais de Estoque'
   ClientHeight = 442
   ClientWidth = 751
   Color = clBtnFace
@@ -10,9 +10,11 @@ object PagLocais: TPagLocais
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   PopupMenu = PopupLocais
   WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -51,6 +53,7 @@ object PagLocais: TPagLocais
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = loc_descricao
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -109,8 +112,15 @@ object PagLocais: TPagLocais
         'C'#211'DIGO')
     end
     inherited BuscaEdit: TEdit
-      Top = 40
+      CharCase = ecUpperCase
+      MaxLength = 50
       OnClick = FrameBusca1BuscaEditClick
+    end
+    inherited BitBtn1: TBitBtn
+      Left = 368
+      Top = 40
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 368
       ExplicitTop = 40
     end
   end
@@ -118,31 +128,33 @@ object PagLocais: TPagLocais
     Left = 668
     Top = 128
     object Detalhar1: TMenuItem
-      Caption = 'Detalhar...'
+      Caption = 'Detalhar... (F1)'
       OnClick = Detalhar1Click
     end
     object N1: TMenuItem
       Caption = '-'
     end
     object N1Incluirnovoregistro1: TMenuItem
-      Caption = '1 - Incluir novo registro'
+      Caption = '1 - Incluir novo registro (F2)'
       OnClick = N1Incluirnovoregistro1Click
     end
     object N2AlterarregistroatualF31: TMenuItem
-      Caption = '2 - Alterar registro atual'
+      Caption = '2 - Alterar registro atual (F3)'
       OnClick = N2AlterarregistroatualF31Click
     end
     object N3ExcluirF41: TMenuItem
-      Caption = '3 - Excluir'
+      Caption = '3 - Excluir (F4)'
       OnClick = N3ExcluirF41Click
     end
   end
-  object tb_locais: TUniTable
-    Left = 512
-    Top = 128
-  end
   object ds_locais: TDataSource
+    DataSet = qCad
     Left = 576
     Top = 128
+  end
+  object qCad: TUniQuery
+    Connection = dm1.con1
+    Left = 416
+    Top = 160
   end
 end

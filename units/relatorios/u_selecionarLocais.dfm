@@ -148,4 +148,9 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Left = 480
     Top = 104
   end
+  object vt1: TVirtualTable
+    Left = 296
+    Top = 120
+    Data = {04000000000000000000}
+  end
 end

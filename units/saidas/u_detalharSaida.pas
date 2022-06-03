@@ -253,6 +253,24 @@ var
   q1: TUniQuery;
 
 begin
+
+  {
+  try
+    dm1.con1.StartTransaction;
+
+     //CÓDIGO AQUI
+
+    dm1.con1.Commit;
+
+  except
+    on e : Exception do
+    begin
+      dm1.con1.Rollback;
+    end;
+  end;
+
+  }
+
   try
     q1 := TUniQuery.Create(q1);
     q1.Connection := dm1.con1;

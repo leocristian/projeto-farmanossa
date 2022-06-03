@@ -44,12 +44,14 @@ type
     procedure FrameButtons1SalvarBtnClick(Sender: TObject);
   private
     { Private declarations }
+
   public
     { Public declarations }
   end;
 
 var
   DetalharSaidaForm: TDetalharSaidaForm;
+  loteAnterior: String;
 
 implementation
 
@@ -216,14 +218,20 @@ begin
     begin
       pn_form.Enabled := False;
       pn_datas.Enabled := False;
-
+      Caption := 'Exibir Saída';
       FrameButtons1.SalvarBtn.Visible := False;
       FrameButtons1.CancelarBtn.Caption := 'Fechar';
     end
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := True;
-      CodProdEdit.SetFocus;
+      Caption := 'Alterar Saída';
+      CodProdEdit.Enabled := False;
+      DescProdEdit.Enabled := False;
+      CodLocalEdit.Enabled := False;
+      DescLocalEdit.Enabled := False;
+      loteAnterior := QtdProdEdit.text;
+      QtdProdEdit.SetFocus;
       LoteEdit.ReadOnly := True;
       LoteEdit.Enabled := False;
       pn_datas.enabled := False;
@@ -250,16 +258,40 @@ begin
     q1.Connection := dm1.con1;
 
     q1.SQL.Clear;
+
+    q1.SQL.Add('update tb_lotes set lote_quantidade = ((lote_quantidade + :QtdAnterior) - :quantidade) ');
+    q1.SQL.Add(' where lote_codigo = :lote;');
+
     q1.SQL.Add('update tb_saidas set sai_quantidade = :quantidade');
     q1.SQL.Add('where sai_codigo = :codigo');
 
     q1.ParamByName('codigo').Value := CodEdit.Text;
     q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+    q1.ParamByName('QtdAnterior').Value := loteAnterior;
+    q1.ParamByName('lote').Value := LoteEdit.Text;
 
     if Confirma('Confirmar alterações?') then
     begin
       q1.ExecSQL;
       Mensagem('Alterações salvas!');
+
+      q1.SQL.Clear;
+      q1.SQL.Add('update tb_movimentacoes set mov_produto = :produto, mov_local = :local,');
+      q1.SQL.Add('mov_lote = :lote, mov_quantidade = :quantidade ');
+      q1.SQL.Add('where mov_cod_operacao = :operacao');
+
+      q1.ParamByName('produto').Value := CodProdEdit.Text;
+      q1.ParamByName('local').Value := CodLocalEdit.Text;
+      q1.ParamByName('lote').Value := LoteEdit.Text;
+      q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
+      q1.ParamByName('operacao').Value := CodEdit.Text;;
+
+      try
+        q1.ExecSQL;
+      except on e:exception do
+        Aviso('Erro atualizar movimentacao!' + e.message);
+      end;
+
       close;
       PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
     end;

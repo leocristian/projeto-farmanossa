@@ -129,7 +129,7 @@ object FormRel1: TFormRel1
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.779944594900000000
-    ReportOptions.LastChange = 44714.640644953700000000
+    ReportOptions.LastChange = 44715.479657476860000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -257,20 +257,6 @@ object FormRel1: TFormRel1
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 1046.929810000000000000
-        object Memo2: TfrxMemoView
-          AllowVectorExport = True
-          Width = 718.110000000000000000
-          Height = 22.677180000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Frame.Typ = [ftBottom]
-          Frame.Width = 2.000000000000000000
-          ParentFont = False
-          Style = 'Header line'
-        end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
           Left = 11.339530000000000000
@@ -435,6 +421,15 @@ object FormRel1: TFormRel1
           Memo.UTF8W = (
             'Loc. Descri'#231#227'o')
           ParentFont = False
+        end
+        object Line1: TfrxLineView
+          Align = baWidth
+          AllowVectorExport = True
+          Top = 17.779530000000000000
+          Width = 971.339530000000000000
+          Color = clBlack
+          Frame.Typ = []
+          Diagonal = True
         end
       end
       object MasterData1: TfrxMasterData

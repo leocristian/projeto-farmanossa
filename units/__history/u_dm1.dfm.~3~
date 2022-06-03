@@ -10,9 +10,4 @@ object dm1: Tdm1
     Left = 144
     Top = 88
   end
-  object q1: TUniQuery
-    Connection = con1
-    Left = 232
-    Top = 88
-  end
 end

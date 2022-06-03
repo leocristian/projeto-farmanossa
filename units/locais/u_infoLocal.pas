@@ -17,6 +17,7 @@ type
     DescricaoEdit: TEdit;
     StatusBox: TComboBox;
     FrameButtons: TFrameButtons;
+    edc_cod: TEdit;
     procedure CancelarBtnClick(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -65,15 +66,12 @@ begin
     pn_form.Enabled := False;
     FrameButtons.SalvarBtn.Visible := False;
 
-    index := PagLocais.gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
-    codigo := PagLocais.gridLocaisDBTableView1.ViewData.Records[index].Values[0];
-
     try
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
 
       q1.SQL.Text := 'select * from tb_locais_estoque where loc_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+      q1.ParamByName('codigo').Value := StrToInt(edc_cod.Text);
 
       q1.Open;
 
@@ -104,15 +102,12 @@ begin
     DescricaoEdit.SetFocus;
     FrameButtons.SalvarBtn.Visible := True;
 
-    index := PagLocais.gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
-    codigo := PagLocais.gridLocaisDBTableView1.ViewData.Records[index].Values[0];
-
     try
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
 
       q1.SQL.Text := 'select * from tb_locais_estoque where loc_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+      q1.ParamByName('codigo').Value := StrToInt(edc_cod.Text);
 
       q1.Open;
 

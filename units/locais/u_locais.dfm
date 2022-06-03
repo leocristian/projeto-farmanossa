@@ -125,7 +125,7 @@ object PagLocais: TPagLocais
     end
   end
   object PopupLocais: TPopupMenu
-    Left = 668
+    Left = 612
     Top = 128
     object Detalhar1: TMenuItem
       Caption = 'Detalhar... (F1)'
@@ -147,12 +147,14 @@ object PagLocais: TPagLocais
       OnClick = N3ExcluirF41Click
     end
   end
-  object tb_locais: TUniTable
-    Left = 512
+  object ds_locais: TDataSource
+    DataSet = qCad
+    Left = 552
     Top = 128
   end
-  object ds_locais: TDataSource
-    Left = 576
+  object qCad: TUniQuery
+    Connection = dm1.con1
+    Left = 488
     Top = 128
   end
 end

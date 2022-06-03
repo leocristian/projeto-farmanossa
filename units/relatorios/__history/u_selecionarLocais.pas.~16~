@@ -9,8 +9,7 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
-  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections,
-  VirtualTable;
+  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections;
 
 type
   TSelecionarLocaisForm = class(TForm)
@@ -28,7 +27,6 @@ type
     ModoEdit: TEdit;
     loc_codigo: TcxGridDBColumn;
     loc_descricao: TcxGridDBColumn;
-    vt1: TVirtualTable;
     procedure CheckBox1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure RelBtnClick(Sender: TObject);
@@ -83,35 +81,6 @@ var
   codigos: String;
 
 begin
-
-  {
-    codigos := '';
-
-     vt1.First;
-     while not vt1.Eof do
-     begin
-
-        if vt1.FieldByName('selec').AsBoolean then
-        begin
-          if codigos='' then
-          begin
-            codigos := vt1.FieldByName('codigo').AsString;
-          end else
-          begin
-            codigos := codigos +','+ vt1.FieldByName('codigo').AsString;
-          end;
-        end;
-
-       vt1.Next;
-     end;
-
-    if codigos='' then
-    begin
-      Aviso('Selecione os locais de estoque para gerar o relatório!');
-      Exit;
-    end;
-  }
-
   if grid_locaisDBTableView1.Controller.SelectedRowCount = 0 then
   begin
     Aviso('Selecione os locais de estoque para gerar o relatório!');

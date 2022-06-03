@@ -1,7 +1,7 @@
 object PagLocais: TPagLocais
   Left = 0
   Top = 0
-  Caption = 'PagLocais'
+  Caption = 'Locais de Estoque'
   ClientHeight = 442
   ClientWidth = 751
   Color = clBtnFace
@@ -53,6 +53,7 @@ object PagLocais: TPagLocais
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = loc_descricao
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -112,11 +113,14 @@ object PagLocais: TPagLocais
     end
     inherited BuscaEdit: TEdit
       CharCase = ecUpperCase
+      MaxLength = 50
       OnClick = FrameBusca1BuscaEditClick
     end
     inherited BitBtn1: TBitBtn
+      Left = 368
       Top = 40
       OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 368
       ExplicitTop = 40
     end
   end

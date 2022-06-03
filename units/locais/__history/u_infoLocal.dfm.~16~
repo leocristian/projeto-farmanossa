@@ -1,30 +1,31 @@
 object FormLocal: TFormLocal
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'FormLocal'
-  ClientHeight = 213
-  ClientWidth = 467
+  ClientHeight = 181
+  ClientWidth = 477
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 467
-    Height = 113
-    Align = alTop
+    Width = 477
+    Height = 101
+    Align = alClient
+    BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitTop = -12
-    ExplicitWidth = 472
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -84,30 +85,36 @@ object FormLocal: TFormLocal
   end
   inline FrameButtons: TFrameButtons
     Left = 0
-    Top = 119
-    Width = 467
-    Height = 94
+    Top = 101
+    Width = 477
+    Height = 80
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 119
-    ExplicitWidth = 467
-    ExplicitHeight = 94
+    ExplicitTop = 101
+    ExplicitWidth = 477
+    ExplicitHeight = 80
     DesignSize = (
-      467
-      94)
-    inherited SalvarBtn: TButton
-      Top = 33
-      OnClick = SalvarBtnClick
-      ExplicitLeft = 277
-    end
+      477
+      80)
     inherited ModoEdit: TEdit
-      Top = 35
-      ExplicitLeft = 236
+      Left = 246
+      Top = 21
+      ExplicitLeft = 246
+      ExplicitTop = 21
     end
     inherited CancelarBtn: TButton
-      Top = 32
+      Left = 376
+      Top = 18
       OnClick = CancelarBtnClick
-      ExplicitLeft = 366
+      ExplicitLeft = 376
+      ExplicitTop = 18
+    end
+    inherited SalvarBtn: TBitBtn
+      Left = 287
+      Top = 19
+      OnClick = SalvarBtnClick
+      ExplicitLeft = 287
+      ExplicitTop = 19
     end
   end
 end

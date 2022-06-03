@@ -96,13 +96,6 @@ object FormLocal: TFormLocal
     DesignSize = (
       477
       80)
-    inherited SalvarBtn: TButton
-      Left = 287
-      Top = 19
-      OnClick = SalvarBtnClick
-      ExplicitLeft = 287
-      ExplicitTop = 19
-    end
     inherited ModoEdit: TEdit
       Left = 246
       Top = 21
@@ -116,5 +109,19 @@ object FormLocal: TFormLocal
       ExplicitLeft = 376
       ExplicitTop = 18
     end
+    inherited SalvarBtn: TBitBtn
+      Left = 287
+      Top = 19
+      OnClick = SalvarBtnClick
+      ExplicitLeft = 287
+      ExplicitTop = 19
+    end
+  end
+  object edc_cod: TEdit
+    Left = 40
+    Top = 144
+    Width = 25
+    Height = 21
+    TabOrder = 2
   end
 end
