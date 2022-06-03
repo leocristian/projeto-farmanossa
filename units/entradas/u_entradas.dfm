@@ -164,15 +164,11 @@ object PagEntradas: TPagEntradas
       Caption = '1 - Lan'#231'ar nova entrada de mercadoria  (F2)'
       OnClick = NovaEntradaClick
     end
-    object AlterarEntrada: TMenuItem
-      Caption = '2 - Alterar entrada de mercadoria  (F3)'
-      OnClick = AlterarEntradaClick
-    end
     object N1: TMenuItem
       Caption = '-'
     end
     object CancelarEntrada1: TMenuItem
-      Caption = 'Cancelar Entrada (F4)'
+      Caption = 'Cancelar Entrada (F3)'
       OnClick = CancelarEntrada1Click
     end
   end

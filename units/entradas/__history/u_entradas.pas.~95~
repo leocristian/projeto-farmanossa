@@ -37,6 +37,7 @@ type
     loc_descricao: TcxGridDBColumn;
     ImageList1: TImageList;
     FiltroDataCod1: TFiltroDataCod;
+    FrameGrid1: TFrameGrid;
     procedure NovaEntradaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CancelarEntrada1Click(Sender: TObject);
@@ -79,19 +80,39 @@ begin
   tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
   tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
   tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
-  tb_entradas.SQL.Add('where (ent_data_hora::date >= :dataInicial');
-  tb_entradas.SQL.Add('and ent_data_hora::date <= :dataFinal)');
-  tb_entradas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
 
-  tb_entradas.ParamByName('dataInicial').Value := DataInicialEdit.Date;
-  tb_entradas.ParamByName('dataFinal').Value := DataFinalEdit.Date;
-  tb_entradas.ParamByName('codigoInicial').Value := CodInicialEdit.Value;
-  tb_entradas.ParamByName('codigoFInal').Value := CodFinalEdit.Value;
+  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') and
+     (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+  begin
+    tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
+    tb_entradas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
+
+    tb_entradas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+    tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+    tb_entradas.ParamByName('codigoFInal').Value := FiltroDataCod1.CodFinalEdit.Value;
+  end
+  else
+  begin
+    if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
+    begin
+      tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
+
+      tb_entradas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+      tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    end;
+
+    if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+    begin
+      tb_entradas.SQL.Add('where ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal');
+
+      tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+      tb_entradas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+    end;
+  end;
 
   ds_entradas.DataSet := tb_entradas;
-
   tb_entradas.Open;
-
 end;
 
 procedure TPagEntradas.CancelarEntrada1Click(Sender: TObject);
@@ -180,8 +201,10 @@ begin
   ds_entradas.DataSet := tb_entradas;
   tb_entradas.Open;
 
-  DataInicialEdit.Date := Date;
-  DataFinalEdit.Date := Date;
+  FiltroDataCod1.DataInicialEdit.Date := Date;
+  FiltroDataCod1.DataFinalEdit.Date := Date;
+  FiltroDataCod1.CodInicialEdit.Clear;
+  FiltroDataCod1.CodFinalEdit.Clear;
 end;
 
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);

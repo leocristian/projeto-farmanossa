@@ -21,7 +21,6 @@ type
     PopupSaidas: TPopupMenu;
     Detalhar1: TMenuItem;
     NovaSaida: TMenuItem;
-    AlterarSaida: TMenuItem;
     N1: TMenuItem;
     CancelarSaida: TMenuItem;
     FrameGrid1: TFrameGrid;
@@ -180,8 +179,6 @@ begin
   else if Key = VK_F2 then
     NovaSaidaClick(Sender)
   else if Key = VK_F3 then
-    AlterarSaidaClick(Sender)
-  else if Key = VK_F4 then
     CancelarSaidaClick(Sender);
 end;
 

@@ -175,15 +175,11 @@ object PagSaidas: TPagSaidas
       Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadoria  (F2)'
       OnClick = NovaSaidaClick
     end
-    object AlterarSaida: TMenuItem
-      Caption = '2 - Alterar sa'#237'da de mercadoria  (F3)'
-      OnClick = AlterarSaidaClick
-    end
     object N1: TMenuItem
       Caption = '-'
     end
     object CancelarSaida: TMenuItem
-      Caption = 'Cancelar Sa'#237'da (F4)'
+      Caption = 'Cancelar Sa'#237'da (F3)'
       OnClick = CancelarSaidaClick
     end
   end

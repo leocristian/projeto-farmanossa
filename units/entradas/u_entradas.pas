@@ -32,7 +32,6 @@ type
     CancelarEntrada1: TMenuItem;
     N1: TMenuItem;
     Detalhar1: TMenuItem;
-    AlterarEntrada: TMenuItem;
     prod_descricao: TcxGridDBColumn;
     loc_descricao: TcxGridDBColumn;
     ImageList1: TImageList;
@@ -170,8 +169,6 @@ begin
   else if Key = VK_F2 then
     NovaEntradaClick(Sender)
   else if Key = VK_F3 then
-    AlterarEntradaClick(Sender)
-  else if Key = VK_F4 then
     CancelarEntrada1Click(Sender);
 end;
 

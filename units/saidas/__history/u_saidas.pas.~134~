@@ -46,6 +46,7 @@ type
     procedure CancelarSaidaClick(Sender: TObject);
     procedure BuscarBtnClick(Sender: TObject);
     procedure MostrarTudoBtnClick(Sender: TObject);
+    procedure FiltroDataCod1CodInicialEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,20 +81,37 @@ begin
   tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
   tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
 
-  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
+  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') and
+     (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
   begin
-    tb_saidas.SQL.Add('where ');
-    tb_saidas.SQL.Add('sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
-//    tb_saidas.SQL.Add('and (sai_codigo in (:codigoInicial, :codigoFinal))');
+    tb_saidas.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
+    tb_saidas.SQL.Add('and sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
 
     tb_saidas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
     tb_saidas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
-//    tb_saidas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-//    tb_saidas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+    tb_saidas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+    tb_saidas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+  end
+  else
+  begin  
+    if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
+    begin
+      tb_saidas.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
+
+      tb_saidas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+      tb_saidas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    end;
+
+    if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+    begin
+      tb_saidas.SQL.Add('where sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
+
+      tb_saidas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+      tb_saidas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+    end;
   end;
 
   ds_saidas.DataSet := tb_saidas;
-  showmessage(tb_saidas.SQL.Text);
   tb_saidas.Open;
 end;
 
@@ -149,6 +167,11 @@ begiN
   DetalharSaidaForm.ShowModal;
 end;
 
+procedure TPagSaidas.FiltroDataCod1CodInicialEditClick(Sender: TObject);
+begin
+  FiltroDataCod1.CodInicialEditClick(Sender);
+end;
+
 procedure TPagSaidas.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -177,6 +200,8 @@ begin
 
   FiltroDataCod1.DataInicialEdit.Date := Date;
   FiltroDataCod1.DataFinalEdit.Date := Date;
+  FiltroDataCod1.CodInicialEdit.Clear;
+  FiltroDataCod1.CodFinalEdit.Clear;
 end;
 
 procedure TPagSaidas.MostrarTudoBtnClick(Sender: TObject);
