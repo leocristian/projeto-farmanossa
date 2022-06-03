@@ -148,8 +148,8 @@ object PagProdutos: TPagProdutos
     end
   end
   object PopupProdutos: TPopupMenu
-    Left = 717
-    Top = 120
+    Left = 677
+    Top = 176
     object Detalhar1: TMenuItem
       Caption = 'Detalhar... (F1)'
       OnClick = Detalhar1Click
@@ -172,11 +172,12 @@ object PagProdutos: TPagProdutos
   end
   object ds_produtos: TDataSource
     AutoEdit = False
-    Left = 512
-    Top = 120
+    Left = 504
+    Top = 176
   end
-  object tb_produtos: TUniTable
-    Left = 608
-    Top = 120
+  object qProd: TUniQuery
+    Connection = dm1.con1
+    Left = 584
+    Top = 176
   end
 end

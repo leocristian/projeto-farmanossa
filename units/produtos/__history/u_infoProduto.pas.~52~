@@ -60,7 +60,7 @@ end;
 
 procedure TFormProduto.FormShow(Sender: TObject);
 begin
-  if (FrameButtons.ModoEdit.Text = 'V') or (FrameButtons.ModoEdit.Text = 'A') then
+  if (FrameButtons.ModoEdit.Text = 'V') and (FrameButtons.ModoEdit.Text = 'A') then
   begin
     try
       dm1.q1.SQL.Text := 'select * from tb_produtos where prod_codigo = :codigo';
@@ -75,6 +75,7 @@ begin
       StatusProdBox.ItemIndex := StatusProdBox.Items.IndexOf(dm1.q1.FieldByName('prod_status').Value);
       StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(dm1.q1.FieldByName('prod_status_entrada').Value);
       StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(dm1.q1.FieldByName('prod_status_saida').Value);
+
     finally
       dm1.q1.Close;
     end;

@@ -10,7 +10,7 @@ uses
   dxDateRanges, dxScrollbarAnnotations, cxDBData, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGrid, DBAccess, UniProvider, PostgreSQLUniProvider, fr_estilo, fm_busca,
-  Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.StdCtrls, Vcl.Buttons, u_dm1;
 
 type
   TPagOperador = class(TForm)
@@ -65,6 +65,7 @@ begin
   if qOpe.RecordCount = 0 then exit;
 
   FormOperador.FrameButtons.ModoEdit.Text := 'V';
+  FormOperador.edc_cod.Text := qOpe.FieldByName('ope_codigo').AsString;
   FormOperador.ShowModal;
 end;
 
@@ -85,36 +86,35 @@ procedure TPagOperador.FormShow(Sender: TObject);
 begin
   FrameBusca1.BuscaEdit.SetFocus;
 
+  qOpe.Connection := dm1.con1;
+
   qOpe.Close;
   qOpe.Connection := dm1.con1;
   qOpe.SQL.Text := 'select ope_codigo, ope_nome from tb_operadores';
   qOpe.Open;
-
 end;
 
 procedure TPagOperador.FrameBusca1BitBtn1Click(Sender: TObject);
 var
-  strBusca: String;
+  strBusca, xWhere: String;
 
 begin
 
   strBusca := FrameBusca1.BuscaEdit.Text;
 
-  qOpe.Close;
-  qOpe.Connection := dm1.con1;
+  xWhere := '';
+
+  if (FrameBusca1.BuscaSelect.Text = 'CÓDIGO') and (FrameBusca1.BuscaEdit.Text <> '') then
+  begin
+    xWhere := xWhere + 'and ope_codigo = ' + strBusca;
+  end
+  else if FrameBusca1.BuscaSelect.Text = 'NOME COMPLETO' then
+  begin
+    xWhere := xWhere + 'and ope_nome like ' + QuotedStr('%' + strBusca + '%');
+  end;
 
   qOpe.SQL.Clear;
-  qOpe.SQL.Add('select ope_codigo, ope_nome from tb_operadores');
-
-  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
-    if FrameBusca1.BuscaEdit.Text = '' then
-      qOpe.SQL.Add('where 1=1')
-    else
-      qOpe.SQL.Add('where ope_codigo = ' + strBusca)
-  else if FrameBusca1.BuscaSelect.Text = 'NOME COMPLETO' then
-    qOpe.SQL.Add('where ope_nome like ' + QuotedStr('%' + strBusca + '%'));
-
-  ds_operadores.DataSet := qOpe;
+  qOpe.SQL.Add('select ope_codigo, ope_nome from tb_operadores where 1=1 ' + xWhere);
   qOpe.Open;
 
 end;
@@ -153,14 +153,11 @@ begin
   if qOpe.RecordCount = 0 then exit;
 
   FormOperador.FrameButtons.ModoEdit.Text := 'A';
+  FormOperador.edc_cod.Text := qOpe.FieldByName('ope_codigo').AsString;
   FormOperador.ShowModal;
 end;
 
 procedure TPagOperador.N3ExcluirF41Click(Sender: TObject);
-var
-  q1: TUniQuery;
-  index, codigo: Integer;
-
 begin
   if not qOpe.Active then exit;
   if qOpe.RecordCount = 0 then exit;
@@ -168,25 +165,18 @@ begin
   if Confirma('Confirmar exclusão de operador?' + #13 + 'Esta operação será irreversível!') then
   begin
     try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
-
-      index := gridOperadoresDBTableView1.DataController.GetSelectedRowIndex(0);
-      codigo := gridOperadoresDBTableView1.ViewData.Records[index].Values[0];
-
-      q1.SQL.Text := 'delete from tb_operadores where ope_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+      dm1.q1.SQL.Text := 'delete from tb_operadores where ope_codigo = :codigo';
+      dm1.q1.ParamByName('codigo').Value := qOpe.FieldByName('ope_codigo').Value;
 
       try
-        q1.ExecSQL;
+        dm1.q1.ExecSQL;
         Mensagem('Operador excluído com sucesso!');
         gridOperadoresDBTableView1.DataController.RefreshExternalData;
       except on e:exception do
         Erro('Erro!' + #13 + e.Message);
       end;
     finally
-      q1.Close;
-      FreeAndNil(q1);
+      dm1.q1.Close;
     end;
   end;
 end;

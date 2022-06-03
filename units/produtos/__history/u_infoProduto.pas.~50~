@@ -18,11 +18,12 @@ type
     CodEdit: TEdit;
     DescricaoEdit: TEdit;
     EstNegativoBox: TComboBox;
-    StatusEntBox: TComboBox;
     StatusSaiBox: TComboBox;
     FrameButtons: TFrameButtons;
-    StatusProdBox: TComboBox;
     Label6: TLabel;
+    StatusProdBox: TComboBox;
+    StatusEntBox: TComboBox;
+    edc_cod: TEdit;
     procedure FormShow(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
@@ -49,14 +50,12 @@ end;
 
 procedure TFormProduto.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Key = #13 then
   begin
-    if Key = #13 then
-    begin
-      Key := #0;
-      Perform(wm_nextdlgctl, 0, 0);
-    end
-    else if key = #27 then close
-  end;
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
 end;
 
 procedure TFormProduto.FormShow(Sender: TObject);
@@ -70,7 +69,7 @@ begin
     Caption := 'Exibir Produto';
     pn_form.Enabled := False;
     FrameButtons.SalvarBtn.Visible := False;
-
+    CodEdit.Text := '0000';
     index := PagProdutos.gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
     codigo := PagProdutos.gridProdutosDBTableView1.ViewData.Records[index].Values[0];
 
@@ -100,12 +99,15 @@ begin
   begin
     Caption := 'Incluir Produto';
     pn_form.Enabled := True;
+    CodEdit.Text := '00';
+
     DescricaoEdit.SetFocus;
     DescricaoEdit.Clear;
     FrameButtons.SalvarBtn.Visible := True;
     EstNegativoBox.ItemIndex := 0;
     StatusEntBox.ItemIndex := 0;
-    StatusSaiBox.ItemIndex := 0
+    StatusSaiBox.ItemIndex := 0;
+    StatusProdBox.ItemIndex := 0;
   end
   else if FrameButtons.ModoEdit.Text = 'A' then
   begin
@@ -129,6 +131,7 @@ begin
       CodEdit.Text := q1.FieldByName('prod_codigo').Value;
       DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
       EstNegativoBox.ItemIndex := EstNegativoBox.items.IndexOf(q1.FieldByName('prod_estoque_negativo').Value);
+      StatusProdBox.ItemIndex := StatusProdBox.Items.IndexOf(q1.FieldByName('prod_status').Value);
       StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(q1.FieldByName('prod_status_entrada').Value);
       StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(q1.FieldByName('prod_status_saida').Value);
 
@@ -167,7 +170,7 @@ begin
 
       q1.SQL.Clear;
       q1.SQL.Add('insert into tb_produtos values ');
-      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status, :prod_status_entrada, :prod_status_saida)');
+      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status_entrada, :prod_status_saida, :prod_status)');
 
       q1.ParamByName('prod_codigo').Value := prod_codigo;
       msg_confirma := 'Confirmar inclusão do produto?';

@@ -164,6 +164,7 @@ begin
 
   if Confirma('Confirmar exclusão de operador?' + #13 + 'Esta operação será irreversível!') then
   begin
+
     try
       dm1.q1.SQL.Text := 'delete from tb_operadores where ope_codigo = :codigo';
       dm1.q1.ParamByName('codigo').Value := qOpe.FieldByName('ope_codigo').Value;
@@ -175,9 +176,11 @@ begin
       except on e:exception do
         Erro('Erro!' + #13 + e.Message);
       end;
+
     finally
       dm1.q1.Close;
     end;
+
   end;
 end;
 

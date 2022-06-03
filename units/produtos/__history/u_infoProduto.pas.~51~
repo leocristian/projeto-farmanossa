@@ -18,11 +18,12 @@ type
     CodEdit: TEdit;
     DescricaoEdit: TEdit;
     EstNegativoBox: TComboBox;
-    StatusEntBox: TComboBox;
     StatusSaiBox: TComboBox;
     FrameButtons: TFrameButtons;
-    StatusProdBox: TComboBox;
     Label6: TLabel;
+    StatusProdBox: TComboBox;
+    StatusEntBox: TComboBox;
+    edc_cod: TEdit;
     procedure FormShow(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
@@ -49,14 +50,12 @@ end;
 
 procedure TFormProduto.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Key = #13 then
   begin
-    if Key = #13 then
-    begin
-      Key := #0;
-      Perform(wm_nextdlgctl, 0, 0);
-    end
-    else if key = #27 then close
-  end;
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close;
 end;
 
 procedure TFormProduto.FormShow(Sender: TObject);
@@ -70,7 +69,7 @@ begin
     Caption := 'Exibir Produto';
     pn_form.Enabled := False;
     FrameButtons.SalvarBtn.Visible := False;
-
+    CodEdit.Text := '0000';
     index := PagProdutos.gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
     codigo := PagProdutos.gridProdutosDBTableView1.ViewData.Records[index].Values[0];
 
@@ -87,6 +86,7 @@ begin
       DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
 
       EstNegativoBox.ItemIndex := EstNegativoBox.items.IndexOf(q1.FieldByName('prod_estoque_negativo').Value);
+      StatusProdBox.ItemIndex := StatusProdBox.Items.IndexOf(q1.FieldByName('prod_status').Value);
       StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(q1.FieldByName('prod_status_entrada').Value);
       StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(q1.FieldByName('prod_status_saida').Value);
 
@@ -99,12 +99,15 @@ begin
   begin
     Caption := 'Incluir Produto';
     pn_form.Enabled := True;
+    CodEdit.Text := '00';
+
     DescricaoEdit.SetFocus;
     DescricaoEdit.Clear;
     FrameButtons.SalvarBtn.Visible := True;
     EstNegativoBox.ItemIndex := 0;
     StatusEntBox.ItemIndex := 0;
-    StatusSaiBox.ItemIndex := 0
+    StatusSaiBox.ItemIndex := 0;
+    StatusProdBox.ItemIndex := 0;
   end
   else if FrameButtons.ModoEdit.Text = 'A' then
   begin
@@ -128,6 +131,7 @@ begin
       CodEdit.Text := q1.FieldByName('prod_codigo').Value;
       DescricaoEdit.Text := q1.FieldByName('prod_descricao').Value;
       EstNegativoBox.ItemIndex := EstNegativoBox.items.IndexOf(q1.FieldByName('prod_estoque_negativo').Value);
+      StatusProdBox.ItemIndex := StatusProdBox.Items.IndexOf(q1.FieldByName('prod_status').Value);
       StatusEntBox.ItemIndex := StatusEntBox.items.IndexOf(q1.FieldByName('prod_status_entrada').Value);
       StatusSaiBox.ItemIndex := StatusSaiBox.items.IndexOf(q1.FieldByName('prod_status_saida').Value);
 
@@ -140,9 +144,8 @@ end;
 
 procedure TFormProduto.SalvarBtnClick(Sender: TObject);
 var
-  q1: TUniQuery;
-  prod_codigo: Integer;
   msg_confirma: String;
+  prod_codigo: Integer;
 
 begin
   if DescricaoEdit.Text = '' then
@@ -153,44 +156,41 @@ begin
   end;
 
   try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
-
     if FrameButtons.ModoEdit.Text = 'N' then
     begin
-      q1.SQL.Text := 'select nextval(''tb_produtos_cod_seq'') as prod_codigo';
+      dm1.q1.SQL.Text := 'select nextval(''tb_produtos_cod_seq'') as prod_codigo';
 
-      q1.Open;
-      prod_codigo := q1.FieldByName('prod_codigo').Value;
-      q1.Close;
+      dm1.q1.Open;
+      prod_codigo := dm1.q1.FieldByName('prod_codigo').Value;
+      dm1.q1.Close;
 
-      q1.SQL.Clear;
-      q1.SQL.Add('insert into tb_produtos values ');
-      q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status, :prod_status_entrada, :prod_status_saida)');
+      dm1.q1.SQL.Clear;
+      dm1.q1.SQL.Add('insert into tb_produtos values ');
+      dm1.q1.SQL.Add('(:prod_codigo, :prod_descricao, :prod_est_neg, :prod_status_entrada, :prod_status_saida, :prod_status)');
 
-      q1.ParamByName('prod_codigo').Value := prod_codigo;
+      dm1.q1.ParamByName('prod_codigo').Value := prod_codigo;
       msg_confirma := 'Confirmar inclusão do produto?';
     end
     else if FrameButtons.ModoEdit.Text = 'A' then
     begin
-      q1.SQL.Clear;
-      q1.SQL.Add('update tb_produtos set ');
-      q1.SQL.Add('prod_descricao = :prod_descricao, prod_estoque_negativo = :prod_est_neg, prod_status = :prod_status, ');
-      q1.SQL.Add('prod_status_entrada = :prod_status_entrada, prod_status_saida = :prod_status_saida');
-      q1.SQL.Add(' where prod_codigo = :prod_codigo');
-      q1.ParamByName('prod_codigo').Value := CodEdit.Text;
+      dm1.q1.SQL.Clear;
+      dm1.q1.SQL.Add('update tb_produtos set ');
+      dm1.q1.SQL.Add('prod_descricao = :prod_descricao, prod_estoque_negativo = :prod_est_neg, prod_status = :prod_status, ');
+      dm1.q1.SQL.Add('prod_status_entrada = :prod_status_entrada, prod_status_saida = :prod_status_saida');
+      dm1.q1.SQL.Add(' where prod_codigo = :prod_codigo');
+      dm1.q1.ParamByName('prod_codigo').Value := CodEdit.Text;
       msg_confirma := 'Salvar alterações?';
     end;
 
-    q1.ParamByName('prod_descricao').Value := DescricaoEdit.Text;
-    q1.ParamByName('prod_est_neg').Value := EstNegativoBox.Text;
-    q1.ParamByName('prod_status').Value := StatusProdBox.Text;
-    q1.ParamByName('prod_status_entrada').Value := StatusEntBox.Text;
-    q1.ParamByName('prod_status_saida').Value := StatusSaiBox.Text;
+    dm1.q1.ParamByName('prod_descricao').Value := DescricaoEdit.Text;
+    dm1.q1.ParamByName('prod_est_neg').Value := EstNegativoBox.Text;
+    dm1.q1.ParamByName('prod_status').Value := StatusProdBox.Text;
+    dm1.q1.ParamByName('prod_status_entrada').Value := StatusEntBox.Text;
+    dm1.q1.ParamByName('prod_status_saida').Value := StatusSaiBox.Text;
 
     if Confirma(msg_confirma) then
     try
-      q1.ExecSQL;
+      dm1.q1.ExecSQL;
       Mensagem('Operação concluída!');
       PagProdutos.gridProdutosDBTableView1.DataController.RefreshExternalData;
       Close;
@@ -198,8 +198,7 @@ begin
         Erro('Erro: ' + #13 + e.Message);
     end;
   finally
-    q1.Close;
-    FreeAndNil(q1);
+    dm1.q1.Close;
   end;
 end;
 

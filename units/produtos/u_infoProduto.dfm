@@ -111,7 +111,7 @@ object FormProduto: TFormProduto
       Style = csDropDownList
       CharCase = ecUpperCase
       ItemIndex = 0
-      TabOrder = 3
+      TabOrder = 5
       Text = 'ATIVO'
       Items.Strings = (
         'ATIVO'
@@ -124,7 +124,7 @@ object FormProduto: TFormProduto
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 4
+      TabOrder = 3
       Text = 'ATIVO'
       Items.Strings = (
         'ATIVO'
@@ -137,7 +137,7 @@ object FormProduto: TFormProduto
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 5
+      TabOrder = 4
       Text = 'ATIVO'
       Items.Strings = (
         'ATIVO'
@@ -173,5 +173,12 @@ object FormProduto: TFormProduto
       ExplicitLeft = 258
       ExplicitTop = 39
     end
+  end
+  object edc_cod: TEdit
+    Left = 168
+    Top = 219
+    Width = 25
+    Height = 21
+    TabOrder = 2
   end
 end

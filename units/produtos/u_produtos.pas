@@ -20,7 +20,6 @@ type
     N2AlterarregistroatualF31: TMenuItem;
     N3ExcluirF41: TMenuItem;
     ds_produtos: TDataSource;
-    tb_produtos: TUniTable;
     gridProdutosDBTableView1: TcxGridDBTableView;
     gridProdutosLevel1: TcxGridLevel;
     gridProdutos: TcxGrid;
@@ -32,6 +31,7 @@ type
     FrameGrid1: TFrameGrid;
     FrameBusca1: TFrameBusca;
     prod_status: TcxGridDBColumn;
+    qProd: TUniQuery;
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -58,10 +58,11 @@ uses u_infoProduto, u_dm1, u_controleForm;
 
 procedure TPagProdutos.Detalhar1Click(Sender: TObject);
 begin
-  if not tb_produtos.Active then exit;
-  if tb_produtos.RecordCount = 0 then exit;
+  if not qProd.Active then exit;
+  if qProd.RecordCount = 0 then exit;
 
   FormProduto.FrameButtons.ModoEdit.Text := 'V';
+  FormProduto.edc_cod.Text := qProd.FieldByName('prod_codigo').AsString;
   FormProduto.ShowModal;
 end;
 
@@ -80,42 +81,35 @@ end;
 
 procedure TPagProdutos.FormShow(Sender: TObject);
 begin
-//  dm1.con1.Close;
+  qProd.Close;
+  qProd.Connection := dm1.con1;
+  qProd.SQL.Text := 'select * from tb_produtos';
 
-  tb_produtos.Close;
-  tb_produtos.Connection := dm1.con1;
-  tb_produtos.SQL.Text := 'select * from tb_produtos';
-
-  ds_produtos.DataSet := tb_produtos;
-  tb_produtos.Open;
-
-//  dm1.con1.Open;
+  ds_produtos.DataSet := qProd;
+  qProd.Open;
 end;
 
 procedure TPagProdutos.FrameBusca1BitBtn1Click(Sender: TObject);
 var
-  strBusca: String;
+  strBusca, xWhere: String;
 
 begin
 
   strBusca := FrameBusca1.BuscaEdit.Text;
+  xWhere := '';
 
-  tb_produtos.Close;
-  tb_produtos.Connection := dm1.con1;
-
-  tb_produtos.SQL.Clear;
-  tb_produtos.SQL.Add('select * from tb_produtos');
-
-  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
-    if FrameBusca1.BuscaEdit.Text = '' then
-      tb_produtos.SQL.Add('where 1=1')
-    else
-      tb_produtos.SQL.Add('where prod_codigo = ' + strBusca)
+  if (FrameBusca1.BuscaSelect.Text = 'CÓDIGO') and (FrameBusca1.BuscaEdit.Text <> '') then
+  begin
+    xWhere := xWhere + 'and prod_codigo = ' + strBusca;
+  end
   else if FrameBusca1.BuscaSelect.Text = 'DESCRIÇÃO' then
-    tb_produtos.SQL.Add('where prod_descricao like ' + QuotedStr('%' + strBusca + '%'));
+  begin
+    xWhere := xWhere + 'and prod_descricao like ' + QuotedStr('%' + strBusca + '%');
+  end;
 
-  ds_produtos.DataSet := tb_produtos;
-  tb_produtos.Open;
+  qProd.SQL.Clear;
+  qProd.SQL.Add('select * from tb_produtos where 1=1 ' + xWhere);
+  qProd.Open;
 
 end;
 
@@ -149,40 +143,30 @@ end;
 
 procedure TPagProdutos.N2AlterarregistroatualF31Click(Sender: TObject);
 begin
-  if not tb_produtos.Active then exit;
-  if tb_produtos.RecordCount = 0 then exit;
+  if not qProd.Active then exit;
+  if qProd.RecordCount = 0 then exit;
 
   FormProduto.FrameButtons.ModoEdit.Text := 'A';
+  FormProduto.edc_cod.Text := qProd.FieldByName('prod_codigo').AsString;
   FormProduto.ShowModal;
 end;
 
 procedure TPagProdutos.N3ExcluirF41Click(Sender: TObject);
-var
-  q1: TUniQuery;
-  index, codigo: Integer;
-
 begin
-  if not tb_produtos.Active then exit;
-  if tb_produtos.RecordCount = 0 then exit;
+  if not qProd.Active then exit;
+  if qProd.RecordCount = 0 then exit;
 
   if Confirma('Confirmar exclusão de produto?' + #13 + 'Esta operação será irreversível!') then
   begin
     try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
-
-      index := gridProdutosDBTableView1.DataController.GetSelectedRowIndex(0);
-      codigo := gridProdutosDBTableView1.ViewData.Records[index].Values[0];
-
-      q1.SQL.Text := 'delete from tb_produtos where prod_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+      dm1.q1.SQL.Text := 'delete from tb_produtos where prod_codigo = :codigo';
+      dm1.q1.ParamByName('codigo').Value := qProd.FieldByName('prod_codigo').AsString;
 
       try
-        q1.ExecSQL;
+        dm1.q1.ExecSQL;
         Mensagem('Produto excluído com sucesso!');
         gridProdutosDBTableView1.DataController.RefreshExternalData;
       except on e:exception do
-      begin
         if e.message.contains('tb_saidas_sai_produto_fkey') then
         begin
           Aviso('Não é possível excluir pois o produto possui operações de entrada e/ou saída');
@@ -191,12 +175,9 @@ begin
         begin
           Erro('Erro!' + #13 + e.Message);
         end;
-
-      end;
       end;
     finally
-      q1.Close;
-      FreeAndNil(q1);
+      dm1.q1.Close;
     end;
   end;
 end;
