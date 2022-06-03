@@ -452,7 +452,13 @@ var
   q1: TUniQuery;
 
 begin
-
+  if (CodProdEdit.Text = '') or (CodLocalEdit.Text = '') then
+  begin
+    Aviso('Informe o produto e o local para preencher o lote');
+    LoteEdit.Clear;
+    CodProdEdit.SetFocus;
+    Exit;
+  end;
   if LoteEdit.Text = '' then exit;
 
   try

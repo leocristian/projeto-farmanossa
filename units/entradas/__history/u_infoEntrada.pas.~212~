@@ -213,9 +213,11 @@ begin
   if FrameButtons1.ModoEdit.Text = 'N' then
   begin
     pn_form.Enabled := true;
+    Caption := 'Nova Entrada';
     pn_datas.Enabled := true;
     FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
+    LoteEdit.Enabled := True;
     DtFabricacaoEdit.Clear;
     DtVencimentoEdit.Clear;
     CodProdEdit.SetFocus;
@@ -266,14 +268,17 @@ begin
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin
       pn_form.Enabled := false;
+      Caption := 'Exibir Entrada';
       FrameButtons1.SalvarBtn.Visible := false;
       FrameButtons1.SalvarBtn.Caption := 'Confirmar Entrada';
     end
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := true;
+      Caption := 'Alterar Entrada';
       pn_datas.Enabled := False;
       LoteEdit.Enabled := False;
+      ModoLote.Text := 'A';
       FrameButtons1.SalvarBtn.Visible := true;
       FrameButtons1.SalvarBtn.Caption := 'Salvar Alterações';
       CodProdEdit.SetFocus;
@@ -361,29 +366,12 @@ begin
       ent_codigo := CodEdit.Text;
 
       q1.SQL.Add('update tb_lotes set lote_quantidade = :quantidade, lote_produto = :produto, lote_local = :local');
-      q1.SQL.Add('where lote_codigo = :lote');
-
-//      if ModoLote.Text = 'N' then
-//      begin
-//        q1.SQL.Add('insert into tb_lotes (lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade) values (');
-//        q1.SQL.Add(':lote, :dtfabricacao, :dtvencimento, :quantidade);');
-//        q1.ParamByName('dtfabricacao').Value := DtFabricacaoEdit.Date;
-//        q1.ParamByName('dtvencimento').Value := DtVencimentoEdit.Date;
-//      end
-//      else if ModoLote.Text = 'A' then
-//      begin
-//        // Atualizar lote com a nova quantidade
-//        q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
-//        q1.SQL.Add('where lote_codigo = :lote;');
-//      end;
-
-      // Atualizar movimentação do prouto
-      AtualizarMovimentacao(CodEdit.Text, CodProdEdit.Text, CodLocalEdit.Text, LoteEdit.Text, QtdProdEdit.Text);
+      q1.SQL.Add('where lote_codigo = :lote;');
 
       q1.SQL.Add('update tb_entradas set ');
       q1.SQL.Add('ent_produto = :produto, ent_local = :local, ent_lote = :lote, ');
       q1.SQL.Add('ent_quantidade = :quantidade');
-      q1.SQl.Add('where ent_codigo = :codigo')
+      q1.SQl.Add('where ent_codigo = :codigo;')
     end;
 
     q1.ParamByName('codigo').Value := ent_codigo;
@@ -392,11 +380,11 @@ begin
     q1.ParamByName('lote').Value := LoteEdit.Text;
     q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
 
-    showmessage(q1.SQL.Text);
-
     if Confirma('Confirmar operação?') then
     begin
       try
+        // Adicionar verificação de estoque negativo
+
         q1.ExecSQL;
         Mensagem('Operação realizada com sucesso!');
 
@@ -422,6 +410,10 @@ begin
             Aviso(e.message);
           end;
 
+        end
+        else if FrameButtons1.ModoEdit.Text = 'A' then
+        begin
+          AtualizarMovimentacao(CodEdit.Text, CodProdEdit.Text, CodLocalEdit.Text, LoteEdit.Text, QtdProdEdit.Text);
         end;
 
         PagEntradas.gridEntradasDBTableView1.DataController.RefreshExternalData;
@@ -460,7 +452,12 @@ var
   q1: TUniQuery;
 
 begin
-
+  if (CodProdEdit.Text = '') or (CodLocalEdit.Text = '') then
+  begin
+    Aviso('Informe o produto e o local para preencher o lote');
+    CodProdEdit.SetFocus;
+    Exit;
+  end;
   if LoteEdit.Text = '' then exit;
 
   try
@@ -471,9 +468,9 @@ begin
     q1.SQL.Add('select exists(select lote.lote_dtfabricacao, lote.lote_dtvencimento from tb_lotes as lote');
     q1.SQL.Add('where lote_codigo = :lote and lote_produto = :produto and lote_local = :local)');
 
-    q1.ParamByName('lote').Value := LoteEdit.Text;
-    q1.ParamByName('produto').Value := CodProdEdit.Text;
-    q1.ParamByName('local').Value := CodLocalEdit.Text;
+    q1.ParamByName('lote').Value := StrToInt(LoteEdit.Text);
+    q1.ParamByName('produto').Value := StrToInt(CodProdEdit.Text);
+    q1.ParamByName('local').Value := StrToInt(CodLocalEdit.Text);
 
     q1.Open;
 
