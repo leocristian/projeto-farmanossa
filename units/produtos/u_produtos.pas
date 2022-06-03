@@ -41,6 +41,7 @@ type
     procedure FrameBusca1BuscaEditClick(Sender: TObject);
     procedure FrameBusca1BitBtn1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FrameBusca1SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -133,6 +134,11 @@ begin
   end;
 
   FrameBusca1.BuscaEdit.SetFocus;
+end;
+
+procedure TPagProdutos.FrameBusca1SpeedButton1Click(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TPagProdutos.N1Incluirnovoregistro1Click(Sender: TObject);

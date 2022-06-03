@@ -13,6 +13,8 @@ type
     BuscaEdit: TEdit;
     BitBtn1: TBitBtn;
     ImageList1: TImageList;
+    SpeedButton1: TSpeedButton;
+    TituloLabel: TLabel;
     procedure BuscaEditKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }

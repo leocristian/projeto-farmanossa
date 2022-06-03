@@ -383,6 +383,8 @@ begin
     if Confirma('Confirmar operação?') then
     begin
       try
+        // Adicionar verificação de estoque negativo
+
         q1.ExecSQL;
         Mensagem('Operação realizada com sucesso!');
 
@@ -461,9 +463,9 @@ begin
     q1.SQL.Add('select exists(select lote.lote_dtfabricacao, lote.lote_dtvencimento from tb_lotes as lote');
     q1.SQL.Add('where lote_codigo = :lote and lote_produto = :produto and lote_local = :local)');
 
-    q1.ParamByName('lote').Value := LoteEdit.Text;
-    q1.ParamByName('produto').Value := CodProdEdit.Text;
-    q1.ParamByName('local').Value := CodLocalEdit.Text;
+    q1.ParamByName('lote').Value := StrToInt(LoteEdit.Text);
+    q1.ParamByName('produto').Value := StrToInt(CodProdEdit.Text);
+    q1.ParamByName('local').Value := StrToInt(CodLocalEdit.Text);
 
     q1.Open;
 

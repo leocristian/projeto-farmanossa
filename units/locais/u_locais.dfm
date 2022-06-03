@@ -1,9 +1,11 @@
 object PagLocais: TPagLocais
   Left = 0
   Top = 0
+  Anchors = [akLeft, akTop, akRight, akBottom]
+  BorderStyle = bsNone
   Caption = 'Locais de Estoque'
-  ClientHeight = 442
-  ClientWidth = 751
+  ClientHeight = 481
+  ClientWidth = 767
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,8 +23,8 @@ object PagLocais: TPagLocais
   object gridLocais: TcxGrid
     Left = 0
     Top = 109
-    Width = 751
-    Height = 333
+    Width = 767
+    Height = 372
     Align = alClient
     TabOrder = 0
     object gridLocaisDBTableView1: TcxGridDBTableView
@@ -99,29 +101,47 @@ object PagLocais: TPagLocais
   inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
-    Width = 751
+    Width = 767
     Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 751
+    ExplicitWidth = 767
+    inherited SpeedButton1: TSpeedButton
+      Left = 728
+      Top = 8
+      OnClick = FrameBusca1SpeedButton1Click
+      ExplicitLeft = 712
+      ExplicitTop = 8
+    end
+    inherited TituloLabel: TLabel
+      Left = 455
+      Top = 36
+      Width = 267
+      Caption = 'Locais de Estoque'
+      ExplicitLeft = 455
+      ExplicitTop = 36
+      ExplicitWidth = 267
+    end
     inherited BuscaSelect: TComboBox
+      Left = 16
       Text = 'DESCRI'#199#195'O'
       OnChange = FrameBusca1BuscaSelectChange
       Items.Strings = (
         'DESCRI'#199#195'O'
         'C'#211'DIGO')
+      ExplicitLeft = 16
     end
     inherited BuscaEdit: TEdit
+      Left = 143
       CharCase = ecUpperCase
       MaxLength = 50
       OnClick = FrameBusca1BuscaEditClick
+      ExplicitLeft = 143
     end
     inherited BitBtn1: TBitBtn
-      Left = 368
-      Top = 40
+      Left = 335
       OnClick = FrameBusca1BitBtn1Click
-      ExplicitLeft = 368
-      ExplicitTop = 40
+      ExplicitLeft = 335
     end
   end
   object PopupLocais: TPopupMenu

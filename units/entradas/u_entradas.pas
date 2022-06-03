@@ -21,7 +21,6 @@ type
     gridEntradasDBTableView1: TcxGridDBTableView;
     gridEntradasLevel1: TcxGridLevel;
     gridEntradas: TcxGrid;
-    tb_entradas: TUniTable;
     ds_entradas: TDataSource;
     ent_codigo: TcxGridDBColumn;
     ent_produto: TcxGridDBColumn;
@@ -37,6 +36,7 @@ type
     ImageList1: TImageList;
     FiltroDataCod1: TFiltroDataCod;
     FrameGrid1: TFrameGrid;
+    qEnt: TUniQuery;
     procedure NovaEntradaClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CancelarEntrada1Click(Sender: TObject);
@@ -45,6 +45,7 @@ type
     procedure AlterarEntradaClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure BuscarBtnClick(Sender: TObject);
+    procedure FiltroDataCod1SpeedButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,8 +63,8 @@ uses u_infoEntrada, u_dm1, u_controleForm;
 
 procedure TPagEntradas.AlterarEntradaClick(Sender: TObject);
 begin
-  if not tb_entradas.Active then exit;
-  if tb_entradas.RecordCount = 0 then exit;
+  if not qEnt.Active then exit;
+  if qEnt.RecordCount = 0 then exit;
 
   FormEntrada.FrameButtons1.ModoEdit.Text := 'A';
   FormEntrada.ShowModal;
@@ -72,93 +73,120 @@ end;
 procedure TPagEntradas.BuscarBtnClick(Sender: TObject);
 begin
 
-  tb_entradas.Close;
-  tb_entradas.Connection := dm1.con1;
+  qEnt.Close;
+  qEnt.Connection := dm1.con1;
 
-  tb_entradas.SQL.Clear;
-  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
-  tb_entradas.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
-  tb_entradas.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
+  qEnt.SQL.Clear;
+  qEnt.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
+  qEnt.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
+  qEnt.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
 
   if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') and
      (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
   begin
-    tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
-    tb_entradas.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
+    qEnt.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
+    qEnt.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
 
-    tb_entradas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
-    tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
-    tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-    tb_entradas.ParamByName('codigoFInal').Value := FiltroDataCod1.CodFinalEdit.Value;
+    qEnt.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+    qEnt.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    qEnt.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+    qEnt.ParamByName('codigoFInal').Value := FiltroDataCod1.CodFinalEdit.Value;
   end
   else
   begin
     if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
     begin
-      tb_entradas.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
+      qEnt.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
 
-      tb_entradas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
-      tb_entradas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+      qEnt.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+      qEnt.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
     end;
 
     if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
     begin
-      tb_entradas.SQL.Add('where ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal');
+      qEnt.SQL.Add('where ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal');
 
-      tb_entradas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-      tb_entradas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+      qEnt.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+      qEnt.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
     end;
   end;
 
-  ds_entradas.DataSet := tb_entradas;
-  tb_entradas.Open;
+  ds_entradas.DataSet := qEnt;
+  qEnt.Open;
 end;
 
 procedure TPagEntradas.CancelarEntrada1Click(Sender: TObject);
-var
-  q1: TUniQuery;
-  index, codigo: Integer;
-
 begin
-  if not tb_entradas.Active then exit;
-  if tb_entradas.RecordCount = 0 then exit;
+  if not qEnt.Active then exit;
+  if qEnt.RecordCount = 0 then exit;
 
   if Confirma('Confirmar cancelamento de entrada?' + #13 + 'Esta operação será irreversível!') then
   begin
     try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
 
-      index := gridEntradasDBTableView1.DataController.GetSelectedRowIndex(0);
-      codigo := gridEntradasDBTableView1.ViewData.Records[index].Values[0];
+      {
+  try
+    dm1.con1.StartTransaction;
 
-      q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+     //CÓDIGO AQUI
+
+    dm1.con1.Commit;
+
+  except
+    on e : Exception do
+    begin
+      dm1.con1.Rollback;
+    end;
+  end;
+
+  }
 
       try
-        q1.ExecSQL;
+        dm1.con1.StartTransaction;
+
+        dm1.q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
+        dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsInteger;
+        dm1.q1.ExecSQL;
+
+        dm1.q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
+        dm1.q1.ParamByName('entrada').Value := qEnt.FieldByName('ent_codigo').AsInteger;
+        dm1.q1.ExecSQL;
+
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = lote_quantidade - :quantidade');
+        dm1.q1.SQL.Add('where lote_codigo = :lote');
+        dm1.q1.ParamByName('lote').Value := qEnt.FieldByName('ent_lote').AsInteger;
+        dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
+
+        dm1.q1.ExecSQL;
+
+        dm1.con1.Commit;
         Mensagem('Entrada cancelada com sucesso!');
-        q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
-        q1.ParamByName('entrada').Value := codigo;
-        q1.ExecSQL;
         gridEntradasDBTableView1.DataController.RefreshExternalData;
       except on e:exception do
-        Erro('Erro!' + #13 + e.Message);
+        begin
+          Erro('Erro!' + #13 + e.Message);
+          dm1.con1.Rollback;
+        end;
       end;
     finally
-      q1.Close;
-      FreeAndNil(q1);
+      dm1.q1.Close;
     end;
   end;
 end;
 
 procedure TPagEntradas.Detalhar1Click(Sender: TObject);
 begin
-  if not tb_entradas.Active then exit;
-  if tb_entradas.RecordCount = 0 then exit;
+  if not qEnt.Active then exit;
+  if qEnt.RecordCount = 0 then exit;
 
   FormEntrada.FrameButtons1.ModoEdit.Text := 'V';
   FormEntrada.ShowModal;
+end;
+
+procedure TPagEntradas.FiltroDataCod1SpeedButton2Click(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TPagEntradas.FormKeyDown(Sender: TObject; var Key: Word;
@@ -184,19 +212,20 @@ end;
 
 procedure TPagEntradas.FormShow(Sender: TObject);
 begin
-  tb_entradas.Close;
-  tb_entradas.Connection := dm1.con1;
+  qEnt.Close;
 
-  tb_entradas.SQL.Clear;
-  tb_entradas.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora');
-  tb_entradas.SQl.Add('from tb_entradas');
-  tb_entradas.SQL.Add('inner join tb_produtos');
-  tb_entradas.SQL.Add('on ent_produto = prod_codigo');
-  tb_entradas.SQL.Add('inner join tb_locais_estoque');
-  tb_entradas.SQL.Add('on ent_local = loc_codigo');
+  qEnt.SQL.Clear;
+  qEnt.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora');
+  qEnt.SQl.Add('from tb_entradas');
+  qEnt.SQL.Add('left join tb_produtos');
+  qEnt.SQL.Add('on ent_produto = prod_codigo');
+  qEnt.SQL.Add('left join tb_locais_estoque');
+  qEnt.SQL.Add('on ent_local = loc_codigo');
+  qEnt.SQL.Add('where ent_data_hora::date = :data');
 
-  ds_entradas.DataSet := tb_entradas;
-  tb_entradas.Open;
+  qEnt.ParamByName('data').Value := Date;
+
+  qEnt.Open;
 
   FiltroDataCod1.DataInicialEdit.Date := Date;
   FiltroDataCod1.DataFinalEdit.Date := Date;

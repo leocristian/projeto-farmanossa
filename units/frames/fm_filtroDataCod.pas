@@ -28,6 +28,8 @@ type
     BuscarBtn: TBitBtn;
     ImageList1: TImageList;
     SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    Label5: TLabel;
     procedure DataInicialEditClick(Sender: TObject);
     procedure DataFinalEditDblClick(Sender: TObject);
     procedure LimparDatasBtnClick(Sender: TObject);

@@ -1124,7 +1124,6 @@ object FormPrincipal: TFormPrincipal
     Width = 738
     Height = 73
     Align = alTop
-    BevelOuter = bvNone
     TabOrder = 1
     DesignSize = (
       738
@@ -4008,8 +4007,8 @@ object FormPrincipal: TFormPrincipal
       Caption = 'Digite o c'#243'digo da funcionalidade'
     end
     object EncerrarBtn: TBitBtn
-      Left = 661
-      Top = 3
+      Left = 629
+      Top = 15
       Width = 49
       Height = 46
       Anchors = [akTop, akRight]
@@ -4019,8 +4018,8 @@ object FormPrincipal: TFormPrincipal
       OnClick = EncerrarBtnClick
     end
     object BitBtn2: TBitBtn
-      Left = 606
-      Top = 3
+      Left = 574
+      Top = 15
       Width = 49
       Height = 46
       Anchors = [akTop, akRight]
@@ -4030,10 +4029,10 @@ object FormPrincipal: TFormPrincipal
       OnClick = BitBtn2Click
     end
     object BitBtn3: TBitBtn
-      Left = 263
-      Top = 19
+      Left = 272
+      Top = 15
       Width = 49
-      Height = 37
+      Height = 46
       ImageIndex = 2
       Images = ImageList1
       TabOrder = 1
@@ -4094,8 +4093,8 @@ object FormPrincipal: TFormPrincipal
   object ImageList1: TImageList
     Height = 60
     Width = 60
-    Left = 544
-    Top = 17
+    Left = 504
+    Top = 25
     Bitmap = {
       494C01010300080004003C003C00FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000F00000003C000000010020000000000000E1

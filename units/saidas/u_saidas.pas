@@ -46,6 +46,7 @@ type
     procedure BuscarBtnClick(Sender: TObject);
     procedure MostrarTudoBtnClick(Sender: TObject);
     procedure FiltroDataCod1CodInicialEditClick(Sender: TObject);
+    procedure FiltroDataCod1SpeedButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -169,6 +170,11 @@ end;
 procedure TPagSaidas.FiltroDataCod1CodInicialEditClick(Sender: TObject);
 begin
   FiltroDataCod1.CodInicialEditClick(Sender);
+end;
+
+procedure TPagSaidas.FiltroDataCod1SpeedButton2Click(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TPagSaidas.FormKeyDown(Sender: TObject; var Key: Word;

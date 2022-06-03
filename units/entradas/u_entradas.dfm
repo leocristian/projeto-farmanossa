@@ -1,11 +1,12 @@
 object PagEntradas: TPagEntradas
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
+  Anchors = [akLeft, akTop, akRight, akBottom]
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
+  BorderStyle = bsNone
   Caption = 'Entradas de Mercadorias'
-  ClientHeight = 412
-  ClientWidth = 785
+  ClientHeight = 441
+  ClientWidth = 973
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,10 +25,12 @@ object PagEntradas: TPagEntradas
   object gridEntradas: TcxGrid
     Left = 0
     Top = 124
-    Width = 785
-    Height = 288
+    Width = 973
+    Height = 317
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 785
+    ExplicitHeight = 288
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -127,35 +130,76 @@ object PagEntradas: TPagEntradas
   inline FiltroDataCod1: TFiltroDataCod
     Left = 0
     Top = 0
-    Width = 785
+    Width = 973
     Height = 124
     Align = alTop
     TabOrder = 1
     ExplicitWidth = 785
     inherited pn_busca: TPanel
-      Width = 785
+      Width = 973
       ExplicitWidth = 785
-      ExplicitHeight = 124
-      inherited BuscarBtn: TBitBtn
-        OnClick = BuscarBtnClick
+      DesignSize = (
+        973
+        124)
+      inherited SpeedButton1: TSpeedButton
+        Left = 554
+        ExplicitLeft = 554
       end
+      inherited SpeedButton2: TSpeedButton
+        Left = 940
+        Top = 8
+        OnClick = FiltroDataCod1SpeedButton2Click
+        ExplicitLeft = 777
+        ExplicitTop = 8
+      end
+      inherited Label5: TLabel
+        Left = 602
+        Top = 38
+        Width = 321
+        Caption = 'Entrada de Mercadorias'
+        Font.Style = [fsBold, fsItalic]
+        ExplicitLeft = 602
+        ExplicitTop = 38
+        ExplicitWidth = 321
+      end
+      inherited dataBox: TGroupBox
+        Left = 24
+        ExplicitLeft = 24
+      end
+      inherited CodigoBox: TGroupBox
+        Left = 287
+        ExplicitLeft = 287
+      end
+      inherited BuscarBtn: TBitBtn
+        Left = 488
+        OnClick = BuscarBtnClick
+        ExplicitLeft = 488
+      end
+    end
+    inherited ImageList1: TImageList
+      Left = 736
+      Top = 86
     end
   end
   inline FrameGrid1: TFrameGrid
-    Left = 640
-    Top = 8
-    Width = 77
-    Height = 86
+    Left = 631
+    Top = 87
+    Width = 49
+    Height = 31
     TabOrder = 2
-    ExplicitLeft = 640
-    ExplicitTop = 8
+    ExplicitLeft = 631
+    ExplicitTop = 87
+    ExplicitWidth = 49
+    ExplicitHeight = 31
     inherited estiloGrid: TcxStyleRepository
+      Left = 8
+      Top = 8
       PixelsPerInch = 96
     end
   end
   object PopupEntradas: TPopupMenu
     Left = 640
-    Top = 142
+    Top = 158
     object Detalhar1: TMenuItem
       Caption = 'Detalhar...  (F1)'
       OnClick = Detalhar1Click
@@ -172,17 +216,14 @@ object PagEntradas: TPagEntradas
       OnClick = CancelarEntrada1Click
     end
   end
-  object tb_entradas: TUniTable
-    Left = 480
-    Top = 142
-  end
   object ds_entradas: TDataSource
+    DataSet = qEnt
     Left = 560
-    Top = 142
+    Top = 158
   end
   object ImageList1: TImageList
     Left = 408
-    Top = 144
+    Top = 160
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -322,5 +363,10 @@ object PagEntradas: TPagEntradas
       800100000000000080010000000000008001000000000000E10F000000000000
       E10F000000000000F18F00000000000000000000000000000000000000000000
       000000000000}
+  end
+  object qEnt: TUniQuery
+    Connection = dm1.con1
+    Left = 488
+    Top = 160
   end
 end

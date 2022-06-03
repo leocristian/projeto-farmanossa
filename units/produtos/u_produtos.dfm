@@ -1,9 +1,11 @@
 object PagProdutos: TPagProdutos
   Left = 0
   Top = 0
+  Anchors = [akLeft, akTop, akRight, akBottom]
+  BorderStyle = bsNone
   Caption = 'Produtos'
-  ClientHeight = 466
-  ClientWidth = 819
+  ClientHeight = 505
+  ClientWidth = 835
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,10 +23,12 @@ object PagProdutos: TPagProdutos
   object gridProdutos: TcxGrid
     Left = 0
     Top = 109
-    Width = 819
-    Height = 357
+    Width = 835
+    Height = 396
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 819
+    ExplicitHeight = 357
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -122,11 +126,29 @@ object PagProdutos: TPagProdutos
   inline FrameBusca1: TFrameBusca
     Left = 0
     Top = 0
-    Width = 819
+    Width = 835
     Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 819
+    ExplicitLeft = 16
+    ExplicitTop = 8
+    ExplicitWidth = 835
+    inherited SpeedButton1: TSpeedButton
+      Left = 804
+      Top = 8
+      OnClick = FrameBusca1SpeedButton1Click
+      ExplicitLeft = 804
+      ExplicitTop = 8
+    end
+    inherited TituloLabel: TLabel
+      Left = 604
+      Top = 31
+      Width = 161
+      Caption = 'Produtos'
+      ExplicitLeft = 604
+      ExplicitTop = 31
+      ExplicitWidth = 161
+    end
     inherited BuscaSelect: TComboBox
       Text = 'DESCRI'#199#195'O'
       OnChange = FrameBusca1BuscaSelectChange
@@ -141,10 +163,8 @@ object PagProdutos: TPagProdutos
     end
     inherited BitBtn1: TBitBtn
       Left = 376
-      Top = 40
       OnClick = FrameBusca1BitBtn1Click
       ExplicitLeft = 376
-      ExplicitTop = 40
     end
   end
   object PopupProdutos: TPopupMenu

@@ -1,9 +1,11 @@
 object PagSaidas: TPagSaidas
   Left = 0
   Top = 0
+  Anchors = [akLeft, akTop, akRight, akBottom]
+  BorderStyle = bsNone
   Caption = 'Sa'#237'das de Mercadorias'
-  ClientHeight = 344
-  ClientWidth = 774
+  ClientHeight = 383
+  ClientWidth = 950
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -33,10 +35,11 @@ object PagSaidas: TPagSaidas
   object gridSaidas: TcxGrid
     Left = 0
     Top = 124
-    Width = 774
-    Height = 220
+    Width = 950
+    Height = 259
     Align = alClient
     TabOrder = 1
+    ExplicitWidth = 848
     object gridSaidasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -138,21 +141,51 @@ object PagSaidas: TPagSaidas
   inline FiltroDataCod1: TFiltroDataCod
     Left = 0
     Top = 0
-    Width = 774
+    Width = 950
     Height = 124
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 774
+    ExplicitWidth = 848
     inherited pn_busca: TPanel
-      Width = 774
-      ExplicitHeight = 124
+      Width = 950
+      ExplicitWidth = 848
+      DesignSize = (
+        950
+        124)
+      inherited SpeedButton1: TSpeedButton
+        Left = 554
+        ExplicitLeft = 554
+      end
+      inherited SpeedButton2: TSpeedButton
+        Left = 913
+        OnClick = FiltroDataCod1SpeedButton2Click
+        ExplicitLeft = 811
+      end
+      inherited Label5: TLabel
+        Left = 589
+        Top = 50
+        Width = 289
+        Caption = 'Sa'#237'da de Mercadorias'
+        Font.Style = [fsBold, fsItalic]
+        ExplicitLeft = 589
+        ExplicitTop = 50
+        ExplicitWidth = 289
+      end
+      inherited dataBox: TGroupBox
+        Left = 16
+        ExplicitLeft = 16
+      end
       inherited CodigoBox: TGroupBox
+        Left = 288
+        ExplicitLeft = 288
         inherited CodInicialEdit: TNumberBox
           OnClick = FiltroDataCod1CodInicialEditClick
         end
       end
       inherited BuscarBtn: TBitBtn
+        Left = 488
         OnClick = BuscarBtnClick
+        ExplicitLeft = 488
       end
     end
   end
