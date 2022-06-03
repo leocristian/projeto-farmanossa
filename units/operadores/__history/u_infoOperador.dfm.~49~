@@ -26,6 +26,7 @@ object FormOperador: TFormOperador
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 489
     object Label1: TLabel
       Left = 56
       Top = 19
@@ -127,28 +128,21 @@ object FormOperador: TFormOperador
     Height = 93
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 176
-    ExplicitWidth = 459
+    ExplicitTop = 152
+    ExplicitWidth = 489
     inherited ModoEdit: TEdit
       Left = 220
-      ExplicitLeft = 220
+      ExplicitLeft = 250
     end
     inherited CancelarBtn: TButton
       Left = 350
       OnClick = CancelarBtnClick
-      ExplicitLeft = 350
+      ExplicitLeft = 380
     end
     inherited SalvarBtn: TBitBtn
       Left = 261
       OnClick = SalvarBtnClick
-      ExplicitLeft = 261
+      ExplicitLeft = 291
     end
-  end
-  object edc_cod: TEdit
-    Left = 64
-    Top = 210
-    Width = 29
-    Height = 21
-    TabOrder = 2
   end
 end

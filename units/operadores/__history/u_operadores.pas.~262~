@@ -23,13 +23,13 @@ type
     gridOperadoresDBTableView1: TcxGridDBTableView;
     gridOperadoresLevel1: TcxGridLevel;
     gridOperadores: TcxGrid;
-    tb_operadores: TUniTable;
     ds_operadores: TDataSource;
     ope_codigo: TcxGridDBColumn;
     ope_nome: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     FrameBusca1: TFrameBusca;
     N2: TMenuItem;
+    qOpe: TUniQuery;
 
     procedure Detalhar1Click(Sender: TObject);
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
@@ -54,15 +54,15 @@ implementation
 
 {$R *.dfm}
 
-uses u_infoOperador, u_dm1, u_controleForm;
+uses u_infoOperador, u_controleForm;
 
 procedure TPagOperador.Detalhar1Click(Sender: TObject);
 var
   ope_codigo: Integer;
 begin
 
-  if not tb_operadores.Active then exit;
-  if tb_operadores.RecordCount = 0 then exit;
+  if not qOpe.Active then exit;
+  if qOpe.RecordCount = 0 then exit;
 
   FormOperador.FrameButtons.ModoEdit.Text := 'V';
   FormOperador.ShowModal;
@@ -83,15 +83,13 @@ end;
 
 procedure TPagOperador.FormShow(Sender: TObject);
 begin
-//  dm1.con1.Close;
   FrameBusca1.BuscaEdit.SetFocus;
-  tb_operadores.Connection := dm1.con1;
-  tb_operadores.SQL.Text := 'select (ope_codigo, ope_nome) from tb_operadores';
 
-  ds_operadores.DataSet := tb_operadores;
-  tb_operadores.Active := True;
+  qOpe.Close;
+  qOpe.Connection := dm1.con1;
+  qOpe.SQL.Text := 'select ope_codigo, ope_nome from tb_operadores';
+  qOpe.Open;
 
-//  dm1.con1.Open;
 end;
 
 procedure TPagOperador.FrameBusca1BitBtn1Click(Sender: TObject);
@@ -99,30 +97,26 @@ var
   strBusca: String;
 
 begin
-  if FrameBusca1.BuscaEdit.Text = '' then
-  begin
-    FrameBusca1.BuscaEdit.SetFocus;
-  end
-  else
-  begin
 
-    strBusca := FrameBusca1.BuscaEdit.Text;
+  strBusca := FrameBusca1.BuscaEdit.Text;
 
-    tb_operadores.Close;
-    tb_operadores.Connection := dm1.con1;
+  qOpe.Close;
+  qOpe.Connection := dm1.con1;
 
-    tb_operadores.SQL.Clear;
-    tb_operadores.SQL.Add('select ope_codigo, ope_nome from tb_operadores');
+  qOpe.SQL.Clear;
+  qOpe.SQL.Add('select ope_codigo, ope_nome from tb_operadores');
 
-    if FrameBusca1.BuscaEdit.Text = 'CÓDIGO' then
-      tb_operadores.SQL.Add('ope_codigo = ' + strBusca)
-    else if FrameBusca1.BuscaEdit.Text = 'NOME COMPLETO' then
-      tb_operadores.SQL.Add('ope_nome like ' + QuotedStr('%' + strBusca + '%'));
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+    if FrameBusca1.BuscaEdit.Text = '' then
+      qOpe.SQL.Add('where 1=1')
+    else
+      qOpe.SQL.Add('where ope_codigo = ' + strBusca)
+  else if FrameBusca1.BuscaSelect.Text = 'NOME COMPLETO' then
+    qOpe.SQL.Add('where ope_nome like ' + QuotedStr('%' + strBusca + '%'));
 
-    ds_operadores.DataSet := tb_operadores;
-    tb_operadores.Open;
+  ds_operadores.DataSet := qOpe;
+  qOpe.Open;
 
-  end;
 end;
 
 procedure TPagOperador.FrameBusca1BuscaEditClick(Sender: TObject);
@@ -141,9 +135,8 @@ begin
   else
   begin
     FrameBusca1.BuscaEdit.NumbersOnly := False;
-    FrameBusca1.BuscaEdit.MaxLength := 70;
+    FrameBusca1.BuscaEdit.MaxLength := 50;
   end;
-
 
   FrameBusca1.BuscaEdit.SetFocus;
 end;
@@ -156,8 +149,8 @@ end;
 
 procedure TPagOperador.N2AlterarregistroatualF31Click(Sender: TObject);
 begin
-  if not tb_operadores.Active then exit;
-  if tb_operadores.RecordCount = 0 then exit;
+  if not qOpe.Active then exit;
+  if qOpe.RecordCount = 0 then exit;
 
   FormOperador.FrameButtons.ModoEdit.Text := 'A';
   FormOperador.ShowModal;
@@ -169,8 +162,8 @@ var
   index, codigo: Integer;
 
 begin
-  if not tb_operadores.Active then exit;
-  if tb_operadores.RecordCount = 0 then exit;
+  if not qOpe.Active then exit;
+  if qOpe.RecordCount = 0 then exit;
 
   if Confirma('Confirmar exclusão de operador?' + #13 + 'Esta operação será irreversível!') then
   begin

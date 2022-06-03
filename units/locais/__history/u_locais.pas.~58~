@@ -148,35 +148,36 @@ end;
 
 procedure TPagLocais.N3ExcluirF41Click(Sender: TObject);
 var
-  q1: TUniQuery;
-  index, codigo: Integer;
-
+  codigo: Integer;
+  qDel: TUniQuery;
 begin
   if not qCad.Active then exit;
   if qCad.RecordCount = 0 then exit;
 
   if Confirma('Confirmar exclusão de local de estoque?' + #13 + 'Esta operação será irreversível!') then
   begin
+
+    codigo := qCad.FieldByName('loc_codigo').Value;
+
     try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
+      qDel := TUniQuery.Create(qDel);
+      qDel.Connection := dm1.con1;
 
-      index := gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
-      codigo := gridLocaisDBTableView1.ViewData.Records[index].Values[0];
-
-      q1.SQL.Text := 'delete from tb_locais_estoque where loc_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+      qDel.SQL.Text := 'delete from tb_locais_estoque where loc_codigo = :codigo';
+      qDel.ParamByName('codigo').Value := codigo;
 
       try
-        q1.ExecSQL;
+        qDel.ExecSQL;
         Mensagem('Local de estoque excluído com sucesso!');
         gridLocaisDBTableView1.DataController.RefreshExternalData;
-      except on e:exception do
-        Erro('Erro!' + #13 + e.Message);
+      except
+        on e:exception do
+        begin
+          Erro('Erro!' + #13 + e.Message);
+        end;
       end;
     finally
-      q1.Close;
-      FreeAndNil(q1);
+
     end;
   end;
 end;

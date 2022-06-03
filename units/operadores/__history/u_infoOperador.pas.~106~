@@ -113,75 +113,73 @@ var
   ope_cod: Integer;
 
 begin
-  try
-    if FrameButtons.ModoEdit.Text = 'N' then
+  if FrameButtons.ModoEdit.Text = 'N' then
+  begin
+    if ExisteInputVazio(Self) then
     begin
-      if ExisteInputVazio(Self) then
-      begin
-        Aviso('Preencha todos os campos!');
-        NomeEdit.SetFocus;
-        exit;
-      end;
-
-      if SenhaEdit.Text <> SenhaCheckEdit.Text then
-      begin
-        Aviso('Senhas devem ser iguais!');
-        SenhaEdit.SetFocus;
-        exit;
-      end;
-      dm1.q1.SQL.Text := 'select nextval(''tb_operadores_cod_seq'') as ope_cod';
-
-      dm1.q1.Open;
-      ope_cod := dm1.q1.FieldByName('ope_cod').Value;
-      dm1.q1.Close;
-
-      dm1.q1.SQL.Clear;
-
-      dm1.q1.SQL.Add('insert into tb_operadores');
-      dm1.q1.SQL.Add(' values (:ope_codigo, :ope_nome, md5(:ope_login), md5(:ope_senha))');
-
-      dm1.q1.ParamByName('ope_codigo').Value := ope_cod;
-      dm1.q1.ParamByName('ope_nome').Value := NomeEdit.Text;
-      dm1.q1.ParamByName('ope_login').Value := AdicionarSemente(LoginEdit.Text);
-      dm1.q1.ParamByName('ope_senha').Value := AdicionarSemente(SenhaEdit.Text);
-    end
-    else if FrameButtons.ModoEdit.Text = 'A' then
-    begin
-      if NomeEdit.Text = '' then
-      begin
-        Aviso('Informe o novo nome!');
-        NomeEdit.SetFocus;
-        exit;
-      end;
-
-      dm1.q1.SQL.Clear;
-      dm1.q1.SQL.Add('update tb_operadores set ');
-      dm1.q1.SQL.Add('ope_nome = :ope_nome');
-      dm1.q1.SQL.Add('where ope_codigo = :ope_codigo');
-      dm1.q1.ParamByName('ope_nome').Value := NomeEdit.Text;
-      dm1.q1.ParamByName('ope_codigo').Value := CodEdit.Text;
+      Aviso('Preencha todos os campos!');
+      NomeEdit.SetFocus;
+      exit;
     end;
 
-    if Confirma('Confirmar operação?') then
-    try
-      dm1.q1.ExecSQL;
-      Mensagem('Operação realizada com sucesso!');
-      PagOperador.gridOperadoresDBTableView1.DataController.RefreshExternalData;
-      Close;
-    except on e:exception do
-      if e.Message.Contains('ope_login_key') then
-      begin
-        Erro('Operador já está cadastrado!');
-        exit;
-      end
-      else
-      begin
-        Erro('Erro: ' + #13 + e.Message);
-      end;
-
+    if SenhaEdit.Text <> SenhaCheckEdit.Text then
+    begin
+      Aviso('Senhas devem ser iguais!');
+      SenhaEdit.SetFocus;
+      exit;
     end;
-  finally
+
+    dm1.q1.SQL.Text := 'select nextval(''tb_operadores_cod_seq'') as ope_cod';
+
+    dm1.q1.Open;
+    ope_cod := dm1.q1.FieldByName('ope_cod').Value;
     dm1.q1.Close;
+
+    dm1.q1.SQL.Clear;
+
+    dm1.q1.SQL.Add('insert into tb_operadores');
+    dm1.q1.SQL.Add(' values (:ope_codigo, :ope_nome, md5(:ope_login), md5(:ope_senha))');
+
+    dm1.q1.ParamByName('ope_codigo').Value := ope_cod;
+    dm1.q1.ParamByName('ope_nome').Value := NomeEdit.Text;
+    dm1.q1.ParamByName('ope_login').Value := AdicionarSemente(LoginEdit.Text);
+    dm1.q1.ParamByName('ope_senha').Value := AdicionarSemente(SenhaEdit.Text);
+  end
+  else if FrameButtons.ModoEdit.Text = 'A' then
+  begin
+    if NomeEdit.Text = '' then
+    begin
+      Aviso('Informe o novo nome!');
+      NomeEdit.SetFocus;
+      exit;
+    end;
+
+    dm1.q1.SQL.Clear;
+    dm1.q1.SQL.Add('update tb_operadores set ');
+    dm1.q1.SQL.Add('ope_nome = :ope_nome');
+    dm1.q1.SQL.Add('where ope_codigo = :ope_codigo');
+    dm1.q1.ParamByName('ope_nome').Value := NomeEdit.Text;
+    dm1.q1.ParamByName('ope_codigo').Value := CodEdit.Text;
+  end;
+
+  if Confirma('Confirmar operação?') then
+  try
+    dm1.q1.ExecSQL;
+    Mensagem('Operação realizada com sucesso!');
+    PagOperador.gridOperadoresDBTableView1.DataController.RefreshExternalData;
+    Close;
+  except on e:exception do
+    if e.Message.Contains('ope_login_key') then
+    begin
+      Erro('Operador já está cadastrado!');
+      exit;
+    end
+    else
+    begin
+      Erro('Erro: ' + #13 + e.Message);
+    end;
+
   end;
 end;
+
 end.

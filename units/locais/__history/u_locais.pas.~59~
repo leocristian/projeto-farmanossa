@@ -147,24 +147,33 @@ begin
 end;
 
 procedure TPagLocais.N3ExcluirF41Click(Sender: TObject);
+var
+  codigo: Integer;
 begin
   if not qCad.Active then exit;
   if qCad.RecordCount = 0 then exit;
 
   if Confirma('Confirmar exclusão de local de estoque?' + #13 + 'Esta operação será irreversível!') then
   begin
-    qCad.SQL.Text := 'delete from tb_locais_estoque where loc_codigo = :codigo';
-    qCad.ParamByName('codigo').Value := qCad.FieldByName('prod_codigo').Value;
+
+    codigo := qCad.FieldByName('loc_codigo').Value;
 
     try
-      qCad.ExecSQL;
-      Mensagem('Local de estoque excluído com sucesso!');
-      gridLocaisDBTableView1.DataController.RefreshExternalData;
-    except
-      on e:exception do
-      begin
-        Erro('Erro!' + #13 + e.Message);
+      dm1.q1.SQL.Text := 'delete from tb_locais_estoque where loc_codigo = :codigo';
+      dm1.q1.ParamByName('codigo').Value := codigo;
+
+      try
+        dm1.q1.ExecSQL;
+        Mensagem('Local de estoque excluído com sucesso!');
+        gridLocaisDBTableView1.DataController.RefreshExternalData;
+      except
+        on e:exception do
+        begin
+          Erro('Erro!' + #13 + e.Message);
+        end;
       end;
+    finally
+
     end;
   end;
 end;

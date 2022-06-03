@@ -93,11 +93,11 @@ begin
 
   xWhere := '';
 
-  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+  if (FrameBusca1.BuscaSelect.Text = 'CÓDIGO') and (FrameBusca1.BuscaEdit.Text <> '') then
   begin
-    xWhere := xWhere + ' and loc_codigo = '+strBusca;
-
-  end else if FrameBusca1.BuscaSelect.Text = 'DESCRIÇÃO' then
+    xWhere := xWhere + ' and loc_codigo = ' + strBusca;
+  end
+  else if FrameBusca1.BuscaSelect.Text = 'DESCRIÇÃO' then
   begin
     xWhere := xWhere + ' and loc_descricao like ' + QuotedStr('%' + strBusca + '%');
   end;
@@ -149,7 +149,6 @@ end;
 procedure TPagLocais.N3ExcluirF41Click(Sender: TObject);
 var
   codigo: Integer;
-  qDel: TUniQuery;
 begin
   if not qCad.Active then exit;
   if qCad.RecordCount = 0 then exit;
@@ -157,17 +156,12 @@ begin
   if Confirma('Confirmar exclusão de local de estoque?' + #13 + 'Esta operação será irreversível!') then
   begin
 
-    codigo := qCad.FieldByName('loc_codigo').Value;
-
     try
-      qDel := TUniQuery.Create(qDel);
-      qDel.Connection := dm1.con1;
-
-      qDel.SQL.Text := 'delete from tb_locais_estoque where loc_codigo = :codigo';
-      qDel.ParamByName('codigo').Value := codigo;
+      dm1.q1.SQL.Text := 'delete from tb_locais_estoque where loc_codigo = :codigo';
+      dm1.q1.ParamByName('codigo').Value := qCad.FieldByName('loc_codigo').Value;
 
       try
-        qDel.ExecSQL;
+        dm1.q1.ExecSQL;
         Mensagem('Local de estoque excluído com sucesso!');
         gridLocaisDBTableView1.DataController.RefreshExternalData;
       except

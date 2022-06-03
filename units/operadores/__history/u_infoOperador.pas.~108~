@@ -113,22 +113,23 @@ var
   ope_cod: Integer;
 
 begin
+  if ExisteInputVazio(Self) then
+  begin
+    Aviso('Preencha todos os campos!');
+    NomeEdit.SetFocus;
+    exit;
+  end;
+
+  if SenhaEdit.Text <> SenhaCheckEdit.Text then
+  begin
+    Aviso('Senhas devem ser iguais!');
+    SenhaEdit.SetFocus;
+    exit;
+  end;
+
   try
     if FrameButtons.ModoEdit.Text = 'N' then
     begin
-      if ExisteInputVazio(Self) then
-      begin
-        Aviso('Preencha todos os campos!');
-        NomeEdit.SetFocus;
-        exit;
-      end;
-
-      if SenhaEdit.Text <> SenhaCheckEdit.Text then
-      begin
-        Aviso('Senhas devem ser iguais!');
-        SenhaEdit.SetFocus;
-        exit;
-      end;
       dm1.q1.SQL.Text := 'select nextval(''tb_operadores_cod_seq'') as ope_cod';
 
       dm1.q1.Open;

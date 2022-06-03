@@ -22,6 +22,7 @@ type
     SenhaEdit: TEdit;
     LoginEdit: TEdit;
     Label3: TLabel;
+    edc_cod: TEdit;
     procedure FormShow(Sender: TObject);
     procedure CancelarBtnClick(Sender: TObject);
     procedure SalvarBtnClick(Sender: TObject);
@@ -48,53 +49,54 @@ end;
 
 procedure TFormOperador.FormKeyPress(Sender: TObject; var Key: Char);
 begin
+  if Key = #13 then
   begin
-    if Key = #13 then
-    begin
-      Key := #0;
-      Perform(wm_nextdlgctl, 0, 0);
-    end
-    else if key = #27 then close
-  end;
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
 end;
 
 procedure TFormOperador.FormShow(Sender: TObject);
-var
-  codigo, index: Integer;
-  q1: TUniQuery;
-
 begin
 
-  if FrameButtons.ModoEdit.Text = 'V' then
+  if (FrameButtons.ModoEdit.Text = 'V') or (FrameButtons.ModoEdit.Text = 'A') then
   begin
-    Caption := 'Exibir Operador';
-    pn_form.Enabled := False;
-    FrameButtons.SalvarBtn.Visible := False;
-    pnLogin.Visible := False;
-
-    index := PagOperador.gridOperadoresDBTableView1.DataController.GetSelectedRowIndex(0);
-    codigo := PagOperador.gridOperadoresDBTableView1.ViewData.Records[index].Values[0];
-
     try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
+      dm1.q1.SQL.Text := 'select ope_codigo, ope_nome from tb_operadores where ope_codigo = :codigo';
+      dm1.q1.ParamByName('codigo').Value := StrToInt(edc_cod.Text);
 
-      q1.SQL.Text := 'select ope_codigo, ope_nome from tb_operadores where ope_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+      dm1.q1.Open;
 
-      q1.Open;
-
-      CodEdit.Text := q1.FieldByName('ope_codigo').Value;
-      NomeEdit.Text := q1.FieldByName('ope_nome').Value;
+      CodEdit.Text := dm1.q1.FieldByName('ope_codigo').Value;
+      NomeEdit.Text := dm1.q1.FieldByName('ope_nome').Value;
     finally
-      q1.Close;
-      FreeAndNil(q1);
+      dm1.q1.Close;
     end;
+
+    if FrameButtons.ModoEdit.Text = 'V' then
+    begin
+      Caption := 'Exibir Operador';
+      pn_form.Enabled := False;
+      FrameButtons.SalvarBtn.Visible := False;
+      pnLogin.Visible := False;
+    end
+    else if FrameButtons.ModoEdit.Text = 'A' then
+    begin
+      Caption := 'Alterar Operador';
+      pn_form.Enabled := True;
+      NomeEdit.SetFocus;
+      pnLogin.Visible := False;
+
+      FrameButtons.SalvarBtn.Visible := True;
+    end;
+
   end
   else if FrameButtons.ModoEdit.Text = 'N' then
   begin
     Caption := 'Incluir Operador';
     pn_form.Enabled := True;
+    CodEdit.Text := '00';
     NomeEdit.SetFocus;
     NomeEdit.Clear;
     LoginEdit.Clear;
@@ -103,48 +105,17 @@ begin
     pnLogin.Visible := True;
 
     FrameButtons.SalvarBtn.Visible := True;
-  end
-  else if FrameButtons.ModoEdit.Text = 'A' then
-  begin
-    Caption := 'Alterar Operador';
-    pn_form.Enabled := True;
-    NomeEdit.SetFocus;
-    pnLogin.Visible := False;
-
-    FrameButtons.SalvarBtn.Visible := True;
-
-    index := PagOperador.gridOperadoresDBTableView1.DataController.GetSelectedRowIndex(0);
-    codigo := PagOperador.gridOperadoresDBTableView1.ViewData.Records[index].Values[0];
-
-    try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
-
-      q1.SQL.Text := 'select ope_codigo, ope_nome from tb_operadores where ope_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
-
-      q1.Open;
-
-      CodEdit.Text := q1.FieldByName('ope_codigo').Value;
-      NomeEdit.Text := q1.FieldByName('ope_nome').Value;
-    finally
-      q1.Close;
-      FreeAndNil(q1);
-    end;
   end;
 end;
 
 procedure TFormOperador.SalvarBtnClick(Sender: TObject);
 var
-  q1: TUniQuery;
   ope_cod: Integer;
 
 begin
 
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
 
+  try
     if FrameButtons.ModoEdit.Text = 'N' then
     begin
       if ExisteInputVazio(Self) then
@@ -160,21 +131,21 @@ begin
         SenhaEdit.SetFocus;
         exit;
       end;
+      dm1.q1.SQL.Text := 'select nextval(''tb_operadores_cod_seq'') as ope_cod';
 
-      q1.SQL.Text := 'select nextval(''tb_operadores_cod_seq'') as ope_cod';
+      dm1.q1.Open;
+      ope_cod := dm1.q1.FieldByName('ope_cod').Value;
+      dm1.q1.Close;
 
-      q1.Open;
-      ope_cod := q1.FieldByName('ope_cod').Value;
-      q1.Close;
+      dm1.q1.SQL.Clear;
 
-      q1.SQL.Clear;
+      dm1.q1.SQL.Add('insert into tb_operadores');
+      dm1.q1.SQL.Add(' values (:ope_codigo, :ope_nome, md5(:ope_login), md5(:ope_senha))');
 
-      q1.SQL.Add('insert into tb_operadores');
-      q1.SQL.Add(' values (:ope_codigo, :ope_nome, md5(:ope_login), md5(:ope_senha))');
-
-      q1.ParamByName('ope_codigo').Value := ope_cod;
-      q1.ParamByName('ope_login').Value := AdicionarSemente(LoginEdit.Text);
-      q1.ParamByName('ope_senha').Value := AdicionarSemente(SenhaEdit.Text);
+      dm1.q1.ParamByName('ope_codigo').Value := ope_cod;
+      dm1.q1.ParamByName('ope_nome').Value := NomeEdit.Text;
+      dm1.q1.ParamByName('ope_login').Value := AdicionarSemente(LoginEdit.Text);
+      dm1.q1.ParamByName('ope_senha').Value := AdicionarSemente(SenhaEdit.Text);
     end
     else if FrameButtons.ModoEdit.Text = 'A' then
     begin
@@ -185,17 +156,17 @@ begin
         exit;
       end;
 
-      q1.SQL.Clear;
-      q1.SQL.Add('update tb_operadores set ');
-      q1.SQL.Add('ope_nome = :ope_nome');
-      q1.SQL.Add('where ope_codigo = :ope_codigo');
-      q1.ParamByName('ope_nome').Value := NomeEdit.Text;
-      q1.ParamByName('ope_codigo').Value := CodEdit.Text;
+      dm1.q1.SQL.Clear;
+      dm1.q1.SQL.Add('update tb_operadores set ');
+      dm1.q1.SQL.Add('ope_nome = :ope_nome');
+      dm1.q1.SQL.Add('where ope_codigo = :ope_codigo');
+      dm1.q1.ParamByName('ope_nome').Value := NomeEdit.Text;
+      dm1.q1.ParamByName('ope_codigo').Value := CodEdit.Text;
     end;
 
     if Confirma('Confirmar operação?') then
     try
-      q1.ExecSQL;
+      dm1.q1.ExecSQL;
       Mensagem('Operação realizada com sucesso!');
       PagOperador.gridOperadoresDBTableView1.DataController.RefreshExternalData;
       Close;
@@ -211,11 +182,8 @@ begin
       end;
 
     end;
-
   finally
-    q1.Close;
-    FreeAndNil(q1);
+    dm1.q1.Close;
   end;
 end;
-
 end.

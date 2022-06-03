@@ -110,10 +110,10 @@ object FormLocal: TFormLocal
       ExplicitTop = 18
     end
     inherited SalvarBtn: TBitBtn
-      Left = 287
+      Left = 295
       Top = 19
       OnClick = SalvarBtnClick
-      ExplicitLeft = 287
+      ExplicitLeft = 295
       ExplicitTop = 19
     end
   end

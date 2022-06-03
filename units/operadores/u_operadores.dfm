@@ -27,6 +27,8 @@ object PagOperador: TPagOperador
     Height = 319
     Align = alClient
     TabOrder = 0
+    ExplicitLeft = 64
+    ExplicitTop = 53
     object gridOperadoresDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.NextPage.Visible = True
@@ -160,14 +162,14 @@ object PagOperador: TPagOperador
       OnClick = N3ExcluirF41Click
     end
   end
-  object tb_operadores: TUniTable
-    TableName = 'tb_operadores'
-    Left = 616
-    Top = 128
-  end
   object ds_operadores: TDataSource
     AutoEdit = False
+    DataSet = qOpe
     Left = 512
+    Top = 128
+  end
+  object qOpe: TUniQuery
+    Left = 616
     Top = 128
   end
 end

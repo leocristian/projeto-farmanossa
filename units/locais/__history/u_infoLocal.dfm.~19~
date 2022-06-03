@@ -1,10 +1,10 @@
-object FormOperador: TFormOperador
+object FormLocal: TFormLocal
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'Adicionar Operador'
-  ClientHeight = 238
-  ClientWidth = 456
+  Caption = 'FormLocal'
+  ClientHeight = 181
+  ClientWidth = 477
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,9 +21,9 @@ object FormOperador: TFormOperador
   object pn_form: TPanel
     Left = 0
     Top = 0
-    Width = 456
-    Height = 177
-    Align = alTop
+    Width = 477
+    Height = 101
+    Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     object Label1: TLabel
@@ -34,32 +34,18 @@ object FormOperador: TFormOperador
       Caption = 'C'#243'digo:'
     end
     object Label2: TLabel
-      Left = 16
+      Left = 43
       Top = 46
-      Width = 77
+      Width = 50
       Height = 13
-      Caption = 'Nome completo:'
-    end
-    object Label5: TLabel
-      Left = 17
-      Top = 127
-      Width = 76
-      Height = 13
-      Caption = 'Repita a senha:'
-    end
-    object Label3: TLabel
-      Left = 64
-      Top = 73
-      Width = 29
-      Height = 13
-      Caption = 'Login:'
+      Caption = 'Descri'#231#227'o:'
     end
     object Label4: TLabel
-      Left = 59
-      Top = 100
-      Width = 34
+      Left = 58
+      Top = 73
+      Width = 35
       Height = 13
-      Caption = 'Senha:'
+      Caption = 'Status:'
     end
     object CodEdit: TEdit
       Left = 99
@@ -73,17 +59,7 @@ object FormOperador: TFormOperador
       TabOrder = 0
       Text = '0000'
     end
-    object SenhaCheckEdit: TEdit
-      Left = 99
-      Top = 124
-      Width = 170
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 20
-      PasswordChar = '*'
-      TabOrder = 4
-    end
-    object NomeEdit: TEdit
+    object DescricaoEdit: TEdit
       Left = 99
       Top = 43
       Width = 326
@@ -92,48 +68,60 @@ object FormOperador: TFormOperador
       MaxLength = 70
       TabOrder = 1
     end
-    object LoginEdit: TEdit
+    object StatusBox: TComboBox
       Left = 99
       Top = 70
-      Width = 170
+      Width = 145
       Height = 21
+      Style = csDropDownList
       CharCase = ecUpperCase
-      MaxLength = 20
+      ItemIndex = 0
       TabOrder = 2
-    end
-    object SenhaEdit: TEdit
-      Left = 99
-      Top = 97
-      Width = 170
-      Height = 21
-      CharCase = ecUpperCase
-      MaxLength = 20
-      PasswordChar = '*'
-      TabOrder = 3
+      Text = 'ATIVO'
+      Items.Strings = (
+        'ATIVO'
+        'INATIVO')
     end
   end
   inline FrameButtons: TFrameButtons
     Left = 0
-    Top = 145
-    Width = 456
-    Height = 93
+    Top = 101
+    Width = 477
+    Height = 80
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 182
-    ExplicitWidth = 456
-    inherited SalvarBtn: TButton
-      Left = 258
-      OnClick = SalvarBtnClick
-      ExplicitLeft = 258
-    end
+    ExplicitTop = 101
+    ExplicitWidth = 477
+    ExplicitHeight = 80
+    DesignSize = (
+      477
+      80)
     inherited ModoEdit: TEdit
-      Left = 217
-      ExplicitLeft = 217
+      Left = 246
+      Top = 21
+      ExplicitLeft = 246
+      ExplicitTop = 21
     end
     inherited CancelarBtn: TButton
-      Left = 347
+      Left = 376
+      Top = 18
       OnClick = CancelarBtnClick
-      ExplicitLeft = 347
+      ExplicitLeft = 376
+      ExplicitTop = 18
     end
+    inherited SalvarBtn: TBitBtn
+      Left = 287
+      Top = 19
+      OnClick = SalvarBtnClick
+      ExplicitLeft = 287
+      ExplicitTop = 19
+    end
+  end
+  object edc_cod: TEdit
+    Left = 40
+    Top = 144
+    Width = 25
+    Height = 21
+    TabOrder = 2
   end
 end
