@@ -126,9 +126,9 @@ begin
   qRel1.SQL.Clear;
   qRel1.SQL.Add('select mov_local, loc_descricao, mov_produto, prod_descricao, mov_lote, lote_dtfabricacao, lote_dtvencimento,');
   qRel1.SQL.Add('mov_data, mov_hora, mov_operacao, mov_quantidade from tb_movimentacoes');
-  qRel1.SQL.Add('inner join tb_produtos on mov_produto = prod_codigo');
-  qRel1.SQL.Add('inner join tb_locais_estoque on mov_local = loc_codigo');
-  qRel1.SQL.Add('inner join tb_lotes on mov_lote = lote_codigo where 1=1 ' + xWhere);
+  qRel1.SQL.Add('left join tb_produtos on mov_produto = prod_codigo');
+  qRel1.SQL.Add('left join tb_locais_estoque on mov_local = loc_codigo');
+  qRel1.SQL.Add('left join tb_lotes on mov_lote = lote_codigo where 1=1 ' + xWhere);
   qRel1.SQL.Add('order by mov_data, mov_hora');
 
   qRel1.Open;

@@ -26,7 +26,6 @@ object FormRel1: TFormRel1
     Height = 303
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 32
     object Label2: TLabel
       Left = 76
       Top = 97

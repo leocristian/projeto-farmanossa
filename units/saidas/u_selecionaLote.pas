@@ -25,7 +25,7 @@ type
     lote_dtvencimento: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     lote_quantidade: TcxGridDBColumn;
-    tb_lotes: TUniTable;
+    qLote: TUniQuery;
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
@@ -63,27 +63,24 @@ end;
 
 procedure TSelecionaLoteForm.FormShow(Sender: TObject);
 begin
-  tb_lotes.Close;
-  tb_lotes.Connection := dm1.con1;
+  qLote.sql.Clear;
+  qLote.SQL.Add('select lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade ');
+  qLote.SQL.Add('from tb_lotes ');
+  qLote.SQL.Add('where lote_produto = :prod_codigo and lote_local = :loc_codigo order by lote_dtvencimento');
 
-  tb_lotes.sql.Clear;
-  tb_lotes.SQL.Add('select lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade ');
-  tb_lotes.SQL.Add('from tb_lotes ');
-  tb_lotes.SQL.Add('where lote_produto = :prod_codigo and lote_local = :loc_codigo order by lote_dtvencimento');
+  qLote.ParamByName('prod_codigo').Value := FormSaida.CodProdEdit.Text;
+  qLote.ParamByName('loc_codigo').Value := FormSaida.CodLocalEdit.Text;
+  qLote.Open;
 
-  tb_lotes.ParamByName('prod_codigo').Value := FormSaida.CodProdEdit.Text;
-  tb_lotes.ParamByName('loc_codigo').Value := FormSaida.CodLocalEdit.Text;
-  tb_lotes.Open;
-
-  if tb_lotes.RecordCount = 0 then
+  if qLote.RecordCount = 0 then
   begin
     Aviso('Produto não está em nenhum lote!');
     PostMessage(Self.Handle, WM_CLOSE, 0, 0); // Fechar grid
     FormSaida.CodProdEdit.SetFocus;
   end;
 
-  ds_lotes.DataSet := tb_lotes;
-  tb_lotes.Open;
+  ds_lotes.DataSet := qLote;
+  qLote.Open;
 end;
 
 procedure TSelecionaLoteForm.FrameButtons1CancelarBtnClick(Sender: TObject);
@@ -93,29 +90,17 @@ end;
 
 procedure TSelecionaLoteForm.FrameButtons1SalvarBtnClick(Sender: TObject);
 var
-  index: Integer;
-  lote: Variant;
   qtd_lote: Integer;
 
 begin
 
-  index := gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
-  lote := gridLotesDBTableView1.ViewData.Records[index].Values[0];
-  qtd_lote := gridLotesDBTableView1.ViewData.Records[index].Values[3];
+  qtd_lote := qLote.FieldByName('lote_quantidade').AsInteger;
 
   if FormSaida.QtdProdEdit.Value > qtd_lote  then
   begin
     Aviso('Quantidade de produtos está acima do permitido pelo lote selecionado!');
     Exit;
   end;
-
-//  FormSaida.Label4.Visible := True;
-//
-//  FormSaida.LoteLabel.Caption := lote;
-//  FormSaida.LoteLabel.Visible := True;
-//
-//  FormSaida.FrameButtons1.Visible := True;
-//  FormSaida.SelecionaLote.Visible := False;
 
   Close;
 end;

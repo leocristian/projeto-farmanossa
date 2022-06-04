@@ -136,11 +136,13 @@ object SelecionaLoteForm: TSelecionaLoteForm
     end
   end
   object ds_lotes: TDataSource
+    DataSet = qLote
     Left = 432
     Top = 120
   end
-  object tb_lotes: TUniTable
-    Left = 368
+  object qLote: TUniQuery
+    Connection = dm1.con1
+    Left = 352
     Top = 120
   end
 end

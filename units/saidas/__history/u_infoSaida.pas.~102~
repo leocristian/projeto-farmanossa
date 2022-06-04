@@ -82,8 +82,18 @@ end;
 
 procedure TFormSaida.SpeedButton2Click(Sender: TObject);
 begin
+
+  if CodProdEdit.Text = '' then
+  begin
+    Aviso('Informe o produto para ver seus locais de estoque!');
+    CodProdedit.SetFocus;
+    Exit;
+  end;
+
   BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'S';
+  BuscaLocalForm.prod_cod.Text := CodProdEdit.Text;
   BuscaLocalForm.ShowModal;
+
 end;
 
 procedure TFormSaida.VerLotesBtnClick(Sender: TObject);
@@ -203,8 +213,7 @@ end;
 
 procedure TFormSaida.ConfirmarBtnClick(Sender: TObject);
 var
-  indexLote, codLote, codSaida, qtdLote: Integer;
-  q1: TUniQuery;
+  codSaida, qtdLote: Integer;
 
 begin
   if ConfirmarBtn.Font.Color = clRed then
@@ -213,27 +222,27 @@ begin
     Exit;
   end;
 
-  indexLote := SelecionaLoteForm.gridLotesDBTableView1.DataController.GetSelectedRowIndex(0);
-  codLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[0];
-  qtdLote := SelecionaLoteForm.gridLotesDBTableView1.ViewData.Records[indexLote].Values[3];
+  if QtdProdEdit.Value = 0 then
+  begin
+    Aviso('Informe a quantidade de produtos a sair do estoque!');
+    QtdProdEdit.SetFocus;
+    Exit;
+  end;
 
   if Confirma('Confirmar Saída?') then
   begin
     try
-      q1 := TUniQuery.Create(nil);
-      q1.Connection := dm1.con1;
 
-      q1.SQL.Text := 'select prod_estoque_negativo from tb_produtos where prod_codigo = :produto';
-      q1.ParamByName('produto').Value := CodProdEdit.Text;
+      dm1.q1.SQL.Text := 'select prod_estoque_negativo from tb_produtos where prod_codigo = :produto';
+      dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
 
-      q1.Open;
-<<<<<<< HEAD
-=======
+      dm1.q1.Open;
 
->>>>>>> e4d62c897b87cccc92c582d3c1288e8dd0b07043
+      qtdLote := SelecionaLoteForm.qLote.FieldByName('lote_quantidade').Value;
+
       if QtdProdEdit.Value > qtdLote then
       begin
-        if q1.FieldByName('prod_estoque_negativo').Value = 'NEGAR' then
+        if dm1.q1.FieldByName('prod_estoque_negativo').Value = 'NEGAR' then
         begin
           Aviso('Produto não permite estoque negativo!');
           QtdProdEdit.SetFocus;
@@ -241,30 +250,50 @@ begin
         end;
       end;
       
-      q1.Close;
+      dm1.q1.Close;
 
-      q1.SQL.Text := 'select nextval(''tb_saidas_cod_seq'') as codProximo';
+      dm1.q1.SQL.Text := 'select nextval(''tb_saidas_cod_seq'') as codProximo';
 
-      q1.Open;
-      codSaida := q1.FieldByName('codProximo').Value;
-      q1.Close;
+      dm1.q1.Open;
+      codSaida := dm1.q1.FieldByName('codProximo').Value;
+      dm1.q1.Close;
 
-      q1.SQL.Clear;
-      q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
-      q1.SQL.Add('where lote_codigo = :lote;');
-      q1.SQL.Add('insert into tb_saidas(sai_codigo, sai_produto, sai_local, sai_lote, sai_quantidade)');
-      q1.SQL.Add('values ');
-      q1.SQl.Add('(:codigo, :produto, :local, :lote, :quantidade)');
+      dm1.q1.SQL.Clear;
+      dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
+      dm1.q1.SQL.Add('where lote_codigo = :lote;');
+      dm1.q1.SQL.Add('insert into tb_saidas(sai_codigo, sai_produto, sai_local, sai_lote, sai_quantidade)');
+      dm1.q1.SQL.Add('values ');
+      dm1.q1.SQl.Add('(:codigo, :produto, :local, :lote, :quantidade)');
 
-      q1.ParamByName('codigo').Value := codSaida;
-      q1.ParamByName('produto').Value := CodProdEdit.Text;
-      q1.ParamByName('local').Value := CodLocalEdit.Text;
-      q1.ParamByName('lote').Value := CodLote;
-      q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+      dm1.q1.ParamByName('codigo').Value := codSaida;
+      dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
+      dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
+      dm1.q1.ParamByName('lote').Value := SelecionaLoteForm.qLote.FieldByName('lote_codigo').Value;
+      dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 
       try
-        q1.ExecSQL;
+        dm1.q1.ExecSQL;
         Mensagem('Operação realizada com sucesso!');
+
+        if ModoEdit.Text = 'N' then
+        begin
+          // Criar movimentação de saída
+          dm1.q1.SQL.Clear;
+          dm1.q1.SQL.Add('insert into tb_movimentacoes');
+          dm1.q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade, mov_cod_operacao)');
+          dm1.q1.SQL.Add('values');
+          dm1.q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade, :cod_operacao)');
+
+          dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
+          dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
+          dm1.q1.ParamByName('lote').Value := CodLote;
+          dm1.q1.ParamByName('operacao').Value := 'S';
+          dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+          dm1.q1.ParamByName('cod_operacao').Value := codSaida;
+
+          dm1.q1.ExecSQL;
+        end;
+
         PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
         Close;
       except on e:exception do
@@ -272,8 +301,7 @@ begin
       end;
 
     finally
-      q1.Close;
-      FreeAndNil(q1);
+      dm1.q1.Close;
     end;
   end;
 end;

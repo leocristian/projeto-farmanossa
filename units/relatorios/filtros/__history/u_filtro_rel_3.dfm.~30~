@@ -22,6 +22,9 @@ object FormRel3: TFormRel3
     Height = 377
     Align = alClient
     TabOrder = 0
+    ExplicitTop = 264
+    ExplicitWidth = 593
+    ExplicitHeight = 258
     object BuscaProdutoBtn: TSpeedButton
       Left = 319
       Top = 101

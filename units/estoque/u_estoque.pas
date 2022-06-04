@@ -127,9 +127,9 @@ begin
   qEst.SQL.Add('select * from (');
   qEst.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque');
   qEst.SQL.Add(' from tb_produtos as p');
-  qEst.SQL.Add('inner join tb_lotes as l ');
+  qEst.SQL.Add('left join tb_lotes as l ');
   qEst.SQL.Add('on l.lote_produto = p.prod_codigo');
-  qEst.SQL.Add('inner join tb_locais_estoque as locais');
+  qEst.SQL.Add('left join tb_locais_estoque as locais');
   qEst.SQL.Add('on locais.loc_codigo = l.lote_local');
   qEst.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao) as result');
   qEst.SQL.Add('where 1=1 ' + xWhere);

@@ -81,7 +81,7 @@ begin
 
   dm1.q1.SQL.Clear;
   dm1.q1.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
-  dm1.q1.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
+  dm1.q1.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
   dm1.q1.SQL.Add('order by prod_codigo');
 
   dm1.q1.Open;

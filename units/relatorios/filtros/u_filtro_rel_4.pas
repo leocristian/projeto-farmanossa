@@ -96,8 +96,8 @@ begin
   qRel4.SQL.Clear;
   qRel4.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
   qRel4.SQL.Add('from tb_produtos');
-  qRel4.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-  qRel4.SQL.Add('inner join tb_locais_estoque on lote_local = loc_codigo where 1=1 ' + xWhere);
+  qRel4.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
+  qRel4.SQL.Add('left join tb_locais_estoque on lote_local = loc_codigo where 1=1 ' + xWhere);
   qRel4.SQL.Add('order by loc_codigo, lote_dtvencimento');
   qRel4.Open;
 

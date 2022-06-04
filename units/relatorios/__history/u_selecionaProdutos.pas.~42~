@@ -10,7 +10,7 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections, u_estoque,
-  VirtualTable;
+  VirtualTable, u_filtro_rel_2, u_filtro_rel_3;
 
 type
   TSelecionaProdutosForm = class(TForm)
@@ -32,6 +32,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
+    procedure grid_produtosDBTableView1CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
   private
     { Private declarations }
   public
@@ -51,11 +54,23 @@ procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
 begin
   if CheckBox1.Checked then
   begin
-    grid_produtosDBTableView1.DataController.SelectAll
+    vt_produtos.First;
+    while not vt_produtos.Eof do
+    begin
+      ds_produtos.Edit;
+      vt_produtos.FieldByName('prod_selec').Value := True;
+      vt_produtos.Next;
+    end;
   end
   else
   begin
-    grid_produtosDBTableView1.DataController.ClearSelection;
+    vt_produtos.First;
+    while not vt_produtos.Eof do
+    begin
+      ds_produtos.Edit;
+      vt_produtos.FieldByName('prod_selec').Value := False;
+      vt_produtos.Next;
+    end;
   end;
 end;
 
@@ -69,17 +84,43 @@ begin
   dm1.q1.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
   dm1.q1.SQL.Add('order by prod_codigo');
 
-
   dm1.q1.Open;
+  dm1.q1.First;
 
-  grid_produtosDBTableView1.DataController.ClearSelection;
+  vt_produtos.Open;
+  vt_produtos.Clear;
+
+  while not dm1.q1.Eof do
+  begin
+    vt_produtos.Append;
+    vt_produtos.FieldByName('prod_selec').Value := False;
+    vt_produtos.FieldByName('prod_codigo').Value := dm1.q1.FieldByName('prod_codigo').AsInteger;
+    vt_produtos.FieldByName('prod_descricao').Value := dm1.q1.FieldByName('prod_descricao').AsString;
+    dm1.q1.Next;
+  end;
+
+  vt_produtos.Open;
   Checkbox1.Checked := False;
+end;
+
+procedure TSelecionaProdutosForm.grid_produtosDBTableView1CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  ds_produtos.Edit;
+
+  if vt_produtos.FieldByName('prod_selec').AsBoolean then
+  begin
+    vt_produtos.FieldByName('prod_selec').Value := False;
+  end
+  else
+  begin
+    vt_produtos.FieldByName('prod_selec').Value := True;
+  end;
 end;
 
 procedure TSelecionaProdutosForm.Rel1BtnClick(Sender: TObject);
 var
-  listaCod: TList<Integer>;
-  codSelecionado, indexSelecionado, i, count: Integer;
   codigos: String;
 
 begin
@@ -89,32 +130,37 @@ begin
     Exit;
   end;
 
-  listaCod := TList<Integer>.Create;
+  codigos := '';
 
-  for i := 0 to grid_produtosDBTableView1.Controller.SelectedRowCount - 1 do
+  vt_produtos.First;
+  while not vt_produtos.Eof do
   begin
-    indexSelecionado := grid_produtosDBTableView1.DataController.GetSelectedRowIndex(i);
-    codSelecionado := grid_produtosDBTableView1.ViewData.Records[indexSelecionado].Values[0];
-    listaCod.Add(codSelecionado);
-  end;
 
-  count := 0;
-  for i in listaCod do
-  begin
-    if count = listaCod.Count-1 then
+    if vt_produtos.FieldByName('prod_selec').AsBoolean then
     begin
-      codigos := codigos + i.ToString;
-    end
-    else
-    begin
-      codigos := codigos + i.ToString + ',';
+      if codigos = '' then
+      begin
+        codigos := vt_produtos.FieldByName('prod_codigo').AsString;
+      end
+      else
+      begin
+        codigos := codigos + ',' + vt_produtos.FieldByName('prod_codigo').AsString;
+      end;
     end;
-    count := count + 1;
+    vt_produtos.Next;
   end;
 
   if ModoEdit.Text = 'R1' then
   begin
     FormRel1.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'R2' then
+  begin
+    FormRel2.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'R3' then
+  begin
+    FormRel3.CodProdEdit.Text := codigos;
   end
   else if ModoEdit.Text = 'R4' then
   begin
@@ -126,7 +172,6 @@ begin
   end;
 
   close;
-  FreeAndNil(listaCod);
 end;
 
 end.
