@@ -203,7 +203,6 @@ object PagEstoque: TPagEstoque
       Images = ImageList1
       TabOrder = 7
       TabStop = False
-      OnClick = LimparLocalClick
     end
   end
   object gridEstoque: TcxGrid

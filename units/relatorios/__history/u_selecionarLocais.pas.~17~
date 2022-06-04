@@ -10,7 +10,7 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections,
-  VirtualTable, u_estoque;
+  VirtualTable;
 
 type
   TSelecionarLocaisForm = class(TForm)
@@ -148,10 +148,6 @@ begin
   else if ModoEdit.Text = 'R4' then
   begin
     FormRel4.CodLocalEdit.Text := codigos;
-  end
-  else if ModoEdit.Text = 'E' then
-  begin
-    PagEstoque.CodLocalEdit.Text := codigos;
   end;
 
   close;

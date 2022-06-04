@@ -1,12 +1,11 @@
 object PagEstoque: TPagEstoque
   Left = 0
   Top = 0
-  Anchors = [akLeft, akTop, akRight, akBottom]
   BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsNone
+  BorderStyle = bsSingle
   Caption = 'Consultar Estoque'
-  ClientHeight = 512
-  ClientWidth = 1009
+  ClientHeight = 483
+  ClientWidth = 963
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,23 +15,25 @@ object PagEstoque: TPagEstoque
   OldCreateOrder = False
   WindowState = wsMaximized
   OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_filtro: TPanel
     Left = 0
     Top = 0
-    Width = 1009
+    Width = 963
     Height = 137
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = 8
-    ExplicitTop = 16
-    ExplicitWidth = 969
-    DesignSize = (
-      1009
-      137)
+    object Label2: TLabel
+      Left = 23
+      Top = 94
+      Width = 85
+      Height = 13
+      Caption = 'Local de Estoque:'
+    end
     object Label7: TLabel
-      Left = 227
+      Left = 217
       Top = 50
       Width = 60
       Height = 13
@@ -46,8 +47,8 @@ object PagEstoque: TPagEstoque
       Caption = 'Status:'
     end
     object SpeedButton1: TSpeedButton
-      Left = 661
-      Top = 84
+      Left = 701
+      Top = 85
       Width = 15
       Height = 16
       ImageIndex = 3
@@ -69,52 +70,42 @@ object PagEstoque: TPagEstoque
       Height = 22
       ImageIndex = 2
       Images = ImageList1
-      OnClick = BuscaProdutoBtnClick
     end
     object SpeedButton2: TSpeedButton
-      Left = 968
+      Left = 928
       Top = 14
       Width = 23
       Height = 22
-      Anchors = [akTop, akRight]
       ImageIndex = 1
       Images = ImageList1
       Flat = True
-      OnClick = SpeedButton2Click
-      ExplicitLeft = 928
     end
-    object Label2: TLabel
-      Left = 23
-      Top = 76
-      Width = 85
-      Height = 13
-      Caption = 'Local de estoque:'
+    object LocalSelecao: TComboBox
+      Left = 114
+      Top = 91
+      Width = 97
+      Height = 21
+      Style = csDropDownList
+      ItemIndex = 1
+      TabOrder = 3
+      Text = 'DESCRI'#199#194'O'
+      OnChange = LocalSelecaoChange
+      Items.Strings = (
+        'C'#211'DIGO'
+        'DESCRI'#199#194'O')
     end
-    object BuscaLocalBtn: TSpeedButton
-      Left = 293
-      Top = 72
-      Width = 34
-      Height = 23
-      ImageIndex = 2
-      Images = ImageList1
-      OnClick = BuscaLocalBtnClick
-    end
-    object Label4: TLabel
-      Left = 693
-      Top = 46
-      Width = 284
-      Height = 33
-      Anchors = [akTop, akRight]
-      Caption = 'Consultar Estoque'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -27
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold, fsItalic]
-      ParentFont = False
+    object LocalEdit: TEdit
+      Left = 217
+      Top = 91
+      Width = 328
+      Height = 21
+      CharCase = ecUpperCase
+      MaxLength = 50
+      TabOrder = 4
+      OnClick = LocalEditClick
     end
     object QuantidadeBox: TComboBox
-      Left = 293
+      Left = 283
       Top = 47
       Width = 206
       Height = 21
@@ -145,18 +136,18 @@ object PagEstoque: TPagEstoque
         'INATIVO')
     end
     object BitBtn1: TBitBtn
-      Left = 579
-      Top = 19
+      Left = 619
+      Top = 20
       Width = 97
       Height = 59
       Caption = 'Consultar'
       ImageIndex = 0
       Images = ImageList1
-      TabOrder = 3
+      TabOrder = 5
       OnClick = BitBtn1Click
     end
     object QuantidadeEdit: TNumberBox
-      Left = 505
+      Left = 495
       Top = 47
       Width = 50
       Height = 21
@@ -172,7 +163,7 @@ object PagEstoque: TPagEstoque
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      TabOrder = 4
+      TabOrder = 6
     end
     object LimparProd: TBitBtn
       Left = 333
@@ -181,41 +172,18 @@ object PagEstoque: TPagEstoque
       Height = 23
       ImageIndex = 3
       Images = ImageList1
-      TabOrder = 5
-      TabStop = False
-      OnClick = LimparProdClick
-    end
-    object CodLocalEdit: TEdit
-      Left = 114
-      Top = 74
-      Width = 173
-      Height = 21
-      MaxLength = 4
-      NumbersOnly = True
-      TabOrder = 6
-    end
-    object LimparLocal: TBitBtn
-      Left = 333
-      Top = 73
-      Width = 33
-      Height = 22
-      ImageIndex = 3
-      Images = ImageList1
       TabOrder = 7
       TabStop = False
-      OnClick = LimparLocalClick
     end
   end
   object gridEstoque: TcxGrid
     Left = 0
     Top = 137
-    Width = 1009
-    Height = 375
+    Width = 963
+    Height = 346
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
-    ExplicitWidth = 963
-    ExplicitHeight = 346
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -298,24 +266,21 @@ object PagEstoque: TPagEstoque
     end
   end
   inline FrameGrid1: TFrameGrid
-    Left = 400
-    Top = 85
-    Width = 41
-    Height = 46
+    Left = 874
+    Top = 64
+    Width = 77
+    Height = 48
     TabOrder = 2
-    ExplicitLeft = 400
-    ExplicitTop = 85
-    ExplicitWidth = 41
-    ExplicitHeight = 46
+    ExplicitLeft = 874
+    ExplicitTop = 64
+    ExplicitHeight = 48
     inherited estiloGrid: TcxStyleRepository
-      Left = 8
-      Top = 8
       PixelsPerInch = 96
     end
   end
   object ImageList1: TImageList
-    Left = 504
-    Top = 88
+    Left = 832
+    Top = 56
     Bitmap = {
       494C010104000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020

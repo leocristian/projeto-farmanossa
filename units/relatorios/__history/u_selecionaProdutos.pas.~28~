@@ -43,7 +43,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm;
+uses u_dm1, u_controleForm, u_filtro_rel_1, u_filtro_rel_4;
 
 procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
 begin
@@ -62,6 +62,7 @@ begin
   tb_produtos.Close;
   tb_produtos.Connection := dm1.con1;
 
+  tb_produtos.SQL.Clear;
   tb_produtos.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
   tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
   tb_produtos.SQL.Add('order by prod_codigo');
@@ -109,7 +110,17 @@ begin
     count := count + 1;
   end;
 
-  showmessage(codigos);
+  if ModoEdit.Text = 'R1' then
+  begin
+    FormRel1.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'R4' then
+  begin
+    FormRel4.CodProdEdit.Text := codigos;
+  end;
+
+  close;
+  FreeAndNil(listaCod);
 end;
 
 end.

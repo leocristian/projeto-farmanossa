@@ -97,7 +97,6 @@ object PagEstoque: TPagEstoque
       Height = 23
       ImageIndex = 2
       Images = ImageList1
-      OnClick = BuscaLocalBtnClick
     end
     object Label4: TLabel
       Left = 693
@@ -203,7 +202,6 @@ object PagEstoque: TPagEstoque
       Images = ImageList1
       TabOrder = 7
       TabStop = False
-      OnClick = LimparLocalClick
     end
   end
   object gridEstoque: TcxGrid

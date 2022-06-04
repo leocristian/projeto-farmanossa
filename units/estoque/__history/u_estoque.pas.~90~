@@ -18,15 +18,9 @@ type
     gridEstoqueDBTableView1: TcxGridDBTableView;
     gridEstoqueLevel1: TcxGridLevel;
     gridEstoque: TcxGrid;
-    LocalSelecao: TComboBox;
-    Label2: TLabel;
-    LocalEdit: TEdit;
     QuantidadeBox: TComboBox;
     Label7: TLabel;
     TipoProdutoBox: TComboBox;
-    CampoProdBox: TComboBox;
-    ProdEdit: TEdit;
-    Label1: TLabel;
     Label3: TLabel;
     BitBtn1: TBitBtn;
     ImageList1: TImageList;
@@ -42,6 +36,16 @@ type
     qtd_estoque: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
     QuantidadeEdit: TNumberBox;
+    SpeedButton1: TSpeedButton;
+    Label1: TLabel;
+    CodProdEdit: TEdit;
+    BuscaProdutoBtn: TSpeedButton;
+    LimparProd: TBitBtn;
+    SpeedButton2: TSpeedButton;
+    CodLocalEdit: TEdit;
+    Label2: TLabel;
+    BuscaLocalBtn: TSpeedButton;
+    LimparLocal: TBitBtn;
     procedure BitBtn1Click(Sender: TObject);
     procedure LotesProdutoClick(Sender: TObject);
     procedure QuantidadeBoxChange(Sender: TObject);
@@ -52,6 +56,8 @@ type
     procedure CampoProdBoxChange(Sender: TObject);
     procedure LocalSelecaoChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure BuscaProdutoBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -65,7 +71,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_lotesProduto;
+uses u_dm1, u_lotesProduto, u_selecionaProdutos;
 
 procedure TPagEstoque.BitBtn1Click(Sender: TObject);
 begin
@@ -87,7 +93,8 @@ begin
   // Manipular a quantidade do produto
   if QuantidadeBox.ItemIndex = 0 then
   begin
-    tb_estoque.SQL.Add('where 1=1');
+    tb_estoque.SQL.Add('where :qtd=:qtd');
+    QuantidadeEdit.Value := 1;
   end
   else if QuantidadeBox.ItemIndex = 1 then
   begin
@@ -109,22 +116,13 @@ begin
 
   tb_estoque.ParamByName('qtd').Value := QuantidadeEdit.Text;
 
-  if CampoProdBox.ItemIndex = 0 then
+  if CodProdEdit.Text = '' then
   begin
-    if ProdEdit.Text = '' then
-    begin
-      tb_estoque.SQL.Add('and 1=1');
-    end
-    else
-    begin
-      tb_estoque.SQl.Add('and result.prod_codigo = :prod_codigo');
-      tb_estoque.ParamByName('prod_codigo').Value := StrToInt(ProdEdit.Text);
-    end;
+    tb_estoque.SQL.Add('and 1=1');
   end
-  else if CampoProdBox.ItemIndex = 1 then
+  else
   begin
-    tb_estoque.SQl.Add('and result.prod_descricao like :prod_descricao');
-    tb_estoque.ParamByName('prod_descricao').Value := '%' + ProdEdit.Text + '%';
+    tb_estoque.SQl.Add('and result.prod_codigo in (' + CodProdEdit.Text + ')');
   end;
 
   if TipoProdutoBox.ItemIndex = 0 then
@@ -140,24 +138,6 @@ begin
     tb_estoque.SQL.Add('and result.prod_status  = ''INATIVO''');
   end;
 
-  if LocalSelecao.ItemIndex = 0 then
-  begin
-    if LocalEdit.Text = '' then
-    begin
-      tb_estoque.SQL.Add('and 1=1');
-    end
-    else
-    begin
-      tb_estoque.SQL.Add('and result.loc_codigo = :cod_local');
-      tb_estoque.ParamByName('cod_local').Value := StrToInt(LocalEdit.Text);
-    end;
-  end
-  else if LocalSelecao.ItemIndex = 1 then
-  begin
-    tb_estoque.SQL.Add('and result.loc_descricao like :loc_descricao');
-    tb_estoque.ParamByName('loc_descricao').Value := '%' + LocalEdit.Text + '%';
-  end;
-
   ds_estoque.DataSet := tb_estoque;
   tb_estoque.Open;
 
@@ -168,6 +148,7 @@ begin
   if (QuantidadeBox.ItemIndex <> 0) and (QuantidadeBox.ItemIndex <> 1) then
   begin
     QuantidadeEdit.Visible := True;
+    QuantidadeEdit.Value := 0;
   end
   else
   begin
@@ -180,52 +161,23 @@ begin
   QuantidadeEdit.SetFocus;
 end;
 
-procedure TPagEstoque.CampoProdBoxChange(Sender: TObject);
+procedure TPagEstoque.SpeedButton1Click(Sender: TObject);
 begin
-  ProdEdit.Clear;
+  CodProdEdit.Clear;
+  CodLocalEdit.Clear;
+  QuantidadeEdit.Value := 0;
+  CodProdEdit.SetFocus;
+end;
 
-  if CampoProdBox.Text = 'CÓDIGO' then
-  begin
-    ProdEdit.NumbersOnly := True;
-    ProdEdit.MaxLength := 5;
-  end
-  else
-  begin
-    ProdEdit.NumbersOnly := False;
-    ProdEdit.MaxLength := 50;
-  end;
+procedure TPagEstoque.BuscaProdutoBtnClick(Sender: TObject);
+begin
+  SelecionaProdutosForm.ModoEdit.Text := 'E';
+  SelecionaProdutosForm.Show;
 end;
 
 procedure TPagEstoque.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   tb_estoque.Close;
-end;
-
-procedure TPagEstoque.FormShow(Sender: TObject);
-begin
-  ProdEdit.SetFocus;
-end;
-
-procedure TPagEstoque.LocalEditClick(Sender: TObject);
-begin
-  LocalEdit.SetFocus;
-end;
-
-procedure TPagEstoque.LocalSelecaoChange(Sender: TObject);
-begin
-
-  LocalEdit.Clear;
-
-  if LocalSelecao.Text = 'CÓDIGO' then
-  begin
-    LocalEdit.NumbersOnly := True;
-    LocalEdit.MaxLength := 5;
-  end
-  else
-  begin
-    LocalEdit.NumbersOnly := False;
-    LocalEdit.MaxLength := 50;
-  end;
 end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);
@@ -234,11 +186,6 @@ begin
   if tb_estoque.RecordCount = 0 then exit;
 
   LotesProdutoForm.ShowModal;
-end;
-
-procedure TPagEstoque.ProdEditClick(Sender: TObject);
-begin
-  ProdEdit.SetFocus;
 end;
 
 end.

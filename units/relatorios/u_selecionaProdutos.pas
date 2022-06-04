@@ -9,7 +9,7 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
-  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections;
+  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections, u_estoque;
 
 type
   TSelecionaProdutosForm = class(TForm)
@@ -117,6 +117,10 @@ begin
   else if ModoEdit.Text = 'R4' then
   begin
     FormRel4.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'E' then
+  begin
+    PagEstoque.CodProdEdit.Text := codigos;
   end;
 
   close;
