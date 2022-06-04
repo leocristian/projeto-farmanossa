@@ -279,6 +279,13 @@ object FormEntrada: TFormEntrada
     TabOrder = 3
     OnExit = CodLocalEditExit
   end
+  object edc_cod: TEdit
+    Left = 16
+    Top = 282
+    Width = 25
+    Height = 21
+    TabOrder = 4
+  end
   object ImageList1: TImageList
     Left = 312
     Top = 8

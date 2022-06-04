@@ -213,6 +213,7 @@ begin
   if FrameButtons1.ModoEdit.Text = 'N' then
   begin
     pn_form.Enabled := true;
+    Caption := 'Nova Entrada';
     pn_datas.Enabled := true;
     FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
@@ -267,14 +268,17 @@ begin
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin
       pn_form.Enabled := false;
+      Caption := 'Exibir Entrada';
       FrameButtons1.SalvarBtn.Visible := false;
       FrameButtons1.SalvarBtn.Caption := 'Confirmar Entrada';
     end
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := true;
+      Caption := 'Alterar Entrada';
       pn_datas.Enabled := False;
       LoteEdit.Enabled := False;
+      ModoLote.Text := 'A';
       FrameButtons1.SalvarBtn.Visible := true;
       FrameButtons1.SalvarBtn.Caption := 'Salvar Alterações';
       CodProdEdit.SetFocus;
@@ -376,11 +380,11 @@ begin
     q1.ParamByName('lote').Value := LoteEdit.Text;
     q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
 
-    showmessage(q1.SQL.Text);
-
     if Confirma('Confirmar operação?') then
     begin
       try
+        // Adicionar verificação de estoque negativo
+
         q1.ExecSQL;
         Mensagem('Operação realizada com sucesso!');
 
@@ -448,7 +452,13 @@ var
   q1: TUniQuery;
 
 begin
-
+  if (CodProdEdit.Text = '') or (CodLocalEdit.Text = '') then
+  begin
+    Aviso('Informe o produto e o local para preencher o lote');
+    LoteEdit.Clear;
+    CodProdEdit.SetFocus;
+    Exit;
+  end;
   if LoteEdit.Text = '' then exit;
 
   try
@@ -459,9 +469,9 @@ begin
     q1.SQL.Add('select exists(select lote.lote_dtfabricacao, lote.lote_dtvencimento from tb_lotes as lote');
     q1.SQL.Add('where lote_codigo = :lote and lote_produto = :produto and lote_local = :local)');
 
-    q1.ParamByName('lote').Value := LoteEdit.Text;
-    q1.ParamByName('produto').Value := CodProdEdit.Text;
-    q1.ParamByName('local').Value := CodLocalEdit.Text;
+    q1.ParamByName('lote').Value := StrToInt(LoteEdit.Text);
+    q1.ParamByName('produto').Value := StrToInt(CodProdEdit.Text);
+    q1.ParamByName('local').Value := StrToInt(CodLocalEdit.Text);
 
     q1.Open;
 

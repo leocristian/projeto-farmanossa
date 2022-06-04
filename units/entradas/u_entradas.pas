@@ -67,6 +67,7 @@ begin
   if qEnt.RecordCount = 0 then exit;
 
   FormEntrada.FrameButtons1.ModoEdit.Text := 'A';
+  FormEntrada.edc_cod.Text := qEnt.FieldByName('ent_codigo').AsString;
   FormEntrada.ShowModal;
 end;
 
@@ -181,6 +182,7 @@ begin
   if qEnt.RecordCount = 0 then exit;
 
   FormEntrada.FrameButtons1.ModoEdit.Text := 'V';
+  FormEntrada.edc_cod.Text := qEnt.FieldByName('ent_codigo').AsString;
   FormEntrada.ShowModal;
 end;
 
@@ -236,6 +238,7 @@ end;
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);
 begin
   FormEntrada.FrameButtons1.ModoEdit.Text := 'N';
+  FormEntrada.edc_cod.Text := '00';
   FormEntrada.ShowModal;
 end;
 

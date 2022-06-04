@@ -67,6 +67,7 @@ begin
   if qEnt.RecordCount = 0 then exit;
 
   FormEntrada.FrameButtons1.ModoEdit.Text := 'A';
+  FormEntrada.edc_cod.Text := qEnt.FieldByName('ent_codigo').AsString;
   FormEntrada.ShowModal;
 end;
 
@@ -124,18 +125,50 @@ begin
   begin
     try
 
-      dm1.q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
-      dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsString;;
+      {
+  try
+    dm1.con1.StartTransaction;
+
+     //CÓDIGO AQUI
+
+    dm1.con1.Commit;
+
+  except
+    on e : Exception do
+    begin
+      dm1.con1.Rollback;
+    end;
+  end;
+
+  }
 
       try
+        dm1.con1.StartTransaction;
+
+        dm1.q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
+        dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsInteger;
         dm1.q1.ExecSQL;
-        Mensagem('Entrada cancelada com sucesso!');
+
         dm1.q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
-        dm1.q1.ParamByName('entrada').Value := qEnt.FieldByName('ent_codigo').AsString;;
+        dm1.q1.ParamByName('entrada').Value := qEnt.FieldByName('ent_codigo').AsInteger;
         dm1.q1.ExecSQL;
+
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = lote_quantidade - :quantidade');
+        dm1.q1.SQL.Add('where lote_codigo = :lote');
+        dm1.q1.ParamByName('lote').Value := qEnt.FieldByName('ent_lote').AsInteger;
+        dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
+
+        dm1.q1.ExecSQL;
+
+        dm1.con1.Commit;
+        Mensagem('Entrada cancelada com sucesso!');
         gridEntradasDBTableView1.DataController.RefreshExternalData;
       except on e:exception do
-        Erro('Erro!' + #13 + e.Message);
+        begin
+          Erro('Erro!' + #13 + e.Message);
+          dm1.con1.Rollback;
+        end;
       end;
     finally
       dm1.q1.Close;
@@ -149,6 +182,7 @@ begin
   if qEnt.RecordCount = 0 then exit;
 
   FormEntrada.FrameButtons1.ModoEdit.Text := 'V';
+  FormEntrada.edc_cod.Text := qEnt.FieldByName('ent_codigo').AsString;
   FormEntrada.ShowModal;
 end;
 

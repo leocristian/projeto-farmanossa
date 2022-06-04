@@ -116,10 +116,6 @@ begin
 end;
 
 procedure TPagEntradas.CancelarEntrada1Click(Sender: TObject);
-var
-  q1: TUniQuery;
-  index, codigo: Integer;
-
 begin
   if not qEnt.Active then exit;
   if qEnt.RecordCount = 0 then exit;
@@ -127,28 +123,54 @@ begin
   if Confirma('Confirmar cancelamento de entrada?' + #13 + 'Esta operação será irreversível!') then
   begin
     try
-      q1 := TUniQuery.Create(q1);
-      q1.Connection := dm1.con1;
 
-      index := gridEntradasDBTableView1.DataController.GetSelectedRowIndex(0);
-      codigo := gridEntradasDBTableView1.ViewData.Records[index].Values[0];
+      {
+  try
+    dm1.con1.StartTransaction;
 
-      q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
-      q1.ParamByName('codigo').Value := codigo;
+     //CÓDIGO AQUI
+
+    dm1.con1.Commit;
+
+  except
+    on e : Exception do
+    begin
+      dm1.con1.Rollback;
+    end;
+  end;
+
+  }
 
       try
-        q1.ExecSQL;
+        dm1.con1.StartTransaction;
+
+        dm1.q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
+        dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsInteger;
+        dm1.q1.ExecSQL;
+
+        dm1.q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
+        dm1.q1.ParamByName('entrada').Value := qEnt.FieldByName('ent_codigo').AsInteger;
+        dm1.q1.ExecSQL;
+
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = lote_quantidade - :quantidade');
+        dm1.q1.SQL.Add('where lote_codigo = :lote');
+        dm1.q1.ParamByName('lote').Value := qEnt.FieldByName('ent_lote').AsInteger;
+        dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
+
+        dm1.q1.ExecSQL;
+
+        dm1.con1.Commit;
         Mensagem('Entrada cancelada com sucesso!');
-        q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
-        q1.ParamByName('entrada').Value := codigo;
-        q1.ExecSQL;
         gridEntradasDBTableView1.DataController.RefreshExternalData;
       except on e:exception do
-        Erro('Erro!' + #13 + e.Message);
+        begin
+          Erro('Erro!' + #13 + e.Message);
+          dm1.con1.Rollback;
+        end;
       end;
     finally
-      q1.Close;
-      FreeAndNil(q1);
+      dm1.q1.Close;
     end;
   end;
 end;

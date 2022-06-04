@@ -38,6 +38,7 @@ type
     QtdProdEdit: TNumberBox;
     CodProdEdit: TEdit;
     CodLocalEdit: TEdit;
+    edc_cod: TEdit;
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -204,15 +205,12 @@ begin
 end;
 
 procedure TFormEntrada.FormShow(Sender: TObject);
-var
-  q1: TUniQuery;
-  index, codigo: Integer;
-
 begin
 
   if FrameButtons1.ModoEdit.Text = 'N' then
   begin
     pn_form.Enabled := true;
+    Caption := 'Nova Entrada';
     pn_datas.Enabled := true;
     FrameButtons1.SalvarBtn.Visible := true;
     LimparInputs(self);
@@ -227,10 +225,6 @@ begin
   end
   else
   begin
-
-    index := PagEntradas.gridEntradasDBTableView1.DataController.GetSelectedRowIndex(0);
-    codigo := PagEntradas.gridEntradasDBTableView1.ViewData.Records[index].Values[0];
-
     try
       q1 := TUniQuery.Create(q1);
       q1.Connection := dm1.con1;
@@ -267,12 +261,14 @@ begin
     if FrameButtons1.ModoEdit.Text = 'V' then
     begin
       pn_form.Enabled := false;
+      Caption := 'Exibir Entrada';
       FrameButtons1.SalvarBtn.Visible := false;
       FrameButtons1.SalvarBtn.Caption := 'Confirmar Entrada';
     end
     else if FrameButtons1.ModoEdit.Text = 'A' then
     begin
       pn_form.Enabled := true;
+      Caption := 'Alterar Entrada';
       pn_datas.Enabled := False;
       LoteEdit.Enabled := False;
       ModoLote.Text := 'A';
@@ -380,6 +376,8 @@ begin
     if Confirma('Confirmar operação?') then
     begin
       try
+        // Adicionar verificação de estoque negativo
+
         q1.ExecSQL;
         Mensagem('Operação realizada com sucesso!');
 
@@ -443,37 +441,37 @@ begin
 end;
 
 procedure TFormEntrada.LoteEditExit(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
-
+  if (CodProdEdit.Text = '') or (CodLocalEdit.Text = '') then
+  begin
+    Aviso('Informe o produto e o local para preencher o lote');
+    LoteEdit.Clear;
+    CodProdEdit.SetFocus;
+    Exit;
+  end;
   if LoteEdit.Text = '' then exit;
 
   try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
+    dm1.q1.SQL.Clear;
+    dm1.q1.SQL.Add('select exists(select lote.lote_dtfabricacao, lote.lote_dtvencimento from tb_lotes as lote');
+    dm1.q1.SQL.Add('where lote_codigo = :lote and lote_produto = :produto and lote_local = :local)');
 
-    q1.SQL.Clear;
-    q1.SQL.Add('select exists(select lote.lote_dtfabricacao, lote.lote_dtvencimento from tb_lotes as lote');
-    q1.SQL.Add('where lote_codigo = :lote and lote_produto = :produto and lote_local = :local)');
+    dm1.q1.ParamByName('lote').Value := StrToInt(LoteEdit.Text);
+    dm1.q1.ParamByName('produto').Value := StrToInt(CodProdEdit.Text);
+    dm1.q1.ParamByName('local').Value := StrToInt(CodLocalEdit.Text);
 
-    q1.ParamByName('lote').Value := LoteEdit.Text;
-    q1.ParamByName('produto').Value := CodProdEdit.Text;
-    q1.ParamByName('local').Value := CodLocalEdit.Text;
+    dm1.q1.Open;
 
-    q1.Open;
-
-    if q1.FieldByName('exists').Value then
+    if dm1.q1.FieldByName('exists').Value then
     begin
-      q1.Close;
-      q1.SQL.Text := 'select lote_dtfabricacao, lote_dtvencimento from tb_lotes where lote_codigo = :lote';
-      q1.ParamByName('lote').Value := LoteEdit.Text;
+      dm1.q1.Close;
+      dm1.q1.SQL.Text := 'select lote_dtfabricacao, lote_dtvencimento from tb_lotes where lote_codigo = :lote';
+      dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
 
-      q1.Open;
+      dm1.q1.Open;
 
-      DtFabricacaoEdit.Date := q1.FieldByName('lote_dtfabricacao').Value;
-      DtVencimentoEdit.Date := q1.FieldByName('lote_dtvencimento').Value;
+      DtFabricacaoEdit.Date := dm1.q1.FieldByName('lote_dtfabricacao').Value;
+      DtVencimentoEdit.Date := dm1.q1.FieldByName('lote_dtvencimento').Value;
 
       pn_datas.Enabled := False;
       QtdProdEdit.SetFocus;
@@ -490,8 +488,7 @@ begin
     end;
 
   finally
-    q1.Close;
-    FreeAndNil(q1);
+    dm1.q1.Close;
   end;
 end;
 
