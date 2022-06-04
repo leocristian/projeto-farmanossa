@@ -25,9 +25,8 @@ type
     BuscaProdutoBtn: TSpeedButton;
     LimparProd: TBitBtn;
     qRel2: TUniQuery;
+    procedure FormShow(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
-    procedure BuscaProdutoBtnClick(Sender: TObject);
-    procedure LimparProdClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,18 +40,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_selecionaProdutos;
-
-procedure TFormRel2.BuscaProdutoBtnClick(Sender: TObject);
-begin
-  SelecionaProdutosForm.ModoEdit.Text := 'R2';
-  SelecionaProdutosForm.Show;
-end;
-
-procedure TFormRel2.LimparProdClick(Sender: TObject);
-begin
-  CodProdEdit.Clear;
-end;
+uses u_controleForm, u_dm1;
 
 procedure TFormRel2.Rel1BtnClick(Sender: TObject);
 var

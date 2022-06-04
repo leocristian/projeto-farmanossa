@@ -73,8 +73,6 @@ begin
   begin
     FormRel2.Parent := pn_relatorio;
     FormRel2.Show;
-    FormRel2.grid_produtosDBTableView1.DataController.ClearSelection;
-    FormRel2.Checkbox1.Checked := False;
   end
   else if RelBox.ItemIndex = 2 then
   begin

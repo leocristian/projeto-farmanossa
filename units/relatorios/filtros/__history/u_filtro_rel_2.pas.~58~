@@ -17,17 +17,18 @@ type
     pn_button: TPanel;
     Rel1Btn: TBitBtn;
     ImageList1: TImageList;
+    ds_produtos: TDataSource;
+    tb_produtos: TUniTable;
     rel_2: TfrxReport;
     db_rel_2: TfrxDBDataset;
+    tb_rel_2: TUniTable;
     ds_rel_2: TDataSource;
     Label2: TLabel;
     CodProdEdit: TEdit;
     BuscaProdutoBtn: TSpeedButton;
     LimparProd: TBitBtn;
-    qRel2: TUniQuery;
+    procedure FormShow(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
-    procedure BuscaProdutoBtnClick(Sender: TObject);
-    procedure LimparProdClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,53 +42,30 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_selecionaProdutos;
-
-procedure TFormRel2.BuscaProdutoBtnClick(Sender: TObject);
-begin
-  SelecionaProdutosForm.ModoEdit.Text := 'R2';
-  SelecionaProdutosForm.Show;
-end;
-
-procedure TFormRel2.LimparProdClick(Sender: TObject);
-begin
-  CodProdEdit.Clear;
-end;
+uses u_controleForm, u_dm1;
 
 procedure TFormRel2.Rel1BtnClick(Sender: TObject);
-var
-  xWhere: String;
-
 begin
 
-  xWhere := '';
+  tb_rel_2.Close;
+  tb_rel_2.Connection := dm1.con1;
 
-  if CodProdEdit.Text <> '' then
-  begin
-    xWhere := xWhere + 'and prod_codigo in (' + CodProdEdit.Text + ')';
-  end;
+  tb_rel_2.SQL.Clear;
+  tb_rel_2.SQL.Add('select prod_codigo, prod_descricao, sum(lote_quantidade) as qtd_total');
+  tb_rel_2.SQL.Add('from tb_produtos');
+  tb_rel_2.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
 
-  if CodProdEdit.Text = '' then
-  begin
-    if not Confirma('Você não especificou nenhum produto, a consulta irá retornar todos os registros, deseja continuar?') then
-    begin
-      Exit;
-    end;
-  end;
+  tb_rel_2.SQL.Add('where prod_codigo in (');
 
-  qRel2.SQL.Clear;
-  qRel2.SQL.Add('select prod_codigo, prod_descricao, sum(lote_quantidade) as qtd_total');
-  qRel2.SQL.Add('from tb_produtos');
-  qRel2.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
-  qRel2.SQL.Add('where 1 = 1 ' + xWhere);
-  qRel2.SQL.Add('group by prod_codigo, prod_descricao');
-  qRel2.SQL.Add('order by prod_codigo');
+  tb_rel_2.SQL.Add(')');
+  tb_rel_2.SQL.Add('group by prod_codigo, prod_descricao');
+  tb_rel_2.SQL.Add('order by prod_codigo');
 
-  ds_rel_2.DataSet := qRel2;
+  ds_rel_2.DataSet := tb_rel_2;
 
-  qRel2.Open;
+  tb_rel_2.Open;
   rel_2.ShowReport;
-  qRel2.Close;
+  tb_rel_2.Close;
 
 end;
 

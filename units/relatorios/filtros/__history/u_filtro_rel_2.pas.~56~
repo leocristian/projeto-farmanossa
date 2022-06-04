@@ -16,24 +16,18 @@ type
   TFormRel2 = class(TForm)
     pn_button: TPanel;
     Rel1Btn: TBitBtn;
-    pn_buscaProd: TPanel;
     ImageList1: TImageList;
-    grid_produtosDBTableView1: TcxGridDBTableView;
-    grid_produtosLevel1: TcxGridLevel;
-    grid_produtos: TcxGrid;
     ds_produtos: TDataSource;
-    prod_codigo: TcxGridDBColumn;
-    prod_descricao: TcxGridDBColumn;
-    FrameGrid1: TFrameGrid;
-    Label1: TLabel;
-    CheckBox1: TCheckBox;
     tb_produtos: TUniTable;
     rel_2: TfrxReport;
     db_rel_2: TfrxDBDataset;
     tb_rel_2: TUniTable;
     ds_rel_2: TDataSource;
+    Label2: TLabel;
+    CodProdEdit: TEdit;
+    BuscaProdutoBtn: TSpeedButton;
+    LimparProd: TBitBtn;
     procedure FormShow(Sender: TObject);
-    procedure CheckBox1Click(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
   private
     { Private declarations }
@@ -50,23 +44,8 @@ implementation
 
 uses u_controleForm, u_dm1;
 
-procedure TFormRel2.CheckBox1Click(Sender: TObject);
-begin
-  if CheckBox1.Checked then
-  begin
-    grid_produtosDBTableView1.DataController.SelectAll
-  end
-  else
-  begin
-    grid_produtosDBTableView1.DataController.ClearSelection;
-  end;
-end;
-
 procedure TFormRel2.FormShow(Sender: TObject);
 begin
-
-  grid_produtosDBTableView1.DataController.ClearSelection;
-  Checkbox1.Checked := False;
 
   tb_produtos.Close;
   tb_produtos.Connection := dm1.con1;
@@ -75,10 +54,11 @@ begin
   tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
   tb_produtos.SQL.Add('order by prod_codigo');
 
-  tb_produtos.Open;
-
   ds_produtos.DataSet := tb_produtos;
   tb_produtos.Open;
+
+  grid_produtosDBTableView1.DataController.ClearSelection;
+  Checkbox1.Checked := False;
 end;
 
 procedure TFormRel2.Rel1BtnClick(Sender: TObject);
@@ -130,6 +110,7 @@ begin
 
   tb_rel_2.SQL.Add(')');
   tb_rel_2.SQL.Add('group by prod_codigo, prod_descricao');
+  tb_rel_2.SQL.Add('order by prod_codigo');
 
   ds_rel_2.DataSet := tb_rel_2;
 

@@ -64,6 +64,7 @@ object FormRel1: TFormRel1
       Width = 173
       Height = 21
       MaxLength = 4
+      NumbersOnly = True
       TabOrder = 0
       OnClick = CodProdEditClick
       OnExit = CodProdEditExit
@@ -91,8 +92,8 @@ object FormRel1: TFormRel1
       OnClick = LimparLocalClick
     end
     object Rel1Btn: TBitBtn
-      Left = 460
-      Top = 184
+      Left = 215
+      Top = 192
       Width = 161
       Height = 65
       Caption = 'Visualizar relat'#243'rio'
@@ -128,15 +129,15 @@ object FormRel1: TFormRel1
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44709.779944594900000000
-    ReportOptions.LastChange = 44714.640644953700000000
+    ReportOptions.LastChange = 44716.416279421300000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
       'begin'
       ''
       'end.')
-    Left = 184
-    Top = 194
+    Left = 152
+    Top = 18
     Datasets = <
       item
         DataSet = db_rel_1
@@ -256,20 +257,6 @@ object FormRel1: TFormRel1
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 1046.929810000000000000
-        object Memo2: TfrxMemoView
-          AllowVectorExport = True
-          Width = 718.110000000000000000
-          Height = 22.677180000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          Frame.Typ = [ftBottom]
-          Frame.Width = 2.000000000000000000
-          ParentFont = False
-          Style = 'Header line'
-        end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
           Left = 11.339530000000000000
@@ -392,9 +379,9 @@ object FormRel1: TFormRel1
         end
         object Memo14: TfrxMemoView
           AllowVectorExport = True
-          Left = 971.339530000000000000
+          Left = 967.559530000000000000
           Width = 79.370470000000000000
-          Height = 18.897650000000000000
+          Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
@@ -434,6 +421,15 @@ object FormRel1: TFormRel1
           Memo.UTF8W = (
             'Loc. Descri'#231#227'o')
           ParentFont = False
+        end
+        object Line1: TfrxLineView
+          Align = baWidth
+          AllowVectorExport = True
+          Top = 17.779530000000000000
+          Width = 1046.929810000000000000
+          Color = clBlack
+          Frame.Typ = []
+          Diagonal = True
         end
       end
       object MasterData1: TfrxMasterData
@@ -617,20 +613,20 @@ object FormRel1: TFormRel1
     DataSet = tb_rel_1
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 248
-    Top = 197
+    Left = 216
+    Top = 21
   end
   object tb_rel_1: TUniTable
-    Left = 312
-    Top = 197
+    Left = 280
+    Top = 21
   end
   object ds_rel_1: TDataSource
-    Left = 376
-    Top = 197
+    Left = 344
+    Top = 21
   end
   object ImageList1: TImageList
-    Left = 128
-    Top = 192
+    Left = 96
+    Top = 16
     Bitmap = {
       494C010104000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020

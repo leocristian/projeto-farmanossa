@@ -65,7 +65,6 @@ object FormRel2: TFormRel2
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      ReadOnly = True
       TabOrder = 1
     end
     object LimparProd: TBitBtn

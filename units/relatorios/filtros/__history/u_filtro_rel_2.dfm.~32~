@@ -3,7 +3,7 @@ object FormRel2: TFormRel2
   Top = 0
   BorderStyle = bsNone
   Caption = 'FormRel2'
-  ClientHeight = 368
+  ClientHeight = 451
   ClientWidth = 617
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,39 +13,42 @@ object FormRel2: TFormRel2
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_button: TPanel
     Left = 0
-    Top = 0
+    Top = 144
     Width = 617
-    Height = 368
-    Align = alClient
+    Height = 307
+    Align = alBottom
     TabOrder = 0
     ExplicitLeft = 8
     ExplicitTop = 120
-    ExplicitHeight = 307
+    DesignSize = (
+      617
+      307)
     object Label2: TLabel
-      Left = 92
-      Top = 73
+      Left = 84
+      Top = 121
       Width = 42
       Height = 13
       Caption = 'Produto:'
     end
     object BuscaProdutoBtn: TSpeedButton
-      Left = 319
-      Top = 69
+      Left = 311
+      Top = 117
       Width = 34
       Height = 22
       ImageIndex = 0
       Images = ImageList1
-      OnClick = BuscaProdutoBtnClick
     end
     object Rel1Btn: TBitBtn
-      Left = 231
-      Top = 130
+      Left = 223
+      Top = 181
       Width = 161
       Height = 65
+      Anchors = [akLeft, akBottom]
       Caption = 'Visualizar relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -59,30 +62,28 @@ object FormRel2: TFormRel2
       OnClick = Rel1BtnClick
     end
     object CodProdEdit: TEdit
-      Left = 140
-      Top = 70
+      Left = 132
+      Top = 118
       Width = 173
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      ReadOnly = True
       TabOrder = 1
     end
     object LimparProd: TBitBtn
-      Left = 359
-      Top = 69
+      Left = 351
+      Top = 117
       Width = 33
       Height = 23
       ImageIndex = 1
       Images = ImageList1
       TabOrder = 2
       TabStop = False
-      OnClick = LimparProdClick
     end
   end
   object ImageList1: TImageList
-    Left = 336
-    Top = 248
+    Left = 344
+    Top = 168
     Bitmap = {
       494C010103000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -223,6 +224,14 @@ object FormRel2: TFormRel2
       FFFFFFFF80010000FFFFFFFF8001000000000000000000000000000000000000
       000000000000}
   end
+  object ds_produtos: TDataSource
+    Left = 472
+    Top = 168
+  end
+  object tb_produtos: TUniTable
+    Left = 408
+    Top = 168
+  end
   object rel_2: TfrxReport
     Version = '2022.2.3'
     DotMatrixReport = False
@@ -239,8 +248,8 @@ object FormRel2: TFormRel2
       'begin'
       ''
       'end.')
-    Left = 104
-    Top = 248
+    Left = 112
+    Top = 168
     Datasets = <
       item
         DataSet = db_rel_2
@@ -522,20 +531,18 @@ object FormRel2: TFormRel2
   object db_rel_2: TfrxDBDataset
     UserName = 'frxDBDataset1'
     CloseDataSource = False
-    DataSet = qRel2
+    DataSet = tb_rel_2
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 168
-    Top = 248
+    Left = 176
+    Top = 168
+  end
+  object tb_rel_2: TUniTable
+    Left = 240
+    Top = 168
   end
   object ds_rel_2: TDataSource
-    DataSet = qRel2
-    Left = 280
-    Top = 249
-  end
-  object qRel2: TUniQuery
-    Connection = dm1.con1
-    Left = 232
-    Top = 248
+    Left = 288
+    Top = 169
   end
 end

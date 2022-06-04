@@ -10,7 +10,8 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
   Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, MemDS,
-  VirtualTable, fr_estilo, DBAccess, Uni, frxClass, frxDBSet, Generics.Collections;
+  VirtualTable, fr_estilo, DBAccess, Uni, frxClass, frxDBSet, Generics.Collections,
+  u_selecionaProdutos;
 
 type
   TFormRel2 = class(TForm)
@@ -27,7 +28,6 @@ type
     qRel2: TUniQuery;
     procedure Rel1BtnClick(Sender: TObject);
     procedure BuscaProdutoBtnClick(Sender: TObject);
-    procedure LimparProdClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,17 +41,12 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_selecionaProdutos;
+uses u_controleForm, u_dm1;
 
 procedure TFormRel2.BuscaProdutoBtnClick(Sender: TObject);
 begin
   SelecionaProdutosForm.ModoEdit.Text := 'R2';
   SelecionaProdutosForm.Show;
-end;
-
-procedure TFormRel2.LimparProdClick(Sender: TObject);
-begin
-  CodProdEdit.Clear;
 end;
 
 procedure TFormRel2.Rel1BtnClick(Sender: TObject);

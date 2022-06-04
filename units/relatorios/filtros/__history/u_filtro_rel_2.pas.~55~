@@ -1,33 +1,37 @@
-unit u_selecionaProdutos;
+unit u_filtro_rel_2;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, cxGraphics,
-  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData,
-  cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
-  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
-  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections, u_estoque,
-  VirtualTable;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  System.ImageList, Vcl.ImgList, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
+  Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, MemDS,
+  VirtualTable, fr_estilo, DBAccess, Uni, frxClass, frxDBSet, Generics.Collections;
 
 type
-  TSelecionaProdutosForm = class(TForm)
-    pn_buscaProd: TPanel;
-    Label1: TLabel;
-    grid_produtos: TcxGrid;
-    grid_produtosDBTableView1: TcxGridDBTableView;
-    grid_produtosLevel1: TcxGridLevel;
+  TFormRel2 = class(TForm)
     pn_button: TPanel;
     Rel1Btn: TBitBtn;
-    CheckBox1: TCheckBox;
-    FrameGrid1: TFrameGrid;
-    ModoEdit: TEdit;
+    pn_buscaProd: TPanel;
+    ImageList1: TImageList;
+    grid_produtosDBTableView1: TcxGridDBTableView;
+    grid_produtosLevel1: TcxGridLevel;
+    grid_produtos: TcxGrid;
     ds_produtos: TDataSource;
     prod_codigo: TcxGridDBColumn;
     prod_descricao: TcxGridDBColumn;
-    vt_produtos: TVirtualTable;
+    FrameGrid1: TFrameGrid;
+    Label1: TLabel;
+    CheckBox1: TCheckBox;
+    tb_produtos: TUniTable;
+    rel_2: TfrxReport;
+    db_rel_2: TfrxDBDataset;
+    tb_rel_2: TUniTable;
+    ds_rel_2: TDataSource;
     procedure FormShow(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
@@ -38,15 +42,15 @@ type
   end;
 
 var
-  SelecionaProdutosForm: TSelecionaProdutosForm;
+  FormRel2: TFormRel2;
 
 implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_filtro_rel_1, u_filtro_rel_4;
+uses u_controleForm, u_dm1;
 
-procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
+procedure TFormRel2.CheckBox1Click(Sender: TObject);
 begin
   if CheckBox1.Checked then
   begin
@@ -58,12 +62,12 @@ begin
   end;
 end;
 
-procedure TSelecionaProdutosForm.FormShow(Sender: TObject);
+procedure TFormRel2.FormShow(Sender: TObject);
 begin
+
   tb_produtos.Close;
   tb_produtos.Connection := dm1.con1;
 
-  tb_produtos.SQL.Clear;
   tb_produtos.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
   tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
   tb_produtos.SQL.Add('order by prod_codigo');
@@ -75,11 +79,10 @@ begin
   Checkbox1.Checked := False;
 end;
 
-procedure TSelecionaProdutosForm.Rel1BtnClick(Sender: TObject);
+procedure TFormRel2.Rel1BtnClick(Sender: TObject);
 var
   listaCod: TList<Integer>;
   codSelecionado, indexSelecionado, i, count: Integer;
-  codigos: String;
 
 begin
   if grid_produtosDBTableView1.Controller.SelectedRowCount = 0 then
@@ -97,34 +100,42 @@ begin
     listaCod.Add(codSelecionado);
   end;
 
+//  grid_produtosDBTableView1.Controller.SelectedRows['prod_codigo'];
+
+  tb_rel_2.Close;
+  tb_rel_2.Connection := dm1.con1;
+
+  tb_rel_2.SQL.Clear;
+  tb_rel_2.SQL.Add('select prod_codigo, prod_descricao, sum(lote_quantidade) as qtd_total');
+  tb_rel_2.SQL.Add('from tb_produtos');
+  tb_rel_2.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
+
+  tb_rel_2.SQL.Add('where prod_codigo in (');
+
   count := 0;
   for i in listaCod do
   begin
     if count = listaCod.Count-1 then
     begin
-      codigos := codigos + i.ToString;
+      tb_rel_2.SQL.Add(i.ToString);
     end
     else
     begin
-      codigos := codigos + i.ToString + ',';
+      tb_rel_2.SQL.Add(i.ToString + ',');
     end;
     count := count + 1;
   end;
 
-  if ModoEdit.Text = 'R1' then
-  begin
-    FormRel1.CodProdEdit.Text := codigos;
-  end
-  else if ModoEdit.Text = 'R4' then
-  begin
-    FormRel4.CodProdEdit.Text := codigos;
-  end
-  else if ModoEdit.Text = 'E' then
-  begin
-    PagEstoque.CodProdEdit.Text := codigos;
-  end;
+  tb_rel_2.SQL.Add(')');
+  tb_rel_2.SQL.Add('group by prod_codigo, prod_descricao');
+  tb_rel_2.SQL.Add('order by prod_codigo');
 
-  close;
+  ds_rel_2.DataSet := tb_rel_2;
+
+  tb_rel_2.Open;
+  rel_2.ShowReport;
+  tb_rel_2.Close;
+
   FreeAndNil(listaCod);
 end;
 

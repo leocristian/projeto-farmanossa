@@ -49,12 +49,13 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_buscaLocal, u_selecionaProdutos;
+uses u_dm1, u_controleForm, u_buscaLocal, u_selecionaProdutos,
+  u_selecionarLocais;
 
 procedure TFormRel1.BuscaLocalBtnClick(Sender: TObject);
 begin
-  SelecionaLocaisForm.ModoEdit;Text := 'R2';
-  SelecionaLocaisForm.Show;
+  SelecionarLocaisForm.ModoEdit.Text := 'R1';
+  SelecionarLocaisForm.Show;
 end;
 
 procedure TFormRel1.BuscaProdutoBtnClick(Sender: TObject);
@@ -180,18 +181,16 @@ begin
 
   if CodProdEdit.Text <> '' then
   begin
-    showmessage(CodProdEdit.Text);
     tb_rel_1.SQL.Add('where prod_codigo in (' + CodProdEdit.Text + ')');
   end;
   if CodLocalEdit.Text <> '' then
   begin
-    tb_rel_1.SQL.Add('and loc_codigo = :local');
-    tb_rel_1.ParamByName('local').Value := StrToInt(CodLocalEdit.Text);
+    tb_rel_1.SQL.Add('and loc_codigo in (' + CodLocalEdit.Text + ')');
   end;
 
   if (CodProdEdit.Text = '') and (CodLocalEdit.Text = '') then
   begin
-    if not Confirma('Você não especificou nenhum produto e lote, a consulta irá retornar todos os registros, deseja continuar?') then
+    if not Confirma('Você não especificou nenhum produto e local, a consulta irá retornar todos os registros, deseja continuar?') then
     begin
       Exit;
     end;
@@ -200,7 +199,6 @@ begin
   ds_rel_1.DataSet := tb_rel_1;
 
   tb_rel_1.SQL.Add('order by mov_data');
-  showmessage(tb_rel_1.SQL.Text);
   tb_rel_1.Open;
 
   if tb_rel_1.RecordCount = 0 then
