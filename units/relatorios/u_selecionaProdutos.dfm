@@ -60,19 +60,19 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     Height = 321
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 75
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
+      OnCellClick = grid_produtosDBTableView1CellClick
       DataController.DataSource = ds_produtos
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
       OptionsSelection.CellSelect = False
-      OptionsSelection.MultiSelect = True
       OptionsSelection.CheckBoxPosition = cbpIndicator
-      OptionsSelection.CheckBoxVisibility = [cbvDataRow]
-      OptionsSelection.ShowCheckBoxesDynamically = True
+      OptionsSelection.UnselectFocusedRecordOnExit = False
       OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
@@ -80,6 +80,12 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
+      object prod_selec: TcxGridDBColumn
+        AlternateCaption = 'Boolean'
+        DataBinding.FieldName = 'prod_selec'
+        Width = 24
+        IsCaptionAssigned = True
+      end
       object prod_codigo: TcxGridDBColumn
         AlternateCaption = 'C'#243'digo'
         Caption = 'C'#243'digo'
@@ -144,11 +150,30 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     end
   end
   object ds_produtos: TDataSource
+    DataSet = vt_produtos
     Left = 504
     Top = 104
   end
-  object tb_produtos: TUniTable
-    Left = 416
+  object vt_produtos: TVirtualTable
+    FieldDefs = <
+      item
+        Name = 'prod_selec'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'prod_codigo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'prod_descricao'
+        DataType = ftString
+        Size = 20
+      end>
+    Left = 424
     Top = 104
+    Data = {
+      040003000A0070726F645F73656C656305000000000000000B0070726F645F63
+      6F6469676F03000000000000000E0070726F645F64657363726963616F010014
+      0000000000000000000000}
   end
 end

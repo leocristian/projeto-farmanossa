@@ -1,9 +1,10 @@
 object SelecionaProdutosForm: TSelecionaProdutosForm
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'Selecionar Produtos'
-  ClientHeight = 471
-  ClientWidth = 608
+  ClientHeight = 481
+  ClientWidth = 618
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,11 +19,10 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 608
+    Width = 618
     Height = 81
     Align = alTop
     TabOrder = 0
-    ExplicitTop = -6
     object Label1: TLabel
       Left = 24
       Top = 29
@@ -48,7 +48,7 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       ExplicitHeight = 41
       inherited estiloGrid: TcxStyleRepository
         Left = 8
-        Top = 8
+        Top = 16
         PixelsPerInch = 96
       end
     end
@@ -56,11 +56,11 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
   object grid_produtos: TcxGrid
     Left = 0
     Top = 81
-    Width = 608
-    Height = 311
+    Width = 618
+    Height = 321
     Align = alClient
     TabOrder = 1
-    ExplicitHeight = 296
+    ExplicitTop = 75
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -70,10 +70,9 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
       OptionsSelection.CellSelect = False
-      OptionsSelection.MultiSelect = True
       OptionsSelection.CheckBoxPosition = cbpIndicator
       OptionsSelection.CheckBoxVisibility = [cbvDataRow]
-      OptionsSelection.ShowCheckBoxesDynamically = True
+      OptionsSelection.UnselectFocusedRecordOnExit = False
       OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
@@ -85,12 +84,17 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
         AlternateCaption = 'C'#243'digo'
         Caption = 'C'#243'digo'
         DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o'
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
         Width = 459
+      end
+      object prod_selec: TcxGridDBColumn
+        DataBinding.FieldName = 'prod_selec'
       end
     end
     object grid_produtosLevel1: TcxGridLevel
@@ -99,13 +103,13 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
   end
   object pn_button: TPanel
     Left = 0
-    Top = 392
-    Width = 608
+    Top = 402
+    Width = 618
     Height = 79
     Align = alBottom
     TabOrder = 2
     DesignSize = (
-      608
+      618
       79)
     object Rel1Btn: TBitBtn
       Left = 456
@@ -122,7 +126,7 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       ImageIndex = 2
       ParentFont = False
       TabOrder = 0
-      ExplicitTop = 48
+      OnClick = Rel1BtnClick
     end
     object CheckBox1: TCheckBox
       Left = 24
@@ -139,14 +143,34 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       Width = 24
       Height = 21
       TabOrder = 2
+      Visible = False
     end
   end
   object ds_produtos: TDataSource
+    DataSet = vt_produtos
     Left = 504
     Top = 104
   end
-  object tb_produtos: TUniTable
-    Left = 416
+  object vt_produtos: TVirtualTable
+    FieldDefs = <
+      item
+        Name = 'prod_selec'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'prod_codigo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'prod_descricao'
+        DataType = ftString
+        Size = 20
+      end>
+    Left = 424
     Top = 104
+    Data = {
+      040003000A0070726F645F73656C656305000000000000000B0070726F645F63
+      6F6469676F03000000000000000E0070726F645F64657363726963616F010014
+      0000000000000000000000}
   end
 end

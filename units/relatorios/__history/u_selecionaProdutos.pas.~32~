@@ -9,7 +9,8 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
-  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections;
+  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections, u_estoque,
+  VirtualTable;
 
 type
   TSelecionaProdutosForm = class(TForm)
@@ -24,9 +25,10 @@ type
     FrameGrid1: TFrameGrid;
     ModoEdit: TEdit;
     ds_produtos: TDataSource;
-    tb_produtos: TUniTable;
     prod_codigo: TcxGridDBColumn;
     prod_descricao: TcxGridDBColumn;
+    vt_produtos: TVirtualTable;
+    prod_selec: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
@@ -59,16 +61,16 @@ end;
 
 procedure TSelecionaProdutosForm.FormShow(Sender: TObject);
 begin
-  tb_produtos.Close;
-  tb_produtos.Connection := dm1.con1;
+  dm1.q1.Close;
+  dm1.q1.Connection := dm1.con1;
 
-  tb_produtos.SQL.Clear;
-  tb_produtos.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
-  tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-  tb_produtos.SQL.Add('order by prod_codigo');
+  dm1.q1.SQL.Clear;
+  dm1.q1.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
+  dm1.q1.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
+  dm1.q1.SQL.Add('order by prod_codigo');
 
-  ds_produtos.DataSet := tb_produtos;
-  tb_produtos.Open;
+
+  dm1.q1.Open;
 
   grid_produtosDBTableView1.DataController.ClearSelection;
   Checkbox1.Checked := False;
@@ -113,11 +115,14 @@ begin
   if ModoEdit.Text = 'R1' then
   begin
     FormRel1.CodProdEdit.Text := codigos;
-
   end
   else if ModoEdit.Text = 'R4' then
   begin
     FormRel4.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'E' then
+  begin
+    PagEstoque.CodProdEdit.Text := codigos;
   end;
 
   close;

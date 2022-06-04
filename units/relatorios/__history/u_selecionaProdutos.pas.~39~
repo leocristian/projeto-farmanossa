@@ -164,6 +164,7 @@ begin
   end;
 
   close;
+  FreeAndNil(listaCod);
 end;
 
 end.

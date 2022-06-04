@@ -9,7 +9,8 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
-  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections;
+  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections, u_estoque,
+  VirtualTable;
 
 type
   TSelecionaProdutosForm = class(TForm)
@@ -24,9 +25,10 @@ type
     FrameGrid1: TFrameGrid;
     ModoEdit: TEdit;
     ds_produtos: TDataSource;
-    tb_produtos: TUniTable;
     prod_codigo: TcxGridDBColumn;
     prod_descricao: TcxGridDBColumn;
+    vt_produtos: TVirtualTable;
+    prod_selec: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
@@ -43,33 +45,58 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_controleForm, u_filtro_rel_1;
+uses u_dm1, u_controleForm, u_filtro_rel_1, u_filtro_rel_4;
 
 procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
 begin
   if CheckBox1.Checked then
   begin
-    grid_produtosDBTableView1.DataController.SelectAll
+    vt_produtos.First;
+    while not vt_produtos.Eof do
+    begin
+      ds_produtos.Edit;
+      vt_produtos.FieldByName('prod_selec').Value := True;
+      vt_produtos.Next;
+    end;
   end
   else
   begin
-    grid_produtosDBTableView1.DataController.ClearSelection;
+    vt_produtos.First;
+    while not vt_produtos.Eof do
+    begin
+      ds_produtos.Edit;
+      vt_produtos.FieldByName('prod_selec').Value := False;
+      vt_produtos.Next;
+    end;
   end;
 end;
 
 procedure TSelecionaProdutosForm.FormShow(Sender: TObject);
 begin
-  tb_produtos.Close;
-  tb_produtos.Connection := dm1.con1;
+  dm1.q1.Close;
+  dm1.q1.Connection := dm1.con1;
 
-  tb_produtos.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
-  tb_produtos.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-  tb_produtos.SQL.Add('order by prod_codigo');
+  dm1.q1.SQL.Clear;
+  dm1.q1.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
+  dm1.q1.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
+  dm1.q1.SQL.Add('order by prod_codigo');
 
-  ds_produtos.DataSet := tb_produtos;
-  tb_produtos.Open;
+  dm1.q1.Open;
+  dm1.q1.First;
 
-  grid_produtosDBTableView1.DataController.ClearSelection;
+  vt_produtos.Open;
+  vt_produtos.Clear;
+
+  while not dm1.q1.Eof do
+  begin
+    vt_produtos.Append;
+    vt_produtos.FieldByName('prod_selec').Value := False;
+    vt_produtos.FieldByName('prod_codigo').Value := dm1.q1.FieldByName('prod_codigo').AsInteger;
+    vt_produtos.FieldByName('prod_descricao').Value := dm1.q1.FieldByName('prod_descricao').AsString;
+    dm1.q1.Next;
+  end;
+
+  vt_produtos.Open;
   Checkbox1.Checked := False;
 end;
 
@@ -109,13 +136,20 @@ begin
     count := count + 1;
   end;
 
-  showmessage(codigos);
   if ModoEdit.Text = 'R1' then
   begin
     FormRel1.CodProdEdit.Text := codigos;
-    close;
+  end
+  else if ModoEdit.Text = 'R4' then
+  begin
+    FormRel4.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'E' then
+  begin
+    PagEstoque.CodProdEdit.Text := codigos;
   end;
 
+  close;
   FreeAndNil(listaCod);
 end;
 
