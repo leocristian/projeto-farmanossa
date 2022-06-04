@@ -85,13 +85,14 @@ begin
 
   if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
   begin
-    dataInicial := 'to_char(' + AnsiQuotedStr(DateToStr(FiltroDataCod1.DataInicialEdit.Date), '"') + ', ' + AnsiQuotedStr('yyyy-mm-dd', '"') + ')';
-    dataFinal := 'to_char(' + AnsiQuotedStr(DateToStr(FiltroDataCod1.DataFinalEdit.Date), '"') + ', ' + AnsiQuotedStr('yyyy-mm-dd', '"') + ')';
+    dataInicial := DateToStr(FiltroDataCod1.DataInicialEdit.Date);
+    dataFinal := DateToStr(FiltroDataCod1.DataFinalEdit.Date);
 
-    xWhere := xWhere + ' and ent_data_hora::date >= ' + dataInicial + ' and ent_data_hora::date <= ' + dataFinal;
+    xWhere := xWhere + ' and to_char(ent_data_hora::date, ''dd/mm/yyyy'') >= ' + QuotedStr(dataInicial) +
+                       ' and to_char(ent_data_hora::date, ''dd/mm/yyyy'') <= ' + QuotedStr(dataFinal);
   end;
 
-  if (FiltroDataCod1.CodInicialEdit.Value.IsNan) and (FiltroDataCod1.CodFinalEdit.Value.IsNan) then
+  if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
   begin
     codInicial := FiltroDataCod1.CodInicialEdit.Text;
     codFinal := FiltroDataCod1.CodFinalEdit.Text;
@@ -101,11 +102,10 @@ begin
 
   qEnt.SQL.Clear;
   qEnt.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
-  qEnt.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
-  qEnt.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
+  qEnt.SQL.Add('left join tb_produtos on prod_codigo = ent_produto');
+  qEnt.SQL.Add('left join tb_locais_estoque on loc_codigo = ent_local');
   qEnt.SQL.Add('where 1=1 ' + xWhere);
 
-  showmessage(qEnt.SQL.Text);
   qEnt.Open;
 end;
 
@@ -120,10 +120,12 @@ begin
       try
         dm1.con1.StartTransaction;
 
+        // Excluir registro de entrada
         dm1.q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
         dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsInteger;
         dm1.q1.ExecSQL;
 
+        // Gerar uma movimentação de saída
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('insert into tb_movimentacoes (mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade) values');
         dm1.q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
@@ -135,6 +137,7 @@ begin
         dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
         dm1.q1.ExecSQL;
 
+        // Atualizar lote
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = lote_quantidade - :quantidade');
         dm1.q1.SQL.Add('where lote_codigo = :lote');

@@ -138,7 +138,6 @@ begin
         dm1.q1.ExecSQL;
 
         // Atualizar lote
-        dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade) where lote_codigo = :lote;');
 
         dm1.q1.ParamByName('lote').Value := qSai.FieldByName('sai_lote').AsInteger;

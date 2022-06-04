@@ -46,6 +46,7 @@ type
     Label2: TLabel;
     BuscaLocalBtn: TSpeedButton;
     LimparLocal: TBitBtn;
+    Label4: TLabel;
     procedure BitBtn1Click(Sender: TObject);
     procedure LotesProdutoClick(Sender: TObject);
     procedure QuantidadeBoxChange(Sender: TObject);
@@ -54,6 +55,9 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure BuscaProdutoBtnClick(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure BuscaLocalBtnClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,13 +71,57 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_lotesProduto, u_selecionaProdutos;
+uses u_dm1, u_lotesProduto, u_selecionaProdutos, u_selecionarLocais;
 
 procedure TPagEstoque.BitBtn1Click(Sender: TObject);
+var
+  xWhere: String;
+
 begin
 
-  tb_estoque.Close;
-  tb_estoque.Connection := dm1.con1;
+  xWhere := '';
+
+
+  // Manipular a quantidade do produtos
+
+  if QuantidadeBox.ItemIndex = 1 then
+  begin
+    xWhere := xWhere + ' and result.qtd_estoque != 0 ';
+  end
+  else if QuantidadeBox.ItemIndex = 2 then
+  begin
+    xWhere := xWhere + ' and result.qtd_estoque > ' + QuantidadeEdit.Text;
+  end
+  else if QuantidadeBox.ItemIndex = 3 then
+  begin
+   xWhere := xWhere + ' and result.qtd_estoque < ' + QuantidadeEdit.Text;
+  end
+  else if QuantidadeBox.ItemIndex = 4 then
+  begin
+   xWhere := xWhere + ' and result.qtd_estoque = ' + QuantidadeEdit.Text;
+  end;
+
+  if CodProdEdit.Text <> '' then
+  begin
+    xWhere := xWhere + ' and result.prod_codigo in (' + CodProdEdit.Text + ') ';
+  end;
+  if CodLocalEdit.Text <> '' then
+  begin
+    xWhere := xWhere + ' and result.loc_codigo in (' + CodLocalEdit.Text + ') ';
+  end;
+
+  if TipoProdutoBox.ItemIndex = 0 then
+  begin
+    xWhere := xWhere + ' and result.prod_status in (''ATIVO'', ''INATIVO'') ';
+  end
+  else if TipoProdutoBox.ItemIndex = 1 then
+  begin
+    xWhere := xWhere + ' and result.prod_status = ''ATIVO'' ';
+  end
+  else if TipoProdutoBox.ItemIndex = 2 then
+  begin
+    xWhere := xWhere +'and result.prod_status  = ''INATIVO'' ';
+  end;
 
   tb_estoque.SQL.Clear;
 
@@ -85,59 +133,8 @@ begin
   tb_estoque.SQL.Add('inner join tb_locais_estoque as locais');
   tb_estoque.SQL.Add('on locais.loc_codigo = l.lote_local');
   tb_estoque.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao) as result');
+  tb_estoque.SQL.Add('where 1=1 ' + xWhere);
 
-  // Manipular a quantidade do produto
-  if QuantidadeBox.ItemIndex = 0 then
-  begin
-    tb_estoque.SQL.Add('where :qtd=:qtd');
-    QuantidadeEdit.Value := 1;
-  end
-  else if QuantidadeBox.ItemIndex = 1 then
-  begin
-    tb_estoque.SQL.Add('where result.qtd_estoque != :qtd');
-    QuantidadeEdit.Value := 0;
-  end
-  else if QuantidadeBox.ItemIndex = 2 then
-  begin
-    tb_estoque.SQL.Add('where result.qtd_estoque > :qtd');
-  end
-  else if QuantidadeBox.ItemIndex = 3 then
-  begin
-   tb_estoque.SQL.Add('where result.qtd_estoque < :qtd');
-  end
-  else if QuantidadeBox.ItemIndex = 4 then
-  begin
-   tb_estoque.SQL.Add('where result.qtd_estoque = :qtd');
-  end;
-
-  tb_estoque.ParamByName('qtd').Value := QuantidadeEdit.Text;
-
-  tb_estoque.SQL.Add('and 1=1');
-
-  if CodProdEdit.Text <> '' then
-  begin
-    tb_estoque.SQl.Add('and result.prod_codigo in (' + CodProdEdit.Text + ')');
-  end;
-
-  if CodLocalEdit.Text = '' then
-  begin
-    tb_estoque.SQL.Add('and result.loc_codigo in (' + CodLocalEdit.Text + ')');
-  end;
-
-  if TipoProdutoBox.ItemIndex = 0 then
-  begin
-    tb_estoque.SQL.Add('and result.prod_status in (''ATIVO'', ''INATIVO'')');
-  end
-  else if TipoProdutoBox.ItemIndex = 1 then
-  begin
-    tb_estoque.SQL.Add('and result.prod_status = ''ATIVO''');
-  end
-  else if TipoProdutoBox.ItemIndex = 2 then
-  begin
-    tb_estoque.SQL.Add('and result.prod_status  = ''INATIVO''');
-  end;
-
-  ds_estoque.DataSet := tb_estoque;
   tb_estoque.Open;
 
 end;
@@ -173,6 +170,12 @@ begin
   Close;
 end;
 
+procedure TPagEstoque.BuscaLocalBtnClick(Sender: TObject);
+begin
+  SelecionarLocaisForm.ModoEdit.Text := 'E';
+  SelecionarLocaisForm.Show;
+end;
+
 procedure TPagEstoque.BuscaProdutoBtnClick(Sender: TObject);
 begin
   SelecionaProdutosForm.ModoEdit.Text := 'E';
@@ -182,6 +185,16 @@ end;
 procedure TPagEstoque.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   tb_estoque.Close;
+end;
+
+procedure TPagEstoque.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+end;
+
+procedure TPagEstoque.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
 end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);

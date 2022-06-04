@@ -584,20 +584,22 @@ object PagEstoque: TPagEstoque
       E10FF81FFFFFFFFFF18FFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tb_estoque: TUniTable
-    Left = 672
-    Top = 208
-  end
   object ds_estoque: TDataSource
-    Left = 728
-    Top = 208
+    DataSet = qEst
+    Left = 688
+    Top = 200
   end
   object popup_produtos: TPopupMenu
-    Left = 712
-    Top = 280
+    Left = 592
+    Top = 200
     object LotesProduto: TMenuItem
       Caption = 'Visualizar Lotes do Produto'
       OnClick = LotesProdutoClick
     end
+  end
+  object qEst: TUniQuery
+    Connection = dm1.con1
+    Left = 504
+    Top = 200
   end
 end

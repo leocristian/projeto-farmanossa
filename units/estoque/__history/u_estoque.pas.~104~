@@ -46,14 +46,18 @@ type
     Label2: TLabel;
     BuscaLocalBtn: TSpeedButton;
     LimparLocal: TBitBtn;
+    Label4: TLabel;
     procedure BitBtn1Click(Sender: TObject);
     procedure LotesProdutoClick(Sender: TObject);
     procedure QuantidadeBoxChange(Sender: TObject);
     procedure QuantidadeEditClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormShow(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure BuscaProdutoBtnClick(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure BuscaLocalBtnClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,7 +71,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_lotesProduto, u_selecionaProdutos;
+uses u_dm1, u_lotesProduto, u_selecionaProdutos, u_selecionarLocais;
 
 procedure TPagEstoque.BitBtn1Click(Sender: TObject);
 begin
@@ -112,14 +116,12 @@ begin
 
   tb_estoque.ParamByName('qtd').Value := QuantidadeEdit.Text;
 
-  tb_estoque.SQL.Add('and 1=1');
-
   if CodProdEdit.Text <> '' then
   begin
     tb_estoque.SQl.Add('and result.prod_codigo in (' + CodProdEdit.Text + ')');
   end;
 
-  if CodLocalEdit.Text = '' then
+  if CodLocalEdit.Text <> '' then
   begin
     tb_estoque.SQL.Add('and result.loc_codigo in (' + CodLocalEdit.Text + ')');
   end;
@@ -168,6 +170,17 @@ begin
   CodProdEdit.SetFocus;
 end;
 
+procedure TPagEstoque.SpeedButton2Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TPagEstoque.BuscaLocalBtnClick(Sender: TObject);
+begin
+  SelecionarLocaisForm.ModoEdit.Text := 'E';
+  SelecionarLocaisForm.Show;
+end;
+
 procedure TPagEstoque.BuscaProdutoBtnClick(Sender: TObject);
 begin
   SelecionaProdutosForm.ModoEdit.Text := 'E';
@@ -177,6 +190,16 @@ end;
 procedure TPagEstoque.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   tb_estoque.Close;
+end;
+
+procedure TPagEstoque.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+end;
+
+procedure TPagEstoque.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
 end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);

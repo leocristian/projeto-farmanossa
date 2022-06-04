@@ -120,10 +120,13 @@ begin
       try
         dm1.con1.StartTransaction;
 
+        // Excluir registro de entrada
         dm1.q1.SQL.Text := 'delete from tb_entradas where ent_codigo = :codigo';
+
         dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsInteger;
         dm1.q1.ExecSQL;
 
+        // Gerar uma movimentação de saída
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('insert into tb_movimentacoes (mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade) values');
         dm1.q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
@@ -135,9 +138,11 @@ begin
         dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
         dm1.q1.ExecSQL;
 
+        // Atualizar lote
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = lote_quantidade - :quantidade');
         dm1.q1.SQL.Add('where lote_codigo = :lote');
+
         dm1.q1.ParamByName('lote').Value := qEnt.FieldByName('ent_lote').AsInteger;
         dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
 
