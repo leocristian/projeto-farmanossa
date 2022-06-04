@@ -10,7 +10,7 @@ uses
   cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   dxDateRanges, dxScrollbarAnnotations, cxDBData, fr_estilo, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
-  cxGridCustomView, cxGrid, Generics.Collections;
+  cxGridCustomView, cxGrid, Generics.Collections, u_selecionaProdutos;
 
 type
   TFormRel3 = class(TForm)
@@ -40,7 +40,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_buscaProduto, u_controleForm, u_selecionaProdutos;
+uses u_dm1, u_buscaProduto, u_controleForm;
 
 procedure TFormRel3.BuscaProdutoBtnClick(Sender: TObject);
 begin
@@ -70,11 +70,12 @@ begin
   end;
 
   qRel3.SQL.Clear;
-  qRel3.SQL.Clear;
-  qRel3.SQL.Add('select prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
+  qRel3.SQL.Add('select prod_codigo, prod_descricao, sum(lote_quantidade) as qtd_total');
   qRel3.SQL.Add('from tb_produtos');
-  qRel3.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-  qRel3.SQL.Add('where 1=1 ' + xWhere);
+  qRel3.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
+  qRel3.SQL.Add('where 1 = 1 ' + xWhere);
+  qRel3.SQL.Add('group by prod_codigo, prod_descricao');
+  qRel3.SQL.Add('order by prod_codigo');
 
   qRel3.Open;
   rel_3.ShowReport;

@@ -13,6 +13,7 @@ object FormRel4: TFormRel4
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_form: TPanel
@@ -58,7 +59,7 @@ object FormRel4: TFormRel4
       Left = 230
       Top = 184
       Width = 146
-      Height = 57
+      Height = 49
       Caption = 'Visualizar relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -78,8 +79,8 @@ object FormRel4: TFormRel4
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      ReadOnly = True
       TabOrder = 1
+      OnClick = CodProdEditClick
     end
     object CodLocalEdit: TEdit
       Left = 124
@@ -88,8 +89,8 @@ object FormRel4: TFormRel4
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      ReadOnly = True
       TabOrder = 2
+      OnClick = CodLocalEditClick
     end
     object LimparLocal: TBitBtn
       Left = 343
@@ -122,8 +123,8 @@ object FormRel4: TFormRel4
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 44709.822115416700000000
-    ReportOptions.LastChange = 44716.561168310190000000
+    ReportOptions.CreateDate = 44709.822115416670000000
+    ReportOptions.LastChange = 44715.343307696760000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -251,6 +252,20 @@ object FormRel4: TFormRel4
         Height = 22.677180000000000000
         Top = 68.031540000000000000
         Width = 1046.929810000000000000
+        object Memo2: TfrxMemoView
+          AllowVectorExport = True
+          Width = 718.110236220000000000
+          Height = 22.677180000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = [ftBottom]
+          Frame.Width = 2.000000000000000000
+          ParentFont = False
+          Style = 'Header line'
+        end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
           Left = 3.777650000000000000
@@ -371,14 +386,6 @@ object FormRel4: TFormRel4
             'Quantidade')
           ParentFont = False
         end
-        object Line1: TfrxLineView
-          AllowVectorExport = True
-          Left = 3.780000000000000000
-          Top = 22.677180000000000000
-          Width = 1039.362760000000000000
-          Color = clBlack
-          Frame.Typ = [ftTop]
-        end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
@@ -417,7 +424,7 @@ object FormRel4: TFormRel4
           AllowVectorExport = True
           Left = 83.149870000000000000
           Width = 132.289190000000000000
-          Height = 37.795300000000000000
+          Height = 49.133890000000000000
           DataSet = db_rel_4
           DataSetName = 'frxDBDataset1'
           Frame.Typ = []
@@ -562,14 +569,17 @@ object FormRel4: TFormRel4
   object db_rel_4: TfrxDBDataset
     UserName = 'frxDBDataset1'
     CloseDataSource = False
-    DataSet = qRel4
+    DataSet = tb_rel_4
     BCDToCurrency = False
     DataSetOptions = []
     Left = 232
     Top = 24
   end
+  object tb_rel_4: TUniTable
+    Left = 288
+    Top = 24
+  end
   object ds_rel_4: TDataSource
-    DataSet = qRel4
     Left = 336
     Top = 25
   end
@@ -847,10 +857,5 @@ object FormRel4: TFormRel4
       8001F10F8001CFC78001E3878001CFE38001C7C38001C033E10FEFE78001C01F
       E10FFFFF8001FFFFF18FFFFF8001FFFF00000000000000000000000000000000
       000000000000}
-  end
-  object qRel4: TUniQuery
-    Connection = dm1.con1
-    Left = 288
-    Top = 24
   end
 end

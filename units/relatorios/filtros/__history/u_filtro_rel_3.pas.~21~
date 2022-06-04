@@ -26,7 +26,6 @@ type
     Label2: TLabel;
     qRel3: TUniQuery;
     procedure RelBtnClick(Sender: TObject);
-    procedure BuscaProdutoBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,13 +39,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_dm1, u_buscaProduto, u_controleForm, u_selecionaProdutos;
-
-procedure TFormRel3.BuscaProdutoBtnClick(Sender: TObject);
-begin
-  SelecionaProdutosForm.ModoEdit.Text := 'R3';
-  SelecionaProdutosForm.Show;
-end;
+uses u_dm1, u_buscaProduto, u_controleForm;
 
 procedure TFormRel3.RelBtnClick(Sender: TObject);
 var
@@ -70,11 +63,12 @@ begin
   end;
 
   qRel3.SQL.Clear;
-  qRel3.SQL.Clear;
-  qRel3.SQL.Add('select prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
+  qRel3.SQL.Add('select prod_codigo, prod_descricao, sum(lote_quantidade) as qtd_total');
   qRel3.SQL.Add('from tb_produtos');
-  qRel3.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-  qRel3.SQL.Add('where 1=1 ' + xWhere);
+  qRel3.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
+  qRel3.SQL.Add('where 1 = 1 ' + xWhere);
+  qRel3.SQL.Add('group by prod_codigo, prod_descricao');
+  qRel3.SQL.Add('order by prod_codigo');
 
   qRel3.Open;
   rel_3.ShowReport;

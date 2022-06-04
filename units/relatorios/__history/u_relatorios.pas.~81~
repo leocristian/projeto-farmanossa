@@ -78,6 +78,8 @@ begin
   begin
     FormRel3.Parent := pn_relatorio;
     FormRel3.Show;
+    FormRel3.grid_produtosDBTableView1.DataController.ClearSelection;
+    FormRel3.CheckBox1.Checked := False;
   end
   else if RelBox.ItemIndex = 3 then
   begin

@@ -28,6 +28,7 @@ type
     procedure LimparProdClick(Sender: TObject);
     procedure BuscaProdutoBtnClick(Sender: TObject);
     procedure RelBtnClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure BuscaLocalBtnClick(Sender: TObject);
     procedure LimparLocalClick(Sender: TObject);
   private
@@ -73,6 +74,7 @@ var
   xWhere: String;
 
 begin
+
 
   xWhere := '';
 

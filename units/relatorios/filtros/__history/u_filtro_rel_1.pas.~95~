@@ -129,7 +129,7 @@ begin
   qRel1.SQL.Add('inner join tb_produtos on mov_produto = prod_codigo');
   qRel1.SQL.Add('inner join tb_locais_estoque on mov_local = loc_codigo');
   qRel1.SQL.Add('inner join tb_lotes on mov_lote = lote_codigo where 1=1 ' + xWhere);
-  qRel1.SQL.Add('order by mov_data, mov_hora');
+  qRel1.SQL.Add('order by mov_data');
 
   qRel1.Open;
 
