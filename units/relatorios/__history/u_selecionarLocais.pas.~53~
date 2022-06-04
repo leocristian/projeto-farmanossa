@@ -120,15 +120,44 @@ end;
 
 procedure TSelecionarLocaisForm.RelBtnClick(Sender: TObject);
 var
+  listaCod: TList<Integer>;
+  codSelecionado, indexSelecionado, i, count: Integer;
   codigos: String;
 
 begin
+
+  {
+    codigos := '';
+
+     vt1.First;
+     while not vt1.Eof do
+     begin
+
+        if vt1.FieldByName('selec').AsBoolean then
+        begin
+          if codigos='' then
+          begin
+            codigos := vt1.FieldByName('codigo').AsString;
+          end else
+          begin
+            codigos := codigos +','+ vt1.FieldByName('codigo').AsString;
+          end;
+        end;
+
+       vt1.Next;
+     end;
+
+    if codigos='' then
+    begin
+      Aviso('Selecione os locais de estoque para gerar o relatório!');
+      Exit;
+    end;
+  }
   codigos := '';
 
   vt_locais.First;
   while not vt_locais.Eof do
   begin
-
     if vt_locais.FieldByName('loc_selec').AsBoolean then
     begin
       if codigos = '' then
@@ -138,17 +167,39 @@ begin
       else
       begin
         codigos := codigos + ',' + vt_locais.FieldByName('loc_codigo').AsString;
-
       end;
     end;
-    vt_locais.Next;
 
+    vt_locais.Next;
   end;
 
   if codigos = '' then
   begin
     Aviso('Selecione os locais de estoque para gerar o relatório!');
     Exit;
+  end;
+
+  listaCod := TList<Integer>.Create;
+
+  for i := 0 to grid_locaisDBTableView1.Controller.SelectedRowCount - 1 do
+  begin
+    indexSelecionado := grid_locaisDBTableView1.DataController.GetSelectedRowIndex(i);
+    codSelecionado := grid_locaisDBTableView1.ViewData.Records[indexSelecionado].Values[0];
+    listaCod.Add(codSelecionado);
+  end;
+
+  count := 0;
+  for i in listaCod do
+  begin
+    if count = listaCod.Count-1 then
+    begin
+      codigos := codigos + i.ToString;
+    end
+    else
+    begin
+      codigos := codigos + i.ToString + ',';
+    end;
+    count := count + 1;
   end;
 
   if ModoEdit.Text = 'R1' then
@@ -165,6 +216,7 @@ begin
   end;
 
   close;
+  FreeAndNil(listaCod);
 end;
 
 end.

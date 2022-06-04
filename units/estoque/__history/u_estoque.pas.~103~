@@ -140,6 +140,7 @@ begin
   end;
 
   ds_estoque.DataSet := tb_estoque;
+  showmessage(tb_estoque.SQL.Text);
   tb_estoque.Open;
 
 end;

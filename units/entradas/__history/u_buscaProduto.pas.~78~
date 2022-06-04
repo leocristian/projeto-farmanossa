@@ -60,7 +60,7 @@ uses u_dm1, u_controleForm, u_infoEntrada, u_infoSaida, u_filtro_rel_1,
 
 procedure TBuscaProdutoForm.BuscaBtnClick(Sender: TObject);
 var
-  str_busca, xWhere: String;
+  str_busca: String;
 
 begin
 

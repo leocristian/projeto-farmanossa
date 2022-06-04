@@ -26,6 +26,7 @@ object BuscaLocalForm: TBuscaLocalForm
     Height = 73
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 584
     DesignSize = (
       594
       73)
@@ -53,6 +54,7 @@ object BuscaLocalForm: TBuscaLocalForm
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 1
+      ExplicitWidth = 415
     end
     object BuscaBtn: TBitBtn
       Left = 554
@@ -64,6 +66,7 @@ object BuscaLocalForm: TBuscaLocalForm
       Images = ImageList1
       TabOrder = 2
       OnClick = BuscaBtnClick
+      ExplicitLeft = 544
     end
   end
   inline FrameButtons1: TFrameButtons
@@ -73,21 +76,21 @@ object BuscaLocalForm: TBuscaLocalForm
     Height = 93
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 332
-    ExplicitWidth = 594
+    ExplicitTop = 322
+    ExplicitWidth = 584
     inherited ModoEdit: TEdit
       Left = 355
-      ExplicitLeft = 355
+      ExplicitLeft = 345
     end
     inherited CancelarBtn: TButton
       Left = 485
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 485
+      ExplicitLeft = 475
     end
     inherited SalvarBtn: TBitBtn
       Left = 404
       OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 404
+      ExplicitLeft = 394
     end
   end
   object gridLocais: TcxGrid
@@ -97,6 +100,8 @@ object BuscaLocalForm: TBuscaLocalForm
     Height = 259
     Align = alClient
     TabOrder = 2
+    ExplicitWidth = 584
+    ExplicitHeight = 249
     object gridLocaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -176,13 +181,11 @@ object BuscaLocalForm: TBuscaLocalForm
     Top = 356
     Width = 32
     Height = 21
-    TabStop = False
     TabOrder = 4
-    Visible = False
   end
   object ImageList1: TImageList
-    Left = 64
-    Top = 216
+    Left = 16
+    Top = 88
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

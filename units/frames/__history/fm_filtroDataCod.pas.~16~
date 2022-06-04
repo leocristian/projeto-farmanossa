@@ -1,0 +1,96 @@
+unit fm_filtroDataCod;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.ComCtrls,
+  dxCore, cxDateUtils, Vcl.Buttons, Vcl.StdCtrls, Vcl.NumberBox, cxTextEdit,
+  cxMaskEdit, cxDropDownEdit, cxCalendar, fr_estilo, Vcl.ExtCtrls,
+  System.ImageList, Vcl.ImgList;
+
+type
+  TFiltroDataCod = class(TFrame)
+    pn_busca: TPanel;
+    dataBox: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    LimparDatasBtn: TButton;
+    DataInicialEdit: TcxDateEdit;
+    DataFinalEdit: TcxDateEdit;
+    CodigoBox: TGroupBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    CodInicialEdit: TNumberBox;
+    CodFinalEdit: TNumberBox;
+    Button2: TButton;
+    BuscarBtn: TBitBtn;
+    ImageList1: TImageList;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    Label5: TLabel;
+    procedure DataInicialEditClick(Sender: TObject);
+    procedure DataFinalEditDblClick(Sender: TObject);
+    procedure LimparDatasBtnClick(Sender: TObject);
+    procedure CodInicialEditClick(Sender: TObject);
+    procedure CodFinalEditClick(Sender: TObject);
+    procedure CodFinalEditEnter(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFiltroDataCod.Button2Click(Sender: TObject);
+begin
+  CodInicialEdit.Clear;
+  CodFinalEdit.Clear;
+end;
+
+procedure TFiltroDataCod.CodFinalEditClick(Sender: TObject);
+begin
+  CodFinalEdit.SetFocus;
+end;
+
+procedure TFiltroDataCod.CodFinalEditEnter(Sender: TObject);
+begin
+  CodFinalEdit.Value := CodInicialEdit.Value;
+end;
+
+procedure TFiltroDataCod.CodInicialEditClick(Sender: TObject);
+begin
+  CodInicialEdit.SetFocus;
+end;
+
+procedure TFiltroDataCod.DataFinalEditDblClick(Sender: TObject);
+begin
+  DataFinalEdit.SetFocus;
+end;
+
+procedure TFiltroDataCod.DataInicialEditClick(Sender: TObject);
+begin
+  DataInicialEdit.SetFocus;
+end;
+
+procedure TFiltroDataCod.LimparDatasBtnClick(Sender: TObject);
+begin
+  DataInicialEdit.Clear;
+  DataFinalEdit.Clear;
+end;
+
+procedure TFiltroDataCod.SpeedButton1Click(Sender: TObject);
+begin
+  DataInicialEdit.Clear;
+  DataFinalEdit.Clear;
+  CodInicialEdit.Clear;
+  CodFinalEdit.Clear;
+end;
+
+end.

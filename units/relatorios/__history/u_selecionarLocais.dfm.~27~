@@ -112,7 +112,7 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       101)
     object RelBtn: TBitBtn
       Left = 398
-      Top = 23
+      Top = 31
       Width = 139
       Height = 50
       Anchors = [akLeft, akBottom]

@@ -202,8 +202,8 @@ object BuscaProdutoForm: TBuscaProdutoForm
     end
   end
   object ImageList1: TImageList
-    Left = 16
-    Top = 112
+    Left = 336
+    Top = 128
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

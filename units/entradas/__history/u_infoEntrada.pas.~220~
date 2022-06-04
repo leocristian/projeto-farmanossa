@@ -336,11 +336,11 @@ begin
       else if ModoLote.text = 'A' then
       begin
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
-        dm1.q1.SQL.Add('where lotdigo,e_codigo = :lote;');
+        dm1.q1.SQL.Add('where lote_codigo = :lote;');
       end;
 
       dm1.q1.SQL.Add('insert into tb_entradas ');
-      dm1.q1.SQL.Add('(ent_co ent_produto, ent_local, ent_lote, ent_quantidade) ');
+      dm1.q1.SQL.Add('(ent_codigo, ent_produto, ent_local, ent_lote, ent_quantidade) ');
       dm1.q1.SQL.Add('values (:codigo, :produto, :local, :lote, :quantidade);');
 
     end

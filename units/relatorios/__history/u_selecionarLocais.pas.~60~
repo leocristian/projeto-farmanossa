@@ -123,6 +123,34 @@ var
   codigos: String;
 
 begin
+
+  {
+    codigos := '';
+
+     vt1.First;
+     while not vt1.Eof do
+     begin
+
+        if vt1.FieldByName('selec').AsBoolean then
+        begin
+          if codigos='' then
+          begin
+            codigos := vt1.FieldByName('codigo').AsString;
+          end else
+          begin
+            codigos := codigos +','+ vt1.FieldByName('codigo').AsString;
+          end;
+        end;
+
+       vt1.Next;
+     end;
+
+    if codigos='' then
+    begin
+      Aviso('Selecione os locais de estoque para gerar o relatório!');
+      Exit;
+    end;
+  }
   codigos := '';
 
   vt_locais.First;
@@ -141,6 +169,7 @@ begin
 
       end;
     end;
+    showmessage(codigos);
     vt_locais.Next;
 
   end;

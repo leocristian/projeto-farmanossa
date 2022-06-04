@@ -23,6 +23,7 @@ object FormRel2: TFormRel2
     Height = 107
     Align = alBottom
     TabOrder = 0
+    ExplicitTop = 350
     DesignSize = (
       617
       107)
@@ -82,6 +83,7 @@ object FormRel2: TFormRel2
     Height = 263
     Align = alClient
     TabOrder = 2
+    ExplicitTop = 87
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>

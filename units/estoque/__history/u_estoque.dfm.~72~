@@ -189,7 +189,6 @@ object PagEstoque: TPagEstoque
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      ReadOnly = True
       TabOrder = 6
     end
     object LimparLocal: TBitBtn

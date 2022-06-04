@@ -60,18 +60,21 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Height = 207
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 87
+    ExplicitLeft = -8
+    ExplicitTop = 75
     object grid_locaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
-      OnCellClick = grid_locaisDBTableView1CellClick
+      OnSelectionChanged = grid_locaisDBTableView1SelectionChanged
       DataController.DataSource = ds_locais
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
       OptionsSelection.CellSelect = False
+      OptionsSelection.MultiSelect = True
       OptionsSelection.CheckBoxPosition = cbpIndicator
+      OptionsSelection.CheckBoxVisibility = [cbvDataRow]
       OptionsSelection.ShowCheckBoxesDynamically = True
       OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
@@ -82,18 +85,18 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       Styles.Header = FrameGrid1.header
       object grid_locaisDBTableView1Column1: TcxGridDBColumn
         AlternateCaption = 'Selecionado'
+        Caption = 'Selecionado'
         DataBinding.FieldName = 'loc_selec'
-        Width = 23
-        IsCaptionAssigned = True
       end
       object loc_selec: TcxGridDBColumn
         AlternateCaption = 'Boolean'
         Caption = 'C'#243'digo'
-        DataBinding.FieldName = 'loc_codigo'
+        DataBinding.FieldName = 'loc_selec'
       end
       object loc_descricao: TcxGridDBColumn
         Caption = 'Descri'#231#227'o'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
       end
     end
     object grid_locaisLevel1: TcxGridLevel
@@ -112,7 +115,7 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       101)
     object RelBtn: TBitBtn
       Left = 398
-      Top = 23
+      Top = 31
       Width = 139
       Height = 50
       Anchors = [akLeft, akBottom]
@@ -151,7 +154,6 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Top = 104
   end
   object vt_locais: TVirtualTable
-    Active = True
     FieldDefs = <
       item
         Name = 'loc_selec'

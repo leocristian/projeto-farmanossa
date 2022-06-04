@@ -25,6 +25,9 @@ object PagEstoque: TPagEstoque
     Height = 137
     Align = alTop
     TabOrder = 0
+    ExplicitLeft = 8
+    ExplicitTop = 16
+    ExplicitWidth = 969
     DesignSize = (
       1009
       137)
@@ -99,7 +102,7 @@ object PagEstoque: TPagEstoque
     object Label4: TLabel
       Left = 637
       Top = 50
-      Width = 247
+      Width = 260
       Height = 33
       Anchors = [akTop, akRight]
       Caption = 'Consultar Estoque'
@@ -189,7 +192,6 @@ object PagEstoque: TPagEstoque
       Height = 21
       MaxLength = 4
       NumbersOnly = True
-      ReadOnly = True
       TabOrder = 6
     end
     object LimparLocal: TBitBtn
@@ -212,6 +214,8 @@ object PagEstoque: TPagEstoque
     Align = alClient
     PopupMenu = popup_produtos
     TabOrder = 1
+    ExplicitWidth = 963
+    ExplicitHeight = 346
     object gridEstoqueDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
