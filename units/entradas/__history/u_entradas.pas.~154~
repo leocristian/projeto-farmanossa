@@ -72,54 +72,44 @@ begin
 end;
 
 procedure TPagEntradas.BuscarBtnClick(Sender: TObject);
+var
+  xWhere: String;
+
+  dataInicial, dataFinal: String;
+  codInicial, codFinal: String;
+
 begin
 
-  qEnt.Close;
-  qEnt.Connection := dm1.con1;
+  xWhere := '';
+
+
+  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
+  begin
+    dataInicial := DateToStr(FiltroDataCod1.DataInicialEdit.Date);
+    dataFinal := DateToStr(FiltroDataCod1.DataFinalEdit.Date);
+
+    xWhere := xWhere + ' and to_char(ent_data_hora::date, ''dd/mm/yyyy'') >= ' + QuotedStr(dataInicial) +
+                        ' and to_char(ent_data_hora::date, ''dd/mm/yyyy'') <= ' + QuotedStr(dataFinal);
+  end;
+
+  if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+  begin
+    codInicial := FiltroDataCod1.CodInicialEdit.Text;
+    codFinal := FiltroDataCod1.CodFinalEdit.Text;
+
+    xWhere := xWhere + ' and ent_codigo >= ' + codInicial + ' and ent_codigo <= ' + codFinal;
+  end;
 
   qEnt.SQL.Clear;
   qEnt.SQL.Add('select ent_codigo, ent_produto, prod_descricao, ent_local, loc_descricao, ent_lote, ent_quantidade, ent_data_hora from tb_entradas');
   qEnt.SQL.Add('inner join tb_produtos on prod_codigo = ent_produto');
   qEnt.SQL.Add('inner join tb_locais_estoque on loc_codigo = ent_local');
+  qEnt.SQL.Add('where 1=1 ' + xWhere);
 
-  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') and
-     (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
-  begin
-    qEnt.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
-    qEnt.SQL.Add('and (ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal)');
-
-    qEnt.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
-    qEnt.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
-    qEnt.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-    qEnt.ParamByName('codigoFInal').Value := FiltroDataCod1.CodFinalEdit.Value;
-  end
-  else
-  begin
-    if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
-    begin
-      qEnt.SQL.Add('where ent_data_hora::date >= :dataInicial and ent_data_hora::date <= :dataFinal');
-
-      qEnt.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
-      qEnt.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
-    end;
-
-    if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
-    begin
-      qEnt.SQL.Add('where ent_codigo >= :codigoInicial and ent_codigo <= :codigoFinal');
-
-      qEnt.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-      qEnt.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
-    end;
-  end;
-
-  ds_entradas.DataSet := qEnt;
   qEnt.Open;
 end;
 
 procedure TPagEntradas.CancelarEntrada1Click(Sender: TObject);
-var
-  codSaida: Integer;
-
 begin
   if not qEnt.Active then exit;
   if qEnt.RecordCount = 0 then exit;
@@ -127,24 +117,6 @@ begin
   if Confirma('Confirmar cancelamento de entrada?' + #13 + 'Esta operação será irreversível!') then
   begin
     try
-
-      {
-  try
-    dm1.con1.StartTransaction;
-
-     //CÓDIGO AQUI
-
-    dm1.con1.Commit;
-
-  except
-    on e : Exception do
-    begin
-      dm1.con1.Rollback;
-    end;
-  end;
-
-  }
-
       try
         dm1.con1.StartTransaction;
 
@@ -152,25 +124,14 @@ begin
         dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsInteger;
         dm1.q1.ExecSQL;
 
-        dm1.q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
-        dm1.q1.ParamByName('entrada').Value := qEnt.FieldByName('ent_codigo').AsInteger;
-        dm1.q1.ExecSQL;
-
         dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('insert into tb_movimentacoes (mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade) values');
+        dm1.q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
 
-        dm1.q1.SQL.Text := 'select nextval(''tb_saidas_cod_seq'') as codSaida';
-
-        dm1.q1.Open;
-        codSaida := dm1.q1.FieldByName('codSaida').Value;
-        dm1.q1.Close;
-
-        dm1.q1.SQL.Add('insert into tb_saidas (sai_codigo, sai_produto, sai_local, sai_lote, sai_quantidade) value');
-        dm1.q1.SQL.Add(':saida, :produto, :local, :lote, :quantidade');
-
-        dm1.q1.ParamByName('saida').Value := codSaida;
         dm1.q1.ParamByName('produto').Value := qEnt.FieldByName('ent_produto').AsInteger;
         dm1.q1.ParamByName('local').Value := qEnt.FieldByName('ent_local').AsInteger;
         dm1.q1.ParamByName('lote').Value := qEnt.FieldByName('ent_lote').AsInteger;
+        dm1.q1.ParamByName('operacao').Value := 'S';
         dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
         dm1.q1.ExecSQL;
 

@@ -72,38 +72,44 @@ begin
 end;
 
 procedure TPagSaidas.BuscarBtnClick(Sender: TObject);
-var
-  xWhere: String;
-
-  dataInicial, dataFinal: String;
-  codInicial, codFinal: String;
-
 begin
-
-  xWhere := '';
-
-  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
-  begin
-    dataInicial := DateToStr(FiltroDataCod1.DataInicialEdit.Date);
-    dataFinal := DateToStr(FiltroDataCod1.DataFinalEdit.Date);
-
-    xWhere := xWhere + ' and to_char(sai_data_hora::date, ''dd/mm/yyyy'') >= ' + QuotedStr(dataInicial) +
-                       ' and to_char(sai_data_hora::date, ''dd/mm/yyyy'') <= ' + QuotedStr(dataFinal);
-  end;
-
-  if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
-  begin
-    codInicial := FiltroDataCod1.CodInicialEdit.Text;
-    codFinal := FiltroDataCod1.CodFinalEdit.Text;
-
-    xWhere := xWhere + ' and sai_codigo >= ' + codInicial + ' and sai_codigo <= ' + codFinal;
-  end;
+  qSai.Close;
+  qSai.Connection := dm1.con1;
 
   qSai.SQL.Clear;
   qSai.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
-  qSai.SQL.Add('left join tb_produtos on prod_codigo = sai_produto');
-  qSai.SQL.Add('left join tb_locais_estoque on loc_codigo = sai_local');
-  qSai.SQL.Add('where 1=1 ' + xWhere);
+  qSai.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
+  qSai.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
+
+  if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') and
+     (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+  begin
+    qSai.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
+    qSai.SQL.Add('and sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
+
+    qSai.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+    qSai.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    qSai.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+    qSai.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+  end
+  else
+  begin  
+    if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
+    begin
+      qSai.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
+
+      qSai.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+      qSai.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    end;
+
+    if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
+    begin
+      qSai.SQL.Add('where sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
+
+      qSai.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+      qSai.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+    end;
+  end;
 
   qSai.Open;
 end;

@@ -96,7 +96,7 @@ begin
     codInicial := FiltroDataCod1.CodInicialEdit.Text;
     codFinal := FiltroDataCod1.CodFinalEdit.Text;
 
-    xWhere := xWhere + ' and sai_codigo >= ' + codInicial + ' and sai_codigo <= ' + codFinal;
+    xWhere := xWhere + ' and ent_codigo >= ' + codInicial + ' and ent_codigo <= ' + codFinal;
   end;
 
   qSai.SQL.Clear;
