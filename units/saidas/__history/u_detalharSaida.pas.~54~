@@ -31,6 +31,7 @@ type
     Label4: TLabel;
     LoteEdit: TEdit;
     FrameButtons1: TFrameButtons;
+    ImageList1: TImageList;
     sai_cod: TEdit;
     SaiDataLabel: TLabel;
     Label8: TLabel;
@@ -109,6 +110,23 @@ begin
       Caption := 'Exibir Saída';
       FrameButtons1.SalvarBtn.Visible := False;
       FrameButtons1.CancelarBtn.Caption := 'Fechar';
+    end
+    else if FrameButtons1.ModoEdit.Text = 'A' then
+    begin
+      pn_form.Enabled := True;
+      Caption := 'Alterar Saída';
+      CodProdEdit.Enabled := False;
+      DescProdEdit.Enabled := False;
+      CodLocalEdit.Enabled := False;
+      DescLocalEdit.Enabled := False;
+      loteAnterior := QtdProdEdit.text;
+      QtdProdEdit.SetFocus;
+      LoteEdit.ReadOnly := True;
+      LoteEdit.Enabled := False;
+      pn_datas.enabled := False;
+      FrameButtons1.SalvarBtn.Visible := True;
+
+      FrameButtons1.SalvarBtn.Caption := 'Salvar';
     end;
   end;
 

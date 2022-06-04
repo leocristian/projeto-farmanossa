@@ -16,6 +16,8 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     Label7: TLabel;
     CodEdit: TEdit;
     CodProdEdit: TEdit;
@@ -23,6 +25,8 @@ type
     DescLocalEdit: TEdit;
     CodLocalEdit: TEdit;
     QtdProdEdit: TNumberBox;
+    LimparProd: TBitBtn;
+    LimparLocal: TBitBtn;
     pn_datas: TPanel;
     Label6: TLabel;
     Label5: TLabel;
@@ -31,9 +35,8 @@ type
     Label4: TLabel;
     LoteEdit: TEdit;
     FrameButtons1: TFrameButtons;
+    ImageList1: TImageList;
     sai_cod: TEdit;
-    SaiDataLabel: TLabel;
-    Label8: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FrameButtons1CancelarBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -53,6 +56,94 @@ implementation
 {$R *.dfm}
 
 uses u_dm1, u_saidas, u_controleForm;
+
+procedure TDetalharSaidaForm.CodLocalEditExit(Sender: TObject);
+begin
+
+  if CodLocalEdit.Text = '' then exit;
+
+  DescLocalEdit.Clear;
+
+  try
+    dm1.q1.SQL.Text := 'select loc_descricao, loc_status from tb_locais_estoque where loc_codigo = :codigo';
+    dm1.q1.ParamByName('codigo').Value := CodLocalEdit.Text;
+
+    dm1.q1.Open;
+
+    if dm1.q1.RecordCount = 1 then
+    begin
+      if dm1.q1.FieldByName('loc_status').Value = 'INATIVO' then
+      begin
+        Aviso('O local de estoque ' + dm1.q1.FieldByName('loc_descricao').Value + ' está INATIVO');
+        CodLocalEdit.Clear;
+        DescLocalEdit.Clear;
+        CodLocalEdit.SetFocus;
+      end
+      else
+      begin
+        DescLocalEdit.Text := dm1.q1.FieldByName('loc_descricao').Value;
+      end;
+    end
+    else
+    begin
+      CodLocalEdit.Clear;
+      CodLocalEdit.SetFocus;
+    end;
+  finally
+    dm1.q1.Close;
+  end;
+end;
+
+procedure TDetalharSaidaForm.CodProdEditExit(Sender: TObject);
+var
+  q1: TUniQuery;
+
+begin
+
+  if CodProdEdit.Text = '' then exit;
+
+  DescProdEdit.Clear;
+
+  try
+    q1 := TUniQuery.Create(q1);
+    q1.Connection := dm1.con1;
+
+    q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_saida from tb_produtos where prod_codigo = :codigo';
+    q1.ParamByName('codigo').Value := CodProdEdit.Text;
+
+    q1.Open;
+
+    if q1.RecordCount = 1 then
+    begin
+    if q1.FieldByName('prod_status').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else if q1.FieldByName('prod_status_saida').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite saida!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else
+      begin
+        DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
+      end;
+    end
+    else
+    begin
+      CodProdEdit.Clear;
+      CodProdEdit.SetFocus;
+    end;
+  finally
+    q1.Close;
+    FreeAndNil(q1);
+  end;
+end;
 
 procedure TDetalharSaidaForm.FormKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -109,6 +200,23 @@ begin
       Caption := 'Exibir Saída';
       FrameButtons1.SalvarBtn.Visible := False;
       FrameButtons1.CancelarBtn.Caption := 'Fechar';
+    end
+    else if FrameButtons1.ModoEdit.Text = 'A' then
+    begin
+      pn_form.Enabled := True;
+      Caption := 'Alterar Saída';
+      CodProdEdit.Enabled := False;
+      DescProdEdit.Enabled := False;
+      CodLocalEdit.Enabled := False;
+      DescLocalEdit.Enabled := False;
+      loteAnterior := QtdProdEdit.text;
+      QtdProdEdit.SetFocus;
+      LoteEdit.ReadOnly := True;
+      LoteEdit.Enabled := False;
+      pn_datas.enabled := False;
+      FrameButtons1.SalvarBtn.Visible := True;
+
+      FrameButtons1.SalvarBtn.Caption := 'Salvar';
     end;
   end;
 

@@ -167,7 +167,7 @@ begiN
 
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'V';
   DetalharSaidaForm.sai_cod.Text := qSai.FieldByName('sai_codigo').AsString;
-  DetalharSaidaForm.saiDataLabel.Caption := qSai.FieldByName('sai_data_hora').AsString;
+  DetalharSaidaForm.saiDataLabel.Caption := qSai.FieldByName('sai_data_hora without time').AsString;
 //  DetalharSaidaForm.saiHoraLabel.Caption := qSai.FieldByName('sai_data_hora::time').AsString;
   DetalharSaidaForm.ShowModal;
 end;

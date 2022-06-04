@@ -201,7 +201,7 @@ object PagSaidas: TPagSaidas
       OnClick = Detalhar1Click
     end
     object NovaSaida: TMenuItem
-      Caption = '1 - Lan'#231'ar nova sa'#237'da de mercadorias (F2)'
+      Caption = '1 - Nova sa'#237'da de mercadorias (F2)'
       OnClick = NovaSaidaClick
     end
     object N1: TMenuItem
