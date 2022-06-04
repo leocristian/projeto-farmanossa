@@ -55,7 +55,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
       TabOrder = 1
     end
     object BuscaBtn: TBitBtn
-      Left = 747
+      Left = 743
       Top = 26
       Width = 27
       Height = 21

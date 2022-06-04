@@ -32,22 +32,22 @@ object PagEstoque: TPagEstoque
       1009
       137)
     object Label7: TLabel
-      Left = 227
-      Top = 50
+      Left = 211
+      Top = 55
       Width = 60
       Height = 13
       Caption = 'Quantidade:'
     end
     object Label3: TLabel
-      Left = 73
-      Top = 50
+      Left = 57
+      Top = 55
       Width = 35
       Height = 13
       Caption = 'Status:'
     end
     object SpeedButton1: TSpeedButton
-      Left = 661
-      Top = 84
+      Left = 627
+      Top = 89
       Width = 15
       Height = 16
       ImageIndex = 3
@@ -56,15 +56,15 @@ object PagEstoque: TPagEstoque
       OnClick = SpeedButton1Click
     end
     object Label1: TLabel
-      Left = 66
-      Top = 23
+      Left = 50
+      Top = 28
       Width = 42
       Height = 13
       Caption = 'Produto:'
     end
     object BuscaProdutoBtn: TSpeedButton
-      Left = 293
-      Top = 19
+      Left = 277
+      Top = 24
       Width = 34
       Height = 22
       ImageIndex = 2
@@ -84,15 +84,15 @@ object PagEstoque: TPagEstoque
       ExplicitLeft = 928
     end
     object Label2: TLabel
-      Left = 23
-      Top = 76
+      Left = 7
+      Top = 81
       Width = 85
       Height = 13
       Caption = 'Local de estoque:'
     end
     object BuscaLocalBtn: TSpeedButton
-      Left = 293
-      Top = 72
+      Left = 277
+      Top = 77
       Width = 34
       Height = 23
       ImageIndex = 2
@@ -100,9 +100,9 @@ object PagEstoque: TPagEstoque
       OnClick = BuscaLocalBtnClick
     end
     object Label4: TLabel
-      Left = 693
-      Top = 46
-      Width = 284
+      Left = 637
+      Top = 50
+      Width = 260
       Height = 33
       Anchors = [akTop, akRight]
       Caption = 'Consultar Estoque'
@@ -114,8 +114,8 @@ object PagEstoque: TPagEstoque
       ParentFont = False
     end
     object QuantidadeBox: TComboBox
-      Left = 293
-      Top = 47
+      Left = 277
+      Top = 52
       Width = 206
       Height = 21
       Style = csDropDownList
@@ -131,8 +131,8 @@ object PagEstoque: TPagEstoque
         'ESTOQUE IGUAL A')
     end
     object TipoProdutoBox: TComboBox
-      Left = 114
-      Top = 47
+      Left = 98
+      Top = 52
       Width = 97
       Height = 21
       Style = csDropDownList
@@ -145,8 +145,8 @@ object PagEstoque: TPagEstoque
         'INATIVO')
     end
     object BitBtn1: TBitBtn
-      Left = 579
-      Top = 19
+      Left = 545
+      Top = 24
       Width = 97
       Height = 59
       Caption = 'Consultar'
@@ -156,9 +156,9 @@ object PagEstoque: TPagEstoque
       OnClick = BitBtn1Click
     end
     object QuantidadeEdit: TNumberBox
-      Left = 505
-      Top = 47
-      Width = 50
+      Left = 489
+      Top = 52
+      Width = 40
       Height = 21
       MaxLength = 5
       TabOrder = 2
@@ -166,8 +166,8 @@ object PagEstoque: TPagEstoque
       OnClick = QuantidadeEditClick
     end
     object CodProdEdit: TEdit
-      Left = 114
-      Top = 20
+      Left = 98
+      Top = 25
       Width = 173
       Height = 21
       MaxLength = 4
@@ -175,8 +175,8 @@ object PagEstoque: TPagEstoque
       TabOrder = 4
     end
     object LimparProd: TBitBtn
-      Left = 333
-      Top = 19
+      Left = 317
+      Top = 24
       Width = 33
       Height = 23
       ImageIndex = 3
@@ -186,8 +186,8 @@ object PagEstoque: TPagEstoque
       OnClick = LimparProdClick
     end
     object CodLocalEdit: TEdit
-      Left = 114
-      Top = 74
+      Left = 98
+      Top = 79
       Width = 173
       Height = 21
       MaxLength = 4
@@ -195,8 +195,8 @@ object PagEstoque: TPagEstoque
       TabOrder = 6
     end
     object LimparLocal: TBitBtn
-      Left = 333
-      Top = 73
+      Left = 317
+      Top = 78
       Width = 33
       Height = 22
       ImageIndex = 3

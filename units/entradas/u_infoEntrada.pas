@@ -60,6 +60,7 @@ type
 var
   FormEntrada: TFormEntrada;
   loteAnterior: String;
+  estoqueNegativo: String;
 
 implementation
 
@@ -144,13 +145,16 @@ begin
   DescProdEdit.Clear;
 
   try
-    dm1.q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_entrada from tb_produtos where prod_codigo = :codigo';
+    dm1.q1.SQL.Text := 'select prod_descricao, prod_estoque_negativo, prod_status, prod_status_entrada from tb_produtos where prod_codigo = :codigo';
     dm1.q1.ParamByName('codigo').Value := CodProdEdit.Text;
 
     dm1.q1.Open;
 
     if dm1.q1.RecordCount = 1 then
     begin
+
+      estoqueNegativo := dm1.q1.FieldByName('prod_estoque_negativo').AsString;
+
       if dm1.q1.FieldByName('prod_status').Value = 'INATIVO' then
       begin
         Aviso('O produto ' + dm1.q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
@@ -205,6 +209,7 @@ begin
     DtVencimentoEdit.Clear;
     CodProdEdit.SetFocus;
     QtdProdEdit.Value := 0;
+    edc_cod.Text := '00';
 
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
@@ -299,6 +304,13 @@ begin
     Aviso('Data de vencimento deve ser MAIOR que a data de fabricação!');
     DtVencimentoEdit.SetFocus;
     exit;
+  end;
+
+  if (QtdProdEdit.Value < 0) and (estoqueNegativo = 'NEGAR') then
+  begin
+    Aviso('Produto não permite entrada negativa!');
+    CodProdEdit.SetFocus;
+    Exit;
   end;
 
   try

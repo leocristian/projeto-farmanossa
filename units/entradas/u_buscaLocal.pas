@@ -23,12 +23,13 @@ type
     gridLocaisDBTableView1: TcxGridDBTableView;
     gridLocaisLevel1: TcxGridLevel;
     gridLocais: TcxGrid;
-    tb_locais: TUniTable;
     ds_locais: TDataSource;
     loc_codigo: TcxGridDBColumn;
     loc_descricao: TcxGridDBColumn;
     loc_status: TcxGridDBColumn;
     FrameGrid1: TFrameGrid;
+    prod_cod: TEdit;
+    qLoc: TUniQuery;
     procedure BuscaBtnClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure gridLocaisDBTableView1CellClick(Sender: TcxCustomGridTableView;
@@ -56,35 +57,37 @@ uses u_dm1, u_controleForm, u_infoSaida, u_infoEntrada, u_filtro_rel_1;
 
 procedure TBuscaLocalForm.BuscaBtnClick(Sender: TObject);
 var
-  str_busca: String;
+  strBusca, xWhere: String;
 
 begin
 
-  str_busca := CampoBusca.Text;
+  strBusca := CampoEdit.Text;
+  xWhere := '';
 
-  tb_locais.Close;
-  tb_locais.Connection := dm1.con1;
-
-  if str_busca = 'CÓDIGO' then
+  if (CampoBusca.Text = 'CÓDIGO') and (CampoEdit.Text <> '') then
   begin
-    if CampoEdit.Text = '' then
-    begin
-      tb_locais.SQL.Text := 'select * from tb_locais_estoque';
-    end
-    else
-    begin
-      tb_locais.SQL.Text := 'select * from tb_locais_estoque where loc_codigo = :codigo';
-      tb_locais.ParamByName('codigo').Value := StrToInt(CampoEdit.Text);
-    end;
+    xWhere := xWhere + 'and loc_codigo = ' + strBusca;
   end
-  else if str_busca = 'DESCRIÇÃO' then
+  else if CampoBusca.Text = 'DESCRIÇÃO' then
   begin
-    tb_locais.SQL.Text := 'select * from tb_locais_estoque where loc_descricao like :descricao';
-    tb_locais.ParamByName('descricao').Value := '%' + CampoEdit.Text + '%';
+    xWhere := xWhere + 'and loc_descricao like ' + QuotedStr('%' + strBusca + '%');
   end;
 
-  ds_locais.DataSet := tb_locais;
-  tb_locais.Open;
+  if prod_cod.Text <> '' then
+  begin
+    qLoc.SQL.Clear;
+    qLoc.SQL.Add('select distinct loc_codigo, loc_descricao, loc_status from tb_locais_estoque');
+    qLoc.SQL.Add('left join tb_lotes on lote_local = loc_codigo');
+    qLoc.SQL.Add('left join tb_produtos on lote_produto = prod_codigo');
+    qLoc.SQL.Add('where prod_codigo = :produto ' + xWhere);
+    qLoc.ParamByName('produto').Value := prod_cod.Text;
+  end
+  else
+  begin
+    qLoc.SQL.Text := 'select * from tb_locais_estoque where 1=1 ' + xWhere;
+  end;
+
+  qLoc.Open;
 
 end;
 
@@ -105,7 +108,7 @@ end;
 
 procedure TBuscaLocalForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  tb_locais.Close;
+  qLoc.Close;
 end;
 
 procedure TBuscaLocalForm.FormKeyPress(Sender: TObject; var Key: Char);
@@ -123,7 +126,7 @@ begin
   CampoEdit.Clear;
   CampoEdit.SetFocus;
   CampoBusca.ItemIndex := 0;
-  tb_locais.Close;
+  qLoc.Close;
   FrameButtons1.SalvarBtn.Font.Color := clRed;
 end;
 

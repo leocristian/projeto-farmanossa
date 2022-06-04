@@ -149,8 +149,15 @@ begin
         dm1.q1.ParamByName('codigo').Value := qEnt.FieldByName('ent_codigo').AsInteger;
         dm1.q1.ExecSQL;
 
-        dm1.q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :entrada';
-        dm1.q1.ParamByName('entrada').Value := qEnt.FieldByName('ent_codigo').AsInteger;
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('insert into tb_movimentacoes (mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade) values');
+        dm1.q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
+
+        dm1.q1.ParamByName('produto').Value := qEnt.FieldByName('ent_produto').AsInteger;
+        dm1.q1.ParamByName('local').Value := qEnt.FieldByName('ent_local').AsInteger;
+        dm1.q1.ParamByName('lote').Value := qEnt.FieldByName('ent_lote').AsInteger;
+        dm1.q1.ParamByName('operacao').Value := 'S';
+        dm1.q1.ParamByName('quantidade').Value := qEnt.FieldByName('ent_quantidade').AsInteger;
         dm1.q1.ExecSQL;
 
         dm1.q1.SQL.Clear;

@@ -82,8 +82,18 @@ end;
 
 procedure TFormSaida.SpeedButton2Click(Sender: TObject);
 begin
+
+  if CodProdEdit.Text = '' then
+  begin
+    Aviso('Informe o produto para ver seus locais de estoque!');
+    CodProdedit.SetFocus;
+    Exit;
+  end;
+
   BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'S';
+  BuscaLocalForm.prod_cod.Text := CodProdEdit.Text;
   BuscaLocalForm.ShowModal;
+
 end;
 
 procedure TFormSaida.VerLotesBtnClick(Sender: TObject);

@@ -11,7 +11,7 @@ uses
   cxDataStorage, cxNavigator, dxDateRanges, Data.DB, cxDBData,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, MemDS, VirtualTable, Vcl.ComCtrls,
-  frxClass, frxDBSet, DBAccess, Uni;
+  frxClass, frxDBSet, DBAccess, Uni, System.ImageList, Vcl.ImgList, Vcl.Buttons;
 
 type
   TPagRelatorios = class(TForm)
@@ -22,9 +22,12 @@ type
     RelBox: TComboBox;
     Label2: TLabel;
     pn_relatorio: TPanel;
+    SpeedButton1: TSpeedButton;
+    ImageList1: TImageList;
     procedure RelBoxChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -87,6 +90,11 @@ begin
     FormRel4.LimparProdClick(Sender);
     FormRel4.LimparLocalClick(Sender);
   end;
+end;
+
+procedure TPagRelatorios.SpeedButton1Click(Sender: TObject);
+begin
+  Close;
 end;
 
 end.

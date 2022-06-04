@@ -116,8 +116,6 @@ begin
 
   tb_estoque.ParamByName('qtd').Value := QuantidadeEdit.Text;
 
-  tb_estoque.SQL.Add('and 1=1');
-
   if CodProdEdit.Text <> '' then
   begin
     tb_estoque.SQl.Add('and result.prod_codigo in (' + CodProdEdit.Text + ')');
@@ -142,6 +140,7 @@ begin
   end;
 
   ds_estoque.DataSet := tb_estoque;
+  showmessage(tb_estoque.SQL.Text);
   tb_estoque.Open;
 
 end;

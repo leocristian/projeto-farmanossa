@@ -16,7 +16,6 @@ uses
 
 type
   TPagSaidas = class(TForm)
-    tb_saidas: TUniTable;
     ds_saidas: TDataSource;
     PopupSaidas: TPopupMenu;
     Detalhar1: TMenuItem;
@@ -37,6 +36,7 @@ type
     prod_descricao: TcxGridDBColumn;
     loc_descricao: TcxGridDBColumn;
     FiltroDataCod1: TFiltroDataCod;
+    qSai: TUniQuery;
     procedure FormShow(Sender: TObject);
     procedure NovaSaidaClick(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
@@ -64,8 +64,8 @@ uses u_dm1, u_infoSaida, u_detalharSaida, u_controleForm;
 
 procedure TPagSaidas.AlterarSaidaClick(Sender: TObject);
 begin
-  if not tb_saidas.Active then exit;
-  if tb_saidas.RecordCount = 0 then exit;
+  if not qSai.Active then exit;
+  if qSai.RecordCount = 0 then exit;
 
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'A';
   DetalharSaidaForm.ShowModal;
@@ -73,95 +73,105 @@ end;
 
 procedure TPagSaidas.BuscarBtnClick(Sender: TObject);
 begin
-  tb_saidas.Close;
-  tb_saidas.Connection := dm1.con1;
+  qSai.Close;
+  qSai.Connection := dm1.con1;
 
-  tb_saidas.SQL.Clear;
-  tb_saidas.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
-  tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
-  tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
+  qSai.SQL.Clear;
+  qSai.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
+  qSai.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
+  qSai.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
 
   if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') and
      (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
   begin
-    tb_saidas.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
-    tb_saidas.SQL.Add('and sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
+    qSai.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
+    qSai.SQL.Add('and sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
 
-    tb_saidas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
-    tb_saidas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
-    tb_saidas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-    tb_saidas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+    qSai.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+    qSai.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+    qSai.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+    qSai.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
   end
   else
   begin  
     if (FiltroDataCod1.DataInicialEdit.Text <> '') and (FiltroDataCod1.DataFinalEdit.Text <> '') then
     begin
-      tb_saidas.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
+      qSai.SQL.Add('where sai_data_hora::date >= :dataInicial and sai_data_hora::date <= :dataFinal');
 
-      tb_saidas.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
-      tb_saidas.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
+      qSai.ParamByName('dataInicial').Value := FiltroDataCod1.DataInicialEdit.Date;
+      qSai.ParamByName('dataFinal').Value := FiltroDataCod1.DataFinalEdit.Date;
     end;
 
     if (FiltroDataCod1.CodInicialEdit.Text <> '') and (FiltroDataCod1.CodFinalEdit.Text <> '') then
     begin
-      tb_saidas.SQL.Add('where sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
+      qSai.SQL.Add('where sai_codigo >= :codigoInicial and sai_codigo <= :codigoFinal');
 
-      tb_saidas.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
-      tb_saidas.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
+      qSai.ParamByName('codigoInicial').Value := FiltroDataCod1.CodInicialEdit.Value;
+      qSai.ParamByName('codigoFinal').Value := FiltroDataCod1.CodFinalEdit.Value;
     end;
   end;
 
-  ds_saidas.DataSet := tb_saidas;
-  tb_saidas.Open;
+  qSai.Open;
 end;
 
 procedure TPagSaidas.CancelarSaidaClick(Sender: TObject);
-var
-  q1: TUniQuery;
-  index, codigo, lote, quantidade: Integer;
-
 begin
-  if not tb_saidas.Active then exit;
-  if tb_saidas.RecordCount = 0 then exit;
+  if not qSai.Active then exit;
+  if qSai.RecordCount = 0 then exit;
 
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
+  if Confirma('Confirmar cancelamento de saída? Operação irreversível!') then
+  begin
+    try
+      try
+        dm1.con1.StartTransaction;
 
-    q1.SQL.Clear;
+        dm1.q1.SQL.Clear;
 
-    q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade) where lote_codigo = :lote;');
-    q1.SQL.Add('delete from tb_saidas where sai_codigo = :saida');
+        // Atualizar lote
+        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade) where lote_codigo = :lote;');
 
-    index := Pagsaidas.gridSaidasDBTableView1.DataController.GetSelectedRowIndex(0);
-    codigo := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[0];
-    lote := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[5];
-    quantidade := PagSaidas.gridSaidasDBTableView1.ViewData.Records[index].Values[6];
+        dm1.q1.ParamByName('lote').Value := qSai.FieldByName('sai_lote').AsInteger;
+        dm1.q1.ParamByName('quantidade').Value := qSai.FieldByName('sai_quantidade').AsInteger;
+        dm1.q1.ExecSQL;
 
-    q1.ParamByName('lote').Value := lote;
-    q1.ParamByName('quantidade').Value := quantidade;
-    q1.ParamByName('saida').Value := codigo;
+        // Deletar Saída
+        dm1.q1.SQL.Add('delete from tb_saidas where sai_codigo = :saida');
 
-    if Confirma('Confirmar cancelamento de saída? Operação irreversível!') then
-    begin
-      q1.ExecSQL;
-      Mensagem('Saída cancelada com sucesso!');
-      q1.SQL.Text := 'delete from tb_movimentacoes where mov_cod_operacao = :saida';
-      q1.ParamByName('saida').Value := codigo;
-      q1.ExecSQL;
-      PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
+        dm1.q1.ParamByName('saida').Value := qSai.FieldByName('sai_codigo').AsInteger;
+        dm1.q1.ExecSQL;
+
+        // Gerar movimentação de entrada
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('insert into tb_movimentacoes (mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade) values');
+        dm1.q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade)');
+
+        dm1.q1.ParamByName('produto').Value := qSai.FieldByName('sai_produto').AsInteger;
+        dm1.q1.ParamByName('local').Value := qSai.FieldByName('sai_local').AsInteger;
+        dm1.q1.ParamByName('lote').Value := qSai.FieldByName('sai_lote').AsInteger;
+        dm1.q1.ParamByName('operacao').Value := 'E';
+        dm1.q1.ParamByName('quantidade').Value := qSai.FieldByName('sai_quantidade').AsInteger;
+        dm1.q1.ExecSQL;
+
+        dm1.con1.Commit;
+
+        Mensagem('Saída cancelada com sucesso!');
+        PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
+      except on e:exception do
+        begin
+          Erro('Erro!' + #13 + e.Message);
+          dm1.con1.Rollback;
+        end;
+      end;
+    finally
+      dm1.q1.Close;
     end;
-
-  finally
-    q1.Close;
-    FreeAndNil(q1);
   end;
 end;
 
 procedure TPagSaidas.Detalhar1Click(Sender: TObject);
 begiN
-  if not tb_saidas.Active then exit;
-  if tb_saidas.RecordCount = 0 then exit;
+  if not qSai.Active then exit;
+  if qSai.RecordCount = 0 then exit;
 
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'V';
   DetalharSaidaForm.ShowModal;
@@ -190,16 +200,15 @@ end;
 
 procedure TPagSaidas.FormShow(Sender: TObject);
 begin
-  tb_saidas.Close;
-  tb_saidas.Connection := dm1.con1;
+  qSai.Close;
+  qSai.Connection := dm1.con1;
 
-  tb_saidas.SQL.Clear;
-  tb_saidas.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
-  tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
-  tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
+  qSai.SQL.Clear;
+  qSai.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
+  qSai.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
+  qSai.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
 
-  ds_saidas.DataSet := tb_saidas;
-  tb_saidas.Open;
+  qSai.Open;
 
   FiltroDataCod1.DataInicialEdit.Date := Date;
   FiltroDataCod1.DataFinalEdit.Date := Date;
@@ -209,16 +218,15 @@ end;
 
 procedure TPagSaidas.MostrarTudoBtnClick(Sender: TObject);
 begin
-  tb_saidas.Close;
-  tb_saidas.Connection := dm1.con1;
+  qSai.Close;
+  qSai.Connection := dm1.con1;
 
-  tb_saidas.SQL.Clear;
-  tb_saidas.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
-  tb_saidas.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
-  tb_saidas.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
+  qSai.SQL.Clear;
+  qSai.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
+  qSai.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
+  qSai.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
 
-  ds_saidas.DataSet := tb_saidas;
-  tb_saidas.Open;
+  qSai.Open;
 end;
 
 procedure TPagSaidas.NovaSaidaClick(Sender: TObject);
