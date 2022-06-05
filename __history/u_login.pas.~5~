@@ -52,6 +52,7 @@ end;
 
 procedure TFormLogin.EntrarBtnClick(Sender: TObject);
 var
+  q1: TUniQuery;
   arq_ini: TIniFile;
   nome_arq_ini: String;
 begin
@@ -64,14 +65,17 @@ begin
   end;
 
   try
-    dm1.q1.SQL.Text := 'select * from tb_operadores where ope_login = md5(:login) and ope_senha = md5(:senha)';
+    q1 := TUniQuery.Create(q1);
+    q1.connection := dm1.con1;
 
-    dm1.q1.ParamByName('login').Value := AdicionarSemente(LoginInput.Text);
-    dm1.q1.ParamByName('senha').Value := AdicionarSemente(SenhaInput.Text);
+    q1.SQL.Text := 'select * from tb_operadores where ope_login = md5(:login) and ope_senha = md5(:senha)';
 
-    dm1.q1.Open;
+    q1.ParamByName('login').Value := AdicionarSemente(LoginInput.Text);
+    q1.ParamByName('senha').Value := AdicionarSemente(SenhaInput.Text);
 
-    if dm1.q1.RecordCount = 1 then
+    q1.Open;
+
+    if q1.RecordCount = 1 then
     begin
       nome_arq_ini := ExtractFilePath(Application.ExeName) + 'config.ini';
       arq_ini := TIniFile.Create(nome_arq_ini);
@@ -82,10 +86,10 @@ begin
       qtd_tentativas := 3;
       label_qtdTentativas.Caption := qtd_tentativas.ToString;
     end
-    else if dm1.q1.RecordCount = 0 then
+    else if q1.RecordCount = 0 then
     begin
-
       qtd_tentativas := qtd_tentativas - 1;
+
 
       if qtd_tentativas = 0 then
       begin
@@ -100,7 +104,9 @@ begin
       LoginInput.SetFocus;
     end;
   finally
-    dm1.q1.Close;
+    q1.Close;
+    FreeAndNil(q1);
+
   end;
 end;
 

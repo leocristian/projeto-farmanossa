@@ -3,8 +3,8 @@ object BuscaProdutoForm: TBuscaProdutoForm
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Buscar Produto'
-  ClientHeight = 432
-  ClientWidth = 805
+  ClientHeight = 431
+  ClientWidth = 787
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,12 +22,12 @@ object BuscaProdutoForm: TBuscaProdutoForm
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 805
+    Width = 787
     Height = 73
     Align = alTop
     TabOrder = 0
     DesignSize = (
-      805
+      787
       73)
     object CampoBusca: TComboBox
       Left = 16
@@ -42,13 +42,12 @@ object BuscaProdutoForm: TBuscaProdutoForm
       OnChange = CampoBuscaChange
       Items.Strings = (
         'DESCRI'#199#195'O'
-        'C'#211'DIGO'
-        '')
+        'C'#211'DIGO')
     end
     object CampoEdit: TEdit
       Left = 119
       Top = 26
-      Width = 636
+      Width = 618
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
@@ -56,7 +55,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
       TabOrder = 1
     end
     object BuscaBtn: TBitBtn
-      Left = 765
+      Left = 743
       Top = 26
       Width = 27
       Height = 21
@@ -86,8 +85,8 @@ object BuscaProdutoForm: TBuscaProdutoForm
   object gridProdutos: TcxGrid
     Left = 0
     Top = 73
-    Width = 805
-    Height = 279
+    Width = 787
+    Height = 278
     Align = alClient
     TabOrder = 2
     object gridProdutosDBTableView1: TcxGridDBTableView
@@ -119,6 +118,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
       OptionsBehavior.IncSearch = True
       OptionsBehavior.IncSearchItem = prod_descricao
       OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 20
@@ -172,38 +172,38 @@ object BuscaProdutoForm: TBuscaProdutoForm
   end
   inline FrameButtons1: TFrameButtons
     Left = 0
-    Top = 352
-    Width = 805
+    Top = 351
+    Width = 787
     Height = 80
     Align = alBottom
     TabOrder = 3
-    ExplicitTop = 352
-    ExplicitWidth = 805
+    ExplicitTop = 351
+    ExplicitWidth = 787
     ExplicitHeight = 80
     inherited ModoEdit: TEdit
-      Left = 566
+      Left = 548
       Top = 26
-      ExplicitLeft = 566
+      ExplicitLeft = 548
       ExplicitTop = 26
     end
     inherited CancelarBtn: TButton
-      Left = 696
+      Left = 678
       Top = 23
       OnClick = FrameButtons1CancelarBtnClick
-      ExplicitLeft = 696
+      ExplicitLeft = 678
       ExplicitTop = 23
     end
     inherited SalvarBtn: TBitBtn
-      Left = 615
+      Left = 597
       Top = 23
       OnClick = FrameButtons1SalvarBtnClick
-      ExplicitLeft = 615
+      ExplicitLeft = 597
       ExplicitTop = 23
     end
   end
   object ImageList1: TImageList
-    Left = 16
-    Top = 112
+    Left = 336
+    Top = 128
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

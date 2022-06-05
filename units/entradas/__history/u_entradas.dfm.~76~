@@ -6,7 +6,7 @@ object PagEntradas: TPagEntradas
   BorderStyle = bsNone
   Caption = 'Entradas de Mercadorias'
   ClientHeight = 441
-  ClientWidth = 810
+  ClientWidth = 973
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,12 +25,10 @@ object PagEntradas: TPagEntradas
   object gridEntradas: TcxGrid
     Left = 0
     Top = 124
-    Width = 810
+    Width = 973
     Height = 317
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 785
-    ExplicitHeight = 288
     object gridEntradasDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -79,40 +77,34 @@ object PagEntradas: TPagEntradas
       object ent_produto: TcxGridDBColumn
         Caption = 'Produto'
         DataBinding.FieldName = 'ent_produto'
-        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o do Produto'
         Caption = 'Descri'#231#227'o do Produto'
         DataBinding.FieldName = 'prod_descricao'
-        DataBinding.IsNullValueType = True
         Width = 271
       end
       object ent_local: TcxGridDBColumn
         Caption = 'Local de estoque'
         DataBinding.FieldName = 'ent_local'
-        DataBinding.IsNullValueType = True
         Width = 129
       end
       object loc_descricao: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o do local de Estoque'
         DataBinding.FieldName = 'loc_descricao'
-        DataBinding.IsNullValueType = True
         Width = 200
       end
       object ent_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Lote'
         DataBinding.FieldName = 'ent_lote'
-        DataBinding.IsNullValueType = True
         Width = 96
       end
       object ent_quantidade: TcxGridDBColumn
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'ent_quantidade'
-        DataBinding.IsNullValueType = True
         Width = 102
       end
       object ent_data_hora: TcxGridDBColumn
@@ -130,43 +122,70 @@ object PagEntradas: TPagEntradas
   inline FiltroDataCod1: TFiltroDataCod
     Left = 0
     Top = 0
-    Width = 810
+    Width = 973
     Height = 124
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 785
+    ExplicitWidth = 973
     inherited pn_busca: TPanel
-      Width = 810
-      ExplicitWidth = 785
+      Width = 973
+      ExplicitWidth = 973
       DesignSize = (
-        810
+        973
         124)
+      inherited SpeedButton1: TSpeedButton
+        Left = 554
+        ExplicitLeft = 554
+      end
       inherited SpeedButton2: TSpeedButton
-        Left = 777
+        Left = 940
         Top = 8
         OnClick = FiltroDataCod1SpeedButton2Click
         ExplicitLeft = 777
         ExplicitTop = 8
       end
+      inherited Label5: TLabel
+        Left = 602
+        Top = 38
+        Width = 321
+        Caption = 'Entrada de Mercadorias'
+        Font.Style = [fsBold, fsItalic]
+        ExplicitLeft = 602
+        ExplicitTop = 38
+        ExplicitWidth = 321
+      end
+      inherited dataBox: TGroupBox
+        Left = 24
+        ExplicitLeft = 24
+      end
+      inherited CodigoBox: TGroupBox
+        Left = 287
+        ExplicitLeft = 287
+      end
       inherited BuscarBtn: TBitBtn
+        Left = 488
         OnClick = BuscarBtnClick
+        ExplicitLeft = 488
       end
     end
     inherited ImageList1: TImageList
       Left = 736
-      Top = 70
+      Top = 86
     end
   end
   inline FrameGrid1: TFrameGrid
-    Left = 640
-    Top = 48
-    Width = 77
-    Height = 70
+    Left = 631
+    Top = 87
+    Width = 49
+    Height = 31
     TabOrder = 2
-    ExplicitLeft = 640
-    ExplicitTop = 48
-    ExplicitHeight = 70
+    ExplicitLeft = 631
+    ExplicitTop = 87
+    ExplicitWidth = 49
+    ExplicitHeight = 31
     inherited estiloGrid: TcxStyleRepository
+      Left = 8
+      Top = 8
       PixelsPerInch = 96
     end
   end
@@ -190,6 +209,7 @@ object PagEntradas: TPagEntradas
     end
   end
   object ds_entradas: TDataSource
+    DataSet = qEnt
     Left = 560
     Top = 158
   end

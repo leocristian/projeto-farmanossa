@@ -61,7 +61,7 @@ var
 
 begin
 
-  strBusca := CampoBusca.Text;
+  strBusca := CampoEdit.Text;
   xWhere := '';
 
   if (CampoBusca.Text = 'CÓDIGO') and (CampoEdit.Text <> '') then
@@ -75,15 +75,17 @@ begin
 
   if prod_cod.Text <> '' then
   begin
-
+    qLoc.SQL.Clear;
+    qLoc.SQL.Add('select distinct loc_codigo, loc_descricao, loc_status from tb_locais_estoque');
+    qLoc.SQL.Add('left join tb_lotes on lote_local = loc_codigo');
+    qLoc.SQL.Add('left join tb_produtos on lote_produto = prod_codigo');
+    qLoc.SQL.Add('where prod_codigo = :produto ' + xWhere);
+    qLoc.ParamByName('produto').Value := prod_cod.Text;
+  end
+  else
+  begin
+    qLoc.SQL.Text := 'select * from tb_locais_estoque where 1=1 ' + xWhere;
   end;
-
-  qLoc.SQL.Clear;
-
-  qLoc.SQL.Add('select distinct loc_codigo, loc_descricao, loc_status from tb_locais_estoque');
-  qLoc.SQL.Add('left join tb_lotes on lote_local = loc_codigo');
-  qLoc.SQL.Add('left join tb_produtos on lote_produto = prod_codigo');
-  qLoc.SQL.Add('where 1=1 ' + xWhere);
 
   qLoc.Open;
 
@@ -106,7 +108,7 @@ end;
 
 procedure TBuscaLocalForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  tb_locais.Close;
+  qLoc.Close;
 end;
 
 procedure TBuscaLocalForm.FormKeyPress(Sender: TObject; var Key: Char);
@@ -124,7 +126,7 @@ begin
   CampoEdit.Clear;
   CampoEdit.SetFocus;
   CampoBusca.ItemIndex := 0;
-  tb_locais.Close;
+  qLoc.Close;
   FrameButtons1.SalvarBtn.Font.Color := clRed;
 end;
 

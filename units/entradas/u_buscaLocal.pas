@@ -137,7 +137,7 @@ end;
 
 procedure TBuscaLocalForm.FrameButtons1SalvarBtnClick(Sender: TObject);
 var
-  indexLoc, codLoc: Integer;
+  codLoc: Integer;
   descLoc, statusLoc: String;
 
 begin
@@ -147,10 +147,9 @@ begin
     Exit;
   end;
 
-  indexLoc := gridLocaisDBTableView1.DataController.GetSelectedRowIndex(0);
-  codLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[0];
-  descLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[1];
-  statusLoc := gridLocaisDBTableView1.ViewData.Records[indexLoc].Values[2];
+  codLoc := qLoc.FieldByName('loc_codigo').AsInteger;
+  descLoc := qLoc.FieldByName('loc_descricao').AsString;
+  statusLoc := qLoc.FieldByName('loc_codigo').AsString;
 
   if (FrameButtons1.ModoEdit.Text = 'E') or (FrameButtons1.ModoEdit.Text = 'S') then
   begin

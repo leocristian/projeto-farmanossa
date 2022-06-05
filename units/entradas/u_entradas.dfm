@@ -77,34 +77,40 @@ object PagEntradas: TPagEntradas
       object ent_produto: TcxGridDBColumn
         Caption = 'Produto'
         DataBinding.FieldName = 'ent_produto'
+        DataBinding.IsNullValueType = True
       end
       object prod_descricao: TcxGridDBColumn
         AlternateCaption = 'Descri'#231#227'o do Produto'
         Caption = 'Descri'#231#227'o do Produto'
         DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
         Width = 271
       end
       object ent_local: TcxGridDBColumn
         Caption = 'Local de estoque'
         DataBinding.FieldName = 'ent_local'
+        DataBinding.IsNullValueType = True
         Width = 129
       end
       object loc_descricao: TcxGridDBColumn
         AlternateCaption = 'String'
         Caption = 'Descri'#231#227'o do local de Estoque'
         DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
         Width = 200
       end
       object ent_lote: TcxGridDBColumn
         AlternateCaption = 'Integer'
         Caption = 'Lote'
         DataBinding.FieldName = 'ent_lote'
+        DataBinding.IsNullValueType = True
         Width = 96
       end
       object ent_quantidade: TcxGridDBColumn
         AlternateCaption = 'DateTime'
         Caption = 'Quantidade'
         DataBinding.FieldName = 'ent_quantidade'
+        DataBinding.IsNullValueType = True
         Width = 102
       end
       object ent_data_hora: TcxGridDBColumn

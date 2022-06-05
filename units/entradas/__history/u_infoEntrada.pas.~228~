@@ -209,6 +209,7 @@ begin
     DtVencimentoEdit.Clear;
     CodProdEdit.SetFocus;
     QtdProdEdit.Value := 0;
+    edc_cod.Text := '00';
 
     CodEdit.Text := '0000';
     FrameButtons1.ModoEdit.Text := 'N';
@@ -220,9 +221,9 @@ begin
       dm1.q1.SQL.Add('select e.ent_codigo, e.ent_produto, p.prod_descricao, e.ent_local,');
       dm1.q1.SQL.Add('l.loc_descricao, e.ent_lote, lotes.lote_dtfabricacao, lotes.lote_dtvencimento, e.ent_quantidade');
       dm1.q1.SQL.Add(' from tb_produtos as p');
-      dm1.q1.SQL.Add('inner join tb_entradas as e on ent_produto = prod_codigo');
-      dm1.q1.SQL.Add('inner join tb_locais_estoque as l on loc_codigo = ent_local');
-      dm1.q1.SQL.Add('inner join tb_lotes as lotes on lote_codigo = ent_lote');
+      dm1.q1.SQL.Add('left join tb_entradas as e on ent_produto = prod_codigo');
+      dm1.q1.SQL.Add('left join tb_locais_estoque as l on loc_codigo = ent_local');
+      dm1.q1.SQL.Add('left join tb_lotes as lotes on lote_codigo = ent_lote');
       dm1.q1.SQL.Add('where ent_codigo = :codigo');
 
       dm1.q1.ParamByName('codigo').Value := StrToInt(edc_cod.Text);
@@ -273,8 +274,7 @@ end;
 
 procedure TFormEntrada.FrameButtons1SalvarBtnClick(Sender: TObject);
 var
-  q1: TUniQuery;
-  ent_codigo: Variant;
+  ent_codigo: Integer;
 
 begin
   if ExisteInputVazio(self) then
@@ -320,56 +320,96 @@ begin
 
       dm1.q1.Open;
       ent_codigo := dm1.q1.FieldByName('ent_codigo').AsInteger;
-
       dm1.q1.Close;
-      dm1.q1.SQL.Clear;
 
-      if ModoLote.Text = 'N' then
-      begin
-        dm1.q1.SQL.Add('insert into tb_lotes (lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade, lote_produto, lote_local) values (');
-        dm1.q1.SQL.Add(':lote, :dtfabricacao, :dtvencimento, :quantidade, :produto, :local);');
+      try
+        dm1.con1.StartTransaction;
 
-        dm1.q1.ParamByName('dtfabricacao').Value := DtFabricacaoEdit.Date;
-        dm1.q1.ParamByName('dtvencimento').Value := DtVencimentoEdit.Date;
-      end
-      else if ModoLote.text = 'A' then
-      begin
-        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
-        dm1.q1.SQL.Add('where lote_codigo = :lote;');
+        // Criar registro de entrada
+        dm1.q1.SQl.Clear;
+        dm1.q1.SQL.Add('insert into tb_entradas ');
+        dm1.q1.SQL.Add('(ent_codigo, ent_produto, ent_local, ent_lote, ent_quantidade) ');
+        dm1.q1.SQL.Add('values (:codigo, :produto, :local, :lote, :quantidade);');
+
+        dm1.q1.ParamByName('codigo').Value := ent_codigo;
+        dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
+        dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
+        dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
+        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
+
+        try
+          dm1.q1.ExecSQL;
+        except
+          on e:exception do
+          begin
+            Aviso('Erro! ' + e.Message);
+          end;
+        end;
+
+        if ModoLote.Text = 'N' then  // Adicionar novo lote
+        begin
+
+          dm1.q1.SQL.Clear;
+          dm1.q1.SQL.Add('insert into tb_lotes (lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade, lote_produto, lote_local) values (');
+          dm1.q1.SQL.Add(':lote, :dtfabricacao, :dtvencimento, :quantidade, :produto, :local);');
+
+          dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
+          dm1.q1.ParamByName('dtfabricacao').Value := DtFabricacaoEdit.Date;
+          dm1.q1.ParamByName('dtvencimento').Value := DtVencimentoEdit.Date;
+          dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
+          dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
+          dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
+
+          try
+            dm1.q1.ExecSQL;
+          except
+            on e:exception do
+            begin
+              Aviso('Erro! ' + e.Message);
+            end;
+          end;
+
+        end
+        else if ModoLote.text = 'A' then // Alterar lote existente
+        begin
+
+          dm1.q1.SQL.Clear;
+
+          dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade)');
+          dm1.q1.SQL.Add('where lote_codigo = :lote;');
+
+          dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
+          dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
+
+          try
+            dm1.q1.ExecSQL;
+          except
+            on e:exception do
+            begin
+              Aviso('Erro! ' + e.Message);
+            end;
+          end;
+
+        end;
+
+        dm1.con1.Commit;
+      except
+        on e:exception do
+        begin
+          dm1.con1.Rollback;
+        end;
+
       end;
 
-      dm1.q1.SQL.Add('insert into tb_entradas ');
-      dm1.q1.SQL.Add('(ent_codigo, ent_produto, ent_local, ent_lote, ent_quantidade) ');
-      dm1.q1.SQL.Add('values (:codigo, :produto, :local, :lote, :quantidade);');
-
-    end
-    else if FrameButtons1.ModoEdit.Text = 'A' then
-    begin
-      dm1.q1.SQL.Clear;
-      ent_codigo := CodEdit.Text;
-
-      dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = :quantidade, lote_produto = :produto, lote_local = :local');
-      dm1.q1.SQL.Add('where lote_codigo = :lote;');
-
-      dm1.q1.SQL.Add('update tb_entradas set ');
-      dm1.q1.SQL.Add('ent_produto = :produto, ent_local = :local, ent_lote = :lote, ');
-      dm1.q1.SQL.Add('ent_quantidade = :quantidade');
-      dm1.q1.SQl.Add('where ent_codigo = :codigo;')
     end;
 
-    dm1.q1.ParamByName('codigo').Value := ent_codigo;
-    dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
-    dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
-    dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
-    dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
-
-    if Confirma('Confirmar operação?') then
+    if Confirma('Confirmar cadastro?') then
     begin
       try
         // Adicionar verificação de estoque negativo no produto
 
         dm1.q1.ExecSQL;
-        Mensagem('Operação realizada com sucesso!');
+        Mensagem('Entrada cadastrada com sucesso!');
 
         if FrameButtons1.ModoEdit.Text = 'N' then
         begin

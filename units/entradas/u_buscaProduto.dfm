@@ -345,10 +345,12 @@ object BuscaProdutoForm: TBuscaProdutoForm
       000000000000}
   end
   object ds_produtos: TDataSource
+    DataSet = qProd
     Left = 496
     Top = 128
   end
-  object tb_produtos: TUniTable
+  object qProd: TUniQuery
+    Connection = dm1.con1
     Left = 416
     Top = 128
   end
