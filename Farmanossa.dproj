@@ -123,54 +123,39 @@
         </DCCReference>
         <DCCReference Include="units\produtos\u_infoProduto.pas">
             <Form>FormProduto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\produtos\u_produtos.pas">
             <Form>PagProdutos</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\locais\u_locais.pas">
             <Form>PagLocais</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\locais\u_infoLocal.pas">
             <Form>FormLocal</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\entradas\u_buscaLocal.pas">
             <Form>BuscaLocalForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\entradas\u_buscaProduto.pas">
             <Form>BuscaProdutoForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\entradas\u_entradas.pas">
             <Form>PagEntradas</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\entradas\u_infoEntrada.pas">
             <Form>FormEntrada</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\u_controleForm.pas"/>
         <DCCReference Include="units\operadores\u_infoOperador.pas">
             <Form>FormOperador</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\frames\fr_estilo.pas">
             <Form>FrameGrid</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="units\frames\fm_busca.pas">
             <Form>FrameBusca</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
-        </DCCReference>
-        <DCCReference Include="units\entradas\u_infoLote.pas">
-            <Form>InfoLoteForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\saidas\u_saidas.pas">
             <Form>PagSaidas</Form>
@@ -180,49 +165,38 @@
         </DCCReference>
         <DCCReference Include="units\saidas\u_selecionaLote.pas">
             <Form>SelecionaLoteForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\estoque\u_estoque.pas">
             <Form>PagEstoque</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\estoque\u_lotesProduto.pas">
             <Form>LotesProdutoForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\saidas\u_detalharSaida.pas">
             <Form>DetalharSaidaForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\relatorios\filtros\u_filtro_rel_1.pas">
             <Form>FormRel1</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\relatorios\filtros\u_filtro_rel_2.pas">
             <Form>FormRel2</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\relatorios\filtros\u_filtro_rel_3.pas">
             <Form>FormRel3</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\relatorios\filtros\u_filtro_rel_4.pas">
             <Form>FormRel4</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\relatorios\u_relatorios.pas"/>
         <DCCReference Include="units\frames\fm_filtroDataCod.pas">
             <Form>FiltroDataCod</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="units\relatorios\u_selecionaProdutos.pas">
             <Form>SelecionaProdutosForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="units\relatorios\u_selecionarLocais.pas">
             <Form>SelecionarLocaisForm</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

@@ -66,7 +66,8 @@ implementation
 
 {$R *.dfm}
 
-uses u_buscaProduto, u_buscaLocal, u_dm1, u_controleForm, u_entradas;
+uses u_buscaProduto, u_buscaLocal, u_dm1, u_controleForm, u_entradas,
+  u_infoLote;
 
 procedure TFormEntrada.AtualizarMovimentacao(codOp: TCaption; prod: TCaption; local: TCaption; lote: TCaption; qtd: TCaption);
 var
@@ -373,7 +374,7 @@ begin
         dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
         dm1.q1.ParamByName('dtfabricacao').Value := DtFabricacaoEdit.Date;
         dm1.q1.ParamByName('dtvencimento').Value := DtVencimentoEdit.Date;
-        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
         dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
         dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
 
@@ -403,9 +404,8 @@ begin
         dm1.q1.SQL.Add('where lote_codigo = :lote;');
 
         dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
-        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Text;
 
-        showmessage(QtdProdEdit.Value.ToString);
         try
           dm1.q1.ExecSQL;
         except

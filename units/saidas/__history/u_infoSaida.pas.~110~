@@ -60,7 +60,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_selecionaLote, u_saidas,
+uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote, u_saidas,
   u_buscaProduto, u_buscaLocal;
 
 procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
@@ -267,9 +267,7 @@ begin
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
         dm1.q1.SQL.Add('where lote_codigo = :lote;');
-
         dm1.q1.ParamByName('lote').Value := codLote;
-        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 
         dm1.q1.ExecSQL;
 

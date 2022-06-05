@@ -26,7 +26,6 @@ type
     FecharBtn: TButton;
     loc_descricao: TcxGridDBColumn;
     qLote: TUniQuery;
-    prod_cod: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FecharBtnClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -55,7 +54,6 @@ procedure TLotesProdutoForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   qLote.Close;
-  qLote.Close;
 end;
 
 procedure TLotesProdutoForm.FormKeyPress(Sender: TObject; var Key: Char);
@@ -69,7 +67,16 @@ begin
 end;
 
 procedure TLotesProdutoForm.FormShow(Sender: TObject);
+var
+  index, prod_codigo: Integer;
+
 begin
+  index := PagEstoque.gridEstoqueDBTableView1.DataController.GetSelectedRowIndex(0);
+  prod_codigo := PagEstoque.gridEstoqueDBTableView1.ViewData.Records[index].Values[0];
+
+  qLote.Close;
+  qLote.Connection := dm1.con1;
+
   qLote.SQL.Clear;
 
   qLote.SQL.Add('select lote_codigo, lote_local, loc_descricao, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
@@ -77,8 +84,9 @@ begin
   qLote.SQL.Add('left join tb_locais_estoque');
   qLote.SQL.Add('on loc_codigo = lote_local');
   qLote.SQL.Add('where lote_produto = :cod_produto');
-  qLote.ParamByName('cod_produto').Value := StrToInt(prod_cod.Text);
+  qLote.ParamByName('cod_produto').Value := prod_codigo;
 
+  ds_lotes.DataSet := qLote;
   qLote.Open;
 end;
 

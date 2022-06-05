@@ -138,6 +138,7 @@ object FormEntrada: TFormEntrada
       Height = 21
       TabStop = False
       TabOrder = 5
+      Visible = False
     end
     object LimparLocal: TBitBtn
       Left = 269

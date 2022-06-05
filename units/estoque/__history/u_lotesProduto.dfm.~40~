@@ -149,7 +149,6 @@ object LotesProdutoForm: TLotesProdutoForm
     Height = 21
     TabStop = False
     TabOrder = 3
-    Visible = False
   end
   object ds_lotes: TDataSource
     DataSet = qLote

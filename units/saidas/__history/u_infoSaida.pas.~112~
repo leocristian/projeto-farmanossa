@@ -267,7 +267,6 @@ begin
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
         dm1.q1.SQL.Add('where lote_codigo = :lote;');
-
         dm1.q1.ParamByName('lote').Value := codLote;
         dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 

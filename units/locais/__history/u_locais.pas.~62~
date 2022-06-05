@@ -153,6 +153,8 @@ begin
 end;
 
 procedure TPagLocais.N3ExcluirF41Click(Sender: TObject);
+var
+  codigo: Integer;
 begin
   if not qCad.Active then exit;
   if qCad.RecordCount = 0 then exit;

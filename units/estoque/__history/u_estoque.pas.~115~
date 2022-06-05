@@ -198,7 +198,7 @@ begin
   if not qEst.Active then exit;
   if qEst.RecordCount = 0 then exit;
 
-  LotesProdutoForm.prod_cod.Text := qEst.FieldByName('prod_codigo').AsString;
+  LotesProdutoForm.prod_cod.Text := qEst.FieldByName('prod_codigo').AsInteger;
   LotesProdutoForm.ShowModal;
 end;
 

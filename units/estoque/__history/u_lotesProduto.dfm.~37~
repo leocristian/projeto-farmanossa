@@ -142,15 +142,6 @@ object LotesProdutoForm: TLotesProdutoForm
       PixelsPerInch = 96
     end
   end
-  object prod_cod: TEdit
-    Left = 128
-    Top = 40
-    Width = 25
-    Height = 21
-    TabStop = False
-    TabOrder = 3
-    Visible = False
-  end
   object ds_lotes: TDataSource
     DataSet = qLote
     Left = 72

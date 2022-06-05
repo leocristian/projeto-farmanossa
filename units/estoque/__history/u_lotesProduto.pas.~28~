@@ -54,7 +54,7 @@ end;
 procedure TLotesProdutoForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  qLote.Close;
+  dm1.q1.Close;
   qLote.Close;
 end;
 
@@ -70,16 +70,16 @@ end;
 
 procedure TLotesProdutoForm.FormShow(Sender: TObject);
 begin
-  qLote.SQL.Clear;
+  dm1.q1.SQL.Clear;
 
-  qLote.SQL.Add('select lote_codigo, lote_local, loc_descricao, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
-  qLote.SQL.Add('from tb_lotes ');
-  qLote.SQL.Add('left join tb_locais_estoque');
-  qLote.SQL.Add('on loc_codigo = lote_local');
-  qLote.SQL.Add('where lote_produto = :cod_produto');
-  qLote.ParamByName('cod_produto').Value := StrToInt(prod_cod.Text);
+  dm1.q1.SQL.Add('select lote_codigo, lote_local, loc_descricao, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
+  dm1.q1.SQL.Add('from tb_lotes ');
+  dm1.q1.SQL.Add('left join tb_locais_estoque');
+  dm1.q1.SQL.Add('on loc_codigo = lote_local');
+  dm1.q1.SQL.Add('where lote_produto = :cod_produto');
+  dm1.q1.ParamByName('cod_produto').Value := StrToInt(prod_cod.Text);
 
-  qLote.Open;
+  dm1.q1.Open;
 end;
 
 end.
