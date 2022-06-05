@@ -110,11 +110,29 @@ object PagOperador: TPagOperador
     Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitLeft = -72
-    ExplicitTop = 120
+    ExplicitTop = -6
     ExplicitWidth = 793
+    DesignSize = (
+      793
+      109)
     inherited SpeedButton1: TSpeedButton
+      Left = 752
+      Top = 8
       OnClick = FrameBusca1SpeedButton1Click
+      ExplicitLeft = 752
+      ExplicitTop = 8
+    end
+    inherited TituloLabel: TLabel
+      Left = 576
+      Top = 36
+      Width = 170
+      Height = 33
+      Caption = 'Operadores'
+      Font.Height = -27
+      ExplicitLeft = 576
+      ExplicitTop = 36
+      ExplicitWidth = 170
+      ExplicitHeight = 33
     end
     inherited BuscaSelect: TComboBox
       Text = 'NOME COMPLETO'
@@ -136,8 +154,8 @@ object PagOperador: TPagOperador
       ExplicitLeft = 424
     end
     inherited ImageList1: TImageList
-      Left = 608
-      Top = 40
+      Left = 520
+      Top = 64
       Bitmap = {
         494C010103000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
         0000000000003600000028000000400000001000000001002000000000000010

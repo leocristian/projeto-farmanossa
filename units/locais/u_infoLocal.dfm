@@ -123,5 +123,6 @@ object FormLocal: TFormLocal
     Width = 25
     Height = 21
     TabOrder = 2
+    Visible = False
   end
 end

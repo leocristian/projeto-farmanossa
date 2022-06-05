@@ -58,8 +58,6 @@ implementation
 uses u_infoOperador, u_controleForm;
 
 procedure TPagOperador.Detalhar1Click(Sender: TObject);
-var
-  ope_codigo: Integer;
 begin
 
   if not qOpe.Active then exit;

@@ -28,8 +28,6 @@ object PagOperador: TPagOperador
     Height = 348
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 787
-    ExplicitHeight = 319
     object gridOperadoresDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.NextPage.Visible = True
@@ -110,7 +108,6 @@ object PagOperador: TPagOperador
     Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitTop = -6
     ExplicitWidth = 793
     DesignSize = (
       793
@@ -125,14 +122,11 @@ object PagOperador: TPagOperador
     inherited TituloLabel: TLabel
       Left = 576
       Top = 36
-      Width = 170
-      Height = 33
+      Width = 158
       Caption = 'Operadores'
-      Font.Height = -27
       ExplicitLeft = 576
       ExplicitTop = 36
-      ExplicitWidth = 170
-      ExplicitHeight = 33
+      ExplicitWidth = 158
     end
     inherited BuscaSelect: TComboBox
       Text = 'NOME COMPLETO'
