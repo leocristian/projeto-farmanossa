@@ -405,7 +405,6 @@ begin
         dm1.q1.ParamByName('lote').Value := LoteEdit.Text;
         dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 
-        showmessage(QtdProdEdit.Value.ToString);
         try
           dm1.q1.ExecSQL;
         except

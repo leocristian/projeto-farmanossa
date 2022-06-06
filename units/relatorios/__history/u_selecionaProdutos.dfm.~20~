@@ -1,40 +1,38 @@
-object SelecionarLocaisForm: TSelecionarLocaisForm
+object SelecionaProdutosForm: TSelecionaProdutosForm
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'Selecionar Locais de estoque'
-  ClientHeight = 488
-  ClientWidth = 554
+  Caption = 'Selecionar Produtos'
+  ClientHeight = 486
+  ClientWidth = 579
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
-  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_buscaProd: TPanel
     Left = 0
     Top = 0
-    Width = 554
-    Height = 153
+    Width = 579
+    Height = 145
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 776
+    ExplicitWidth = 630
     DesignSize = (
-      554
-      153)
+      579
+      145)
     object Label1: TLabel
       Left = 24
       Top = 29
-      Width = 491
+      Width = 422
       Height = 19
-      Caption = 'Selecione os locais de estoque a serem exibidos no relat'#243'rio'
+      Caption = 'Selecione os produtos a serem exibidos no relat'#243'rio'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowFrame
       Font.Height = -16
@@ -43,50 +41,50 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       ParentFont = False
     end
     inline FrameGrid1: TFrameGrid
-      Left = 328
-      Top = 106
+      Left = 496
+      Top = 8
       Width = 41
       Height = 41
       TabOrder = 0
-      ExplicitLeft = 328
-      ExplicitTop = 106
+      ExplicitLeft = 496
+      ExplicitTop = 8
       ExplicitWidth = 41
       ExplicitHeight = 41
       inherited estiloGrid: TcxStyleRepository
         Left = 8
-        Top = 0
+        Top = 16
         PixelsPerInch = 96
       end
     end
+    object CampoEdit: TEdit
+      Left = 127
+      Top = 74
+      Width = 387
+      Height = 21
+      Anchors = [akLeft, akTop, akRight]
+      CharCase = ecUpperCase
+      MaxLength = 40
+      TabOrder = 1
+      ExplicitWidth = 495
+    end
     object CampoBusca: TComboBox
-      Left = 25
-      Top = 82
+      Left = 24
+      Top = 74
       Width = 97
       Height = 21
       Style = csDropDownList
       CharCase = ecUpperCase
       ItemIndex = 0
-      TabOrder = 1
+      TabOrder = 2
       Text = 'DESCRI'#199#195'O'
       OnChange = CampoBuscaChange
       Items.Strings = (
         'DESCRI'#199#195'O'
         'C'#211'DIGO')
     end
-    object CampoEdit: TEdit
-      Left = 128
-      Top = 82
-      Width = 365
-      Height = 21
-      Anchors = [akLeft, akTop, akRight]
-      CharCase = ecUpperCase
-      MaxLength = 40
-      TabOrder = 2
-      ExplicitWidth = 537
-    end
     object BuscaBtn: TBitBtn
-      Left = 507
-      Top = 82
+      Left = 528
+      Top = 74
       Width = 27
       Height = 21
       Anchors = [akTop, akRight]
@@ -94,31 +92,31 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       Images = ImageList1
       TabOrder = 3
       OnClick = BuscaBtnClick
-      ExplicitLeft = 679
+      ExplicitLeft = 636
     end
   end
-  object grid_locais: TcxGrid
+  object grid_produtos: TcxGrid
     Left = 0
-    Top = 153
-    Width = 554
-    Height = 234
+    Top = 145
+    Width = 579
+    Height = 262
     Align = alClient
     TabOrder = 1
     ExplicitTop = 81
-    ExplicitWidth = 584
-    ExplicitHeight = 207
-    object grid_locaisDBTableView1: TcxGridDBTableView
+    ExplicitWidth = 618
+    ExplicitHeight = 321
+    object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
-      OnCellClick = grid_locaisDBTableView1CellClick
-      DataController.DataSource = ds_locais
+      OnCellClick = grid_produtosDBTableView1CellClick
+      DataController.DataSource = ds_produtos
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsBehavior.IncSearch = True
       OptionsSelection.CellSelect = False
       OptionsSelection.CheckBoxPosition = cbpIndicator
-      OptionsSelection.ShowCheckBoxesDynamically = True
+      OptionsSelection.UnselectFocusedRecordOnExit = False
       OptionsView.NoDataToDisplayInfoText = ' '
       OptionsView.GroupByBox = False
       OptionsView.Indicator = True
@@ -126,43 +124,48 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       Styles.ContentEven = FrameGrid1.linhas
       Styles.IncSearch = FrameGrid1.buscaIncremental
       Styles.Header = FrameGrid1.header
-      object grid_locaisDBTableView1Column1: TcxGridDBColumn
-        AlternateCaption = 'Selecionado'
-        DataBinding.FieldName = 'loc_selec'
-        Width = 23
+      object prod_selec: TcxGridDBColumn
+        AlternateCaption = 'Boolean'
+        DataBinding.FieldName = 'prod_selec'
+        DataBinding.IsNullValueType = True
+        Width = 24
         IsCaptionAssigned = True
       end
-      object loc_selec: TcxGridDBColumn
-        AlternateCaption = 'Boolean'
+      object prod_codigo: TcxGridDBColumn
+        AlternateCaption = 'C'#243'digo'
         Caption = 'C'#243'digo'
-        DataBinding.FieldName = 'loc_codigo'
+        DataBinding.FieldName = 'prod_codigo'
+        DataBinding.IsNullValueType = True
       end
-      object loc_descricao: TcxGridDBColumn
+      object prod_descricao: TcxGridDBColumn
+        AlternateCaption = 'Descri'#231#227'o'
         Caption = 'Descri'#231#227'o'
-        DataBinding.FieldName = 'loc_descricao'
+        DataBinding.FieldName = 'prod_descricao'
+        DataBinding.IsNullValueType = True
+        Width = 459
       end
     end
-    object grid_locaisLevel1: TcxGridLevel
-      GridView = grid_locaisDBTableView1
+    object grid_produtosLevel1: TcxGridLevel
+      GridView = grid_produtosDBTableView1
     end
   end
   object pn_button: TPanel
     Left = 0
-    Top = 387
-    Width = 554
-    Height = 101
+    Top = 407
+    Width = 579
+    Height = 79
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 288
-    ExplicitWidth = 584
+    ExplicitTop = 402
+    ExplicitWidth = 618
     DesignSize = (
-      554
-      101)
-    object RelBtn: TBitBtn
-      Left = 398
-      Top = 23
-      Width = 139
-      Height = 50
+      579
+      79)
+    object Rel1Btn: TBitBtn
+      Left = 456
+      Top = 20
+      Width = 121
+      Height = 38
       Anchors = [akLeft, akBottom]
       Caption = 'Selecionar'
       Font.Charset = DEFAULT_CHARSET
@@ -173,11 +176,11 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       ImageIndex = 2
       ParentFont = False
       TabOrder = 0
-      OnClick = RelBtnClick
+      OnClick = Rel1BtnClick
     end
     object CheckBox1: TCheckBox
       Left = 24
-      Top = 45
+      Top = 31
       Width = 97
       Height = 17
       Caption = 'Marcar todos'
@@ -185,45 +188,44 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       OnClick = CheckBox1Click
     end
     object ModoEdit: TEdit
-      Left = 344
-      Top = 40
-      Width = 25
+      Left = 401
+      Top = 32
+      Width = 24
       Height = 21
       TabOrder = 2
       Visible = False
     end
   end
-  object ds_locais: TDataSource
-    DataSet = vt_locais
+  object ds_produtos: TDataSource
+    DataSet = vt_produtos
     Left = 480
-    Top = 176
+    Top = 168
   end
-  object vt_locais: TVirtualTable
-    Active = True
+  object vt_produtos: TVirtualTable
     FieldDefs = <
       item
-        Name = 'loc_selec'
+        Name = 'prod_selec'
         DataType = ftBoolean
       end
       item
-        Name = 'loc_codigo'
+        Name = 'prod_codigo'
         DataType = ftInteger
       end
       item
-        Name = 'loc_descricao'
+        Name = 'prod_descricao'
         DataType = ftString
         Size = 20
       end>
-    Left = 424
+    Left = 400
     Top = 176
     Data = {
-      0400030009006C6F635F73656C656305000000000000000A006C6F635F636F64
-      69676F03000000000000000D006C6F635F64657363726963616F010014000000
-      0000000000000000}
+      040003000A0070726F645F73656C656305000000000000000B0070726F645F63
+      6F6469676F03000000000000000E0070726F645F64657363726963616F010014
+      0000000000000000000000}
   end
   object ImageList1: TImageList
-    Left = 336
-    Top = 184
+    Left = 312
+    Top = 176
     Bitmap = {
       494C010101000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

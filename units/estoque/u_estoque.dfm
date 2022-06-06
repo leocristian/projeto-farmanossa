@@ -97,9 +97,9 @@ object PagEstoque: TPagEstoque
       OnClick = BuscaLocalBtnClick
     end
     object Label4: TLabel
-      Left = 637
+      Left = 648
       Top = 50
-      Width = 247
+      Width = 273
       Height = 33
       Anchors = [akTop, akRight]
       Caption = 'Consultar Estoque'

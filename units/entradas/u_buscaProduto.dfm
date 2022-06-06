@@ -26,6 +26,7 @@ object BuscaProdutoForm: TBuscaProdutoForm
     Height = 73
     Align = alTop
     TabOrder = 0
+    ExplicitTop = -6
     DesignSize = (
       787
       73)

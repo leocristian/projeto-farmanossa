@@ -10,7 +10,7 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections,
-  VirtualTable, u_estoque;
+  VirtualTable, u_estoque, System.ImageList, Vcl.ImgList;
 
 type
   TSelecionarLocaisForm = class(TForm)
@@ -29,12 +29,19 @@ type
     loc_descricao: TcxGridDBColumn;
     vt_locais: TVirtualTable;
     grid_locaisDBTableView1Column1: TcxGridDBColumn;
+    CampoBusca: TComboBox;
+    CampoEdit: TEdit;
+    BuscaBtn: TBitBtn;
+    ImageList1: TImageList;
     procedure CheckBox1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure RelBtnClick(Sender: TObject);
     procedure grid_locaisDBTableView1CellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
+    procedure CampoBuscaChange(Sender: TObject);
+    procedure BuscaBtnClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -49,6 +56,64 @@ implementation
 {$R *.dfm}
 
 uses u_dm1, u_controleForm, u_filtro_rel_1, u_filtro_rel_4;
+
+procedure TSelecionarLocaisForm.BuscaBtnClick(Sender: TObject);
+var
+  strBusca, xWhere: String;
+
+begin
+
+  strBusca := CampoEdit.Text;
+  xWhere := '';
+
+  if (CampoBusca.Text = 'CÓDIGO') and (CampoEdit.Text <> '') then
+  begin
+    xWhere := xWhere + 'and loc_codigo = ' + strBusca;
+  end
+  else if CampoBusca.Text = 'DESCRIÇÃO' then
+  begin
+    xWhere := xWhere + 'and loc_descricao like ' + QuotedStr('%' + strBusca + '%');
+  end;
+
+  dm1.q1.SQL.Clear;
+  dm1.q1.SQL.Add('select loc_codigo, loc_descricao from tb_locais_estoque where 1=1 ' + xWhere);
+  dm1.q1.SQL.Add(' order by loc_codigo');
+
+  dm1.q1.Open;
+  dm1.q1.First;
+
+  vt_locais.Open;
+  vt_locais.Clear;
+
+  while not dm1.q1.Eof do
+  begin
+    vt_locais.Append;
+    vt_locais.FieldByName('loc_selec').Value := False;
+    vt_locais.FieldByName('loc_codigo').Value := dm1.q1.FieldByName('loc_codigo').AsInteger;
+    vt_locais.FieldByName('loc_descricao').Value := dm1.q1.FieldByName('loc_descricao').AsString;
+    dm1.q1.Next;
+  end;
+
+  vt_locais.Open;
+  Checkbox1.Checked := False;
+end;
+
+procedure TSelecionarLocaisForm.CampoBuscaChange(Sender: TObject);
+begin
+
+  CampoEdit.Clear;
+
+  if CampoBusca.Text = 'CÓDIGO' then
+  begin
+    CampoEdit.NumbersOnly := True;
+    CampoEdit.MaxLength := 5;
+  end
+  else
+  begin
+    CampoEdit.NumbersOnly := False;
+    CampoEdit.MaxLength := 50
+  end;
+end;
 
 procedure TSelecionarLocaisForm.CheckBox1Click(Sender: TObject);
 begin
@@ -72,6 +137,16 @@ begin
       vt_locais.Next;
     end;
   end;
+end;
+
+procedure TSelecionarLocaisForm.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
 end;
 
 procedure TSelecionarLocaisForm.FormShow(Sender: TObject);
@@ -99,6 +174,7 @@ begin
   end;
 
   vt_locais.Open;
+  dm1.q1.Close;
   Checkbox1.Checked := False;
 end;
 

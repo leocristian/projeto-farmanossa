@@ -93,9 +93,7 @@ begin
     xWhere := xWhere + 'and prod_descricao like ' + QuotedStr('%' + strBusca + '%');
   end;
 
-  dm1.q1.SQL.Clear;
-  dm1.q1.SQL.Add('select prod_codigo, prod_descricao from tb_produtos where 1=1 ' + xWhere);
-  dm1.q1.SQL.Add(' order by prod_codigo');
+  dm1.q1.SQL.Text := 'select * from tb_produtos where 1=1 ' + xWhere;
 
   dm1.q1.Open;
   dm1.q1.First;
@@ -152,6 +150,9 @@ end;
 
 procedure TSelecionaProdutosForm.FormShow(Sender: TObject);
 begin
+  dm1.q1.Close;
+  dm1.q1.Connection := dm1.con1;
+
   dm1.q1.SQL.Clear;
   dm1.q1.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
   dm1.q1.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
@@ -174,8 +175,6 @@ begin
 
   vt_produtos.Open;
   Checkbox1.Checked := False;
-
-  dm1.q1.Close;
 end;
 
 procedure TSelecionaProdutosForm.grid_produtosDBTableView1CellClick(
