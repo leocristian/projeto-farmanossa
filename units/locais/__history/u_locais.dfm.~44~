@@ -1,0 +1,180 @@
+object PagLocais: TPagLocais
+  Left = 0
+  Top = 0
+  Anchors = [akLeft, akTop, akRight, akBottom]
+  BorderStyle = bsNone
+  Caption = 'Locais de Estoque'
+  ClientHeight = 481
+  ClientWidth = 767
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  PopupMenu = PopupLocais
+  WindowState = wsMaximized
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object gridLocais: TcxGrid
+    Left = 0
+    Top = 109
+    Width = 767
+    Height = 372
+    Align = alClient
+    TabOrder = 0
+    object gridLocaisDBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      Navigator.Buttons.Insert.Enabled = False
+      Navigator.Buttons.Insert.Visible = False
+      Navigator.Buttons.Append.Enabled = False
+      Navigator.Buttons.Delete.Enabled = False
+      Navigator.Buttons.Delete.Visible = False
+      Navigator.Buttons.Edit.Enabled = False
+      Navigator.Buttons.Edit.Visible = False
+      Navigator.Buttons.Post.Enabled = False
+      Navigator.Buttons.Post.Visible = False
+      Navigator.Buttons.Cancel.Enabled = False
+      Navigator.Buttons.Cancel.Visible = False
+      Navigator.Buttons.Refresh.Enabled = False
+      Navigator.Buttons.Refresh.Visible = False
+      Navigator.Buttons.Filter.Enabled = False
+      Navigator.Buttons.Filter.Visible = False
+      Navigator.InfoPanel.DisplayMask = '[RecordIndex] / [RecordCount]'
+      Navigator.InfoPanel.Visible = True
+      Navigator.Visible = True
+      ScrollbarAnnotations.CustomAnnotations = <>
+      DataController.DataSource = ds_locais
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
+      OptionsBehavior.IncSearchItem = loc_descricao
+      OptionsSelection.CellSelect = False
+      OptionsView.NoDataToDisplayInfoText = ' '
+      OptionsView.GroupByBox = False
+      OptionsView.Indicator = True
+      OptionsView.IndicatorWidth = 20
+      Styles.ContentEven = FrameGrid1.linhas
+      Styles.IncSearch = FrameGrid1.buscaIncremental
+      Styles.Header = FrameGrid1.header
+      object loc_codigo: TcxGridDBColumn
+        Caption = 'C'#243'digo'
+        DataBinding.FieldName = 'loc_codigo'
+        DataBinding.IsNullValueType = True
+      end
+      object loc_descricao: TcxGridDBColumn
+        Caption = 'Descri'#231#227'o'
+        DataBinding.FieldName = 'loc_descricao'
+        DataBinding.IsNullValueType = True
+        Width = 183
+      end
+      object loc_status: TcxGridDBColumn
+        AlternateCaption = 'String'
+        Caption = 'Status'
+        DataBinding.FieldName = 'loc_status'
+        DataBinding.IsNullValueType = True
+      end
+    end
+    object gridLocaisLevel1: TcxGridLevel
+      GridView = gridLocaisDBTableView1
+    end
+  end
+  inline FrameGrid1: TFrameGrid
+    Left = 648
+    Top = 8
+    Width = 77
+    Height = 51
+    TabOrder = 1
+    ExplicitLeft = 648
+    ExplicitTop = 8
+    ExplicitHeight = 51
+    inherited estiloGrid: TcxStyleRepository
+      Top = 8
+      PixelsPerInch = 96
+    end
+  end
+  inline FrameBusca1: TFrameBusca
+    Left = 0
+    Top = 0
+    Width = 767
+    Height = 109
+    Align = alTop
+    TabOrder = 2
+    ExplicitWidth = 767
+    inherited SpeedButton1: TSpeedButton
+      Left = 728
+      Top = 8
+      OnClick = FrameBusca1SpeedButton1Click
+      ExplicitLeft = 712
+      ExplicitTop = 8
+    end
+    inherited TituloLabel: TLabel
+      Left = 455
+      Top = 36
+      Width = 242
+      Caption = 'Locais de Estoque'
+      ExplicitLeft = 455
+      ExplicitTop = 36
+      ExplicitWidth = 242
+    end
+    inherited BuscaSelect: TComboBox
+      Left = 16
+      Text = 'DESCRI'#199#195'O'
+      OnChange = FrameBusca1BuscaSelectChange
+      Items.Strings = (
+        'DESCRI'#199#195'O'
+        'C'#211'DIGO')
+      ExplicitLeft = 16
+    end
+    inherited BuscaEdit: TEdit
+      Left = 143
+      CharCase = ecUpperCase
+      MaxLength = 50
+      OnClick = FrameBusca1BuscaEditClick
+      ExplicitLeft = 143
+    end
+    inherited BitBtn1: TBitBtn
+      Left = 335
+      OnClick = FrameBusca1BitBtn1Click
+      ExplicitLeft = 335
+    end
+  end
+  object PopupLocais: TPopupMenu
+    Left = 612
+    Top = 128
+    object Detalhar1: TMenuItem
+      Caption = 'Detalhar... (F1)'
+      OnClick = Detalhar1Click
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object N1Incluirnovoregistro1: TMenuItem
+      Caption = '1 - Incluir novo registro (F2)'
+      OnClick = N1Incluirnovoregistro1Click
+    end
+    object N2AlterarregistroatualF31: TMenuItem
+      Caption = '2 - Alterar registro atual (F3)'
+      OnClick = N2AlterarregistroatualF31Click
+    end
+    object N3ExcluirF41: TMenuItem
+      Caption = '3 - Excluir (F4)'
+      OnClick = N3ExcluirF41Click
+    end
+  end
+  object ds_locais: TDataSource
+    DataSet = qCad
+    Left = 552
+    Top = 128
+  end
+  object qCad: TUniQuery
+    Connection = dm1.con1
+    Left = 488
+    Top = 128
+  end
+end

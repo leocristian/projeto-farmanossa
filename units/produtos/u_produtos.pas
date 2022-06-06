@@ -32,6 +32,7 @@ type
     FrameBusca1: TFrameBusca;
     prod_status: TcxGridDBColumn;
     qProd: TUniQuery;
+    N2: TMenuItem;
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -149,6 +150,7 @@ begin
 
   FormProduto.FrameButtons.ModoEdit.Text := 'N';
   FormProduto.ShowModal;
+  FrameBusca1BitBtn1Click(Sender);
 end;
 
 procedure TPagProdutos.N2AlterarregistroatualF31Click(Sender: TObject);
@@ -161,6 +163,7 @@ begin
   FormProduto.FrameButtons.ModoEdit.Text := 'A';
   FormProduto.edc_cod.Text := qProd.FieldByName('prod_codigo').AsString;
   FormProduto.ShowModal;
+  FrameBusca1BitBtn1Click(Sender);
 end;
 
 procedure TPagProdutos.N3ExcluirF41Click(Sender: TObject);
@@ -177,7 +180,7 @@ begin
       try
         dm1.q1.ExecSQL;
         Mensagem('Produto excluído com sucesso!');
-        gridProdutosDBTableView1.DataController.RefreshExternalData;
+        FrameBusca1BitBtn1Click(Sender);
       except on e:exception do
         if e.message.contains('tb_saidas_sai_produto_fkey') then
         begin

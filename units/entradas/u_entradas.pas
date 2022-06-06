@@ -149,7 +149,7 @@ begin
 
       dm1.con1.Commit;
       Mensagem('Entrada cancelada com sucesso!');
-      gridEntradasDBTableView1.DataController.RefreshExternalData;
+      BuscarBtnClick(Sender);
     except on e:exception do
       begin
         Erro('Erro!' + #13 + e.Message);
@@ -227,6 +227,8 @@ begin
   FormEntrada.FrameButtons1.ModoEdit.Text := 'N';
   FormEntrada.edc_cod.Text := '00';
   FormEntrada.ShowModal;
+
+  BuscarBtnClick(Sender);
 end;
 
 end.

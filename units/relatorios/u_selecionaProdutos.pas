@@ -123,41 +123,20 @@ begin
 
   vt_produtos.DisableControls;
   vt_produtos.First;
+
   while not vt_produtos.Eof do
   begin
-
     vt_produtos.Edit;
     vt_produtos.FieldByName('prod_selec').Value := CheckBox1.Checked;
     vt_produtos.Post;
 
     vt_produtos.Next;
   end;
+
   vt_produtos.First;
   vt_produtos.EnableControls;
 
   Exit;
-//---------------------------------
-
-  if CheckBox1.Checked then
-  begin
-    vt_produtos.First;
-    while not vt_produtos.Eof do
-    begin
-      ds_produtos.Edit;
-      vt_produtos.FieldByName('prod_selec').Value := True;
-      vt_produtos.Next;
-    end;
-  end
-  else
-  begin
-    vt_produtos.First;
-    while not vt_produtos.Eof do
-    begin
-      ds_produtos.Edit;
-      vt_produtos.FieldByName('prod_selec').Value := False;
-      vt_produtos.Next;
-    end;
-  end;
 end;
 
 procedure TSelecionaProdutosForm.FormKeyPress(Sender: TObject; var Key: Char);

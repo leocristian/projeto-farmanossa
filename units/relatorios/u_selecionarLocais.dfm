@@ -25,7 +25,6 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Height = 153
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 776
     DesignSize = (
       554
       153)
@@ -82,7 +81,6 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 2
-      ExplicitWidth = 537
     end
     object BuscaBtn: TBitBtn
       Left = 507
@@ -94,7 +92,6 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
       Images = ImageList1
       TabOrder = 3
       OnClick = BuscaBtnClick
-      ExplicitLeft = 679
     end
   end
   object grid_locais: TcxGrid
@@ -104,9 +101,6 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Height = 234
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 81
-    ExplicitWidth = 584
-    ExplicitHeight = 207
     object grid_locaisDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -153,8 +147,6 @@ object SelecionarLocaisForm: TSelecionarLocaisForm
     Height = 101
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 288
-    ExplicitWidth = 584
     DesignSize = (
       554
       101)

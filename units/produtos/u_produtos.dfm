@@ -181,6 +181,9 @@ object PagProdutos: TPagProdutos
       Caption = '2 - Alterar registro atual (F3)'
       OnClick = N2AlterarregistroatualF31Click
     end
+    object N2: TMenuItem
+      Caption = '-'
+    end
     object N3ExcluirF41: TMenuItem
       Caption = '3 - Excluir (F4)'
       OnClick = N3ExcluirF41Click

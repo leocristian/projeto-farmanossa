@@ -1,0 +1,360 @@
+unit u_infoSaida;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils,
+  cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, fm_buttons, System.ImageList, Vcl.ImgList, Uni, Vcl.NumberBox,
+  fr_estilo, Data.DB, MemDS, VirtualTable;
+
+type
+  TFormSaida = class(TForm)
+    pn_form: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    Label7: TLabel;
+    CodEdit: TEdit;
+    CodProdEdit: TEdit;
+    DescProdEdit: TEdit;
+    DescLocalEdit: TEdit;
+    CodLocalEdit: TEdit;
+    ImageList1: TImageList;
+    QtdProdEdit: TNumberBox;
+    VerLotesBtn: TButton;
+    pn_lotes: TPanel;
+    pn_buttons: TPanel;
+    ModoEdit: TEdit;
+    CancelarBtn: TButton;
+    ConfirmarBtn: TBitBtn;
+    LimparProd: TBitBtn;
+    LimparLocal: TBitBtn;
+    Label4: TLabel;
+    procedure FormShow(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure CodProdEditExit(Sender: TObject);
+    procedure CodLocalEditExit(Sender: TObject);
+    procedure SelecionaLoteClick(Sender: TObject);
+    procedure VerLotesBtnClick(Sender: TObject);
+    procedure CancelarBtnClick(Sender: TObject);
+    procedure ConfirmarBtnClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure LimparProdClick(Sender: TObject);
+    procedure LimparLocalClick(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormSaida: TFormSaida;
+
+implementation
+
+{$R *.dfm}
+
+uses u_controleForm, u_dm1, u_selecionaLote, u_saidas,
+  u_buscaProduto, u_buscaLocal;
+
+procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
+begin
+  if CodProdEdit.Text = '' then
+  begin
+    Aviso('Informe o produto!');
+    CodProdEdit.SetFocus;
+    Exit;
+  end;
+  SelecionaLoteForm.ShowModal;
+end;
+
+procedure TFormSaida.SpeedButton1Click(Sender: TObject);
+begin
+  if BuscaProdutoForm = nil then BuscaProdutoForm := TBuscaProdutoForm.Create(Application);
+
+  BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'S';
+  BuscaProdutoForm.ShowModal;
+end;
+
+procedure TFormSaida.SpeedButton2Click(Sender: TObject);
+begin
+
+  if BuscaLocalForm = nil then BuscaLocalForm := TBuscaLocalForm.Create(Application);
+
+  if CodProdEdit.Text = '' then
+  begin
+    Aviso('Informe o produto para ver seus locais de estoque!');
+    CodProdedit.SetFocus;
+    Exit;
+  end;
+
+  BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'S';
+  BuscaLocalForm.prod_cod.Text := CodProdEdit.Text;
+  BuscaLocalForm.ShowModal;
+
+end;
+
+procedure TFormSaida.VerLotesBtnClick(Sender: TObject);
+begin
+  if (CodProdEdit.text = '') or (CodLocalEdit.Text = '') then
+  begin
+    Aviso('Informe o Produto e o Local de Estoque!');
+    CodProdEdit.SetFocus;
+    Exit;
+  end;
+
+  SelecionaLoteForm.Close;
+  SelecionaLoteForm.Parent := pn_lotes;
+  SelecionaLoteForm.Show;
+
+end;
+
+procedure TFormSaida.CancelarBtnClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFormSaida.CodLocalEditExit(Sender: TObject);
+begin
+
+  if CodLocalEdit.Text = '' then exit;
+
+  DescLocalEdit.Clear;
+
+  try
+
+    dm1.q1.SQL.Text := 'select loc_descricao, loc_status from tb_locais_estoque where loc_codigo = :codigo';
+    dm1.q1.ParamByName('codigo').Value := CodLocalEdit.Text;
+
+    dm1.q1.Open;
+
+    if dm1.q1.RecordCount = 1 then
+    begin
+      if dm1.q1.FieldByName('loc_status').Value = 'INATIVO' then
+      begin
+        Aviso('O local de estoque ' + dm1.q1.FieldByName('loc_descricao').Value + ' está INATIVO');
+        CodLocalEdit.Clear;
+        DescLocalEdit.Clear;
+        CodLocalEdit.SetFocus;
+      end
+      else
+      begin
+        DescLocalEdit.Text := dm1.q1.FieldByName('loc_descricao').Value;
+      end;
+    end
+    else
+    begin
+      CodLocalEdit.Clear;
+      CodLocalEdit.SetFocus;
+    end;
+  finally
+    dm1.q1.Close;
+  end;
+end;
+
+procedure TFormSaida.CodProdEditExit(Sender: TObject);
+begin
+
+  if CodProdEdit.Text = '' then exit;
+
+  DescProdEdit.Clear;
+
+  try
+    dm1.q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_saida from tb_produtos where prod_codigo = :codigo';
+    dm1.q1.ParamByName('codigo').Value := CodProdEdit.Text;
+
+    dm1.q1.Open;
+
+    if dm1.q1.RecordCount = 1 then
+    begin
+    if dm1.q1.FieldByName('prod_status').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + dm1.q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else if dm1.q1.FieldByName('prod_status_saida').Value = 'INATIVO' then
+      begin
+        Aviso('O produto ' + dm1.q1.FieldByName('prod_descricao').Value + ' não permite saida!');
+        CodProdEdit.Clear;
+        DescProdEdit.Clear;
+        CodProdEdit.SetFocus;
+      end
+      else
+      begin
+        DescProdEdit.Text := dm1.q1.FieldByName('prod_descricao').Value;
+      end;
+    end
+    else
+    begin
+      CodProdEdit.Clear;
+      CodProdEdit.SetFocus;
+    end;
+  finally
+    dm1.q1.Close;
+  end;
+end;
+
+procedure TFormSaida.ConfirmarBtnClick(Sender: TObject);
+var
+  codSaida, qtdLote, codLote: Integer;
+
+begin
+  if ConfirmarBtn.Font.Color = clRed then
+  begin
+    Aviso('Selecione o lote para realizar saída!');
+    Exit;
+  end;
+
+  if QtdProdEdit.Value = 0 then
+  begin
+    Aviso('Informe a quantidade de produtos a sair do estoque!');
+    QtdProdEdit.SetFocus;
+    Exit;
+  end;
+
+  if Confirma('Confirmar Saída?') then
+  begin
+    try
+      dm1.q1.Close;
+      dm1.q1.SQL.Text := 'select prod_estoque_negativo from tb_produtos where prod_codigo = :produto';
+      dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
+      dm1.q1.Open;
+
+      qtdLote := SelecionaLoteForm.qLote.FieldByName('lote_quantidade').Value;
+      codLote := SelecionaLoteForm.qLote.FieldByName('lote_codigo').Value;
+
+      if QtdProdEdit.Value > qtdLote then
+      begin
+        if dm1.q1.FieldByName('prod_estoque_negativo').Value = 'NEGAR' then
+        begin
+          Aviso('Produto não permite estoque negativo!');
+          QtdProdEdit.SetFocus;
+          exit;
+        end;
+      end;
+      
+      dm1.q1.Close;
+
+      dm1.q1.SQL.Text := 'select nextval(''tb_saidas_cod_seq'') as codProximo';
+
+      dm1.q1.Open;
+      codSaida := dm1.q1.FieldByName('codProximo').Value;
+      dm1.q1.Close;
+
+      try
+        dm1.con1.StartTransaction;
+
+        // Gerar registro de saída
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('insert into tb_saidas(sai_codigo, sai_produto, sai_local, sai_lote, sai_quantidade)');
+        dm1.q1.SQL.Add('values ');
+        dm1.q1.SQl.Add('(:codigo, :produto, :local, :lote, :quantidade)');
+
+        dm1.q1.ParamByName('codigo').Value := codSaida;
+        dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
+        dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
+        dm1.q1.ParamByName('lote').Value := codLote;
+        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+
+        dm1.q1.ExecSQL;
+
+        // Atualizar lote
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
+        dm1.q1.SQL.Add('where lote_codigo = :lote;');
+
+        dm1.q1.ParamByName('lote').Value := codLote;
+        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+
+        dm1.q1.ExecSQL;
+
+        if ModoEdit.Text = 'N' then
+        begin
+          // Criar movimentação de saída
+          dm1.q1.SQL.Clear;
+          dm1.q1.SQL.Add('insert into tb_movimentacoes');
+          dm1.q1.SQL.Add('(mov_produto, mov_local, mov_lote, mov_operacao, mov_quantidade, mov_cod_operacao)');
+          dm1.q1.SQL.Add('values');
+          dm1.q1.SQL.Add('(:produto, :local, :lote, :operacao, :quantidade, :cod_operacao)');
+
+          dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
+          dm1.q1.ParamByName('local').Value := CodLocalEdit.Text;
+          dm1.q1.ParamByName('lote').Value := codLote;
+          dm1.q1.ParamByName('operacao').Value := 'S';
+          dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
+          dm1.q1.ParamByName('cod_operacao').Value := codSaida;
+
+          dm1.q1.ExecSQL;
+        end;
+
+        dm1.con1.Commit;
+
+        Mensagem('Operação realizada com sucesso!');
+
+        PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
+        Close;
+      except
+        on e:exception do
+        begin
+          dm1.con1.Rollback;
+          Erro('Erro!' + #13 + e.Message);
+        end;
+      end;
+
+    finally
+      dm1.q1.Close;
+    end;
+  end;
+end;
+
+procedure TFormSaida.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  begin
+    if Key = #13 then
+    begin
+      Key := #0;
+      Perform(wm_nextdlgctl, 0, 0);
+    end
+    else if key = #27 then close
+  end;
+end;
+
+procedure TFormSaida.FormShow(Sender: TObject);
+begin
+
+  if SelecionaLoteForm = nil then SelecionaLoteForm := TSelecionaLoteForm.Create(Application);
+
+  if ModoEdit.Text = 'N' then
+  begin
+    pn_form.Enabled := true;
+    LimparInputs(self);
+    QtdProdEdit.Value := 0;
+    CodProdEdit.SetFocus;
+    CodEdit.Text := '0000';
+    SelecionaLoteform.Close;
+    ModoEdit.Text := 'N';
+    ConfirmarBtn.Font.Color := clRed;
+  end;
+end;
+
+procedure TFormSaida.LimparLocalClick(Sender: TObject);
+begin
+  CodLocalEdit.Clear;
+  DescLocalEdit.Clear;
+end;
+
+procedure TFormSaida.LimparProdClick(Sender: TObject);
+begin
+  CodProdEdit.Clear;
+  DescProdEdit.Clear;
+end;
+
+end.

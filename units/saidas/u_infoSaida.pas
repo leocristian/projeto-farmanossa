@@ -298,8 +298,6 @@ begin
         dm1.con1.Commit;
 
         Mensagem('Operação realizada com sucesso!');
-
-        PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
         Close;
       except
         on e:exception do

@@ -117,26 +117,23 @@ end;
 
 procedure TSelecionarLocaisForm.CheckBox1Click(Sender: TObject);
 begin
-  if CheckBox1.Checked then
-  begin
+
+    vt_locais.DisableControls;
     vt_locais.First;
+
     while not vt_locais.Eof do
     begin
-      ds_locais.Edit;
-      vt_locais.FieldByName('loc_selec').Value := True;
+      vt_locais.Edit;
+      vt_locais.FieldByName('loc_selec').Value := CheckBox1.Checked;
+      vt_locais.Post;
+
       vt_locais.Next;
     end;
-  end
-  else
-  begin
+
     vt_locais.First;
-    while not vt_locais.Eof do
-    begin
-      ds_locais.Edit;
-      vt_locais.FieldByName('loc_selec').Value := False;
-      vt_locais.Next;
-    end;
-  end;
+    vt_locais.EnableControls;
+
+    Exit;
 end;
 
 procedure TSelecionarLocaisForm.FormKeyPress(Sender: TObject; var Key: Char);
@@ -182,7 +179,7 @@ procedure TSelecionarLocaisForm.grid_locaisDBTableView1CellClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
   AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
 begin
-  ds_locais.Edit;
+  vt_locais.Edit;
 
   if vt_locais.FieldByName('loc_selec').AsBoolean then
   begin
@@ -192,6 +189,8 @@ begin
   begin
     vt_locais.FieldByName('loc_selec').Value := True;
   end;
+
+  vt_locais.Post;
 end;
 
 procedure TSelecionarLocaisForm.RelBtnClick(Sender: TObject);
@@ -214,11 +213,9 @@ begin
       else
       begin
         codigos := codigos + ',' + vt_locais.FieldByName('loc_codigo').AsString;
-
       end;
     end;
     vt_locais.Next;
-
   end;
 
   if codigos = '' then

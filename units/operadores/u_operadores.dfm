@@ -149,7 +149,7 @@ object PagOperador: TPagOperador
     end
     inherited ImageList1: TImageList
       Left = 520
-      Top = 64
+      Top = 40
       Bitmap = {
         494C010103000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
         0000000000003600000028000000400000001000000001002000000000000010

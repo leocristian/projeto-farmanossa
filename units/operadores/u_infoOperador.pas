@@ -166,7 +166,6 @@ begin
     try
       dm1.q1.ExecSQL;
       Mensagem('Operação realizada com sucesso!');
-      PagOperador.gridOperadoresDBTableView1.DataController.RefreshExternalData;
       Close;
     except on e:exception do
       if e.Message.Contains('ope_login_key') then

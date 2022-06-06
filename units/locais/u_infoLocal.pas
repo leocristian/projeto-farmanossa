@@ -147,7 +147,6 @@ begin
     try
       dm1.q1.ExecSQL;
       Mensagem('Operação concluída!');
-      PagLocais.gridLocaisDBTableView1.DataController.RefreshExternalData;
       Close;
     except on e:exception do
         Erro('Erro: ' + #13 + e.Message);

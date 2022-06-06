@@ -258,13 +258,6 @@ begin
     exit;
   end;
 
-  if DtVencimentoEdit.Date < Now then
-  begin
-    Aviso('Data de VENCIMENTO não pode ser menor que a data atual!');
-    DtVencimentoEdit.SetFocus;
-    exit;
-  end;
-
   if DtVencimentoEdit.Date <= DtFabricacaoEdit.Date then
   begin
     Aviso('Data de vencimento deve ser MAIOR que a data de fabricação!');
@@ -387,7 +380,6 @@ begin
       dm1.con1.Commit;
       Mensagem('Entrada lançada com sucesso!');
       Close;
-      PagEntradas.gridEntradasDBTableView1.DataController.RefreshExternalData;
     except
       on e:exception do
       begin

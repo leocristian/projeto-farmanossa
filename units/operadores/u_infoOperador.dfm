@@ -127,7 +127,6 @@ object FormOperador: TFormOperador
     Height = 93
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = -8
     ExplicitTop = 176
     ExplicitWidth = 459
     inherited ModoEdit: TEdit

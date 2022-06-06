@@ -29,6 +29,7 @@ type
     FrameGrid1: TFrameGrid;
     FrameBusca1: TFrameBusca;
     qCad: TUniQuery;
+    N2: TMenuItem;
     procedure N1Incluirnovoregistro1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Detalhar1Click(Sender: TObject);
@@ -144,6 +145,7 @@ begin
 
   FormLocal.FrameButtons.ModoEdit.Text := 'N';
   FormLocal.ShowModal;
+  FrameBusca1BitBtn1Click(Sender);
 end;
 
 procedure TPagLocais.N2AlterarregistroatualF31Click(Sender: TObject);
@@ -156,6 +158,7 @@ begin
   FormLocal.FrameButtons.ModoEdit.Text := 'A';
   FormLocal.edc_cod.Text := IntToStr(qCad.FieldByName('loc_codigo').AsInteger);
   FormLocal.ShowModal;
+  FrameBusca1BitBtn1Click(Sender);
 end;
 
 procedure TPagLocais.N3ExcluirF41Click(Sender: TObject);
@@ -173,7 +176,7 @@ begin
       try
         dm1.q1.ExecSQL;
         Mensagem('Local de estoque excluído com sucesso!');
-        gridLocaisDBTableView1.DataController.RefreshExternalData;
+        FrameBusca1BitBtn1Click(Sender);
       except
         on e:exception do
         begin

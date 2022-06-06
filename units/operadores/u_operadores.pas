@@ -67,6 +67,8 @@ begin
   FormOperador.FrameButtons.ModoEdit.Text := 'V';
   FormOperador.edc_cod.Text := qOpe.FieldByName('ope_codigo').AsString;
   FormOperador.ShowModal;
+
+  FrameBusca1BitBtn1Click(Sender);
 end;
 
 procedure TPagOperador.FormKeyDown(Sender: TObject; var Key: Word;
@@ -152,6 +154,8 @@ begin
 
   FormOperador.FrameButtons.ModoEdit.Text := 'N';
   FormOperador.ShowModal;
+
+  FrameBusca1BitBtn1Click(Sender);
 end;
 
 procedure TPagOperador.N2AlterarregistroatualF31Click(Sender: TObject);
@@ -164,6 +168,8 @@ begin
   FormOperador.FrameButtons.ModoEdit.Text := 'A';
   FormOperador.edc_cod.Text := qOpe.FieldByName('ope_codigo').AsString;
   FormOperador.ShowModal;
+
+  FrameBusca1BitBtn1Click(Sender);
 end;
 
 procedure TPagOperador.N3ExcluirF41Click(Sender: TObject);
@@ -181,15 +187,13 @@ begin
       try
         dm1.q1.ExecSQL;
         Mensagem('Operador excluído com sucesso!');
-        gridOperadoresDBTableView1.DataController.RefreshExternalData;
+        FrameBusca1BitBtn1Click(Sender);
       except on e:exception do
         Erro('Erro!' + #13 + e.Message);
       end;
-
     finally
       dm1.q1.Close;
     end;
-
   end;
 end;
 

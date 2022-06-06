@@ -148,7 +148,7 @@ begin
         dm1.con1.Commit;
 
         Mensagem('Saída cancelada com sucesso!');
-        PagSaidas.gridSaidasDBTableView1.DataController.RefreshExternalData;
+        BuscarBtnClick(Sender);
       except on e:exception do
         begin
           Erro('Erro!' + #13 + e.Message);
@@ -227,10 +227,12 @@ end;
 
 procedure TPagSaidas.NovaSaidaClick(Sender: TObject);
 begin
-  if FormSaida=nil then FormSaida := TFormSaida.Create(Application);
+  if FormSaida = nil then FormSaida := TFormSaida.Create(Application);
 
   FormSaida.ModoEdit.Text := 'N';
   FormSaida.ShowModal;
+
+  BuscarBtnClick(Sender);
 end;
 
 end.

@@ -116,11 +116,11 @@ object PagLocais: TPagLocais
     inherited TituloLabel: TLabel
       Left = 455
       Top = 36
-      Width = 267
+      Width = 242
       Caption = 'Locais de Estoque'
       ExplicitLeft = 455
       ExplicitTop = 36
-      ExplicitWidth = 267
+      ExplicitWidth = 242
     end
     inherited BuscaSelect: TComboBox
       Left = 16
@@ -161,6 +161,9 @@ object PagLocais: TPagLocais
     object N2AlterarregistroatualF31: TMenuItem
       Caption = '2 - Alterar registro atual (F3)'
       OnClick = N2AlterarregistroatualF31Click
+    end
+    object N2: TMenuItem
+      Caption = '-'
     end
     object N3ExcluirF41: TMenuItem
       Caption = '3 - Excluir (F4)'
