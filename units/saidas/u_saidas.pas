@@ -144,6 +144,7 @@ begin
         dm1.q1.ParamByName('lote').Value := qSai.FieldByName('sai_lote').AsInteger;
         dm1.q1.ParamByName('quantidade').Value := qSai.FieldByName('sai_quantidade').AsInteger;
         dm1.q1.ExecSQL;
+
         dm1.con1.Commit;
 
         Mensagem('Saída cancelada com sucesso!');

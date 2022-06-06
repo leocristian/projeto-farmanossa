@@ -184,6 +184,7 @@ procedure TSelecionaProdutosForm.grid_produtosDBTableView1CellClick(
 begin
   ds_produtos.Edit;
 
+  // Setar item selecionado como true ou false
   if vt_produtos.FieldByName('prod_selec').AsBoolean then
   begin
     vt_produtos.FieldByName('prod_selec').Value := False;

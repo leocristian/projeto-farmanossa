@@ -10,7 +10,7 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
   Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections, u_estoque,
-  VirtualTable, u_filtro_rel_2;
+  VirtualTable, u_filtro_rel_2, u_filtro_rel_3, System.ImageList, Vcl.ImgList;
 
 type
   TSelecionaProdutosForm = class(TForm)
@@ -29,12 +29,19 @@ type
     prod_descricao: TcxGridDBColumn;
     vt_produtos: TVirtualTable;
     prod_selec: TcxGridDBColumn;
+    CampoEdit: TEdit;
+    CampoBusca: TComboBox;
+    BuscaBtn: TBitBtn;
+    ImageList1: TImageList;
     procedure FormShow(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure Rel1BtnClick(Sender: TObject);
     procedure grid_produtosDBTableView1CellClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
+    procedure BuscaBtnClick(Sender: TObject);
+    procedure CampoBuscaChange(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -49,6 +56,65 @@ implementation
 {$R *.dfm}
 
 uses u_dm1, u_controleForm, u_filtro_rel_1, u_filtro_rel_4;
+
+
+procedure TSelecionaProdutosForm.CampoBuscaChange(Sender: TObject);
+begin
+
+  CampoEdit.Clear;
+
+  if CampoBusca.Text = 'CÓDIGO' then
+  begin
+    CampoEdit.NumbersOnly := True;
+    CampoEdit.MaxLength := 5;
+  end
+  else
+  begin
+    CampoEdit.NumbersOnly := False;
+    CampoEdit.MaxLength := 50
+  end;
+end;
+
+procedure TSelecionaProdutosForm.BuscaBtnClick(Sender: TObject);
+var
+  strBusca, xWhere: String;
+
+begin
+
+  strBusca := CampoEdit.Text;
+  xWhere := '';
+
+  if (CampoBusca.Text = 'CÓDIGO') and (CampoEdit.Text <> '') then
+  begin
+    xWhere := xWhere + 'and prod_codigo = ' + strBusca;
+  end
+  else if CampoBusca.Text = 'DESCRIÇÃO' then
+  begin
+    xWhere := xWhere + 'and prod_descricao like ' + QuotedStr('%' + strBusca + '%');
+  end;
+
+  dm1.q1.SQL.Clear;
+  dm1.q1.SQL.Add('select prod_codigo, prod_descricao from tb_produtos where 1=1 ' + xWhere);
+  dm1.q1.SQL.Add(' order by prod_codigo');
+
+  dm1.q1.Open;
+  dm1.q1.First;
+
+  vt_produtos.Open;
+  vt_produtos.Clear;
+
+  while not dm1.q1.Eof do
+  begin
+    vt_produtos.Append;
+    vt_produtos.FieldByName('prod_selec').Value := False;
+    vt_produtos.FieldByName('prod_codigo').Value := dm1.q1.FieldByName('prod_codigo').AsInteger;
+    vt_produtos.FieldByName('prod_descricao').Value := dm1.q1.FieldByName('prod_descricao').AsString;
+    dm1.q1.Next;
+  end;
+
+  vt_produtos.Open;
+  Checkbox1.Checked := False;
+end;
 
 procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
 begin
@@ -74,14 +140,21 @@ begin
   end;
 end;
 
+procedure TSelecionaProdutosForm.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
+end;
+
 procedure TSelecionaProdutosForm.FormShow(Sender: TObject);
 begin
-  dm1.q1.Close;
-  dm1.q1.Connection := dm1.con1;
-
   dm1.q1.SQL.Clear;
   dm1.q1.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
-  dm1.q1.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
+  dm1.q1.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
   dm1.q1.SQL.Add('order by prod_codigo');
 
   dm1.q1.Open;
@@ -101,6 +174,8 @@ begin
 
   vt_produtos.Open;
   Checkbox1.Checked := False;
+
+  dm1.q1.Close;
 end;
 
 procedure TSelecionaProdutosForm.grid_produtosDBTableView1CellClick(
@@ -157,6 +232,10 @@ begin
   else if ModoEdit.Text = 'R2' then
   begin
     FormRel2.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'R3' then
+  begin
+    FormRel3.CodProdEdit.Text := codigos;
   end
   else if ModoEdit.Text = 'R4' then
   begin

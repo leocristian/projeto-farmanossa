@@ -119,17 +119,8 @@ begin
       try
         dm1.con1.StartTransaction;
 
-        dm1.q1.SQL.Clear;
-
-        // Atualizar lote
-        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade) where lote_codigo = :lote;');
-
-        dm1.q1.ParamByName('lote').Value := qSai.FieldByName('sai_lote').AsInteger;
-        dm1.q1.ParamByName('quantidade').Value := qSai.FieldByName('sai_quantidade').AsInteger;
-        dm1.q1.ExecSQL;
-
-        // Deletar Saída
-        dm1.q1.SQL.Add('delete from tb_saidas where sai_codigo = :saida');
+        // Excluir registro de saída
+        dm1.q1.SQL.Text := 'delete from tb_saidas where sai_codigo = :saida';
 
         dm1.q1.ParamByName('saida').Value := qSai.FieldByName('sai_codigo').AsInteger;
         dm1.q1.ExecSQL;
@@ -146,6 +137,13 @@ begin
         dm1.q1.ParamByName('quantidade').Value := qSai.FieldByName('sai_quantidade').AsInteger;
         dm1.q1.ExecSQL;
 
+        // Atualizar lote
+        dm1.q1.SQL.Clear;
+        dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade + :quantidade) where lote_codigo = :lote;');
+
+        dm1.q1.ParamByName('lote').Value := qSai.FieldByName('sai_lote').AsInteger;
+        dm1.q1.ParamByName('quantidade').Value := qSai.FieldByName('sai_quantidade').AsInteger;
+        dm1.q1.ExecSQL;
         dm1.con1.Commit;
 
         Mensagem('Saída cancelada com sucesso!');
@@ -168,6 +166,9 @@ begiN
   if qSai.RecordCount = 0 then exit;
 
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'V';
+  DetalharSaidaForm.sai_cod.Text := qSai.FieldByName('sai_codigo').AsString;
+  DetalharSaidaForm.saiDataLabel.Caption := qSai.FieldByName('sai_data_hora').AsString;
+//  DetalharSaidaForm.saiHoraLabel.Caption := qSai.FieldByName('sai_data_hora::time').AsString;
   DetalharSaidaForm.ShowModal;
 end;
 

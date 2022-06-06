@@ -52,7 +52,6 @@ type
     procedure LimparLocalClick(Sender: TObject);
   private
     { Private declarations }
-    procedure AtualizarMovimentacao(codOp: TCaption; prod: TCaption; local: TCaption; lote: TCaption; qtd: TCaption);
   public
     { Public declarations }
   end;
@@ -67,37 +66,6 @@ implementation
 {$R *.dfm}
 
 uses u_buscaProduto, u_buscaLocal, u_dm1, u_controleForm, u_entradas;
-
-procedure TFormEntrada.AtualizarMovimentacao(codOp: TCaption; prod: TCaption; local: TCaption; lote: TCaption; qtd: TCaption);
-var
-  q1: TUniQuery;
-
-begin
-  try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
-
-    q1.SQL.Clear;
-    q1.SQL.Add('update tb_movimentacoes set mov_produto = :produto, mov_local = :local,');
-    q1.SQL.Add('mov_lote = :lote, mov_quantidade = :quantidade ');
-    q1.SQL.Add('where mov_cod_operacao = :operacao');
-
-    q1.ParamByName('produto').Value := prod;
-    q1.ParamByName('local').Value := local;
-    q1.ParamByName('lote').Value := lote;
-    q1.ParamByName('quantidade').Value := qtd;
-    q1.ParamByName('operacao').Value := codOp;
-
-    try
-      q1.ExecSQL;
-    except on e:exception do
-      Aviso('Erro atualizar movimentacao!' + e.message);
-    end;
-  finally
-    q1.Close;
-    FreeAndNil(q1);
-  end;
-end;
 
 procedure TFormEntrada.CodLocalEditExit(Sender: TObject);
 begin

@@ -26,6 +26,7 @@ object FormEntrada: TFormEntrada
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = -6
     DesignSize = (
       659
       242)
@@ -138,6 +139,7 @@ object FormEntrada: TFormEntrada
       Height = 21
       TabStop = False
       TabOrder = 5
+      Visible = False
     end
     object LimparLocal: TBitBtn
       Left = 269

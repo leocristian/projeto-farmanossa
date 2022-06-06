@@ -14,7 +14,6 @@ type
     RelBtn: TBitBtn;
     rel_4: TfrxReport;
     db_rel_4: TfrxDBDataset;
-    tb_rel_4: TUniTable;
     ds_rel_4: TDataSource;
     Label2: TLabel;
     BuscaProdutoBtn: TSpeedButton;
@@ -25,14 +24,12 @@ type
     LimparLocal: TBitBtn;
     LimparProd: TBitBtn;
     ImageList1: TImageList;
-    procedure CodProdEditClick(Sender: TObject);
+    qRel4: TUniQuery;
     procedure LimparProdClick(Sender: TObject);
     procedure BuscaProdutoBtnClick(Sender: TObject);
     procedure RelBtnClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure BuscaLocalBtnClick(Sender: TObject);
     procedure LimparLocalClick(Sender: TObject);
-    procedure CodLocalEditClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,22 +58,6 @@ begin
   SelecionaProdutosForm.Show;
 end;
 
-procedure TFormRel4.CodLocalEditClick(Sender: TObject);
-begin
-  CodLocalEdit.SetFocus;
-end;
-
-procedure TFormRel4.CodProdEditClick(Sender: TObject);
-begin
-  CodProdEdit.SetFocus;
-end;
-
-procedure TFormRel4.FormShow(Sender: TObject);
-begin
-  CodProdEdit.Clear;
-  CodLocalEdit.Clear;
-end;
-
 procedure TFormRel4.LimparLocalClick(Sender: TObject);
 begin
   CodLocalEdit.Clear;
@@ -88,24 +69,20 @@ begin
 end;
 
 procedure TFormRel4.RelBtnClick(Sender: TObject);
+var
+  xWhere: String;
+
 begin
-  tb_rel_4.Close;
-  tb_rel_4.Connection := dm1.con1;
 
-  tb_rel_4.SQL.Clear;
-  tb_rel_4.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
-  tb_rel_4.SQL.Add('from tb_produtos');
-  tb_rel_4.SQL.Add('inner join tb_lotes on lote_produto = prod_codigo');
-  tb_rel_4.SQL.Add('inner join tb_locais_estoque on lote_local = loc_codigo');
-
+  xWhere := '';
 
   if CodProdEdit.Text <> '' then
   begin
-    tb_rel_4.SQL.Add('where prod_codigo in (' + CodProdEdit.Text + ')');
+    xWhere := xWhere + 'and prod_codigo in (' + CodProdEdit.Text + ')';
   end;
   if CodLocalEdit.Text <> '' then
   begin
-    tb_rel_4.SQL.Add('and loc_codigo in (' + CodLocalEdit.Text + ')');
+    xWhere := xWhere + 'and loc_codigo in (' + CodLocalEdit.Text + ')';
   end;
 
   if (CodProdEdit.Text = '') and (CodLocalEdit.Text = '') then
@@ -116,18 +93,22 @@ begin
     end;
   end;
 
-  tb_rel_4.SQL.Add('order by loc_codigo, lote_dtvencimento');
-  ds_rel_4.DataSet := tb_rel_4;
-  tb_rel_4.Open;
+  qRel4.SQL.Clear;
+  qRel4.SQL.Add('select loc_codigo, loc_descricao, prod_codigo, prod_descricao, lote_codigo, lote_dtfabricacao, lote_dtvencimento, lote_quantidade');
+  qRel4.SQL.Add('from tb_produtos');
+  qRel4.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
+  qRel4.SQL.Add('left join tb_locais_estoque on lote_local = loc_codigo where 1=1 ' + xWhere);
+  qRel4.SQL.Add('order by loc_codigo, lote_dtvencimento');
+  qRel4.Open;
 
-  if tb_rel_4.RecordCount = 0 then
+  if qRel4.RecordCount = 0 then
   begin
     Aviso('Este produto não está em estoque!');
     Exit;
   end;
 
   rel_4.ShowReport;
-  tb_rel_4.Close;
+  qRel4.Close;
 end;
 
 end.
