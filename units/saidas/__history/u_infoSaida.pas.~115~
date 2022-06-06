@@ -60,7 +60,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote, u_saidas,
+uses u_controleForm, u_dm1, u_selecionaLote, u_saidas,
   u_buscaProduto, u_buscaLocal;
 
 procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
@@ -76,12 +76,16 @@ end;
 
 procedure TFormSaida.SpeedButton1Click(Sender: TObject);
 begin
+  if BuscaProdutoForm = nil then BuscaProdutoForm := TBuscaProdutoForm.Create(Application);
+
   BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'S';
   BuscaProdutoForm.ShowModal;
 end;
 
 procedure TFormSaida.SpeedButton2Click(Sender: TObject);
 begin
+
+  if BuscaLocalForm = nil then BuscaLocalForm := TBuscaProdutoForm.Create(Application);
 
   if CodProdEdit.Text = '' then
   begin
@@ -219,10 +223,9 @@ begin
   if Confirma('Confirmar Saída?') then
   begin
     try
-
+      dm1.q1.Close;
       dm1.q1.SQL.Text := 'select prod_estoque_negativo from tb_produtos where prod_codigo = :produto';
       dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
-
       dm1.q1.Open;
 
       qtdLote := SelecionaLoteForm.qLote.FieldByName('lote_quantidade').Value;
@@ -267,7 +270,9 @@ begin
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
         dm1.q1.SQL.Add('where lote_codigo = :lote;');
+
         dm1.q1.ParamByName('lote').Value := codLote;
+        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 
         dm1.q1.ExecSQL;
 
@@ -299,8 +304,8 @@ begin
       except
         on e:exception do
         begin
-          Erro('Erro!' + #13 + e.Message);
           dm1.con1.Rollback;
+          Erro('Erro!' + #13 + e.Message);
         end;
       end;
 

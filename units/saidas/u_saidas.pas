@@ -163,7 +163,9 @@ end;
 
 procedure TPagSaidas.Detalhar1Click(Sender: TObject);
 begiN
-  if FormSaida=nil then FormSaida := TFormSaida.Create(Application);
+
+  if DetalharSaidaform = nil then DetalharSaidaform := TDetalharSaidaForm.Create(Application);
+
   if not qSai.Active then exit;
   if qSai.RecordCount = 0 then exit;
 

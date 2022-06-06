@@ -85,51 +85,50 @@ begin
 
   if QuantidadeBox.ItemIndex = 1 then
   begin
-    xWhere := xWhere + ' and result.qtd_estoque != 0 ';
+    xWhere := xWhere + ' and qtd_estoque != 0 ';
   end
   else if QuantidadeBox.ItemIndex = 2 then
   begin
-    xWhere := xWhere + ' and result.qtd_estoque > ' + QuantidadeEdit.Text;
+    xWhere := xWhere + ' and qtd_estoque > ' + QuantidadeEdit.Text;
   end
   else if QuantidadeBox.ItemIndex = 3 then
   begin
-   xWhere := xWhere + ' and result.qtd_estoque < ' + QuantidadeEdit.Text;
+   xWhere := xWhere + ' and qtd_estoque < ' + QuantidadeEdit.Text;
   end
   else if QuantidadeBox.ItemIndex = 4 then
   begin
-   xWhere := xWhere + ' and result.qtd_estoque = ' + QuantidadeEdit.Text;
+   xWhere := xWhere + ' and qtd_estoque = ' + QuantidadeEdit.Text;
   end;
 
   if CodProdEdit.Text <> '' then
   begin
-    xWhere := xWhere + ' and result.prod_codigo in (' + CodProdEdit.Text + ') ';
+    xWhere := xWhere + ' and prod_codigo in (' + CodProdEdit.Text + ') ';
   end;
   if CodLocalEdit.Text <> '' then
   begin
-    xWhere := xWhere + ' and result.loc_codigo in (' + CodLocalEdit.Text + ') ';
+    xWhere := xWhere + ' and loc_codigo in (' + CodLocalEdit.Text + ') ';
   end;
 
   if TipoProdutoBox.ItemIndex = 0 then
   begin
-    xWhere := xWhere + ' and result.prod_status in (''ATIVO'', ''INATIVO'') ';
+    xWhere := xWhere + ' and prod_status in (''ATIVO'', ''INATIVO'') ';
   end
   else if TipoProdutoBox.ItemIndex = 1 then
   begin
-    xWhere := xWhere + ' and result.prod_status = ''ATIVO'' ';
+    xWhere := xWhere + ' and prod_status = ''ATIVO'' ';
   end
   else if TipoProdutoBox.ItemIndex = 2 then
   begin
-    xWhere := xWhere +'and result.prod_status  = ''INATIVO'' ';
+    xWhere := xWhere +'and prod_status  = ''INATIVO'' ';
   end;
 
   qEst.SQL.Clear;
 
-  qEst.SQL.Add('select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque ');
+  qEst.SQL.Add('select * from ( select prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao, sum(lote_quantidade) as qtd_estoque ');
   qEst.SQL.Add('from tb_lotes');
   qEst.SQL.Add('left join tb_produtos on lote_produto = prod_codigo');
   qEst.SQL.Add('left join tb_locais_estoque on lote_local = loc_codigo');
-  qEst.SQL.Add('inner join tb_locais_estoque as locais');
-  qEst.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao');
+  qEst.SQL.Add('group by prod_codigo, prod_descricao, prod_status, loc_codigo, loc_descricao ) as result');
   qEst.SQL.Add('where 1=1 ' + xWhere);
 
   qEst.Open;
@@ -199,6 +198,7 @@ begin
   if not qEst.Active then exit;
   if qEst.RecordCount = 0 then exit;
 
+  LotesProdutoForm.prod_cod.Text := qEst.FieldByName('prod_codigo').AsString;
   LotesProdutoForm.ShowModal;
 end;
 

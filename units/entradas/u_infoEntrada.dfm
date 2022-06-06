@@ -26,7 +26,6 @@ object FormEntrada: TFormEntrada
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = -6
     DesignSize = (
       659
       242)

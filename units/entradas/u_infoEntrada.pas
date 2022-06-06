@@ -463,12 +463,16 @@ end;
 
 procedure TFormEntrada.SpeedButton1Click(Sender: TObject);
 begin
+  if BuscaProdutoForm = nil then BuscaProdutoForm := TBuscaProdutoForm.Create(Application);
+
   BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'E';
   BuscaProdutoForm.ShowModal;
 end;
 
 procedure TFormEntrada.SpeedButton2Click(Sender: TObject);
 begin
+  if BuscaLocalForm = nil then BuscaLocalForm := TBuscaLocalForm.Create(Application);
+
   BuscaLocalForm.FrameButtons1.ModoEdit.Text := 'E';
   BuscaLocalForm.ShowModal;
 end;

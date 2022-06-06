@@ -11,7 +11,8 @@ uses
   cxDataStorage, cxNavigator, dxDateRanges, Data.DB, cxDBData,
   cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridLevel,
   cxClasses, cxGridCustomView, cxGrid, MemDS, VirtualTable, Vcl.ComCtrls,
-  frxClass, frxDBSet, DBAccess, Uni, System.ImageList, Vcl.ImgList, Vcl.Buttons;
+  frxClass, frxDBSet, DBAccess, Uni, System.ImageList, Vcl.ImgList, Vcl.Buttons,
+  u_selecionaProdutos, u_selecionarLocais;
 
 type
   TPagRelatorios = class(TForm)
@@ -55,6 +56,10 @@ end;
 
 procedure TPagRelatorios.FormShow(Sender: TObject);
 begin
+  if SelecionaProdutosForm = nil then SelecionaProdutosForm := TSelecionaProdutosForm.Create(Application);
+  if SelecionarLocaisForm = nil then SelecionarLocaisForm := TSelecionarLocaisForm.Create(Application);
+  if FormRel1 = nil then FormRel1 := TFormRel1.Create(Application);
+
   RelBox.ItemIndex :=  0;
   FormRel1.Parent := pn_relatorio;
   FormRel1.Show;
@@ -64,6 +69,8 @@ procedure TPagRelatorios.RelBoxChange(Sender: TObject);
 begin
   if RelBox.ItemIndex = 0 then
   begin
+    if FormRel1 = nil then FormRel1 := TFormRel1.Create(Application);
+
     FormRel1.Parent := pn_relatorio;
     FormRel1.Show;
     FormRel1.LimparProdClick(Sender);
@@ -71,16 +78,22 @@ begin
   end
   else if RelBox.ItemIndex = 1 then
   begin
+    if FormRel2 = nil then FormRel2 := TFormRel2.Create(Application);
+
     FormRel2.Parent := pn_relatorio;
     FormRel2.Show;
   end
   else if RelBox.ItemIndex = 2 then
   begin
+    if FormRel3 = nil then FormRel3 := TFormRel3.Create(Application);
+
     FormRel3.Parent := pn_relatorio;
     FormRel3.Show;
   end
   else if RelBox.ItemIndex = 3 then
   begin
+    if FormRel4 = nil then FormRel4 := TFormRel4.Create(Application);
+
     FormRel4.Parent := pn_relatorio;
     FormRel4.Show;
     FormRel4.LimparProdClick(Sender);

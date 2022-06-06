@@ -156,7 +156,7 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       579
       79)
     object Rel1Btn: TBitBtn
-      Left = 434
+      Left = 456
       Top = 20
       Width = 121
       Height = 38
@@ -182,7 +182,7 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       OnClick = CheckBox1Click
     end
     object ModoEdit: TEdit
-      Left = 379
+      Left = 401
       Top = 32
       Width = 24
       Height = 21

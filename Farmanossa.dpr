@@ -42,17 +42,6 @@ begin
   Application.CreateForm(TFormLogin, FormLogin);
   Application.CreateForm(Tdm1, dm1);
   Application.CreateForm(TFormPrincipal, FormPrincipal);
-  Application.CreateForm(TBuscaLocalForm, BuscaLocalForm);
-  Application.CreateForm(TBuscaProdutoForm, BuscaProdutoForm);
-  Application.CreateForm(TSelecionaLoteForm, SelecionaLoteForm);
-  Application.CreateForm(TLotesProdutoForm, LotesProdutoForm);
-  Application.CreateForm(TDetalharSaidaForm, DetalharSaidaForm);
-  Application.CreateForm(TFormRel1, FormRel1);
-  Application.CreateForm(TFormRel2, FormRel2);
-  Application.CreateForm(TFormRel3, FormRel3);
-  Application.CreateForm(TFormRel4, FormRel4);
-  Application.CreateForm(TSelecionaProdutosForm, SelecionaProdutosForm);
-  Application.CreateForm(TSelecionarLocaisForm, SelecionarLocaisForm);
   Application.Run;
 end.
 

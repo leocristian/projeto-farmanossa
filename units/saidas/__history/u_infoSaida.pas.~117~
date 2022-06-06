@@ -60,7 +60,7 @@ implementation
 
 {$R *.dfm}
 
-uses u_controleForm, u_dm1, u_infoLote, u_selecionaLote, u_saidas,
+uses u_controleForm, u_dm1, u_selecionaLote, u_saidas,
   u_buscaProduto, u_buscaLocal;
 
 procedure TFormSaida.SelecionaLoteClick(Sender: TObject);
@@ -76,12 +76,16 @@ end;
 
 procedure TFormSaida.SpeedButton1Click(Sender: TObject);
 begin
+  if BuscaProdutoForm = nil then BuscaProdutoForm := TBuscaProdutoForm.Create(Application);
+
   BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'S';
   BuscaProdutoForm.ShowModal;
 end;
 
 procedure TFormSaida.SpeedButton2Click(Sender: TObject);
 begin
+
+  if BuscaLocalForm = nil then BuscaLocalForm := TBuscaLocalForm.Create(Application);
 
   if CodProdEdit.Text = '' then
   begin
@@ -105,6 +109,8 @@ begin
     Exit;
   end;
 
+  if SelecionaLoteForm = nil then SelecionaLoteForm := TSelecionaLoteForm.Create(Application);
+
   SelecionaLoteForm.Close;
   SelecionaLoteForm.Parent := pn_lotes;
   SelecionaLoteForm.Show;
@@ -117,9 +123,6 @@ begin
 end;
 
 procedure TFormSaida.CodLocalEditExit(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
 
   if CodLocalEdit.Text = '' then exit;
@@ -127,26 +130,24 @@ begin
   DescLocalEdit.Clear;
 
   try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
 
-    q1.SQL.Text := 'select loc_descricao, loc_status from tb_locais_estoque where loc_codigo = :codigo';
-    q1.ParamByName('codigo').Value := CodLocalEdit.Text;
+    dm1.q1.SQL.Text := 'select loc_descricao, loc_status from tb_locais_estoque where loc_codigo = :codigo';
+    dm1.q1.ParamByName('codigo').Value := CodLocalEdit.Text;
 
-    q1.Open;
+    dm1.q1.Open;
 
-    if q1.RecordCount = 1 then
+    if dm1.q1.RecordCount = 1 then
     begin
-      if q1.FieldByName('loc_status').Value = 'INATIVO' then
+      if dm1.q1.FieldByName('loc_status').Value = 'INATIVO' then
       begin
-        Aviso('O local de estoque ' + q1.FieldByName('loc_descricao').Value + ' está INATIVO');
+        Aviso('O local de estoque ' + dm1.q1.FieldByName('loc_descricao').Value + ' está INATIVO');
         CodLocalEdit.Clear;
         DescLocalEdit.Clear;
         CodLocalEdit.SetFocus;
       end
       else
       begin
-        DescLocalEdit.Text := q1.FieldByName('loc_descricao').Value;
+        DescLocalEdit.Text := dm1.q1.FieldByName('loc_descricao').Value;
       end;
     end
     else
@@ -155,15 +156,11 @@ begin
       CodLocalEdit.SetFocus;
     end;
   finally
-    q1.Close;
-    FreeAndNil(q1);
+    dm1.q1.Close;
   end;
 end;
 
 procedure TFormSaida.CodProdEditExit(Sender: TObject);
-var
-  q1: TUniQuery;
-
 begin
 
   if CodProdEdit.Text = '' then exit;
@@ -171,33 +168,30 @@ begin
   DescProdEdit.Clear;
 
   try
-    q1 := TUniQuery.Create(q1);
-    q1.Connection := dm1.con1;
+    dm1.q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_saida from tb_produtos where prod_codigo = :codigo';
+    dm1.q1.ParamByName('codigo').Value := CodProdEdit.Text;
 
-    q1.SQL.Text := 'select prod_descricao, prod_status, prod_status_saida from tb_produtos where prod_codigo = :codigo';
-    q1.ParamByName('codigo').Value := CodProdEdit.Text;
+    dm1.q1.Open;
 
-    q1.Open;
-
-    if q1.RecordCount = 1 then
+    if dm1.q1.RecordCount = 1 then
     begin
-    if q1.FieldByName('prod_status').Value = 'INATIVO' then
+    if dm1.q1.FieldByName('prod_status').Value = 'INATIVO' then
       begin
-        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
+        Aviso('O produto ' + dm1.q1.FieldByName('prod_descricao').Value + ' está INATIVO!');
         CodProdEdit.Clear;
         DescProdEdit.Clear;
         CodProdEdit.SetFocus;
       end
-      else if q1.FieldByName('prod_status_saida').Value = 'INATIVO' then
+      else if dm1.q1.FieldByName('prod_status_saida').Value = 'INATIVO' then
       begin
-        Aviso('O produto ' + q1.FieldByName('prod_descricao').Value + ' não permite saida!');
+        Aviso('O produto ' + dm1.q1.FieldByName('prod_descricao').Value + ' não permite saida!');
         CodProdEdit.Clear;
         DescProdEdit.Clear;
         CodProdEdit.SetFocus;
       end
       else
       begin
-        DescProdEdit.Text := q1.FieldByName('prod_descricao').Value;
+        DescProdEdit.Text := dm1.q1.FieldByName('prod_descricao').Value;
       end;
     end
     else
@@ -206,8 +200,7 @@ begin
       CodProdEdit.SetFocus;
     end;
   finally
-    q1.Close;
-    FreeAndNil(q1);
+    dm1.q1.Close;
   end;
 end;
 
@@ -232,10 +225,9 @@ begin
   if Confirma('Confirmar Saída?') then
   begin
     try
-
+      dm1.q1.Close;
       dm1.q1.SQL.Text := 'select prod_estoque_negativo from tb_produtos where prod_codigo = :produto';
       dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
-
       dm1.q1.Open;
 
       qtdLote := SelecionaLoteForm.qLote.FieldByName('lote_quantidade').Value;
@@ -280,7 +272,9 @@ begin
         dm1.q1.SQL.Clear;
         dm1.q1.SQL.Add('update tb_lotes set lote_quantidade = (lote_quantidade - :quantidade)');
         dm1.q1.SQL.Add('where lote_codigo = :lote;');
+
         dm1.q1.ParamByName('lote').Value := codLote;
+        dm1.q1.ParamByName('quantidade').Value := QtdProdEdit.Value;
 
         dm1.q1.ExecSQL;
 
@@ -312,8 +306,8 @@ begin
       except
         on e:exception do
         begin
-          Erro('Erro!' + #13 + e.Message);
           dm1.con1.Rollback;
+          Erro('Erro!' + #13 + e.Message);
         end;
       end;
 

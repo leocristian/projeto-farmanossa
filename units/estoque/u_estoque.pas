@@ -168,12 +168,16 @@ end;
 
 procedure TPagEstoque.BuscaLocalBtnClick(Sender: TObject);
 begin
+  if SelecionarLocaisForm = nil then SelecionarLocaisForm := TSelecionarLocaisForm.Create(Application);
+
   SelecionarLocaisForm.ModoEdit.Text := 'E';
   SelecionarLocaisForm.Show;
 end;
 
 procedure TPagEstoque.BuscaProdutoBtnClick(Sender: TObject);
 begin
+  if SelecionaProdutosForm = nil then SelecionaProdutosForm := TSelecionaProdutosForm.Create(Application);
+
   SelecionaProdutosForm.ModoEdit.Text := 'E';
   SelecionaProdutosForm.Show;
 end;
@@ -195,6 +199,8 @@ end;
 
 procedure TPagEstoque.LotesProdutoClick(Sender: TObject);
 begin
+  if LotesProdutoForm = nil then LotesProdutoForm := TLotesProdutoForm.Create(Application);
+
   if not qEst.Active then exit;
   if qEst.RecordCount = 0 then exit;
 

@@ -76,12 +76,16 @@ end;
 
 procedure TFormSaida.SpeedButton1Click(Sender: TObject);
 begin
+  if BuscaProdutoForm = nil then BuscaProdutoForm := TBuscaProdutoForm.Create(Application);
+
   BuscaProdutoForm.FrameButtons1.ModoEdit.Text := 'S';
   BuscaProdutoForm.ShowModal;
 end;
 
 procedure TFormSaida.SpeedButton2Click(Sender: TObject);
 begin
+
+  if BuscaLocalForm = nil then BuscaLocalForm := TBuscaLocalForm.Create(Application);
 
   if CodProdEdit.Text = '' then
   begin
@@ -325,6 +329,9 @@ end;
 
 procedure TFormSaida.FormShow(Sender: TObject);
 begin
+
+  if SelecionaLoteForm = nil then SelecionaLoteForm := TSelecionaLoteForm.Create(Application);
+
   if ModoEdit.Text = 'N' then
   begin
     pn_form.Enabled := true;
@@ -332,8 +339,8 @@ begin
     QtdProdEdit.Value := 0;
     CodProdEdit.SetFocus;
     CodEdit.Text := '0000';
+    SelecionaLoteform.Close;
     ModoEdit.Text := 'N';
-    SelecionaLoteForm.Close;
     ConfirmarBtn.Font.Color := clRed;
   end;
 end;
