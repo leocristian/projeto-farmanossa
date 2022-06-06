@@ -1,0 +1,195 @@
+unit u_produtos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, Vcl.Menus, System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Forms, Data.DB,
+  Vcl.Grids, Vcl.DBGrids, Vcl.Dialogs, CRGrid, MemDS, VirtualTable, Uni,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  dxDateRanges, dxScrollbarAnnotations, cxDBData, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, DBAccess, UniProvider, PostgreSQLUniProvider, fr_estilo, fm_busca;
+
+type
+  TPagProdutos = class(TForm)
+    PopupProdutos: TPopupMenu;
+    Detalhar1: TMenuItem;
+    N1: TMenuItem;
+    N1Incluirnovoregistro1: TMenuItem;
+    N2AlterarregistroatualF31: TMenuItem;
+    N3ExcluirF41: TMenuItem;
+    ds_produtos: TDataSource;
+    gridProdutosDBTableView1: TcxGridDBTableView;
+    gridProdutosLevel1: TcxGridLevel;
+    gridProdutos: TcxGrid;
+    prod_codigo: TcxGridDBColumn;
+    prod_descricao: TcxGridDBColumn;
+    prod_estoque_negativo: TcxGridDBColumn;
+    prod_status_entrada: TcxGridDBColumn;
+    prod_status_saida: TcxGridDBColumn;
+    FrameGrid1: TFrameGrid;
+    FrameBusca1: TFrameBusca;
+    prod_status: TcxGridDBColumn;
+    qProd: TUniQuery;
+    procedure N1Incluirnovoregistro1Click(Sender: TObject);
+    procedure Detalhar1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure N3ExcluirF41Click(Sender: TObject);
+    procedure N2AlterarregistroatualF31Click(Sender: TObject);
+    procedure FrameBusca1BuscaSelectChange(Sender: TObject);
+    procedure FrameBusca1BuscaEditClick(Sender: TObject);
+    procedure FrameBusca1BitBtn1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FrameBusca1SpeedButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  PagProdutos: TPagProdutos;
+
+implementation
+
+{$R *.dfm}
+
+uses u_infoProduto, u_dm1, u_controleForm;
+
+procedure TPagProdutos.Detalhar1Click(Sender: TObject);
+begin
+  if not qProd.Active then exit;
+  if qProd.RecordCount = 0 then exit;
+
+  FormProduto.FrameButtons.ModoEdit.Text := 'V';
+  FormProduto.edc_cod.Text := qProd.FieldByName('prod_codigo').AsString;
+  FormProduto.ShowModal;
+end;
+
+procedure TPagProdutos.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Detalhar1Click(Sender)
+  else if Key = VK_F2 then
+    N1Incluirnovoregistro1Click(Sender)
+  else if Key = VK_F3 then
+    N2AlterarregistroatualF31Click(Sender)
+  else if Key = VK_F4 then
+    N3ExcluirF41Click(Sender);
+end;
+
+procedure TPagProdutos.FormShow(Sender: TObject);
+begin
+  qProd.Close;
+  qProd.Connection := dm1.con1;
+  qProd.SQL.Text := 'select * from tb_produtos';
+
+  ds_produtos.DataSet := qProd;
+  qProd.Open;
+end;
+
+procedure TPagProdutos.FrameBusca1BitBtn1Click(Sender: TObject);
+var
+  strBusca, xWhere: String;
+
+begin
+
+  strBusca := FrameBusca1.BuscaEdit.Text;
+  xWhere := '';
+
+  if (FrameBusca1.BuscaSelect.Text = 'CÓDIGO') and (FrameBusca1.BuscaEdit.Text <> '') then
+  begin
+    xWhere := xWhere + 'and prod_codigo = ' + strBusca;
+  end
+  else if FrameBusca1.BuscaSelect.Text = 'DESCRIÇÃO' then
+  begin
+    xWhere := xWhere + 'and prod_descricao like ' + QuotedStr('%' + strBusca + '%');
+  end;
+
+  qProd.SQL.Clear;
+  qProd.SQL.Add('select * from tb_produtos where 1=1 ' + xWhere);
+  qProd.Open;
+
+end;
+
+procedure TPagProdutos.FrameBusca1BuscaEditClick(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.SetFocus;
+end;
+
+procedure TPagProdutos.FrameBusca1BuscaSelectChange(Sender: TObject);
+begin
+  FrameBusca1.BuscaEdit.Clear;
+  if FrameBusca1.BuscaSelect.Text = 'CÓDIGO' then
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := True;
+    FrameBusca1.BuscaEdit.MaxLength := 5;
+  end
+  else
+  begin
+    FrameBusca1.BuscaEdit.NumbersOnly := False;
+    FrameBusca1.BuscaEdit.MaxLength := 50;
+  end;
+
+  FrameBusca1.BuscaEdit.SetFocus;
+end;
+
+procedure TPagProdutos.FrameBusca1SpeedButton1Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TPagProdutos.N1Incluirnovoregistro1Click(Sender: TObject);
+begin
+  if FormProduto = nil then FormProduto := TFormProduto.Create(Application);
+
+  FormProduto.FrameButtons.ModoEdit.Text := 'N';
+  FormProduto.ShowModal;
+end;
+
+procedure TPagProdutos.N2AlterarregistroatualF31Click(Sender: TObject);
+begin
+  if FormProduto = nil then FormProduto := TFormProduto.Create(Application);
+
+  if not qProd.Active then exit;
+  if qProd.RecordCount = 0 then exit;
+
+  FormProduto.FrameButtons.ModoEdit.Text := 'A';
+  FormProduto.edc_cod.Text := qProd.FieldByName('prod_codigo').AsString;
+  FormProduto.ShowModal;
+end;
+
+procedure TPagProdutos.N3ExcluirF41Click(Sender: TObject);
+begin
+  if not qProd.Active then exit;
+  if qProd.RecordCount = 0 then exit;
+
+  if Confirma('Confirmar exclusão de produto?' + #13 + 'Esta operação será irreversível!') then
+  begin
+    try
+      dm1.q1.SQL.Text := 'delete from tb_produtos where prod_codigo = :codigo';
+      dm1.q1.ParamByName('codigo').Value := qProd.FieldByName('prod_codigo').AsString;
+
+      try
+        dm1.q1.ExecSQL;
+        Mensagem('Produto excluído com sucesso!');
+        gridProdutosDBTableView1.DataController.RefreshExternalData;
+      except on e:exception do
+        if e.message.contains('tb_saidas_sai_produto_fkey') then
+        begin
+          Aviso('Não é possível excluir pois o produto possui operações de entrada e/ou saída');
+        end
+        else
+        begin
+          Erro('Erro!' + #13 + e.Message);
+        end;
+      end;
+    finally
+      dm1.q1.Close;
+    end;
+  end;
+end;
+
+end.

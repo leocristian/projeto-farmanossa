@@ -1,0 +1,272 @@
+unit u_selecionaProdutos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
+  Vcl.Buttons, fr_estilo, MemDS, DBAccess, Uni, Generics.Collections, u_estoque,
+  VirtualTable, u_filtro_rel_2, u_filtro_rel_3, System.ImageList, Vcl.ImgList;
+
+type
+  TSelecionaProdutosForm = class(TForm)
+    pn_buscaProd: TPanel;
+    Label1: TLabel;
+    grid_produtos: TcxGrid;
+    grid_produtosDBTableView1: TcxGridDBTableView;
+    grid_produtosLevel1: TcxGridLevel;
+    pn_button: TPanel;
+    Rel1Btn: TBitBtn;
+    CheckBox1: TCheckBox;
+    FrameGrid1: TFrameGrid;
+    ModoEdit: TEdit;
+    ds_produtos: TDataSource;
+    prod_codigo: TcxGridDBColumn;
+    prod_descricao: TcxGridDBColumn;
+    vt_produtos: TVirtualTable;
+    prod_selec: TcxGridDBColumn;
+    CampoEdit: TEdit;
+    CampoBusca: TComboBox;
+    BuscaBtn: TBitBtn;
+    ImageList1: TImageList;
+    procedure FormShow(Sender: TObject);
+    procedure CheckBox1Click(Sender: TObject);
+    procedure Rel1BtnClick(Sender: TObject);
+    procedure grid_produtosDBTableView1CellClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure BuscaBtnClick(Sender: TObject);
+    procedure CampoBuscaChange(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  SelecionaProdutosForm: TSelecionaProdutosForm;
+
+implementation
+
+{$R *.dfm}
+
+uses u_dm1, u_controleForm, u_filtro_rel_1, u_filtro_rel_4;
+
+
+procedure TSelecionaProdutosForm.CampoBuscaChange(Sender: TObject);
+begin
+
+  CampoEdit.Clear;
+
+  if CampoBusca.Text = 'CÓDIGO' then
+  begin
+    CampoEdit.NumbersOnly := True;
+    CampoEdit.MaxLength := 5;
+  end
+  else
+  begin
+    CampoEdit.NumbersOnly := False;
+    CampoEdit.MaxLength := 50
+  end;
+end;
+
+procedure TSelecionaProdutosForm.BuscaBtnClick(Sender: TObject);
+var
+  strBusca, xWhere: String;
+
+begin
+
+  strBusca := CampoEdit.Text;
+  xWhere := '';
+
+  if (CampoBusca.Text = 'CÓDIGO') and (CampoEdit.Text <> '') then
+  begin
+    xWhere := xWhere + 'and prod_codigo = ' + strBusca;
+  end
+  else if CampoBusca.Text = 'DESCRIÇÃO' then
+  begin
+    xWhere := xWhere + 'and prod_descricao like ' + QuotedStr('%' + strBusca + '%');
+  end;
+
+  dm1.q1.SQL.Clear;
+  dm1.q1.SQL.Add('select prod_codigo, prod_descricao from tb_produtos where 1=1 ' + xWhere);
+  dm1.q1.SQL.Add(' order by prod_codigo');
+
+  dm1.q1.Open;
+  dm1.q1.First;
+
+
+  vt_produtos.Clear;
+
+  while not dm1.q1.Eof do
+  begin
+    vt_produtos.Insert;
+    vt_produtos.FieldByName('prod_selec').Value     := False;
+    vt_produtos.FieldByName('prod_codigo').Value    := dm1.q1.FieldByName('prod_codigo').AsInteger;
+    vt_produtos.FieldByName('prod_descricao').Value := dm1.q1.FieldByName('prod_descricao').AsString;
+    vt_produtos.Post;
+
+    dm1.q1.Next;
+  end;
+
+
+  Checkbox1.Checked := False;
+end;
+
+procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
+begin
+
+
+  vt_produtos.First;
+  while not vt_produtos.Eof do
+  begin
+    vt_produtos.Edit;
+    vt_produtos.FieldByName('prod_selec').Value := CheckBox1.Checked;
+    vt_produtos.Post;
+
+    vt_produtos.Next;
+  end;
+
+  Exit;
+//---------------------------------
+
+  if CheckBox1.Checked then
+  begin
+    vt_produtos.First;
+    while not vt_produtos.Eof do
+    begin
+      ds_produtos.Edit;
+      vt_produtos.FieldByName('prod_selec').Value := True;
+      vt_produtos.Next;
+    end;
+  end
+  else
+  begin
+    vt_produtos.First;
+    while not vt_produtos.Eof do
+    begin
+      ds_produtos.Edit;
+      vt_produtos.FieldByName('prod_selec').Value := False;
+      vt_produtos.Next;
+    end;
+  end;
+end;
+
+procedure TSelecionaProdutosForm.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    Key := #0;
+    Perform(wm_nextdlgctl, 0, 0);
+  end
+  else if key = #27 then close
+end;
+
+procedure TSelecionaProdutosForm.FormShow(Sender: TObject);
+begin
+  dm1.q1.SQL.Clear;
+  dm1.q1.SQL.Add('select distinct prod_codigo, prod_descricao from tb_produtos ');
+  dm1.q1.SQL.Add('left join tb_lotes on lote_produto = prod_codigo');
+  dm1.q1.SQL.Add('order by prod_codigo');
+
+  dm1.q1.Open;
+  dm1.q1.First;
+
+  vt_produtos.Close;
+  vt_produtos.Open;
+  vt_produtos.Clear;
+
+  while not dm1.q1.Eof do
+  begin
+    vt_produtos.Insert;
+    vt_produtos.FieldByName('prod_selec').Value     := False;
+    vt_produtos.FieldByName('prod_codigo').Value    := dm1.q1.FieldByName('prod_codigo').AsInteger;
+    vt_produtos.FieldByName('prod_descricao').Value := dm1.q1.FieldByName('prod_descricao').AsString;
+    vt_produtos.Post;
+
+    dm1.q1.Next;
+  end;
+
+
+  Checkbox1.Checked := False;
+
+end;
+
+procedure TSelecionaProdutosForm.grid_produtosDBTableView1CellClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  ds_produtos.Edit;
+
+  // Setar item selecionado como true ou false
+  if vt_produtos.FieldByName('prod_selec').AsBoolean then
+  begin
+    vt_produtos.FieldByName('prod_selec').Value := False;
+  end
+  else
+  begin
+    vt_produtos.FieldByName('prod_selec').Value := True;
+  end;
+end;
+
+procedure TSelecionaProdutosForm.Rel1BtnClick(Sender: TObject);
+var
+  codigos: String;
+
+begin
+  if grid_produtosDBTableView1.Controller.SelectedRowCount = 0 then
+  begin
+    Aviso('Selecione os produtos para gerar o relatório!');
+    Exit;
+  end;
+
+  codigos := '';
+
+  vt_produtos.First;
+  while not vt_produtos.Eof do
+  begin
+
+    if vt_produtos.FieldByName('prod_selec').AsBoolean then
+    begin
+      if codigos = '' then
+      begin
+        codigos := vt_produtos.FieldByName('prod_codigo').AsString;
+      end
+      else
+      begin
+        codigos := codigos + ',' + vt_produtos.FieldByName('prod_codigo').AsString;
+      end;
+    end;
+    vt_produtos.Next;
+  end;
+
+  if ModoEdit.Text = 'R1' then
+  begin
+    FormRel1.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'R2' then
+  begin
+    FormRel2.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'R3' then
+  begin
+    FormRel3.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'R4' then
+  begin
+    FormRel4.CodProdEdit.Text := codigos;
+  end
+  else if ModoEdit.Text = 'E' then
+  begin
+    PagEstoque.CodProdEdit.Text := codigos;
+  end;
+
+  close;
+end;
+
+end.

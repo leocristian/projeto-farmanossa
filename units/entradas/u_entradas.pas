@@ -161,6 +161,8 @@ end;
 
 procedure TPagEntradas.Detalhar1Click(Sender: TObject);
 begin
+  if FormEntrada = nil then FormEntrada := TFormEntrada.Create(Application);
+
   if not qEnt.Active then exit;
   if qEnt.RecordCount = 0 then exit;
 
@@ -220,6 +222,8 @@ end;
 
 procedure TPagEntradas.NovaEntradaClick(Sender: TObject);
 begin
+  if FormEntrada = nil then FormEntrada := TFormEntrada.Create(Application);
+
   FormEntrada.FrameButtons1.ModoEdit.Text := 'N';
   FormEntrada.edc_cod.Text := '00';
   FormEntrada.ShowModal;

@@ -114,17 +114,19 @@ begin
 
   if FrameButtons.ModoEdit.Text = 'N' then
   begin
-    dm1.q1.SQL.Text := 'select nextval(''tb_locais_cod_seq'') as loc_codigo';
-
-    dm1.q1.Open;
-    loc_codigo := dm1.q1.FieldByName('loc_codigo').Value;
     dm1.q1.Close;
+    dm1.q1.SQL.Text := 'select nextval(''tb_locais_cod_seq'') as loc_codigo';
+    dm1.q1.Open;
+
+    loc_codigo := dm1.q1.FieldByName('loc_codigo').Value;
+
 
     dm1.q1.SQL.Clear;
     dm1.q1.SQL.Add('insert into tb_locais_estoque values ');
     dm1.q1.SQL.Add('(:loc_codigo, :loc_descricao, :loc_status)');
 
     dm1.q1.ParamByName('loc_codigo').Value := loc_codigo;
+
     msg_confirma := 'Confirmar inclusão do local de estoque?';
   end
   else if FrameButtons.ModoEdit.Text = 'A' then

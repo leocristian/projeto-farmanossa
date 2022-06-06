@@ -163,13 +163,13 @@ end;
 
 procedure TPagSaidas.Detalhar1Click(Sender: TObject);
 begiN
+  if FormSaida=nil then FormSaida := TFormSaida.Create(Application);
   if not qSai.Active then exit;
   if qSai.RecordCount = 0 then exit;
 
   DetalharSaidaForm.FrameButtons1.ModoEdit.Text := 'V';
   DetalharSaidaForm.sai_cod.Text := qSai.FieldByName('sai_codigo').AsString;
   DetalharSaidaForm.saiDataLabel.Caption := qSai.FieldByName('sai_data_hora').AsString;
-//  DetalharSaidaForm.saiHoraLabel.Caption := qSai.FieldByName('sai_data_hora::time').AsString;
   DetalharSaidaForm.ShowModal;
 end;
 
@@ -201,8 +201,8 @@ begin
 
   qSai.SQL.Clear;
   qSai.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
-  qSai.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
-  qSai.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
+  qSai.SQL.Add('left join tb_produtos on prod_codigo = sai_produto');
+  qSai.SQL.Add('left join tb_locais_estoque on loc_codigo = sai_local');
 
   qSai.Open;
 
@@ -215,18 +215,18 @@ end;
 procedure TPagSaidas.MostrarTudoBtnClick(Sender: TObject);
 begin
   qSai.Close;
-  qSai.Connection := dm1.con1;
-
   qSai.SQL.Clear;
   qSai.SQL.Add('select sai_codigo, sai_produto, prod_descricao, sai_local, loc_descricao, sai_lote, sai_quantidade, sai_data_hora from tb_saidas');
-  qSai.SQL.Add('inner join tb_produtos on prod_codigo = sai_produto');
-  qSai.SQL.Add('inner join tb_locais_estoque on loc_codigo = sai_local');
+  qSai.SQL.Add('left join tb_produtos on prod_codigo = sai_produto');
+  qSai.SQL.Add('left join tb_locais_estoque on loc_codigo = sai_local');
 
   qSai.Open;
 end;
 
 procedure TPagSaidas.NovaSaidaClick(Sender: TObject);
 begin
+  if FormSaida=nil then FormSaida := TFormSaida.Create(Application);
+
   FormSaida.ModoEdit.Text := 'N';
   FormSaida.ShowModal;
 end;

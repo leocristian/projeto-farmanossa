@@ -25,7 +25,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     Height = 145
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 630
     DesignSize = (
       579
       145)
@@ -67,7 +66,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       CharCase = ecUpperCase
       MaxLength = 40
       TabOrder = 1
-      ExplicitWidth = 495
     end
     object CampoBusca: TComboBox
       Left = 24
@@ -94,7 +92,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
       Images = ImageList1
       TabOrder = 2
       OnClick = BuscaBtnClick
-      ExplicitLeft = 636
     end
   end
   object grid_produtos: TcxGrid
@@ -104,9 +101,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     Height = 262
     Align = alClient
     TabOrder = 1
-    ExplicitTop = 81
-    ExplicitWidth = 618
-    ExplicitHeight = 321
     object grid_produtosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       ScrollbarAnnotations.CustomAnnotations = <>
@@ -158,8 +152,6 @@ object SelecionaProdutosForm: TSelecionaProdutosForm
     Height = 79
     Align = alBottom
     TabOrder = 2
-    ExplicitTop = 402
-    ExplicitWidth = 618
     DesignSize = (
       579
       79)

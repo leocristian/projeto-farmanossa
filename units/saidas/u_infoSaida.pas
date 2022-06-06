@@ -219,10 +219,9 @@ begin
   if Confirma('Confirmar Saída?') then
   begin
     try
-
+      dm1.q1.Close;
       dm1.q1.SQL.Text := 'select prod_estoque_negativo from tb_produtos where prod_codigo = :produto';
       dm1.q1.ParamByName('produto').Value := CodProdEdit.Text;
-
       dm1.q1.Open;
 
       qtdLote := SelecionaLoteForm.qLote.FieldByName('lote_quantidade').Value;
@@ -301,8 +300,8 @@ begin
       except
         on e:exception do
         begin
-          Erro('Erro!' + #13 + e.Message);
           dm1.con1.Rollback;
+          Erro('Erro!' + #13 + e.Message);
         end;
       end;
 

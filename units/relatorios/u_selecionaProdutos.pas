@@ -100,24 +100,44 @@ begin
   dm1.q1.Open;
   dm1.q1.First;
 
-  vt_produtos.Open;
+
   vt_produtos.Clear;
 
   while not dm1.q1.Eof do
   begin
-    vt_produtos.Append;
-    vt_produtos.FieldByName('prod_selec').Value := False;
-    vt_produtos.FieldByName('prod_codigo').Value := dm1.q1.FieldByName('prod_codigo').AsInteger;
+    vt_produtos.Insert;
+    vt_produtos.FieldByName('prod_selec').Value     := False;
+    vt_produtos.FieldByName('prod_codigo').Value    := dm1.q1.FieldByName('prod_codigo').AsInteger;
     vt_produtos.FieldByName('prod_descricao').Value := dm1.q1.FieldByName('prod_descricao').AsString;
+    vt_produtos.Post;
+
     dm1.q1.Next;
   end;
 
-  vt_produtos.Open;
+
   Checkbox1.Checked := False;
 end;
 
 procedure TSelecionaProdutosForm.CheckBox1Click(Sender: TObject);
 begin
+
+  vt_produtos.DisableControls;
+  vt_produtos.First;
+  while not vt_produtos.Eof do
+  begin
+
+    vt_produtos.Edit;
+    vt_produtos.FieldByName('prod_selec').Value := CheckBox1.Checked;
+    vt_produtos.Post;
+
+    vt_produtos.Next;
+  end;
+  vt_produtos.First;
+  vt_produtos.EnableControls;
+
+  Exit;
+//---------------------------------
+
   if CheckBox1.Checked then
   begin
     vt_produtos.First;
@@ -160,22 +180,24 @@ begin
   dm1.q1.Open;
   dm1.q1.First;
 
+  vt_produtos.Close;
   vt_produtos.Open;
   vt_produtos.Clear;
 
   while not dm1.q1.Eof do
   begin
-    vt_produtos.Append;
-    vt_produtos.FieldByName('prod_selec').Value := False;
-    vt_produtos.FieldByName('prod_codigo').Value := dm1.q1.FieldByName('prod_codigo').AsInteger;
+    vt_produtos.Insert;
+    vt_produtos.FieldByName('prod_selec').Value     := False;
+    vt_produtos.FieldByName('prod_codigo').Value    := dm1.q1.FieldByName('prod_codigo').AsInteger;
     vt_produtos.FieldByName('prod_descricao').Value := dm1.q1.FieldByName('prod_descricao').AsString;
+    vt_produtos.Post;
+
     dm1.q1.Next;
   end;
 
-  vt_produtos.Open;
+
   Checkbox1.Checked := False;
 
-  dm1.q1.Close;
 end;
 
 procedure TSelecionaProdutosForm.grid_produtosDBTableView1CellClick(
@@ -193,6 +215,7 @@ begin
   begin
     vt_produtos.FieldByName('prod_selec').Value := True;
   end;
+
 end;
 
 procedure TSelecionaProdutosForm.Rel1BtnClick(Sender: TObject);

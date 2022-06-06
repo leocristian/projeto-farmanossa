@@ -56,6 +56,8 @@ uses u_infoLocal, u_controleForm;
 
 procedure TPagLocais.Detalhar1Click(Sender: TObject);
 begin
+  if FormLocal = nil then FormLocal := TFormLocal.Create(Application);
+
   if not qCad.Active then exit;
   if qCad.RecordCount = 0 then exit;
 
@@ -138,12 +140,16 @@ end;
 
 procedure TPagLocais.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
+  if FormLocal = nil then FormLocal := TFormLocal.Create(Application);
+
   FormLocal.FrameButtons.ModoEdit.Text := 'N';
   FormLocal.ShowModal;
 end;
 
 procedure TPagLocais.N2AlterarregistroatualF31Click(Sender: TObject);
 begin
+  if FormLocal = nil then FormLocal := TFormLocal.Create(Application);
+
   if not qCad.Active then exit;
   if qCad.RecordCount = 0 then exit;
 

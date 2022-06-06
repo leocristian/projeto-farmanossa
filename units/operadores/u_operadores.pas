@@ -59,6 +59,7 @@ uses u_infoOperador, u_controleForm;
 
 procedure TPagOperador.Detalhar1Click(Sender: TObject);
 begin
+  if FormOperador = nil then FormOperador := TFormOperador.Create(Application);
 
   if not qOpe.Active then exit;
   if qOpe.RecordCount = 0 then exit;
@@ -147,12 +148,16 @@ end;
 
 procedure TPagOperador.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
+  if FormOperador = nil then FormOperador := TFormOperador.Create(Application);
+
   FormOperador.FrameButtons.ModoEdit.Text := 'N';
   FormOperador.ShowModal;
 end;
 
 procedure TPagOperador.N2AlterarregistroatualF31Click(Sender: TObject);
 begin
+  if FormOperador = nil then FormOperador := TFormOperador.Create(Application);
+
   if not qOpe.Active then exit;
   if qOpe.RecordCount = 0 then exit;
 

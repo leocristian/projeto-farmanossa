@@ -1062,7 +1062,6 @@ object FormPrincipal: TFormPrincipal
   OldCreateOrder = False
   WindowState = wsMaximized
   OnClose = FormClose
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pn_principal: TPanel

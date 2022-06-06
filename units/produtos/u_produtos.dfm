@@ -27,8 +27,6 @@ object PagProdutos: TPagProdutos
     Height = 396
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 819
-    ExplicitHeight = 357
     object gridProdutosDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       Navigator.Buttons.Insert.Enabled = False
@@ -130,8 +128,6 @@ object PagProdutos: TPagProdutos
     Height = 109
     Align = alTop
     TabOrder = 2
-    ExplicitLeft = 16
-    ExplicitTop = 8
     ExplicitWidth = 835
     inherited SpeedButton1: TSpeedButton
       Left = 804
@@ -143,11 +139,11 @@ object PagProdutos: TPagProdutos
     inherited TituloLabel: TLabel
       Left = 604
       Top = 31
-      Width = 161
+      Width = 123
       Caption = 'Produtos'
       ExplicitLeft = 604
       ExplicitTop = 31
-      ExplicitWidth = 161
+      ExplicitWidth = 123
     end
     inherited BuscaSelect: TComboBox
       Text = 'DESCRI'#199#195'O'

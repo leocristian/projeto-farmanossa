@@ -46,7 +46,6 @@ type
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormShow(Sender: TObject);
     procedure BuscaFuncEditKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
@@ -113,30 +112,41 @@ end;
 
 procedure TFormPrincipal.CadLocaisClick(Sender: TObject);
 begin
+
+  if PagLocais = nil then PagLocais := TPagLocais.Create(Application);
+
   PagLocais.Parent := pn_principal;
   PagLocais.Show;
 end;
 
 procedure TFormPrincipal.CadOperadoresClick(Sender: TObject);
 begin
+  if PagOperador = nil then PagOperador := TPagOperador.Create(Application);
+
   PagOperador.Parent := pn_principal;
   PagOperador.Show;
 end;
 
 procedure TFormPrincipal.CadProdutosClick(Sender: TObject);
 begin
+  if PagProdutos = nil then PagProdutos := TPagProdutos.Create(Application);
+
   PagProdutos.Parent := pn_principal;
   PagProdutos.Show;
 end;
 
 procedure TFormPrincipal.ConsultaEstoqueClick(Sender: TObject);
 begin
+  if PagEstoque = nil then PagEstoque := TPagEstoque.Create(Application);
+
   PagEstoque.Parent := pn_principal;
   PagEstoque.Show
 end;
 
 procedure TFormPrincipal.EntradaMercClick(Sender: TObject);
 begin
+  if PagEntradas = nil then PagEntradas := TPagEntradas.Create(Application);
+
   PagEntradas.Parent := pn_principal;
   PagEntradas.Show;
 end;
@@ -146,25 +156,18 @@ begin
   Application.terminate;
 end;
 
-procedure TFormPrincipal.FormShow(Sender: TObject);
-begin
-  PagOperador.Close;
-  PagProdutos.Close;
-  PagLocais.Close;
-  PagEntradas.Close;
-  PagSaidas.Close;
-  PagEstoque.Close;
-  PagRelatorios.Close;
-end;
-
 procedure TFormPrincipal.RelEstoqueClick(Sender: TObject);
 begin
+  if PagRelatorios = nil then PagRelatorios := TPagRelatorios.Create(Application);
+
   PagRelatorios.Parent := pn_principal;
   PagRelatorios.Show;
 end;
 
 procedure TFormPrincipal.SaidaMercClick(Sender: TObject);
 begin
+  if PagSaidas = nil then PagSaidas := TPagSaidas.Create(Application);
+
   PagSaidas.Parent := pn_principal;
   PagSaidas.Show;
 end;

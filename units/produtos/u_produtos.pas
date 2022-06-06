@@ -59,6 +59,8 @@ uses u_infoProduto, u_dm1, u_controleForm;
 
 procedure TPagProdutos.Detalhar1Click(Sender: TObject);
 begin
+  if FormProduto = nil then FormProduto := TFormProduto.Create(Application);
+
   if not qProd.Active then exit;
   if qProd.RecordCount = 0 then exit;
 
@@ -143,12 +145,16 @@ end;
 
 procedure TPagProdutos.N1Incluirnovoregistro1Click(Sender: TObject);
 begin
+  if FormProduto = nil then FormProduto := TFormProduto.Create(Application);
+
   FormProduto.FrameButtons.ModoEdit.Text := 'N';
   FormProduto.ShowModal;
 end;
 
 procedure TPagProdutos.N2AlterarregistroatualF31Click(Sender: TObject);
 begin
+  if FormProduto = nil then FormProduto := TFormProduto.Create(Application);
+
   if not qProd.Active then exit;
   if qProd.RecordCount = 0 then exit;
 

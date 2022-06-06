@@ -1,0 +1,170 @@
+unit u_login;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
+  Data.DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, System.ImageList, Vcl.ImgList, Uni, IniFiles;
+
+type
+  TFormLogin = class(TForm)
+    pn_form: TPanel;
+    label_nome: TLabel;
+    btn_ajuda: TSpeedButton;
+    label_senha: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    label_qtdTentativas: TLabel;
+    LoginInput: TEdit;
+    SenhaInput: TEdit;
+    EntrarBtn: TBitBtn;
+    CancelarBtn: TBitBtn;
+    ImageList1: TImageList;
+    procedure CancelarBtnClick(Sender: TObject);
+    procedure EntrarBtnClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormLogin: TFormLogin;
+  qtd_tentativas: Integer;
+
+implementation
+
+{$R *.dfm}
+
+uses u_dm1, u_pag_inicial, u_controleForm;
+
+procedure TFormLogin.CancelarBtnClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TFormLogin.EntrarBtnClick(Sender: TObject);
+var
+  arq_ini: TIniFile;
+  nome_arq_ini: String;
+begin
+
+  if ExisteInputVazio(self) then
+  begin
+    Aviso('Preencha todos os campos!');
+    LoginInput.SetFocus;
+    exit;
+  end;
+
+  try
+    dm1.q1.SQL.Text := 'select * from tb_operadores where ope_login = md5(:login) and ope_senha = md5(:senha)';
+
+    dm1.q1.ParamByName('login').Value := AdicionarSemente(LoginInput.Text);
+    dm1.q1.ParamByName('senha').Value := AdicionarSemente(SenhaInput.Text);
+
+    dm1.q1.Open;
+
+    if dm1.q1.RecordCount = 1 then
+    begin
+      nome_arq_ini := ExtractFilePath(Application.ExeName) + 'config.ini';
+      arq_ini := TIniFile.Create(nome_arq_ini);
+      arq_ini.WriteString('usuario', 'login', LoginInput.Text);
+      LimparInputs(self);
+      showmessage('oi');
+      FormPrincipal.Show;
+      FormLogin.Visible := False;
+      qtd_tentativas := 3;
+      label_qtdTentativas.Caption := qtd_tentativas.ToString;
+    end
+    else if dm1.q1.RecordCount = 0 then
+    begin
+
+      qtd_tentativas := qtd_tentativas - 1;
+
+      if qtd_tentativas = 0 then
+      begin
+        Aviso('Operador atingiu o limite máximo de tentativas. ' + #13 + 'O sistema será encerrado.');
+        close;
+      end
+      else
+      begin
+        Aviso('Operador não encontrado!');
+        label_qtdTentativas.Caption := qtd_tentativas.ToString;
+      end;
+      LoginInput.SetFocus;
+    end;
+  finally
+    dm1.q1.Close;
+  end;
+end;
+
+procedure TFormLogin.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  begin
+    if Key = #13 then
+    begin
+      Key := #0;
+      Perform(wm_nextdlgctl, 0, 0);
+    end
+    else if key = #27 then close
+  end;
+end;
+
+procedure TFormLogin.FormShow(Sender: TObject);
+var
+  arq_ini: TIniFile;
+  nome_arq_ini: String;
+  login_usuario: String;
+
+begin
+  dm1.con1.close;
+  nome_arq_ini := ExtractFilePath(Application.ExeName) + 'config.ini';
+
+  qtd_tentativas := 3;
+  label_qtdTentativas.Caption := qtd_tentativas.ToString;
+
+  if FileExists(nome_arq_ini) then
+  begin
+    arq_ini := TIniFile.Create(nome_arq_ini);
+    try
+      // Configurar conexão e verificar último login
+      dm1.con1.ProviderName := arq_ini.ReadString('conexao', 'provider', '');
+      dm1.con1.Port := arq_ini.ReadInteger('conexao', 'port', 5433);
+      dm1.con1.Username := arq_ini.ReadString('conexao', 'username', '');
+      dm1.con1.Password := arq_ini.ReadString('conexao', 'password', '');
+      dm1.con1.Database := arq_ini.ReadString('conexao', 'database', '');
+
+      try
+        dm1.con1.Open;
+      except on E: Exception do
+        begin
+          Erro('Erro ao conectar no banco de dados!' + #13 + E.Message);
+          Application.Terminate;
+        end;
+      end;
+
+      login_usuario := arq_ini.ReadString('usuario', 'login', '');
+
+      if login_usuario = '' then
+      begin
+        LoginInput.SetFocus;
+      end
+      else
+      begin
+        LoginInput.Text := login_usuario;
+        SenhaInput.SetFocus;
+      end;
+    finally
+      arq_ini.Free;
+    end;
+  end;
+end;
+
+end.
